@@ -1,2 +1,2 @@
 # algorithms
-Algorithms and data structures from Algorithms  book
+`Algorithms and data structures implementations from The Algorithms 4th edition book :)`

@@ -1,9 +1,10 @@
 package com.alg.fundamental.impl;
 
+import com.alg.fundamental.base.BaseToString;
 import com.alg.fundamental.base.IStack;
 import java.util.Iterator;
 
-public class MyStack<Item> implements IStack<Item> {
+public class StackArray<Item> extends BaseToString<Item> implements IStack<Item> {
 
     private int pos = 0;
     private Item[] arr = (Item[]) new Object[1];
@@ -36,8 +37,18 @@ public class MyStack<Item> implements IStack<Item> {
         return pos == 0;
     }
 
+    @Override
+    public int size() {
+        return pos;
+    }
+
     public Iterator<Item> iterator() {
         return new ReverseIterator();
+    }
+
+    @Override
+    protected Iterator<Item> getIterator() {
+        return iterator();
     }
 
     private class ReverseIterator implements Iterator<Item> {
@@ -51,15 +62,5 @@ public class MyStack<Item> implements IStack<Item> {
         public Item next() {
             return arr[--i];
         }
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        for (Item item : arr) {
-            builder.append(item);
-            builder.append("\n");
-        }
-        return builder.toString();
     }
 }

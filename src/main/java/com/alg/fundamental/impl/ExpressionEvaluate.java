@@ -4,12 +4,12 @@ import com.alg.fundamental.base.IExpressionEvaluate;
 
 public class ExpressionEvaluate implements IExpressionEvaluate {
 
-    private MyStack<Double> vals;
-    private MyStack<String> ops;
+    private StackArray<Double> values;
+    private StackArray<String> ops;
 
     public ExpressionEvaluate() {
-        vals = new MyStack<>();
-        ops = new MyStack<>();
+        values = new StackArray<>();
+        ops = new StackArray<>();
     }
 
     @Override
@@ -41,34 +41,34 @@ public class ExpressionEvaluate implements IExpressionEvaluate {
                         num.append(expression.charAt(temp++));
                     }
                     i = temp - 1;
-                    vals.push(Double.parseDouble(num.toString()));
+                    values.push(Double.parseDouble(num.toString()));
                 }
             } else if (")".equalsIgnoreCase(s)) {
                 String op = ops.pop();
-                Double val = 0.0 + vals.pop();
+                Double val = 0.0 + values.pop();
                 switch (op) {
                     case "+":
-                        val = vals.pop() + val;
+                        val = values.pop() + val;
                         break;
                     case "-":
-                        val = vals.pop() - val;
+                        val = values.pop() - val;
                         break;
                     case "/":
-                        val = vals.pop() / val;
+                        val = values.pop() / val;
                         break;
                     case "*":
-                        val = vals.pop() * val;
+                        val = values.pop() * val;
                         break;
                     case "sqrt":
                         val = Math.sqrt(val);
                         break;
                 }
-                vals.push(val);
+                values.push(val);
             } else {
-                vals.push(Double.parseDouble(s));
+                values.push(Double.parseDouble(s));
             }
             i++;
         }
-        return vals.pop();
+        return values.pop();
     }
 }
