@@ -1,12 +1,24 @@
 package com.alg.fundamental.base;
 
-public interface IQueue<Item> extends Iterable<Item> {
+import java.util.Comparator;
 
-    void enqueue(Item item);
+public interface ILinkedList<Item> extends Iterable<Item> {
 
-    Item dequeue();
+    void add(Item item);
+
+    Item remove();
+
+    Item remove(Item obj);
+
+    Item removeAll(Item obj);
 
     boolean isEmpty();
+
+    Item max(Comparator<Item> comparator);
+
+    Item maxRecursive(Comparator<Item> comparator);
+
+    Item min(Comparator<Item> comparator);
 
     int size();
 }

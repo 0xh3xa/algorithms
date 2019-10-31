@@ -11,7 +11,7 @@ public abstract class BaseToString<Item> {
         StringBuilder builder = new StringBuilder();
         Iterator<Item> iterator = getIterator();
         while (iterator.hasNext()) {
-            builder.append(iterator.next() + " ");
+            builder.append(iterator.next() + (iterator.hasNext() ? " " : ""));
         }
         return builder.toString();
     }
