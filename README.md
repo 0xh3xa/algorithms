@@ -127,7 +127,12 @@ Set the first element based on the root of the second element
 3. Weighted Quick union with path compression `N+ M lg*N`  
 `WQUPC reduce time from 30 years to 6 seconds`
 
-
+### Union find Applications
+1. Percolation
+2. Games (Go, Hex)
+3. Dynamic connectivity
+4. Last common ancestor
+5. Hoshen-kopelman algorithm in pyhsics
 
 
 
