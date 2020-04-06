@@ -6,13 +6,37 @@ Algorithms and data structures implementations from The `Algorithms 4th edition`
 <p align="center">
   <img src="https://www.technocrazed.com/wp-content/uploads/2015/12/Brick-wallaper-For-Background-28.jpg" alt="alg_img" width="500" border="2"/>
 <p>
+
+## What's is this course?
+- Intermediate level survey course
+- Programming and problem solving with applications
+
+### Algorithms: Method for solving a problem
+### Data structure: Method to store information
+
+## Topics
+
+### Part I
+1- Data types: stack, queue, bag, union find, priority queue
+2- Sorting: quicksort, mergesort, heapsort, radix sorts
+3- Searching: BST, red-black BST, hash table
+
+### Part II
+4- Graphs: BFS, DFS, Prime, Kruskal, Dijkstra
+5- Strings: KMP, regular expresssion, TST, Huffman, LZW
+6- Advanced: B-tree, suffix array, maxflow
   
   
-  
-  
-  
-  
-  
+## Why Algorithms is so important?
+Algorithms all around us
+Internet: Web search, packet routing, distribute file sharing, ...
+Biology: Human genome project, protein folding, ...
+Computers: Circuit layout, file system, compilers, ...
+Computer graphics: Movies, Video games, virtual reality, ...
+Security: Cell phones, e-commerce, voting machines, ...
+Multimedia: MP3, JPG, Divx, HDTV, face recognition, ...
+Social networks: Recommendations, news feeds, advertisments, ...
+Physics: N-body simulation, particle collision simulation, ...
   
   
   
