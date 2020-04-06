@@ -34,7 +34,7 @@ public class QuickUnion implements UnionFind {
 
     @Override
     public int find(int p) {
-        return root(p);
+        return ids[p];
     }
 
     @Override
