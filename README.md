@@ -123,7 +123,8 @@ Set the first element based on the root of the second element
 | N           | lgN'  |lgN   |
 
 
-2. Quick union with path compression
+2. Quick union with path compression `N+ M lgN`  
+3. Weighted Quick union with path compression `N+ M lg*N`
 
 
 
