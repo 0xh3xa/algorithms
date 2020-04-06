@@ -143,7 +143,7 @@ A model for many physical systems
 - Application in real life
 
 | Model  | System | Vacant site |Occupied site|percolates|
-| ----------- | ----- |------|||
+| -------| -------|-------------|-------------|----------|
 | electricity | material|conductor|insulated|conducts|
 | fluid flow | material|empty|blocked|porous|
 | social interaction | population|person|empty|communicates|
