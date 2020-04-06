@@ -44,7 +44,7 @@ Social networks: Recommendations, news feeds, advertisments, ...
 Physics: N-body simulation, particle collision simulation, ...  
 
 
-## Steps for solving the problem
+### Steps for solving the problem
 1. Model the problem  
 2. Find an algorithm to solve it  
 3. Fast enough? Fits in memory?  
@@ -52,13 +52,29 @@ Physics: N-body simulation, particle collision simulation, ...
 5. Find a way to address the problem  
 6. Iterate until satisfied  
 
-## The scientific method
-## Mathematical analysis
+### The scientific method
+### Mathematical analysis
+
+## Dynamic connectivity
+Application for this:
+1. Pixels in a digital photo  
+2. Computers in network  
+3. Friends in a social network  
+4. Transistors in a computer chip  
+5. Elements in a mathematical set  
+6. Variables names in Fortran program  
+7. Metallic sites in a composite system  
+
+## Properties
+1. Reflexive: p is connected to q  
+2. Symmetric: if p is connected to q, then q is connected to p  
+3. Transitive: if p is connected to q and q is connected to r, then p is connected to r
 
 
-
-
-
+## Quick find (Eager approach)
+1. Data structure
+- Integer array id[] of size N  
+- Interpretation: p and q are conncted (iff) if and only if they have the same id
 
 
 
