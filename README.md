@@ -135,7 +135,18 @@ Set the first element based on the root of the second element
 5. Hoshen-kopelman algorithm in pyhsics
 
 
+## Percolation
+A model for many physical systems
+- N-by-N grid of sites  
+- Each site is open probability p (or blocked with probability 1-p)  
+- System percolatres iff top and bottom are connected by open sites  
+- Application in real life
 
+| Model  | System | Vacant site |Occupied site|percolates|
+| ----------- | ----- |------|||
+| electricity | material|conductor|insulated|conducts|
+| fluid flow | material|empty|blocked|porous|
+| social interaction | population|person|empty|communicates|
 
 
 
