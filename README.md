@@ -43,10 +43,69 @@ Multimedia: MP3, JPG, Divx, HDTV, face recognition, ...
 Social networks: Recommendations, news feeds, advertisments, ...  
 Physics: N-body simulation, particle collision simulation, ...  
 
-  
-  
-  
-  
-  
+
+## Steps for solving the problem
+1. Model the problem  
+2. Find an algorithm to solve it  
+3. Fast enough? Fits in memory?  
+4. If not, figure out why  
+5. Find a way to address the problem  
+6. Iterate until satisfied  
+
+## The scientific method
+## Mathematical analysis
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Data_Structure&message=Algorithms&color=blue&style=flat
