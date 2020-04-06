@@ -124,8 +124,8 @@ Set the first element based on the root of the second element
 
 
 2. Quick union with path compression `N+ M lgN`  
-3. Weighted Quick union with path compression `N+ M lg*N`
-
+3. Weighted Quick union with path compression `N+ M lg*N`  
+`WQUPC reduce time from 30 years to 6 seconds`
 
 
 
