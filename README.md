@@ -11,8 +11,12 @@ Algorithms and data structures implementations from The `Algorithms 4th edition`
 - Intermediate level survey course
 - Programming and problem solving with applications
 
-### Algorithms: Method for solving a problem
-### Data structure: Method to store information
+
+## Definition
+Algorithms: Method for solving a problem  
+Data structures: Method to store information  
+Program = Algorithms + Data structures  
+
 
 ## Topics
 
