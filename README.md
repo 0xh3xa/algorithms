@@ -20,13 +20,13 @@ Algorithms and data structures implementations from The `Algorithms 4th edition`
 
 ## Topics
 
-### Part I
+`Part I`
 
 1. Data types: stack, queue, bag, union find, priority queue  
 2. Sorting: quicksort, mergesort, heapsort, radix sorts  
 3. Searching: BST, red-black BST, hash table  
 
-### Part II
+`Part II`
 4. Graphs: BFS, DFS, Prime, Kruskal, Dijkstra  
 5. Strings: KMP, regular expresssion, TST, Huffman, LZW  
 6. Advanced: B-tee, suffix array, maxflow  
@@ -44,7 +44,7 @@ Algorithms all around us
 8. Physics: N-body simulation, particle collision simulation, ...  
 
 
-### Steps for solving the problem
+## Steps for solving the problem
 1. Model the problem  
 2. Find an algorithm to solve it  
 3. Fast enough? Fits in memory?  
@@ -52,8 +52,13 @@ Algorithms all around us
 5. Find a way to address the problem  
 6. Iterate until satisfied  
 
-### The scientific method
-### Mathematical analysis
+## The scientific method
+## Mathematical analysis
+
+## Properties
+1. Reflexive: p is connected to q  
+2. Symmetric: if p is connected to q, then q is connected to p  
+3. Transitive: if p is connected to q and q is connected to r, then p is connected to r
 
 ## Dynamic connectivity
 Application for this:
@@ -65,13 +70,8 @@ Application for this:
 6. Variables names in Fortran program  
 7. Metallic sites in a composite system  
 
-## Properties
-1. Reflexive: p is connected to q  
-2. Symmetric: if p is connected to q, then q is connected to p  
-3. Transitive: if p is connected to q and q is connected to r, then p is connected to r
 
-
-## Quick find (Eager approach)
+### Quick find (Eager approach)
 1. Data structure
 - Integer array id[] of size N  
 - Interpretation: p and q are conncted (iff) if and only if they have the same id  
@@ -80,14 +80,33 @@ Application for this:
 | ----------- | ----- |------|
 | N           | N     |1     |
 
-- Quick find defect: Union too expensive
+- Quick find defect: Union too expensive  
+- If you have N union commands over N objects will be O(N^2) quadratic
+
+`We can not accept Quadratic in big problems`
+
+## Quardratic algorithms do not scale
+
+#### Rough standards (for now)
+- 10^9 operations per second  
+- 10^9 words of main memory  
+- Touch all words in approximately 1 second
+
+#### E.g Huge problem for quick find
+- 10^9 union commands of 10^9 objects  
+- Quick find takes more than 10^18 operations  
+- 30+ years of computer time!
 
 
+### Quick Union
+Set the first element based on the root of the second element
+| Initialize  | Union | Find |
+| ----------- | ----- |------|
+| N           | N'    |1     |
 
-
-
-
-
+`Defect`
+- Tree can get tall  
+Find too expensive (Could be N array accesses)
 
 
 

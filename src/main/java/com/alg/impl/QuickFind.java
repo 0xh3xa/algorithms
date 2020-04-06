@@ -15,8 +15,8 @@ public class QuickFind implements UnionFind {
 
     @Override
     public void union(int p, int q) {
-        int pid = ids[p];
-        int qid = ids[q];
+        int pid = ids[find(p)];
+        int qid = ids[find(q)];
         for (int i = 0; i < ids.length; i++) {
             if (ids[i] == pid) {
                 ids[i] = qid;
