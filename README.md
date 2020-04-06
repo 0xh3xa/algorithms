@@ -80,8 +80,9 @@ Application for this:
 | ----------- | ----- |------|
 | N           | N     |1     |
 
-- Quick find defect: Union too expensive  
-- If you have N union commands over N objects will be O(N^2) quadratic
+`defect` 
+- Find too expensive (Could be N array accesses)  
+- If you have N union commands over N objects will be O(N^2) quadratic  
 
 `We can not accept Quadratic in big problems`
 
@@ -106,13 +107,23 @@ Set the first element based on the root of the second element
 
 `Defect`
 - Tree can get tall  
-Find too expensive (Could be N array accesses)
+- Find too expensive (Could be N array accesses)
 
 
+### Quick Union improvment
+
+1. Weighted Quick union
+
+- Modify the Quick union to avoid tall trees  
+- Balance by linking root of smaller tree to root of larger tree
+- Depth of any node x is at most `lgN`
+
+| Initialize  | Union | Find |
+| ----------- | ----- |------|
+| N           | lgN'  |lgN   |
 
 
-
-
+2. Quick union with path compression
 
 
 
