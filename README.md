@@ -1,7 +1,7 @@
 # Algorithms :heart: :smile:
 ![Algorithms][alg-img]
 ![Open Source Love][Open-Source-img]
-Algorithms and data structures implementations from The `Algorithms 4th edition` book :atom:
+Algorithms and data structures implementations from The `Algorithms 4th edition` book :book: :atom:
 
 <p align="center">
   <img src="https://www.technocrazed.com/wp-content/uploads/2015/12/Brick-wallaper-For-Background-28.jpg" alt="alg_img" width="500" border="2"/>
@@ -74,7 +74,13 @@ Application for this:
 ## Quick find (Eager approach)
 1. Data structure
 - Integer array id[] of size N  
-- Interpretation: p and q are conncted (iff) if and only if they have the same id
+- Interpretation: p and q are conncted (iff) if and only if they have the same id  
+
+| Initialize  | Union | Find |
+| ----------- | ----- |------|
+| N           | N     |1     |
+
+- Quick find defect: Union too expensive
 
 
 
