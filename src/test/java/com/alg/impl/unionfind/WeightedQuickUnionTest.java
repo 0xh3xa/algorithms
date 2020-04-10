@@ -1,4 +1,4 @@
-package com.alg.impl;
+package com.alg.impl.unionfind;
 
 import static org.hamcrest.CoreMatchers.*;
 

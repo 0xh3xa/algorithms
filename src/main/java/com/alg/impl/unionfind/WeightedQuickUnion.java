@@ -1,6 +1,6 @@
-package com.alg.impl;
+package com.alg.impl.unionfind;
 
-import com.alg.base.UnionFind;
+import com.alg.base.unionfind.UnionFind;
 
 public class WeightedQuickUnion implements UnionFind {
 
@@ -26,7 +26,8 @@ public class WeightedQuickUnion implements UnionFind {
     public void union(int p, int q) {
         int i = root(p);
         int j = root(q);
-
+        if (i == j)
+            return;
         if (sz[i] < sz[j]) {
             ids[i] = j;
             sz[j] += sz[i];

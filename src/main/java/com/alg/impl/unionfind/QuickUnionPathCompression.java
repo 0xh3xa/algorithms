@@ -1,6 +1,6 @@
-package com.alg.impl;
+package com.alg.impl.unionfind;
 
-import com.alg.base.UnionFind;
+import com.alg.base.unionfind.UnionFind;
 
 public class QuickUnionPathCompression implements UnionFind {
 

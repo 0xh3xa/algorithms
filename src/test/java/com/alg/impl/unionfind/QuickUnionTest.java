@@ -1,4 +1,4 @@
-package com.alg.impl;
+package com.alg.impl.unionfind;
 
 import static org.hamcrest.CoreMatchers.*;
 
@@ -7,14 +7,14 @@ import com.alg.BaseTest;
 import org.junit.Before;
 import org.junit.Test;
 
-public class WeightedQuickUnionPassCompressionTest extends BaseTest {
+public class QuickUnionTest extends BaseTest {
 
-    private WeightedQuickUnionPassCompression quickUnion;
+    private QuickUnion quickUnion;
     private int size = 10;
 
     @Before
     public void setUp() {
-        quickUnion = new WeightedQuickUnionPassCompression(size);
+        quickUnion = new QuickUnion(size);
     }
 
     @Test

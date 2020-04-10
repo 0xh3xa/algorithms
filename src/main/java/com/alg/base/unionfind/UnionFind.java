@@ -1,4 +1,4 @@
-package com.alg.base;
+package com.alg.base.unionfind;
 
 public interface UnionFind {
 

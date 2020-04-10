@@ -1,13 +1,15 @@
-package com.alg.impl;
+package com.alg.impl.unionfind;
 
-import com.alg.base.UnionFind;
+import com.alg.base.unionfind.UnionFind;
 
-public class QuickUnion implements UnionFind {
+public class WeightedQuickUnionPassCompression implements UnionFind {
 
     private int[] ids;
+    private int[] sz;
 
-    public QuickUnion(int N) {
+    public WeightedQuickUnionPassCompression(int N) {
         ids = new int[N];
+        sz = new int[N];
         for (int i = 0; i < ids.length; i++) {
             ids[i] = i;
         }
@@ -15,7 +17,7 @@ public class QuickUnion implements UnionFind {
 
     private int root(int i) {
         while (i != ids[i]) {
-            i = ids[i];
+            i = ids[ids[i]];
         }
         return i;
     }
@@ -24,7 +26,14 @@ public class QuickUnion implements UnionFind {
     public void union(int p, int q) {
         int i = root(p);
         int j = root(q);
-        ids[i] = j;
+
+        if (sz[i] < sz[j]) {
+            ids[i] = j;
+            sz[j] += sz[i];
+        } else {
+            ids[j] = i;
+            sz[i] += sz[j];
+        }
     }
 
     @Override
