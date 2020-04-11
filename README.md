@@ -152,7 +152,7 @@ A model for many physical systems
 ## Algorithms Analysis
 
 
-## `Note` Good practice to use abstraction between the outside world and internal implementation, In java we will use interface
+`Note` Good practice to use abstraction between the outside world and internal implementation, In java we will use interface
 
 ## Stack
 LIFO (last in first out), useful in many applications  
