@@ -152,11 +152,34 @@ A model for many physical systems
 ## Algorithms Analysis
 
 
+## `Note` Good practice to use abstraction between the outside world and internal implementation, In java we will use interface
+
+## Stack
+LIFO (last in first out), useful in many applications  
+There are two implementation of stack using `Linkedlist` and `Array`
+, And there is trad offs between two of them
+
+1. Linkedlist: Use extra space for dealing with links
+2. Array: resize/shrink the array takes some time
+
+So if you need speed like dealing with internet packet use `Linkedlist` implementation  
+, But if you take care of `memory` space use `Array` implementation  
 
 
+### Application
+1. Parsing in a compiler
+2. Java virtual machine
+3. Undo in word processor
+4. Back button in a web browser
+5. Implementation function calls in a compiler
+6. Arithmetic expression evaluation
+7. Reverse objects
+
+`Resize When reach 100% full the array resize(arr.length*2)` and `Shrink when reach one quarter full to the half resize(arr.length/2)`
 
 
-
+## Queue
+FIFO (first in first out), useful in many applications  
 
 
 
