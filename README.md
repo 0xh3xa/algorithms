@@ -182,11 +182,30 @@ So if you need speed like dealing with internet packet use `Linkedlist` implemen
 FIFO (first in first out), useful in many applications  
 
 
+## Elementry sorts
+Rerrange array of N times into ascending/descending order based on a key
+
+1. Selection sort
+2. Insertion sort
+3. Shell sort
+4. Heap sort
+5. Quick sort
+
+`Imp` In java there is `Comparable` and `Comparator` interfaces we will them any of them in the implementation of the sort algorithms  
+to allow sort any generic data types  
+There are three return values: 1, 0, -1 and throw Exception if incompatable types or null
+V less than W (return -1)  
+V equal to W (return 0)  
+V greater than W (return1)  
+
+#### Total order
+1. Antisymmetry: if v<=w and w<=v, then v=w
+2. Transitivity: if v<=w and w<=x, then v<=x
+3. Totality: either v<=w or w<=v or both
 
 
-
-
-
+## Selection sort
+Find the index of `min` of smallest remaning entry, then swap `a[i]` and `a[min]`
 
 
 
