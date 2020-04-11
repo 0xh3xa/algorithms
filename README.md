@@ -205,15 +205,18 @@ V greater than W (return1)
 
 
 ## Selection sort
-Scan from left to right
-Find the index of `min` of smallest remaning entry, then swap `a[i]` and `a[min]`  
+Scan from left to right  
+Find the index of `min` of smallest remaning entry, then swap `a[i]` and `a[min]`  `-->`
 `Time Complexity O(N^2)` and doesn't sensetive if the input is sorted  
 
 ## Insertion sort
-Scan from left to right
-Swap `a[i]` with each larger enry to its left
+Scan from left to right  
+Swap `a[i]` with each larger enry to its left `<--`
 `Time Complexity O(N^2)` and has good performance over `partially sorted arrays`
 
+
+## Shell sort
+Move entries more than one position at a time by `h-sorting` the array
 
 
 
