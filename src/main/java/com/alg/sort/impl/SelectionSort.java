@@ -12,12 +12,16 @@ public class SelectionSort {
         for (int i = 0; i < N; i++) {
             min = i;
             for (int j = i + 1; j < N; j++) {
-                if (arr[j].compareTo(arr[min]) == -1) {
+                if (less(arr, j, min)) {
                     min = j;
                 }
             }
             swap(arr, i, min);
         }
+    }
+
+    private static <Item extends Comparable<Item>> boolean less(Item[] arr, int firstIndex, int secondIndex) {
+        return arr[firstIndex].compareTo(arr[secondIndex]) < 0;
     }
 
     private static <Item extends Comparable<Item>> void swap(Item[] arr, int firstIndex, int secondIndex) {
