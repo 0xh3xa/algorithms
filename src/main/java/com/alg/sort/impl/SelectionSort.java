@@ -12,7 +12,7 @@ public class SelectionSort {
         for (int i = 0; i < N; i++) {
             min = i;
             for (int j = i + 1; j < N; j++) {
-                if (less(arr, j, min)) {
+                if (less(arr[j], arr[min])) {
                     min = j;
                 }
             }
@@ -20,8 +20,8 @@ public class SelectionSort {
         }
     }
 
-    private static <Item extends Comparable<Item>> boolean less(Item[] arr, int firstIndex, int secondIndex) {
-        return arr[firstIndex].compareTo(arr[secondIndex]) < 0;
+    private static <Item extends Comparable<Item>> boolean less(Item item1, Item item2) {
+        return item1.compareTo(item2) < 0;
     }
 
     private static <Item extends Comparable<Item>> void swap(Item[] arr, int firstIndex, int secondIndex) {
