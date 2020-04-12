@@ -7,7 +7,7 @@ import com.alg.BaseTest;
 
 import org.junit.Test;
 
-public class ShuffleSortTest extends BaseTest {
+public class KnuthShuffleSortTest extends BaseTest {
 
     @Test
     public void shouldShuffleSortedArray() {
