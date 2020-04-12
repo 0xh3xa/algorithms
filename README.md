@@ -136,7 +136,7 @@ A model for many physical systems
 - System percolatres iff top and bottom are connected by open sites  
 - Application in real life
 
-| Model  | System | Vacant site | Occupied site | Percolates |
+| Model | System | Vacant site | Occupied site | Percolates |
 | -------| -------|-------------|-------------|----------|
 | electricity | material| conductor | insulated | conducts |
 | fluid flow | material| empty | blocked | porous |
