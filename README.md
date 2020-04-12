@@ -301,6 +301,12 @@ Swap `a[i]` and `a[r]`
 
 
 
+## Merge sort
+- The sort that java uses to sort objects  
+- Steps:  
+1. Divide array into two halves  
+2. Recursively sort each half  
+3. Merge two havles
 
 
 
