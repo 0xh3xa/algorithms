@@ -207,16 +207,63 @@ V greater than W (return1)
 Scan from left to right  
 Find the index of `min` of smallest remaning entry, then swap `a[i]` and `a[min]`  `-->`
 `Time Complexity O(N<sup>2</sup>)` and doesn't sensetive if the input is sorted  
+Algorithm
+```java
+    public static <Item extends Comparable<Item>> void sort(Item[] arr) {
+        int N = arr.length;
+        int min;
+        for (int i = 0; i < N; i++) {
+            min = i;
+            for (int j = i + 1; j < N; j++) {
+                if (less(arr[j], arr[min])) {
+                    min = j;
+                }
+            }
+            swap(arr, i, min);
+        }
+    }
+```
 
 ### Insertion sort
 Scan from left to right  
 Swap `a[i]` with each larger enry to its left `<--`
-`Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`
-
+`Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`  
+Algorithm  
+```java
+    public static <Item extends Comparable<Item>> void sort(Item[] arr) {
+        int N = arr.length;
+        for (int i = 1; i < N; i++) {
+            for (int j = i; j > 0; j--) {
+                if (less(arr[j], arr[j - 1])) {
+                    swap(arr, j, j - 1);
+                } else
+                    break;
+            }
+        }
+    }
+```
 
 ### Shell sort
 Move entries more than one position at a time by `h-sorting` the array  
 What's the `h value` Knuth says `3x+1`  
+Algorithm
+```java
+    public static <Item extends Comparable<Item>> void sort(Item[] arr) {
+        int N = arr.length;
+        int h = 1;
+        while (h < N / 3)
+            h = 3 * h + 1;
+
+        while (h >= 1) {
+            for (int i = h; i < N; i++) {
+                for (int j = i; j >= h && less(arr[j], arr[j - h]); j -= h) {
+                    swap(arr, j, j - h);
+                }
+            }
+            h /= 3;
+        }
+    }
+```
 
 #### Why Shell sort uses insertion sort internally?  
 1. Fast unless array size is huge
@@ -229,6 +276,130 @@ What's the `h value` Knuth says `3x+1`
 | Selectionsort| N<sup>2</sup> | N<sup>2</sup> | N<sup>2</sup> |
 | Insertionsort| N | N<sup>2</sup> | N<sup>2</sup> |
 | Shellsort (3x+1)| NlogN | ? | N<sup>3/2</sup> |
+
+
+## Shuffle sort  
+Generate a random real number for each array entry  
+Sort array  
+
+### Knuth shuffle  
+Pick integer r between 0 and i uniformaly at random  
+Swap a[i] and a[r]  
+Algorithm
+```java
+    public static <Item extends Comparable<Item>> void shuffle(Item[] arr) {
+        int N = arr.length;
+        Random random = new Random();
+        for (int i = 0; i < N; i++) {
+            int r = random.nextInt(i + 1);
+            swap(arr, i, r);
+        }
+    }
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

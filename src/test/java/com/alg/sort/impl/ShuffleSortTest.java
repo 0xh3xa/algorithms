@@ -1,0 +1,28 @@
+package com.alg.sort.impl;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.not;
+
+import com.alg.BaseTest;
+
+import org.junit.Test;
+
+public class ShuffleSortTest extends BaseTest {
+
+    @Test
+    public void shouldShuffleSortedArray() {
+        // Arrange
+        Integer[] arr = new Integer[50];
+        for (int i = 0; i < 50; i++) {
+            arr[i] = i + 1;
+        }
+
+        // Act
+        ShellSort.sort(arr);
+
+        // Assert
+        for (int i = 0; i < 50; i++) {
+            collector.checkThat(arr[i], not(equalTo(i)));
+        }
+    }
+}
