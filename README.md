@@ -86,7 +86,7 @@ Application for this:
 
 `We can not accept Quadratic in big problems`
 
-## Quardratic algorithms do not scale
+`Quardratic algorithms do not scale`
 
 #### Rough standards (for now)
 - 10^9 operations per second  
@@ -135,7 +135,7 @@ Set the first element based on the root of the second element
 5. Hoshen-kopelman algorithm in pyhsics
 
 
-## Percolation
+### Percolation
 A model for many physical systems
 - N-by-N grid of sites  
 - Each site is open probability p (or blocked with probability 1-p)  
@@ -150,7 +150,6 @@ A model for many physical systems
 
 
 ## Algorithms Analysis
-
 
 `Note` Good practice to use abstraction between the outside world and internal implementation, In java we will use interface
 
@@ -204,19 +203,32 @@ V greater than W (return1)
 3. Totality: either v<=w or w<=v or both
 
 
-## Selection sort
+### Selection sort
 Scan from left to right  
 Find the index of `min` of smallest remaning entry, then swap `a[i]` and `a[min]`  `-->`
 `Time Complexity O(N^2)` and doesn't sensetive if the input is sorted  
 
-## Insertion sort
+### Insertion sort
 Scan from left to right  
 Swap `a[i]` with each larger enry to its left `<--`
 `Time Complexity O(N^2)` and has good performance over `partially sorted arrays`
 
 
-## Shell sort
-Move entries more than one position at a time by `h-sorting` the array
+### Shell sort
+Move entries more than one position at a time by `h-sorting` the array  
+What's the `h value` Knuth says `3x+1`  
+
+#### Why Shell sort uses insertion sort internally?  
+1. Fast unless array size is huge
+2. Tiny used in some embedded systems
+3. Hardware sort prototype
+
+### Elmentary sort algorithms  
+| Algorithm | Best | Average | Worst |
+|-----------|------|---------|-------|
+| Selectionsort| N^2 | N^2 | N^2 |
+| Insertionsort| N | N^2 | N^2 |
+| Shellsort (3x+1))| NlogN | ? | N^3/2 |
 
 
 
