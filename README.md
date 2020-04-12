@@ -49,6 +49,7 @@ Algorithms all around us
 6. Iterate until satisfied  
 
 ## The scientific method
+
 ## Mathematical analysis
 
 ## Properties
@@ -84,12 +85,12 @@ Application for this:
 `Quardratic algorithms do not scale`
 
 #### Rough standards (for now)
-- 10^9 operations per second  
-- 10^9 words of main memory  
+- 10<sup>9</sup> operations per second  
+- 10<sup>9</sup> words of main memory  
 - Touch all words in approximately 1 second
 
 #### E.g Huge problem for quick find
-- 10^9 union commands of 10^9 objects  
+- 10<sup>9</sup> union commands of 10<sup>9</sup> objects  
 - Quick find takes more than 10^18 operations  
 - 30+ years of computer time!
 
