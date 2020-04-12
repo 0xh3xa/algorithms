@@ -1,7 +1,7 @@
 # Algorithms :heart: :smile:
 ![Algorithms][alg-img]
 ![Open Source Love][Open-Source-img]
-Algorithms and data structures implementations from The `Algorithms 4th edition` book :book: :atom:
+Algorithms and data structures implementations from The - <span style="color:red;">`Algorithms 4th edition`</span> book :book: :atom:
 
 <p align="center">
   <img src="https://www.technocrazed.com/wp-content/uploads/2015/12/Brick-wallaper-For-Background-28.jpg" alt="alg_img" width="500" border="2"/>
