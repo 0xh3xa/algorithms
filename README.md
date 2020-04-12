@@ -18,13 +18,14 @@ Algorithms and data structures implementations from The - `Algorithms 4th editio
 
 ## Topics
 
-`Part I`
+`Part I`  
 
 1. Data types: stack, queue, bag, union find, priority queue  
 2. Sorting: quicksort, mergesort, heapsort, radix sorts  
 3. Searching: BST, red-black BST, hash table  
 
-`Part II`
+`Part II`  
+
 4. Graphs: BFS, DFS, Prime, Kruskal, Dijkstra  
 5. Strings: KMP, regular expresssion, TST, Huffman, LZW  
 6. Advanced: B-tee, suffix array, maxflow  
@@ -91,7 +92,7 @@ Application for this:
 
 #### E.g Huge problem for quick find
 - 10<sup>9</sup> union commands of 10<sup>9</sup> objects  
-- Quick find takes more than 10^18 operations  
+- Quick find takes more than 10<sup>18</sup> operations  
 - 30+ years of computer time!
 
 ### Quick Union
