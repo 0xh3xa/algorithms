@@ -11,12 +11,10 @@ Algorithms and data structures implementations from The - `Algorithms 4th editio
 - Intermediate level survey course
 - Programming and problem solving with applications
 
-
 ## Definition
 `Algorithms`: Method for solving a problem  
 `Data structures`: Method to store information  
 `Program = Algorithms + Data structures` 
-
 
 ## Topics
 
@@ -31,7 +29,6 @@ Algorithms and data structures implementations from The - `Algorithms 4th editio
 5. Strings: KMP, regular expresssion, TST, Huffman, LZW  
 6. Advanced: B-tee, suffix array, maxflow  
 
-  
 ## Why Algorithms is so important?
 Algorithms all around us  
 1. Internet: Web search, packet routing, distribute file sharing, ...  
@@ -42,7 +39,6 @@ Algorithms all around us
 6. Multimedia: MP3, JPG, Divx, HDTV, face recognition, ...  
 7. Social networks: Recommendations, news feeds, advertisments, ...  
 8. Physics: N-body simulation, particle collision simulation, ...  
-
 
 ## Steps for solving the problem
 1. Model the problem  
@@ -69,7 +65,6 @@ Application for this:
 5. Elements in a mathematical set  
 6. Variables names in Fortran program  
 7. Metallic sites in a composite system  
-
 
 ### Quick find (Eager approach)
 1. Data structure
@@ -98,7 +93,6 @@ Application for this:
 - Quick find takes more than 10^18 operations  
 - 30+ years of computer time!
 
-
 ### Quick Union
 Set the first element based on the root of the second element
 | Initialize  | Union | Find |
@@ -108,7 +102,6 @@ Set the first element based on the root of the second element
 `Defect`
 - Tree can get tall  
 - Find too expensive (Could be N array accesses)
-
 
 ### Quick Union improvment
 
@@ -134,7 +127,6 @@ Set the first element based on the root of the second element
 4. Last common ancestor
 5. Hoshen-kopelman algorithm in pyhsics
 
-
 ### Percolation
 A model for many physical systems
 - N-by-N grid of sites  
@@ -147,7 +139,6 @@ A model for many physical systems
 | electricity | material|conductor|insulated|conducts|
 | fluid flow | material|empty|blocked|porous|
 | social interaction | population|person|empty|communicates|
-
 
 ## Algorithms Analysis
 
@@ -164,7 +155,6 @@ There are two implementation of stack using `Linkedlist` and `Array`
 So if you need speed like dealing with internet packet use `Linkedlist` implementation  
 , But if you take care of `memory` space use `Array` implementation  
 
-
 ### Application
 1. Parsing in a compiler
 2. Java virtual machine
@@ -179,7 +169,6 @@ So if you need speed like dealing with internet packet use `Linkedlist` implemen
 
 ## Queue
 FIFO (first in first out), useful in many applications  
-
 
 ## Elementry sorts
 Rerrange array of N times into ascending/descending order based on a key
@@ -207,7 +196,9 @@ V greater than W (return1)
 Scan from left to right  
 Find the index of `min` of smallest remaning entry, then swap `a[i]` and `a[min]`  `-->`
 `Time Complexity O(N<sup>2</sup>)` and doesn't sensetive if the input is sorted  
-Algorithm
+
+`Algorithm`
+
 ```java
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
         int N = arr.length;
@@ -228,7 +219,9 @@ Algorithm
 Scan from left to right  
 Swap `a[i]` with each larger enry to its left `<--`
 `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`  
-Algorithm  
+
+`Algorithm`
+
 ```java
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
         int N = arr.length;
@@ -246,7 +239,9 @@ Algorithm
 ### Shell sort
 Move entries more than one position at a time by `h-sorting` the array  
 What's the `h value` Knuth says `3x+1`  
-Algorithm
+
+`Algorithm`
+
 ```java
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
         int N = arr.length;
@@ -284,8 +279,10 @@ Sort array
 
 ### Knuth shuffle  
 Pick integer r between 0 and i uniformaly at random  
-Swap a[i] and a[r]  
-Algorithm
+Swap `a[i]` and `a[r]`  
+
+`Algorithm`
+
 ```java
     public static <Item extends Comparable<Item>> void shuffle(Item[] arr) {
         int N = arr.length;
