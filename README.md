@@ -82,7 +82,7 @@ Application for this:
 
 `defect` 
 - Find too expensive (Could be N array accesses)  
-- If you have N union commands over N objects will be O(N^2) quadratic  
+- If you have N union commands over N objects will be O(N<sub>2</sub>) quadratic  
 
 `We can not accept Quadratic in big problems`
 
@@ -206,12 +206,12 @@ V greater than W (return1)
 ### Selection sort
 Scan from left to right  
 Find the index of `min` of smallest remaning entry, then swap `a[i]` and `a[min]`  `-->`
-`Time Complexity O(N^2)` and doesn't sensetive if the input is sorted  
+`Time Complexity O(N<sub>2</sub>)` and doesn't sensetive if the input is sorted  
 
 ### Insertion sort
 Scan from left to right  
 Swap `a[i]` with each larger enry to its left `<--`
-`Time Complexity O(N^2)` and has good performance over `partially sorted arrays`
+`Time Complexity O(N<sub>2</sub>)` and has good performance over `partially sorted arrays`
 
 
 ### Shell sort
@@ -226,9 +226,9 @@ What's the `h value` Knuth says `3x+1`
 ### Elmentary sort algorithms  
 | Algorithm | Best | Average | Worst |
 |-----------|------|---------|-------|
-| Selectionsort| N^2 | N^2 | N^2 |
-| Insertionsort| N | N^2 | N^2 |
-| Shellsort (3x+1))| NlogN | ? | N^3/2 |
+| Selectionsort| N<sub>2</sub> | N<sub>2</sub> | N<sub>2</sub> |
+| Insertionsort| N | N<sub>2</sub> | N<sub>2</sub> |
+| Shellsort (3x+1)| NlogN | ? | N<sub>3/2</sub> |
 
 
 
