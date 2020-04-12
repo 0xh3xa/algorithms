@@ -138,9 +138,9 @@ A model for many physical systems
 
 | Model  | System | Vacant site |Occupied site|percolates|
 | -------| -------|-------------|-------------|----------|
-| electricity | material|conductor|insulated|conducts|
-| fluid flow | material|empty|blocked|porous|
-| social interaction | population|person|empty|communicates|
+| electricity | material| conductor | insulated | conducts |
+| fluid flow | material| empty | blocked | porous |
+| social interaction | population | person | empty | communicates |
 
 ## Algorithms Analysis
 
@@ -192,7 +192,6 @@ V greater than W (return1)
 1. Antisymmetry: if v<=w and w<=v, then v=w
 2. Transitivity: if v<=w and w<=x, then v<=x
 3. Totality: either v<=w or w<=v or both
-
 
 ### Selection sort
 Scan from left to right  
@@ -267,13 +266,13 @@ What's the `h value` Knuth says `3x+1`
 2. Tiny used in some embedded systems
 3. Hardware sort prototype
 
-### Elmentary sort algorithms  
+### Elmentary sort algorithms
+
 | Algorithm | Best | Average | Worst |
 |-----------|------|---------|-------|
 | Selectionsort| N<sup>2</sup> | N<sup>2</sup> | N<sup>2</sup> |
 | Insertionsort| N | N<sup>2</sup> | N<sup>2</sup> |
 | Shellsort (3x+1)| NlogN | ? | N<sup>3/2</sup> |
-
 
 ## Shuffle sort  
 Generate a random real number for each array entry  
@@ -297,6 +296,8 @@ Swap `a[i]` and `a[r]`
 
 ```
 
+### Applications in sorting
+1. Convex hull of a set of N points is the smallest perimeter fence enclosing the points
 
 
 
