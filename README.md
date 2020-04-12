@@ -69,7 +69,7 @@ Application for this:
 
 ### Quick find (Eager approach)
 1. Data structure
-- Integer array id[] of size N  
+- Integer array `id[]` of size N  
 - Interpretation: p and q are conncted (iff) if and only if they have the same id  
 
 | Initialize  | Union | Find |
