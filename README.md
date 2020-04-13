@@ -302,6 +302,7 @@ Swap `a[i]` and `a[r]`
 
 
 ## Merge sort
+- This sort based on the technique of `divide-and-conquer`
 - The sort that java uses to sort objects  
 - Steps:  
 1. Divide array into two halves  
