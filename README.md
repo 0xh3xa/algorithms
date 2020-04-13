@@ -132,7 +132,7 @@ Algorithms all around us
 3. Transitive: if p is connected to q and q is connected to r, then p is connected to r
 
 ## Dynamic connectivity
-Application for this:
+Applications based on this:
 1. Pixels in a digital photo  
 2. Computers in network  
 3. Friends in a social network  
@@ -142,21 +142,21 @@ Application for this:
 7. Metallic sites in a composite system  
 
 ### Quick find (Eager approach)
-1. Data structure
-- Integer array `id[]` of size N
-- Interpretation: p and q are conncted (iff) if and only if they have the same id
+- Data structure
++ Integer array `id[]` of size N
++ Interpretation: p and q are conncted (iff) if and only if they have the same id
 
 | Initialize  | Union | Find |
 | ----------- | ----- |------|
 | N           | N     |1     |
 
-`defect` 
-- Find too expensive (Could be N array accesses)  
-- If you have N union commands over N objects will be O(N<sup>2</sup>) quadratic  
+- Defect
++ Find too expensive (Could be N array accesses)  
++ If you have N union commands over N objects will be O(N<sup>2</sup>) quadratic  
 
-`We can not accept Quadratic in big problems`
-
-`Quardratic algorithms do not scale`
+- Note
++ `We can not accept Quadratic in big problems`
++ `Quardratic algorithms do not scale`
 
 #### Rough standards (for now)
 - 10<sup>9</sup> operations per second
@@ -215,25 +215,24 @@ A model for many physical systems
 | fluid flow | material| empty | blocked | porous |
 | social interaction | population | person | empty | communicates |
 
-## Algorithms Analysis
-
-`Note` Good practice to use abstraction between the outside world and internal implementation, In java we will use interface
+## Algorithms Design
+Good practice to make an abstraction between the outside world and internal implementation, In java we will use interface
 
 ## Stack
 - `LIFO` (last in first out), useful in many applications
 - Operation: push, pop, size, isEmpty
 - There are two implementation of stack using `Linkedlist` and `Array`
-- Difference between LinkedList and Array implementations
 
-1. Linkedlist: Use extra space for dealing with links
-2. Array: resize/shrink the array takes some time
+- What are the Differences between LinkedList and Array implementation?
++ Linkedlist: Use extra space for dealing with links
++ Array: resize/shrink the array takes some time
 
-So if time is important and don't want to lose any input i.e. dealing with internet packet use `Linkedlist` implementation  
-, But if you take care of `memory` space use `Array` implementation  
+- When should I use Linkedlist or Array implementation?
+if time is important and don't want to lose any input i.e. dealing with internet packet use `Linkedlist` implementation, But if you take care of `memory` space use `Array` implementation  
 
 - How duplicate/shrinking array?
-1. Resize When reach 100% full the array resize(arr.length*2)
-2. Shrink when reach one quarter full to the half resize(arr.length/2)
++ Resize When reach 100% full the array resize(arr.length*2)
++ Shrink when reach one quarter full to the half resize(arr.length/2)
 
 ### Application
 1. Parsing in a compiler
@@ -243,7 +242,6 @@ So if time is important and don't want to lose any input i.e. dealing with inter
 5. Implementation function calls in a compiler
 6. Arithmetic expression evaluation
 7. Reverse objects
-
 
 ## Queue
 - `FIFO` (first in first out), useful in many applications  
