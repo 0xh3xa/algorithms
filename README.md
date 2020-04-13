@@ -3,10 +3,6 @@
 
 Algorithms and data structures implementations from the `Algorithms 4th edition` :book: :atom:
 
-<p align="center">
-  <img src="https://www.technocrazed.com/wp-content/uploads/2015/12/Brick-wallaper-For-Background-28.jpg" alt="alg_img" width="500" border="2"/>
-<p>
-	
 ## What's is this course?
 - Intermediate level survey course
 - Programming and problem solving with applications
@@ -351,7 +347,7 @@ What's the `h value` Knuth says `3x+1`
 |-----------|------|---------|-------|
 | Selectionsort| N<sup>2</sup> | N<sup>2</sup> | N<sup>2</sup> |
 | Insertionsort| N | N<sup>2</sup> | N<sup>2</sup> |
-| Shellsort (3x+1)| NlogN | ? | N<sup>3/2</sup> |
+| Shellsort `3x+1`| NlogN | ? | N<sup>3/2</sup> |
 
 ## Shuffle sort  
 Generate a random real number for each array entry  
@@ -420,16 +416,19 @@ TODO // complete this part
 - Runing time `NlgN`
 - Laptop executes 10<sup>8</sup> compares/second
 - Supercomputer executes 10<sup>12</sup> compares/second
+- In this below table will compare between normal computer in first row and supercomputer in second row
 
 Insertionsort N<sup>2</sup>
 | Million | Billion |
 |---------|---------|
 | 2.8 hours | 317 years |
+| 1 second | 1 week |
 
 Mergesort NlgN
 | Million | Billion |
 |---------|---------|
 |1 second | 18 min |
+|instant | instant |
 
 - `Good algorithm are better than supercomputers`
 
