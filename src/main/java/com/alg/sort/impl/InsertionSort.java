@@ -18,6 +18,17 @@ public class InsertionSort {
         }
     }
 
+    public static <Item extends Comparable<Item>> void sort(Item[] arr, int lo, int hi) {
+        for (int i = lo; i <= hi; i++) {
+            for (int j = i; j > 0; j--) {
+                if (less(arr[j], arr[j - 1])) {
+                    swap(arr, j, j - 1);
+                } else
+                    break;
+            }
+        }
+    }
+
     private static <Item extends Comparable<Item>> boolean less(Item item1, Item item2) {
         return item1.compareTo(item2) < 0;
     }

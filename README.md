@@ -12,9 +12,9 @@ Algorithms and data structures implementations from The - `Algorithms 4th editio
 - Programming and problem solving with applications
 
 ## Definition
-`Algorithms`: Method for solving a problem  
-`Data structures`: Method to store information  
-`Program = Algorithms + Data structures` 
+- `Algorithms`: Method for solving a problem
+- `Data structures`: Method to store information
+- `Program = Algorithms + Data structures`
 
 ## Topics
 
@@ -70,8 +70,8 @@ Application for this:
 
 ### Quick find (Eager approach)
 1. Data structure
-- Integer array `id[]` of size N  
-- Interpretation: p and q are conncted (iff) if and only if they have the same id  
+- Integer array `id[]` of size N
+- Interpretation: p and q are conncted (iff) if and only if they have the same id
 
 | Initialize  | Union | Find |
 | ----------- | ----- |------|
@@ -86,13 +86,13 @@ Application for this:
 `Quardratic algorithms do not scale`
 
 #### Rough standards (for now)
-- 10<sup>9</sup> operations per second  
-- 10<sup>9</sup> words of main memory  
+- 10<sup>9</sup> operations per second
+- 10<sup>9</sup> words of main memory
 - Touch all words in approximately 1 second
 
 #### E.g Huge problem for quick find
-- 10<sup>9</sup> union commands of 10<sup>9</sup> objects  
-- Quick find takes more than 10<sup>18</sup> operations  
+- 10<sup>9</sup> union commands of 10<sup>9</sup> objects
+- Quick find takes more than 10<sup>18</sup> operations
 - 30+ years of computer time!
 
 ### Quick Union
@@ -102,14 +102,14 @@ Set the first element based on the root of the second element
 | N           | N'    |1     |
 
 `Defect`
-- Tree can get tall  
+- Tree can get tall
 - Find too expensive (Could be N array accesses)
 
 ### Quick Union improvment
 
 1. Weighted Quick union
 
-- Modify the Quick union to avoid tall trees  
+- Modify the Quick union to avoid tall trees
 - Balance by linking root of smaller tree to root of larger tree
 - Depth of any node x is at most `lgN`
 
@@ -131,9 +131,9 @@ Set the first element based on the root of the second element
 
 ### Percolation
 A model for many physical systems
-- N-by-N grid of sites  
-- Each site is open probability p (or blocked with probability 1-p)  
-- System percolatres iff top and bottom are connected by open sites  
+- N-by-N grid of sites
+- Each site is open probability p (or blocked with probability 1-p)
+- System percolatres iff top and bottom are connected by open sites
 - Application in real life
 
 | Model | System | Vacant site | Occupied site | Percolates |
@@ -147,7 +147,7 @@ A model for many physical systems
 `Note` Good practice to use abstraction between the outside world and internal implementation, In java we will use interface
 
 ## Stack
-LIFO (last in first out), useful in many applications  
+LIFO (last in first out), useful in many applications
 There are two implementation of stack using `Linkedlist` and `Array`
 , And there is trad offs between two of them
 
@@ -303,16 +303,24 @@ Swap `a[i]` and `a[r]`
 
 ## Merge sort
 - This sort based on the technique of `divide-and-conquer`
-- The sort that java uses to sort objects  
+- The sort that java uses to sort objects
 - Steps:  
 1. Divide array into two halves  
 2. Recursively sort each half  
 3. Merge two havles
 
+- First draft of a Report on the EDVAC by John von Neuman
+- Runing time `NlgN`
+- Laptop executes 10<sup>8</sup> compares/second
+- Supercomputer executes 10<sup>12</sup> compares/second
 
+| Insertionsort N<sup>2</sup> | Mergesort NlgN |
+|-----------------------------|----------------|
+| Million | Billion | Million | Billion |
+|---------|---------|---------|---------|
+| 2.8 hours | 317 years | 1 second | 18 min |
 
-
-
+- `Good algorithm are better than supercomputers`
 
 
 
