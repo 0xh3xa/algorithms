@@ -49,9 +49,96 @@ Algorithms all around us
 5. Find a way to address the problem  
 6. Iterate until satisfied  
 
-## The scientific method
+## Algorithm Analyze
 
-## Mathematical analysis
+### Reasons to Analyze Algorithms
+- Predict performanc.
+- Compare algorithms
+- Provide guarantees
+- Understand theoretical basis
+
+### The scientific method
+- Observe some feature in the natural world
+- Hypothesize a model that is consistent with the observations
+- Predict events using the hypothesis
+- Verify the predictions by making further observations
+- Validate by repeating until the hypothesis and observations agree
+
+### Principles
+- Experiments must be reproducible.
+- Hypotheses must be falsifiable.
+
+### Empirical Analysis
+- Manual measurement (benchmarking) with a stopwatch or programmatic timeing method.
+- Measure running time for different input sizes *N* (e.g. doubling time) and observe the relationship between the running times.
+
+### Data Analysis
+- Plot running time T(N) vs input size *N*.
+- Plot as log-log plot, often get a straight line. lg(T(N)) vs lg(N). Plot tells you the exponent of *N*.
+- Regression, power law: *a x N^b*
+- Once you have the power b from the slope of the log-log plot, solve for *a* in the equation *T(N) = a x N^b*
+
+### Doubling Hypothesis
+- Run program, doubling the size of the input and observe ratios. Observe to what it converges, do not take the average!
+
+|  N   | T(N) | Ratio | lg(Ratio) |
+| ---- | ---- | ----- | --------  |
+| 1000 | 0.1  |   -   |     -     |
+| 2000 | 0.8  |  7.7  |    2.9    |
+| 4000 | 6.4  |   8   |     3     |
+| ...  | ...  |  ...  |    ...    |
+
+                            ^
+                       Converges to 3
+
+- Hypothesis: Running time is about *a x N^b*, where *b = lg(Ratio)*
+- Caveat: Cannot identify logarithmic factors with the doubling hypothesis.
+- Calculate *a* by solving *T(N) = a x N^b* for a with all other variables now known.
+
+### Experimental algorithmics
+
+- System independent effects (determines constant *a* and exponent *b* in power law)
+
+	+ Algorithm.
+	+ Input data.
+
+- System dependent effects (contribute only to constant *a* in power law)
+
+	+ Hardware: CPU, memory, cache
+	+ Software compiler, intepreter, garbage collector
+	+ System: OS, network, other applications
+
+### Mathematical Models
+
+- Analyze individual operations to determine complexity
+- Simplification 1
+
+  Count only the most expensive ones, i.e. those that take the most time or where time x frequency is highest.
+
+- Simplification 2
+
+  Ignore lower order terms, e.g. in 5xN^3 + 20N + 16, ignore the term with N
+  and the constant 16 (which is 16 x N^0) because they are less significant in
+  comparison with the highest order term. We use *tilde notation* to say that *5
+  x N^3 + 20 x N + 16 __~ 5 x N^3__*. Technical definition is that for *f(N) ~
+  G(N)* when *N* goes towards infinity, the lower order terms become so
+  insignificant that *f(N)/g(N) = 1*:
+
+  *f(N) ~ g(N) <=> lim(N -> ∞) f(N)/g(N) = 1*
+
+ ### Order-of-Growth Classifications
+
+ - A great number of algorithms (most) are described by the following order of growth functions (note that it is quite a small set):
+
+ 	+ 1 (constant)
+ 	+ log N (logarithmic)
+ 	+ N (linear)
+ 	+ N log N (linearithmic)
+ 	+ N^2 (quadratic)
+ 	+ N^3 (cubic)
+ 	+ 2^N (exponential)
+
+- We say the algorithm "is proportional to" e.g. constant time
 
 ## Properties
 1. Reflexive: p is connected to q  
@@ -147,7 +234,7 @@ A model for many physical systems
 `Note` Good practice to use abstraction between the outside world and internal implementation, In java we will use interface
 
 ## Stack
-LIFO (last in first out), useful in many applications
+`LIFO` (last in first out), useful in many applications
 There are two implementation of stack using `Linkedlist` and `Array`
 , And there is trad offs between two of them
 
@@ -170,7 +257,7 @@ So if you need speed like dealing with internet packet use `Linkedlist` implemen
 
 
 ## Queue
-FIFO (first in first out), useful in many applications  
+`FIFO` (first in first out), useful in many applications  
 
 ## Elementry sorts
 Rerrange array of N times into ascending/descending order based on a key
