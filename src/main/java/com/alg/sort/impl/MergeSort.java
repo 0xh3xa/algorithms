@@ -20,10 +20,18 @@ public class MergeSort {
     public static <Item extends Comparable<Item>> void sortButtomUp(Item[] arr) {
         int N = arr.length;
         Item[] aux = (Item[]) new Comparable[N];
-        for (int sz = 1; sz < N; sz = sz + sz) 
-            for (int lo = 0; lo < N - sz; lo += sz + sz) 
+        for (int sz = 1; sz < N; sz = sz + sz)
+            for (int lo = 0; lo < N - sz; lo += sz + sz)
                 merge(arr, aux, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, N - 1));
-        
+    }
+
+    public static <Item extends Comparable<Item>> void sortUpButtom(Item[] arr) {
+        int N = arr.length;
+        Item[] aux = (Item[]) new Comparable[N];
+        for (int sz = 1; sz < N; sz = sz + sz)
+            for (int lo = 0; lo < N - sz; lo += sz + sz)
+                merge(arr, aux, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, N - 1));
+
     }
 
     public static void sort(Object[] arr, Object[] aux, int lo, int hi, Comparator comparator) {

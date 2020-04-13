@@ -125,9 +125,9 @@ Algorithms all around us
  - A great number of algorithms (most) are described by the following order of growth functions (note that it is quite a small set):
 
  	+ 1 (constant)
- 	+ lg N (logarithmic)
+ 	+ log N (logarithmic)
  	+ N (linear)
- 	+ NlgN (linearithmic)
+ 	+ NlogN (linearithmic)
  	+ N<sup>2</sup> (quadratic)
  	+ N<sup>3</sup> (cubic)
  	+ 2<sup>N</sup> (exponential)
@@ -384,7 +384,7 @@ Swap `a[i]` and `a[r]`
 
 ## Merge sort
 - This sort based on the technique of `divide-and-conquer`
-- Java uses Mergesort to sort objects
+- Java sort for objects
 - Steps:  
 1. Divide array into two halves  
 2. Recursively sort each half  
@@ -436,9 +436,35 @@ Swap `a[i]` and `a[r]`
 Basic plan  
 1. Pass through array, merging subarrays of size 1
 2. Repeat for subarrays of size 2, 4, 8, 16, ...
+3. Slower than Recursive by 10%
 
+`Algorithm`
 
+```java
+    public static <Item extends Comparable<Item>> void sortButtomUp(Item[] arr) {
+        int N = arr.length;
+        Item[] aux = (Item[]) new Comparable[N];
+        for (int sz = 1; sz < N; sz = sz + sz)
+            for (int lo = 0; lo < N - sz; lo += sz + sz)
+                merge(arr, aux, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, N - 1));
+    }
+```
 
+## Sort Stability
+- Suppose you want to sort `BY_NAME` then `BY_SECTION`
+- Which sorts are stable?
+1. Insertionsort
+2. Mergesort
+
+- Why Selectionsort and Shellsort not stable? because they keep pointer from past and can be equal to coming iteration
+
+## Quick sort
+- One of the most important algorithm in 20<sup>th</sup> century
+- Java sort for primitive types
+- Basic plan
+1. Shuffle the array
+2. Partition
+3. Sort
 
 
 
