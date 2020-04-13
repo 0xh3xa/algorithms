@@ -1,6 +1,6 @@
 # Algorithms :heart: :smile:
-![Algorithms][alg-img]
-![Open Source Love][Open-Source-img]
+![Algorithms][alg-img] ![Open Source Love][Open-Source-img]
+
 Algorithms and data structures implementations from The - `Algorithms 4th edition` book :book: :atom:
 
 <p align="center">
