@@ -94,12 +94,10 @@ Algorithms all around us
 
 ### Experimental algorithmics
 - System independent effects (determines constant *a* and exponent *b* in power law)
-
 	+ Algorithm
 	+ Input data
 
 - System dependent effects (contribute only to constant *a* in power law)
-
 	+ Hardware: CPU, memory, cache
 	+ Software compiler, intepreter, garbage collector
 	+ System: OS, network, other applications
@@ -108,11 +106,9 @@ Algorithms all around us
 - Analyze individual operations to determine complexity
 
 - Simplification 1
-
   Count only the most expensive ones, i.e. those that take the most time or where time x frequency is highest.
 
 - Simplification 2
-
   Ignore lower order terms, e.g. in 5xN<sup>3</sup> + 20N + 16, ignore the term with N
   and the constant 16 (which is 16 x N<sup>0</sup>) because they are less significant in
   comparison with the highest order term. We use *tilde notation* `~` to say that *5
@@ -122,7 +118,6 @@ Algorithms all around us
 
  ### Order-of-Growth Classifications
  - A great number of algorithms (most) are described by the following order of growth functions (note that it is quite a small set):
-
  	+ 1 (constant)
  	+ log N (logarithmic)
  	+ N (linear)
