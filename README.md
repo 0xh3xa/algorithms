@@ -1,12 +1,12 @@
 # Algorithms :heart: :smile:
 ![Algorithms][alg-img] ![Open Source Love][Open-Source-img]
 
-Algorithms and data structures implementations from The - `Algorithms 4th edition` book :book: :atom:
+Algorithms and data structures implementations from the `Algorithms 4th edition` :book: :atom:
 
 <p align="center">
   <img src="https://www.technocrazed.com/wp-content/uploads/2015/12/Brick-wallaper-For-Background-28.jpg" alt="alg_img" width="500" border="2"/>
 <p>
-
+	
 ## What's is this course?
 - Intermediate level survey course
 - Programming and problem solving with applications
@@ -131,6 +131,8 @@ Algorithms all around us
  	+ N<sup>2</sup> (quadratic)
  	+ N<sup>3</sup> (cubic)
  	+ 2<sup>N</sup> (exponential)
+	
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Comparison_computational_complexity.svg/800px-Comparison_computational_complexity.svg.png" alt="graph_order_growth" width="400"/>
 
 - We say the algorithm "is proportional to" e.g. constant time
 
@@ -379,8 +381,7 @@ Swap `a[i]` and `a[r]`
 
 ### Applications in sorting
 1. Convex hull of a set of N points is the smallest perimeter fence enclosing the points
-
-
+TODO // complete this part
 
 ## Merge sort
 - This sort based on the technique of `divide-and-conquer`
@@ -424,11 +425,15 @@ Swap `a[i]` and `a[r]`
 - Laptop executes 10<sup>8</sup> compares/second
 - Supercomputer executes 10<sup>12</sup> compares/second
 
-| Insertionsort N<sup>2</sup> | Mergesort NlgN |
-|-----------------------------|----------------|
-| Million | Billion | Million | Billion |
-|---------|---------|---------|---------|
-| 2.8 hours | 317 years | 1 second | 18 min |
+Insertionsort N<sup>2</sup>
+| Million | Billion |
+|---------|---------|
+| 2.8 hours | 317 years |
+
+Mergesort NlgN
+| Million | Billion |
+|---------|---------|
+|1 second | 18 min |
 
 - `Good algorithm are better than supercomputers`
 
