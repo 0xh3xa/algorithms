@@ -88,9 +88,6 @@ Algorithms all around us
 | 4000 | 6.4  |   8   |     3     |
 | ...  | ...  |  ...  |    ...    |
 
-                            ^
-                       Converges to 3
-
 - Hypothesis: Running time is about *a x N^b*, where *b = lg(Ratio)*
 - Caveat: Cannot identify logarithmic factors with the doubling hypothesis.
 - Calculate *a* by solving *T(N) = a x N^b* for a with all other variables now known.
@@ -124,19 +121,16 @@ Algorithms all around us
   G(N)* when *N* goes towards infinity, the lower order terms become so
   insignificant that *f(N)/g(N) = 1*:
 
-  *f(N) ~ g(N) <=> lim(N -> ∞) f(N)/g(N) = 1*
-
  ### Order-of-Growth Classifications
-
  - A great number of algorithms (most) are described by the following order of growth functions (note that it is quite a small set):
 
  	+ 1 (constant)
- 	+ log N (logarithmic)
+ 	+ lg N (logarithmic)
  	+ N (linear)
- 	+ N log N (linearithmic)
- 	+ N^2 (quadratic)
- 	+ N^3 (cubic)
- 	+ 2^N (exponential)
+ 	+ NlgN (linearithmic)
+ 	+ N<sup>2</sup> (quadratic)
+ 	+ N<sup>3</sup> (cubic)
+ 	+ 2<sup>N</sup> (exponential)
 
 - We say the algorithm "is proportional to" e.g. constant time
 
