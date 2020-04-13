@@ -224,9 +224,10 @@ A model for many physical systems
 `Note` Good practice to use abstraction between the outside world and internal implementation, In java we will use interface
 
 ## Stack
-`LIFO` (last in first out), useful in many applications
-There are two implementation of stack using `Linkedlist` and `Array`
-, And there is trad offs between two of them
+- `LIFO` (last in first out), useful in many applications
+- Operation: push, pop, size, isEmpty
+- There are two implementation of stack using `Linkedlist` and `Array`
+- Difference between LinkedList and Array implementations
 
 1. Linkedlist: Use extra space for dealing with links
 2. Array: resize/shrink the array takes some time
@@ -247,7 +248,8 @@ So if you need speed like dealing with internet packet use `Linkedlist` implemen
 
 
 ## Queue
-`FIFO` (first in first out), useful in many applications  
+- `FIFO` (first in first out), useful in many applications  
+- Operation: enqueue, dnqueue, size, isEmpty
 
 ## Elementry sorts
 Rerrange array of N times into ascending/descending order based on a key
