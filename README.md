@@ -228,8 +228,12 @@ A model for many physical systems
 1. Linkedlist: Use extra space for dealing with links
 2. Array: resize/shrink the array takes some time
 
-So if you need speed like dealing with internet packet use `Linkedlist` implementation  
+So if time is important and don't want to lose any input i.e. dealing with internet packet use `Linkedlist` implementation  
 , But if you take care of `memory` space use `Array` implementation  
+
+- How duplicate/shrinking array?
+1. Resize When reach 100% full the array resize(arr.length*2)
+2. Shrink when reach one quarter full to the half resize(arr.length/2)
 
 ### Application
 1. Parsing in a compiler
@@ -239,8 +243,6 @@ So if you need speed like dealing with internet packet use `Linkedlist` implemen
 5. Implementation function calls in a compiler
 6. Arithmetic expression evaluation
 7. Reverse objects
-
-`Resize When reach 100% full the array resize(arr.length*2)` and `Shrink when reach one quarter full to the half resize(arr.length/2)`
 
 
 ## Queue
