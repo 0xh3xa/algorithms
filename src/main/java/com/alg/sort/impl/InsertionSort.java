@@ -1,5 +1,7 @@
 package com.alg.sort.impl;
 
+import java.util.Comparator;
+
 public class InsertionSort {
 
     private InsertionSort() throws IllegalAccessException {
@@ -11,6 +13,18 @@ public class InsertionSort {
         for (int i = 1; i < N; i++) {
             for (int j = i; j > 0; j--) {
                 if (less(arr[j], arr[j - 1])) {
+                    swap(arr, j, j - 1);
+                } else
+                    break;
+            }
+        }
+    }
+
+    public static void sort(Object[] arr, Comparator comparator) {
+        int N = arr.length;
+        for (int i = 1; i < N; i++) {
+            for (int j = i; j > 0; j--) {
+                if (less(comparator, arr[j], arr[j - 1])) {
                     swap(arr, j, j - 1);
                 } else
                     break;
@@ -35,6 +49,16 @@ public class InsertionSort {
 
     private static <Item extends Comparable<Item>> void swap(Item[] arr, int firstIndex, int secondIndex) {
         Item temp = arr[firstIndex];
+        arr[firstIndex] = arr[secondIndex];
+        arr[secondIndex] = temp;
+    }
+
+    private static boolean less(Comparator comparator, Object o1, Object o2) {
+        return comparator.compare(o1, o2) < 0;
+    }
+
+    private static void swap(Object[] arr, int firstIndex, int secondIndex) {
+        Object temp = arr[firstIndex];
         arr[firstIndex] = arr[secondIndex];
         arr[secondIndex] = temp;
     }

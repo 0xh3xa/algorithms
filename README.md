@@ -384,11 +384,40 @@ Swap `a[i]` and `a[r]`
 
 ## Merge sort
 - This sort based on the technique of `divide-and-conquer`
-- The sort that java uses to sort objects
+- Java uses Mergesort to sort objects
 - Steps:  
 1. Divide array into two halves  
 2. Recursively sort each half  
 3. Merge two havles
+
+`Algorithm`
+
+```java
+    public static <Item extends Comparable<Item>> void sort(Item[] arr, Item[] aux, int lo, int hi) {
+        if (hi <= lo)
+            return;
+        int mid = lo + (hi - lo) / 2;
+        sort(arr, aux, lo, mid);
+        sort(arr, aux, mid + 1, hi);
+        merge(arr, aux, lo, mid, hi);
+    }
+
+    private static <Item extends Comparable<Item>> void merge(Item[] arr, Item[] aux, int lo, int mid, int hi) {
+        int i = lo, j = mid + 1;
+        for (int k = lo; k <= hi; k++)
+            aux[k] = arr[k];
+        for (int k = lo; k <= hi; k++) {
+            if (i > mid)
+                arr[k] = aux[j++];
+            else if (j > hi)
+                arr[k] = aux[i++];
+            else if (less(aux[j], aux[i]))
+                arr[k] = aux[j++];
+            else
+                arr[k] = aux[i++];
+        }
+    }
+```
 
 - First draft of a Report on the EDVAC by John von Neuman
 - Runing time `NlgN`
@@ -403,6 +432,10 @@ Swap `a[i]` and `a[r]`
 
 - `Good algorithm are better than supercomputers`
 
+### Buttom-up version of Mergesort
+Basic plan  
+1. Pass through array, merging subarrays of size 1
+2. Repeat for subarrays of size 2, 4, 8, 16, ...
 
 
 
