@@ -151,12 +151,12 @@ Applications based on this:
 | N           | N     |1     |
 
 - Defect
-+ Find too expensive (Could be N array accesses)  
-+ If you have N union commands over N objects will be O(N<sup>2</sup>) quadratic  
+    + Find too expensive (Could be N array accesses)  
+    + If you have N union commands over N objects will be O(N<sup>2</sup>) quadratic  
 
 - Note
-+ `We can not accept Quadratic in big problems`
-+ `Quardratic algorithms do not scale`
+    + `We can not accept Quadratic in big problems`
+    + `Quardratic algorithms do not scale`
 
 #### Rough standards (for now)
 - 10<sup>9</sup> operations per second
@@ -174,9 +174,9 @@ Set the first element based on the root of the second element
 | ----------- | ----- |------|
 | N           | N'    |1     |
 
-`Defect`
-- Tree can get tall
-- Find too expensive (Could be N array accesses)
+- Defect
+    + Tree can get tall
+    + Find too expensive (Could be N array accesses)
 
 ### Quick Union improvment
 
@@ -224,15 +224,15 @@ Good practice to make an abstraction between the outside world and internal impl
 - There are two implementation of stack using `Linkedlist` and `Array`
 
 - What are the Differences between LinkedList and Array implementation?
-+ Linkedlist: Use extra space for dealing with links
-+ Array: resize/shrink the array takes some time
+    + Linkedlist: Use extra space for dealing with links
+    + Array: resize/shrink the array takes some time
 
 - When should I use Linkedlist or Array implementation?
 if time is important and don't want to lose any input i.e. dealing with internet packet use `Linkedlist` implementation, But if you take care of `memory` space use `Array` implementation  
 
 - How duplicate/shrinking array?
-+ Resize When reach 100% full the array resize(arr.length*2)
-+ Shrink when reach one quarter full to the half resize(arr.length/2)
+    + Resize When reach 100% full the array resize(arr.length*2)
+    + Shrink when reach one quarter full to the half resize(arr.length/2)
 
 ### Application
 1. Parsing in a compiler
