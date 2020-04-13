@@ -372,16 +372,16 @@ Swap `a[i]` and `a[r]`
 ```
 
 ### Applications in sorting
-1. Convex hull of a set of N points is the smallest perimeter fence enclosing the points
+1. Convex hull of a set of N points is the smallest perimeter fence enclosing the points  
 TODO // complete this part
 
 ## Merge sort
 - This sort based on the technique of `divide-and-conquer`
 - Java sort for objects
 - Steps:  
-1. Divide array into two halves  
-2. Recursively sort each half  
-3. Merge two havles
+    + Divide array into two halves  
+    + Recursively sort each half  
+    + Merge two havles
 
 `Algorithm`
 
@@ -413,24 +413,25 @@ TODO // complete this part
 ```
 
 - First draft of a Report on the EDVAC by John von Neuman
-- Runing time `NlgN`
-- Laptop executes 10<sup>8</sup> compares/second
-- Supercomputer executes 10<sup>12</sup> compares/second
-- In this below table will compare between normal computer in first row and supercomputer in second row
+- Running time `NlgN`
+- Compare Running time between Insertionsort and Mergesort
+    + Laptop executes 10<sup>8</sup> compares/second
+    + Supercomputer executes 10<sup>12</sup> compares/second
+    + In this below table will compare between normal computer in first row and supercomputer in second row
 
-Insertionsort N<sup>2</sup>
-| Million | Billion |
-|---------|---------|
-| 2.8 hours | 317 years |
-| 1 second | 1 week |
+        Insertionsort N<sup>2</sup>
+        | Million | Billion |
+        |---------|---------|
+        | 2.8 hours | 317 years |
+        | 1 second | 1 week |
 
-Mergesort NlgN
-| Million | Billion |
-|---------|---------|
-|1 second | 18 min |
-|instant | instant |
+        Mergesort NlgN
+        | Million | Billion |
+        |---------|---------|
+        |1 second | 18 min |
+        |instant | instant |
 
-- `Good algorithm are better than supercomputers`
+- <span style="color:red">Note</span> `Good algorithm are better than supercomputers`
 
 ### Buttom-up version of Mergesort
 Basic plan  
