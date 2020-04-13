@@ -75,8 +75,8 @@ Algorithms all around us
 ### Data Analysis
 - Plot running time T(N) vs input size *N*.
 - Plot as log-log plot, often get a straight line. lg(T(N)) vs lg(N). Plot tells you the exponent of *N*.
-- Regression, power law: *a x N^b*
-- Once you have the power b from the slope of the log-log plot, solve for *a* in the equation *T(N) = a x N^b*
+- Regression, power law: *a x N<sup>b</sup>*
+- Once you have the power b from the slope of the log-log plot, solve for *a* in the equation *T(N) = a x N<sup>b</sup>*
 
 ### Doubling Hypothesis
 - Run program, doubling the size of the input and observe ratios. Observe to what it converges, do not take the average!
@@ -88,16 +88,15 @@ Algorithms all around us
 | 4000 | 6.4  |   8   |     3     |
 | ...  | ...  |  ...  |    ...    |
 
-- Hypothesis: Running time is about *a x N^b*, where *b = lg(Ratio)*
+- Hypothesis: Running time is about *a x N<sup>b</sup>*, where *b = lg(Ratio)*
 - Caveat: Cannot identify logarithmic factors with the doubling hypothesis.
-- Calculate *a* by solving *T(N) = a x N^b* for a with all other variables now known.
+- Calculate *a* by solving *T(N) = a x N<sup>b</sup>* for a with all other variables now known.
 
 ### Experimental algorithmics
-
 - System independent effects (determines constant *a* and exponent *b* in power law)
 
-	+ Algorithm.
-	+ Input data.
+	+ Algorithm
+	+ Input data
 
 - System dependent effects (contribute only to constant *a* in power law)
 
@@ -106,18 +105,18 @@ Algorithms all around us
 	+ System: OS, network, other applications
 
 ### Mathematical Models
-
 - Analyze individual operations to determine complexity
+
 - Simplification 1
 
   Count only the most expensive ones, i.e. those that take the most time or where time x frequency is highest.
 
 - Simplification 2
 
-  Ignore lower order terms, e.g. in 5xN^3 + 20N + 16, ignore the term with N
-  and the constant 16 (which is 16 x N^0) because they are less significant in
-  comparison with the highest order term. We use *tilde notation* to say that *5
-  x N^3 + 20 x N + 16 __~ 5 x N^3__*. Technical definition is that for *f(N) ~
+  Ignore lower order terms, e.g. in 5xN<sup>3</sup> + 20N + 16, ignore the term with N
+  and the constant 16 (which is 16 x N<sup>0</sup>) because they are less significant in
+  comparison with the highest order term. We use *tilde notation* `~` to say that *5
+  x N<sup>3</sup> + 20 x N + 16 __~ 5 x N<sup>3</sup>__*. Technical definition is that for *f(N) ~
   G(N)* when *N* goes towards infinity, the lower order terms become so
   insignificant that *f(N)/g(N) = 1*:
 
