@@ -113,7 +113,7 @@ Algorithms all around us
   insignificant that *f(N)/g(N) = 1*:
 
  ### Order-of-Growth Classifications
- - A great number of algorithms (most) are described by the following order of growth functions (note that it is quite a small set):
+ - A great number of algorithms (most) are described by the following order of growth functions
  	+ 1 (constant)
  	+ log N (logarithmic)
  	+ N (linear)
@@ -155,8 +155,10 @@ Applications based on this:
     + If you have N union commands over N objects will be O(N<sup>2</sup>) quadratic  
 
 - Note
-    + `We can not accept Quadratic in big problems`
-    + `Quardratic algorithms do not scale`
+```diff
++ We can not accept Quadratic in big problems
++ Quardratic algorithms do not scale
+```
 
 #### Rough standards (for now)
 - 10<sup>9</sup> operations per second
