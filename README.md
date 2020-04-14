@@ -189,15 +189,15 @@ Applications based on this:
 1. Weighted Quick union
 - Modify the Quick union to avoid tall trees
 - Balance by linking root of smaller tree to root of larger tree
-- Depth of any node x is at most `lgN`
+- Depth of any node x is at most `lg N`
 - Complexity
 
 	| Initialize  | Union | Find |
 	| ----------- | ----- |------|
-	| N           | lgN'  |lgN   |
+	| N           | lg N'  |lg N   |
 
 
-2. Quick union with path compression `N+ M lgN`  
+2. Quick union with path compression `N+ M lg N`  
 3. Weighted Quick union with path compression `N+ M lg*N`  
 
 - Note `WQUPC reduce time from 30 years to 6 seconds`
@@ -412,7 +412,7 @@ to allow sort any generic data types
     + Recursively sort each half  
     + Merge two havles
     
-- Complexity `NlgN`
+- Complexity `N lg N`
 
 `Algorithm`
 
@@ -458,7 +458,7 @@ to allow sort any generic data types
         | 2.8 hours | 317 years |
         | 1 second | 1 week |
 
-        Mergesort NlgN
+        Mergesort N lg N
         | Million | Billion |
         |---------|---------|
         |1 second | 18 min |
@@ -511,13 +511,13 @@ to allow sort any generic data types
 
 ## Sort complexity
 
-            |Inplace|Stable|Best|Average|Worst|
-            |-------|------|----|-------|-----|
-Selection   |Yes|No|l/2N<sup>2</sup>|l/2N<sup>2</sup>|l/2N<sup>2</sup>|
-Insertion   |Yes|Yes|N|l/4N<sup>2</sup>|l/2N<sup>2</sup>|
-Shell   |Yes|No|Nlog<sub>3</sub><sup>N</sup>|?|cN<sup>3/2</sup>|
-Merge   |No|Yes|½ NlgN|NlgN|NlgN|
-Time   |No|Yes|N|NlgN|NlgN|
+|Name|Inplace|Stable|Best|Average|Worst|
+|-----|-------|------|----|-------|-----|
+|Selection|Yes|No|l/2N<sup>2</sup>|l/2N<sup>2</sup>|l/2N<sup>2</sup>|
+|Insertion|Yes|Yes|N|l/4N<sup>2</sup>|l/2N<sup>2</sup>|
+|Shell|Yes|No|Nlog<sub>3</sub>N|?|cN<sup>3/2</sup>|
+|Merge|No|Yes|½ N lg N|N lg N|N lg N|
+|Time|No|Yes|N|N lg N|N lg N|
 
 
 
