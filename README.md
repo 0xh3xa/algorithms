@@ -507,10 +507,17 @@ to allow sort any generic data types
 	3. Sort
 
 
+-------------------------------------------------------------------------------------------------------------------------------
 
+## Sort complexity
 
-
-
+            |Inplace|Stable|Best|Average|Worst|
+            |-------|------|----|-------|-----|
+Selection   |Yes|No|l/2N<sup>2</sup>|l/2N<sup>2</sup>|l/2N<sup>2</sup>|
+Insertion   |Yes|Yes|N|l/4N<sup>2</sup>|l/2N<sup>2</sup>|
+Shell   |Yes|No|Nlog<sub>3</sub><sup>N</sup>|?|cN<sup>3/2</sup>|
+Merge   |No|Yes|½ NlgN|NlgN|NlgN|
+Time   |No|Yes|N|NlgN|NlgN|
 
 
 
