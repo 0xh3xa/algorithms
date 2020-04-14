@@ -226,7 +226,6 @@ A model for many physical systems
 ## Algorithms Design
 Good practice to make an abstraction between the outside world and internal implementation, In java we will use interface
 
---------------------------------------------------------------------------------------------------------------------------------
 ## Stack
 - `LIFO` (last in first out), useful in many applications
 - Operation: push, pop, size, isEmpty
@@ -264,30 +263,28 @@ if time is important and don't want to lose any input i.e. dealing with internet
 	+ Call Center phone systems
 -------------------------------------------------------------------------------------------------------------------------------
 ## Elementry sorts
-Rerrange array of N times into ascending/descending order based on a key
+- Rerrange array of N times into ascending/descending order based on a key
+	1. Selection sort
+	2. Insertion sort
+	3. Shell sort
+	4. Heap sort
+	5. Quick sort
 
-1. Selection sort
-2. Insertion sort
-3. Shell sort
-4. Heap sort
-5. Quick sort
-
-`Imp` In java there is `Comparable` and `Comparator` interfaces we will them any of them in the implementation of the sort algorithms  
+- `Imp` In java there is `Comparable` and `Comparator` interfaces we will them any of them in the implementation of the sort algorithms 
 to allow sort any generic data types  
-There are three return values: 1, 0, -1 and throw Exception if incompatable types or null
-V less than W (return -1)  
-V equal to W (return 0)  
-V greater than W (return1)  
+- There are three return values: 1, 0, -1 and throw Exception if incompatable types or null
+	+ V less than W (return -1)  
+	+ V equal to W (return 0)  
+	+ V greater than W (return 1)  
 
 #### Total order
-1. Antisymmetry: if v<=w and w<=v, then v=w
-2. Transitivity: if v<=w and w<=x, then v<=x
-3. Totality: either v<=w or w<=v or both
+1. `Antisymmetry`: if v<=w and w<=v, then v=w
+2. `Transitivity`: if v<=w and w<=x, then v<=x
+3. `Totality`: either v<=w or w<=v or both
 -------------------------------------------------------------------------------------------------------------------------------
 ### Selection sort
-Scan from left to right  
-Find the index of `min` of smallest remaning entry, then swap `a[i]` and `a[min]`  `-->`
-`Time Complexity O(N<sup>2</sup>)` and doesn't sensetive if the input is sorted  
+- Scan from left to right  
+- Find the index of `min` of smallest remaning entry, then swap `a[i]` and `a[min]`  `-->` `Time Complexity O(N<sup>2</sup>)` and doesn't sensetive if the input is sorted  
 
 `Algorithm`
 
@@ -308,9 +305,8 @@ Find the index of `min` of smallest remaning entry, then swap `a[i]` and `a[min]
 ```
 -------------------------------------------------------------------------------------------------------------------------------
 ### Insertion sort
-Scan from left to right  
-Swap `a[i]` with each larger enry to its left `<--`
-`Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`  
+- Scan from left to right  
+- Swap `a[i]` with each larger enry to its left `<--` `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`  
 
 `Algorithm`
 
@@ -329,8 +325,7 @@ Swap `a[i]` with each larger enry to its left `<--`
 ```
 -------------------------------------------------------------------------------------------------------------------------------
 ### Shell sort
-Move entries more than one position at a time by `h-sorting` the array  
-What's the `h value` Knuth says `3x+1`  
+- Move entries more than one position at a time by `h-sorting` the array  What's the `h value` Knuth says `3x+1`  
 
 `Algorithm`
 
@@ -352,12 +347,12 @@ What's the `h value` Knuth says `3x+1`
     }
 ```
 
-#### Why Shell sort uses insertion sort internally?  
-1. Fast unless array size is huge
-2. Tiny used in some embedded systems
-3. Hardware sort prototype
+- Why Shell sort uses insertion sort internally?  
+	1. Fast unless array size is huge
+	2. Tiny used in some embedded systems
+	3. Hardware sort prototype
 
-### Elmentary sort algorithms
+### Elmentary sort algorithms complexity
 
 | Algorithm | Best | Average | Worst |
 |-----------|------|---------|-------|
@@ -368,12 +363,13 @@ What's the `h value` Knuth says `3x+1`
 -------------------------------------------------------------------------------------------------------------------------------
 
 ## Shuffle sort  
-Generate a random real number for each array entry  
-Sort array  
+- Generate a random real number for each array entry  
+- Sort array  
 
 ### Knuth shuffle  
-Pick integer r between 0 and i uniformaly at random  
-Swap `a[i]` and `a[r]`  
+- Pick integer r between 0 and i uniformaly at random  
+- Swap `a[i]` and `a[r]`
+- Complexity: `O(n)`
 
 `Algorithm`
 
@@ -391,7 +387,7 @@ Swap `a[i]` and `a[r]`
 
 ### Applications in sorting
 1. Convex hull of a set of N points is the smallest perimeter fence enclosing the points  
-TODO // complete this part
+2. TODO // complete this part
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -402,6 +398,8 @@ TODO // complete this part
     + Divide array into two halves  
     + Recursively sort each half  
     + Merge two havles
+    
+- Complexity `NlgN`
 
 `Algorithm`
 
@@ -433,7 +431,6 @@ TODO // complete this part
 ```
 
 - First draft of a Report on the EDVAC by John von Neuman
-- Running time `NlgN`
 - Compare Running time between Insertionsort and Mergesort
     + Laptop executes 10<sup>8</sup> compares/second
     + Supercomputer executes 10<sup>12</sup> compares/second
@@ -451,13 +448,13 @@ TODO // complete this part
         |1 second | 18 min |
         |instant | instant |
 
-- <span style="color:red">Note</span> `Good algorithm are better than supercomputers`
+- Note:`Good algorithm are better than supercomputers`
 
 ### Buttom-up version of Mergesort
-Basic plan  
-1. Pass through array, merging subarrays of size 1
-2. Repeat for subarrays of size 2, 4, 8, 16, ...
-3. Slower than Recursive by 10%
+- Basic plan  
+	1. Pass through array, merging subarrays of size 1
+	2. Repeat for subarrays of size 2, 4, 8, 16, ...
+	3. Slower than Recursive by 10%
 
 `Algorithm`
 
@@ -474,10 +471,11 @@ Basic plan
 ## Sort Stability
 - Suppose you want to sort `BY_NAME` then `BY_SECTION`
 - Which sorts are stable?
-1. Insertionsort
-2. Mergesort
+	1. Insertionsort
+	2. Mergesort
 
-- Why Selectionsort and Shellsort not stable? because they keep pointer from past and can be equal to coming iteration
+- Why Selectionsort and Shellsort not stable?  
+	because they keep pointer from past and can be equal to coming iteration
 
 -------------------------------------------------------------------------------------------------------------------------------
 ## Quick sort
