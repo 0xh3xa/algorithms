@@ -23,7 +23,7 @@ public class MergeSortTest extends BaseTest {
         MergeSort.sort(arr, new Integer[N], 0, N - 1);
 
         // Assert
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i <N; i++) {
             collector.checkThat(arr[i], equalTo(i));
         }
     }

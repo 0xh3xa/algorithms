@@ -443,7 +443,10 @@ to allow sort any generic data types
         }
     }
 ```
-
+- Mergesort improment
+    + Stop if array is already sorted: !less(arr[mid+1], arr[mid])
+    + Cutoff to insertion sort = 7
+    + Eliminate-the-copy-to-the-auxiliary-array trick
 - First draft of a Report on the EDVAC by John von Neuman
 - Compare Running time between Insertionsort and Mergesort
     + Laptop executes 10<sup>8</sup> compares/second
