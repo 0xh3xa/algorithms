@@ -578,6 +578,7 @@ to allow sort any generic data types
 
 - Implementation: you can make multiple implementation using unordered and ordered array, and Binary heap
 - Complexity
+
 |Implementation|Insert|Del max|Max|
 |--------------|------|-------|---|
 |unordered array|1|N|N|
