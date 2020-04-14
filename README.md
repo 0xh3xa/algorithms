@@ -1,5 +1,5 @@
 # Algorithms :heart: :smile:
-![Algorithms][alg-img] ![Open Source Love][Open-Source-img]
+![Algorithms][alg-img] ![Datastructure][datastructure-img] ![Open Source Love][Open-Source-img]
 
 Algorithms and data structures implementations from the `Algorithms 4th edition` :book: :atom:
 
@@ -28,6 +28,7 @@ Algorithms and data structures implementations from the `Algorithms 4th edition`
 
 ## Why Algorithms is so important?
 Algorithms all around us  
+
 1. Internet: Web search, packet routing, distribute file sharing, ...  
 2. Biology: Human genome project, protein folding, ...  
 3. Computers: Circuit layout, file system, compilers, ...  
@@ -110,7 +111,7 @@ Algorithms all around us
   comparison with the highest order term. We use *tilde notation* `~` to say that *5
   x N<sup>3</sup> + 20 x N + 16 __~ 5 x N<sup>3</sup>__*. Technical definition is that for *f(N) ~
   G(N)* when *N* goes towards infinity, the lower order terms become so
-  insignificant that *f(N)/g(N) = 1*:
+  insignificant that *f(N)/g(N) = 1*
 
  ### Order-of-Growth Classifications
  - A great number of algorithms (most) are described by the following order of growth functions
@@ -122,10 +123,12 @@ Algorithms all around us
  	+ N<sup>3</sup> (cubic)
  	+ 2<sup>N</sup> (exponential)
 	
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Comparison_computational_complexity.svg/800px-Comparison_computational_complexity.svg.png" alt="graph_order_growth" width="400"/>
+<p align="center">	
+	<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Comparison_computational_complexity.svg/800px-Comparison_computational_complexity.svg.png" alt="graph_order_growth" width="400"/>
+</p>
 
 - We say the algorithm "is proportional to" e.g. constant time
-
+-------------------------------------------------------------------------------------------------------------------------------
 ## Properties
 1. Reflexive: p is connected to q  
 2. Symmetric: if p is connected to q, then q is connected to p  
@@ -145,10 +148,11 @@ Applications based on this:
 - Data structure
 + Integer array `id[]` of size N
 + Interpretation: p and q are conncted (iff) if and only if they have the same id
++ Complexity
 
-| Initialize  | Union | Find |
-| ----------- | ----- |------|
-| N           | N     |1     |
+	| Initialize  | Union | Find |
+	| ----------- | ----- |------|
+	| N           | N     |1     |
 
 - Defect
     + Find too expensive (Could be N array accesses)  
@@ -171,31 +175,32 @@ Applications based on this:
 - 30+ years of computer time!
 
 ### Quick Union
-Set the first element based on the root of the second element
-| Initialize  | Union | Find |
-| ----------- | ----- |------|
-| N           | N'    |1     |
+- Set the first element based on the root of the second element
+- Complexity
+	| Initialize  | Union | Find |
+	| ----------- | ----- |------|
+	| N           | N'    |1     |
 
 - Defect
     + Tree can get tall
     + Find too expensive (Could be N array accesses)
 
 ### Quick Union improvment
-
 1. Weighted Quick union
-
 - Modify the Quick union to avoid tall trees
 - Balance by linking root of smaller tree to root of larger tree
 - Depth of any node x is at most `lgN`
+- Complexity
 
-| Initialize  | Union | Find |
-| ----------- | ----- |------|
-| N           | lgN'  |lgN   |
+	| Initialize  | Union | Find |
+	| ----------- | ----- |------|
+	| N           | lgN'  |lgN   |
 
 
 2. Quick union with path compression `N+ M lgN`  
 3. Weighted Quick union with path compression `N+ M lg*N`  
-`WQUPC reduce time from 30 years to 6 seconds`
+
+- Note `WQUPC reduce time from 30 years to 6 seconds`
 
 ### Union find Applications
 1. Percolation
@@ -209,7 +214,7 @@ A model for many physical systems
 - N-by-N grid of sites
 - Each site is open probability p (or blocked with probability 1-p)
 - System percolatres iff top and bottom are connected by open sites
-- Application in real life
+- Applications in real life
 
 | Model | System | Vacant site | Occupied site | Percolates |
 | -------| -------|-------------|-------------|----------|
@@ -217,9 +222,11 @@ A model for many physical systems
 | fluid flow | material| empty | blocked | porous |
 | social interaction | population | person | empty | communicates |
 
+-------------------------------------------------------------------------------------------------------------------------------
 ## Algorithms Design
 Good practice to make an abstraction between the outside world and internal implementation, In java we will use interface
 
+--------------------------------------------------------------------------------------------------------------------------------
 ## Stack
 - `LIFO` (last in first out), useful in many applications
 - Operation: push, pop, size, isEmpty
@@ -236,19 +243,26 @@ if time is important and don't want to lose any input i.e. dealing with internet
     + Resize When reach 100% full the array resize(arr.length*2)
     + Shrink when reach one quarter full to the half resize(arr.length/2)
 
-### Application
-1. Parsing in a compiler
-2. Java virtual machine
-3. Undo in word processor
-4. Back button in a web browser
-5. Implementation function calls in a compiler
-6. Arithmetic expression evaluation
-7. Reverse objects
-
+- Stack's applications
+	+ Parsing in a compiler
+	+ Java virtual machine
+	+ Undo in word processor
+	+ Back button in a web browser
+	+ Implementation function calls in a compiler
+	+ Arithmetic expression evaluation
+	+ Reverse objects
+-------------------------------------------------------------------------------------------------------------------------------
 ## Queue
 - `FIFO` (first in first out), useful in many applications  
 - Operation: enqueue, dnqueue, size, isEmpty
-
+- There are two implementation of stack using `Linkedlist` and `Array`
+- Queue's applications
+	+ Cpu scheduling
+	+ Disk scheduling
+	+ Data transfer asynchronously between two processes.Queue is used for synchronization.
+	+ Breadth First search in a Graph
+	+ Call Center phone systems
+-------------------------------------------------------------------------------------------------------------------------------
 ## Elementry sorts
 Rerrange array of N times into ascending/descending order based on a key
 
@@ -269,7 +283,7 @@ V greater than W (return1)
 1. Antisymmetry: if v<=w and w<=v, then v=w
 2. Transitivity: if v<=w and w<=x, then v<=x
 3. Totality: either v<=w or w<=v or both
-
+-------------------------------------------------------------------------------------------------------------------------------
 ### Selection sort
 Scan from left to right  
 Find the index of `min` of smallest remaning entry, then swap `a[i]` and `a[min]`  `-->`
@@ -292,7 +306,7 @@ Find the index of `min` of smallest remaning entry, then swap `a[i]` and `a[min]
         }
     }
 ```
-
+-------------------------------------------------------------------------------------------------------------------------------
 ### Insertion sort
 Scan from left to right  
 Swap `a[i]` with each larger enry to its left `<--`
@@ -313,7 +327,7 @@ Swap `a[i]` with each larger enry to its left `<--`
         }
     }
 ```
-
+-------------------------------------------------------------------------------------------------------------------------------
 ### Shell sort
 Move entries more than one position at a time by `h-sorting` the array  
 What's the `h value` Knuth says `3x+1`  
@@ -351,6 +365,8 @@ What's the `h value` Knuth says `3x+1`
 | Insertionsort| N | N<sup>2</sup> | N<sup>2</sup> |
 | Shellsort `3x+1`| NlogN | ? | N<sup>3/2</sup> |
 
+-------------------------------------------------------------------------------------------------------------------------------
+
 ## Shuffle sort  
 Generate a random real number for each array entry  
 Sort array  
@@ -376,6 +392,8 @@ Swap `a[i]` and `a[r]`
 ### Applications in sorting
 1. Convex hull of a set of N points is the smallest perimeter fence enclosing the points  
 TODO // complete this part
+
+-------------------------------------------------------------------------------------------------------------------------------
 
 ## Merge sort
 - This sort based on the technique of `divide-and-conquer`
@@ -452,7 +470,7 @@ Basic plan
                 merge(arr, aux, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, N - 1));
     }
 ```
-
+-------------------------------------------------------------------------------------------------------------------------------
 ## Sort Stability
 - Suppose you want to sort `BY_NAME` then `BY_SECTION`
 - Which sorts are stable?
@@ -461,6 +479,7 @@ Basic plan
 
 - Why Selectionsort and Shellsort not stable? because they keep pointer from past and can be equal to coming iteration
 
+-------------------------------------------------------------------------------------------------------------------------------
 ## Quick sort
 - One of the most important algorithm in 20<sup>th</sup> century
 - Java sort for primitive types
@@ -571,4 +590,5 @@ Basic plan
 
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
-[alg-img]: https://img.shields.io/static/v1?label=Data_Structure&message=Algorithms&color=blue&style=flat
+[alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
+[datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
