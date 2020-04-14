@@ -235,7 +235,7 @@ In java we will use interface
 - `LIFO` (last in first out), useful in many applications
 - Operation: push, pop, size, isEmpty
 - There are two implementation of stack using `Linkedlist` and `Array`
-
+- Stack removes the item most recently added
 - What are the Differences between LinkedList and Array implementation?
     + Linkedlist: Use extra space for dealing with links
     + Array: resize/shrink the array takes some time
@@ -247,7 +247,7 @@ if time is important and don't want to lose any input i.e. dealing with internet
     + Resize When reach 100% full the array resize(arr.length*2)
     + Shrink when reach one quarter full to the half resize(arr.length/2)
 
-- Stack's applications
+- Stack applications
 	+ Parsing in a compiler
 	+ Java virtual machine
 	+ Undo in word processor
@@ -261,8 +261,9 @@ if time is important and don't want to lose any input i.e. dealing with internet
 ## Queue
 - `FIFO` (first in first out), useful in many applications  
 - Operation: enqueue, dequeue, size, isEmpty
+- Queue removes the item lest recently
 - There are two implementation of stack using `Linkedlist` and `Array`
-- Queue's applications
+- Queue applications
 	+ Cpu scheduling
 	+ Disk scheduling
 	+ Data transfer asynchronously between two processes.Queue is used for synchronization.
@@ -503,39 +504,103 @@ to allow sort any generic data types
 - In place algorithm
 - Not stable
 - Worst case in quicksort will not gonna happen
+- Problems in quick sort
 
 -------------------------------------------------------------------------------------------------------------------------------
 
 ## Sort complexity
 
-|Name|Inplace|Stable|Best|Average|Worst|
+|Name|Inplace|Stable|Best|Average|Worst|Remarks|
 |-----|-------|------|----|-------|-----|
-|Selectionsort|Yes|No|l/2N<sup>2</sup>|l/2N<sup>2</sup>|l/2N<sup>2</sup>|
-|Insertionsort|Yes|Yes|N|l/4N<sup>2</sup>|l/2N<sup>2</sup>|
-|Shellsort|Yes|No|N log<sub>3</sub>N|?|cN<sup>3/2</sup>|
-|Mergesort|No|Yes|½ N lg N|N lg N|N lg N|
-|Timesort|No|Yes|N|N lg N|N lg N|
-|Quicksort|Yes|No|N|N lg N|½ N<sup>2</sup>|
+|Selectionsort|Yes|No|l/2N<sup>2</sup>|l/2N<sup>2</sup>|l/2N<sup>2</sup>|N exchanges|
+|Insertionsort|Yes|Yes|N|l/4N<sup>2</sup>|l/2N<sup>2</sup>|use for small N or partially ordered|
+|Shellsort|Yes|No|N log<sub>3</sub>N|?|cN<sup>3/2</sup>|tight code, sub-quadratic|
+|Mergesort|No|Yes|½ N lg N|N lg N|N lg N|N lg N guarantee, stable|
+|Quicksort|Yes|No|N|N lg N|½ N<sup>2</sup>|N lg N probabilistic guarantee fastest in practice|
+|3-ways Quicksort|Yes|No|N<sup>2</sup>/2|2 N ln N|½ N<sup>2</sup>|improves quicksort in presence of duplicate keys|
+|Timesort|No|Yes|N|N lg N|N lg N|-|
 
+-------------------------------------------------------------------------------------------------------------------------------
 
+## Sort applications
+1. Sort a list of names
+2. Organize an MP3 library
+3. Display Google PageRank results
+4. List Rss feed in reverse chronological order
 
+, Problems became easy once items are in sorted order 
+1. Find the median
+2. Binary search in a database
+3. Identify statistical outliers
+4. Find duplicates in a mailing list
 
+, Non-obvious applications
+1. Data compression
+2. Computer graphics
+3. Computational biology
+4. Load balancing on a parallel computers
 
+-------------------------------------------------------------------------------------------------------------------------------
 
+## System sorts
+- Java uses:
+1. Tuned quicksort for primitive types
+2. Mergesort for objects
 
+- Which algorithm to use?
+    + Applications have diverse attributes
+    + Stable?
+    + Parallel?
+    + Deterministic?
+    + Key all distinct?
+    + Multiple key types?
+    + Linked list or arrays?
+    + Large or small items?
+    + Is your array randomly ordered?
+    + Need guaranteed performance?
 
+-------------------------------------------------------------------------------------------------------------------------------
 
+## Priority Queues
+- Remove the largest or smallest item
+- Operation: insert, delMax, isEmpty, max, size
+- Applications
+    1. Event-driven simulation: [customers in a line, colliding particles]
+    2. Numerical computation: [reducing roundoff error]
+    3. Data compression: [Huffman codes]
+    4. Graph searching: [Dijkstra's algorithm, Prim's algorithms]
+    5. Number theory: [sum of powers]
+    6. Artificial intelligence: [A* search]
+    7. Statistics: [maintain largest M values in a sequence]
+    8. Operating systems: [load balancing, interrupt handling]
+    9. Discrete optimization: [bin packing, scheduling]
+    10. Spam filtering: [Bayesian spam filters]
 
+- Implementation: you can make multiple implementation using unordered and ordered array, and Binary heap
+- Complexity
+|Implementation|Insert|Del max|Max|
+|--------------|------|-------|---|
+|unordered array|1|N|N|
+|ordered array|N|1|1|
+|goal|lgN|lgN|lgN|
 
+### Binary heap
+- Binary tree
+- Complete tree, perfectly balanced, except for bottom level
+- Height of complete tree with N nodes is `lgN`, why?
+    Height only increase when N is a power of 2
+- A complete binary tree in nature
+<p align="center">	
+	<img src="https://i.pinimg.com/originals/98/f8/73/98f873ccf1dc936a19f1ef9defd62cab.jpg" alt="graph_order_growth" width="400"/>
+</p>
 
+- Heap ordered binary tree
+    + Keys in nodes
+    + Parent's key no smaller than children's keys
 
-
-
-
-
-
-
-
+- Array representation:
+    + Parent of node at k is at k/2
+    + Children of node at k are at `2k` and right `2k+1`
 
 
 
