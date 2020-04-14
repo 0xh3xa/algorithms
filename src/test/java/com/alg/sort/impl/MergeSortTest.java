@@ -11,6 +11,24 @@ import org.junit.Test;
 public class MergeSortTest extends BaseTest {
 
     @Test
+    public void shouldSortBigIntegerArray() {
+        // Arrange
+        Integer[] arr = { 32 };
+        int N = arr.length;
+        for (int i = N - 1; i >= 0; i--) {
+            arr[i] = i;
+        }
+
+        // Act
+        MergeSort.sort(arr, new Integer[N], 0, N - 1);
+
+        // Assert
+        for (int i = 0; i < N; i++) {
+            collector.checkThat(arr[i], equalTo(i));
+        }
+    }
+
+    @Test
     public void shouldSortIntegerArray() {
         // Arrange
         Integer[] arr = { 1, 8, -1, 83, -10, 7, 19, 768, 621, 6, -39, 1000, -50 };
