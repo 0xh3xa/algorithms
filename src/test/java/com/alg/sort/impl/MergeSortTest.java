@@ -23,7 +23,7 @@ public class MergeSortTest extends BaseTest {
         MergeSort.sort(arr, new Integer[N], 0, N - 1);
 
         // Assert
-        for (int i = 0; i <N; i++) {
+        for (int i = 0; i < N; i++) {
             collector.checkThat(arr[i], equalTo(i));
         }
     }
@@ -123,12 +123,12 @@ public class MergeSortTest extends BaseTest {
     }
 
     @Test
-    public void shouldSortButtomUpIntegerArray() {
+    public void shouldSortBottomUpIntegerArray() {
         // Arrange
         Integer[] arr = { 1, 8, -1, 83, -10, 7, 19, 768, 621, 6, -39, 1000, -50 };
 
         // Act
-        MergeSort.sortButtomUp(arr);
+        MergeSort.sortBottomUp(arr);
 
         // Assert
         collector.checkThat(arr[0], equalTo(-50));
@@ -147,12 +147,12 @@ public class MergeSortTest extends BaseTest {
     }
 
     @Test
-    public void shouldSortButtomUpCharacterArray() {
+    public void shouldSortBottomUpCharacterArray() {
         // Arrange
         Character[] arr = { 'a', 'z', 't', 'i', 'w', 'h' };
 
         // Act
-        MergeSort.sortButtomUp(arr);
+        MergeSort.sortBottomUp(arr);
 
         // Assert
         collector.checkThat(arr[0], equalTo('a'));
@@ -164,12 +164,12 @@ public class MergeSortTest extends BaseTest {
     }
 
     @Test
-    public void shouldSortButtomUpStringArray() {
+    public void shouldSortBottomUpStringArray() {
         // Arrange
         String[] arr = { "hhh", "aaa", "ddd", "bbb", "ccc" };
 
         // Act
-        MergeSort.sortButtomUp(arr);
+        MergeSort.sortBottomUp(arr);
 
         // Assert
         collector.checkThat(arr[0], equalTo("aaa"));

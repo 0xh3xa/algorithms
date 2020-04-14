@@ -23,7 +23,7 @@ Algorithms and data structures implementations from the `Algorithms 4th edition`
 `Part II`  
 
 4. Graphs: BFS, DFS, Prime, Kruskal, Dijkstra  
-5. Strings: KMP, regular expresssion, TST, Huffman, LZW  
+5. Strings: KMP, regular expression, TST, Huffman, LZW  
 6. Advanced: B-tee, suffix array, maxflow  
 
 ## Why Algorithms is so important?
@@ -35,7 +35,7 @@ Algorithms all around us
 4. Computer graphics: Movies, Video games, virtual reality, ...  
 5. Security: Cell phones, e-commerce, voting machines, ...  
 6. Multimedia: MP3, JPG, Divx, HDTV, face recognition, ...  
-7. Social networks: Recommendations, news feeds, advertisments, ...  
+7. Social networks: Recommendations, news feeds, advertisements, ...  
 8. Physics: N-body simulation, particle collision simulation, ...  
 
 ## Steps for solving the problem
@@ -49,7 +49,7 @@ Algorithms all around us
 ## Algorithm Analyze
 
 ### Reasons to Analyze Algorithms
-- Predict performanc.
+- Predict performance
 - Compare algorithms
 - Provide guarantees
 - Understand theoretical basis
@@ -66,7 +66,7 @@ Algorithms all around us
 - Hypotheses must be falsifiable.
 
 ### Empirical Analysis
-- Manual measurement (benchmarking) with a stopwatch or programmatic timeing method.
+- Manual measurement (benchmarking) with a stopwatch or programmatic timing method.
 - Measure running time for different input sizes *N* (e.g. doubling time) and observe the relationship between the running times.
 
 ### Data Analysis
@@ -89,14 +89,14 @@ Algorithms all around us
 - Caveat: Cannot identify logarithmic factors with the doubling hypothesis.
 - Calculate *a* by solving *T(N) = a x N<sup>b</sup>* for a with all other variables now known.
 
-### Experimental algorithmics
+### Experimental algorithmic
 - System independent effects (determines constant *a* and exponent *b* in power law)
 	+ Algorithm
 	+ Input data
 
 - System dependent effects (contribute only to constant *a* in power law)
 	+ Hardware: CPU, memory, cache
-	+ Software compiler, intepreter, garbage collector
+	+ Software compiler, interpreter, garbage collector
 	+ System: OS, network, other applications
 
 ### Mathematical Models
@@ -118,10 +118,12 @@ Algorithms all around us
  	+ 1 (constant)
  	+ log N (logarithmic)
  	+ N (linear)
- 	+ NlogN (linearithmic)
+ 	+ N log N (linearithmic)
  	+ N<sup>2</sup> (quadratic)
  	+ N<sup>3</sup> (cubic)
  	+ 2<sup>N</sup> (exponential)
+
+- Note: lgN means log<sub>2</sub>N
 	
 <p align="center">	
 	<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Comparison_computational_complexity.svg/800px-Comparison_computational_complexity.svg.png" alt="graph_order_growth" width="400"/>
@@ -147,7 +149,7 @@ Applications based on this:
 ### Quick find (Eager approach)
 - Data structure
 + Integer array `id[]` of size N
-+ Interpretation: p and q are conncted (iff) if and only if they have the same id
++ Interpretation: p and q are connected (iff) if and only if they have the same id
 + Complexity
 
 	| Initialize  | Union | Find |
@@ -161,7 +163,7 @@ Applications based on this:
 - Note
 ```diff
 + We can not accept Quadratic in big problems
-+ Quardratic algorithms do not scale
++ Quadratic algorithms do not scale
 ```
 
 #### Rough standards (for now)
@@ -185,7 +187,7 @@ Applications based on this:
     + Tree can get tall
     + Find too expensive (Could be N array accesses)
 
-### Quick Union improvment
+### Quick Union improvement
 1. Weighted Quick union
 - Modify the Quick union to avoid tall trees
 - Balance by linking root of smaller tree to root of larger tree
@@ -207,13 +209,13 @@ Applications based on this:
 2. Games (Go, Hex)
 3. Dynamic connectivity
 4. Last common ancestor
-5. Hoshen-kopelman algorithm in pyhsics
+5. Hoshen-kopelman algorithm in physics
 
 ### Percolation
 A model for many physical systems
 - N-by-N grid of sites
 - Each site is open probability p (or blocked with probability 1-p)
-- System percolatres iff top and bottom are connected by open sites
+- System percolates iff top and bottom are connected by open sites
 - Applications in real life
 
 | Model | System | Vacant site | Occupied site | Percolates |
@@ -258,7 +260,7 @@ if time is important and don't want to lose any input i.e. dealing with internet
 
 ## Queue
 - `FIFO` (first in first out), useful in many applications  
-- Operation: enqueue, dnqueue, size, isEmpty
+- Operation: enqueue, dequeue, size, isEmpty
 - There are two implementation of stack using `Linkedlist` and `Array`
 - Queue's applications
 	+ Cpu scheduling
@@ -269,8 +271,8 @@ if time is important and don't want to lose any input i.e. dealing with internet
 	
 -------------------------------------------------------------------------------------------------------------------------------
 
-## Elementry sorts
-- Rerrange array of N times into ascending/descending order based on a key
+## Elementary sorts
+- Rearrange array of N times into ascending/descending order based on a key
 	1. Selection sort
 	2. Insertion sort
 	3. Shell sort
@@ -279,13 +281,13 @@ if time is important and don't want to lose any input i.e. dealing with internet
 
 - Implementation in java there are `Comparable` and `Comparator` interfaces we will them any of them in the implementation of the sort algorithms 
 to allow sort any generic data types  
-- There are three return values: 1, 0, -1 and throw Exception if incompatable types or null
+- There are three return values: 1, 0, -1 and throw Exception if incompatible types or null
 	+ V less than W (return -1)  
 	+ V equal to W (return 0)  
 	+ V greater than W (return 1)  
 
 - Total order
-	1. `Antisymmetry`: if v<=w and w<=v, then v=w
+	1. `Antisymmetric`: if v<=w and w<=v, then v=w
 	2. `Transitivity`: if v<=w and w<=x, then v<=x
 	3. `Totality`: either v<=w or w<=v or both
 
@@ -293,7 +295,7 @@ to allow sort any generic data types
 
 ### Selection sort
 - Scan from left to right  
-- Find the index of `min` of smallest remaning entry, then swap `a[i]` and `a[min]`  `-->` `Time Complexity O(N<sup>2</sup>)` and doesn't sensetive if the input is sorted  
+- Find the index of `min` of smallest remaining entry, then swap `a[i]` and `a[min]`  `-->` `Time Complexity O(N<sup>2</sup>)` and doesn't sensitive if the input is sorted  
 
 `Algorithm`
 
@@ -317,7 +319,7 @@ to allow sort any generic data types
 
 ### Insertion sort
 - Scan from left to right  
-- Swap `a[i]` with each larger enry to its left `<--` `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`  
+- Swap `a[i]` with each larger entry to its left `<--` `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`  
 - Fast when the array is partially sorted `O(N)`
 - Array called partially sorted when number of elements to be changed less than or equal cN
 
@@ -337,6 +339,7 @@ to allow sort any generic data types
 
 ### Shell sort
 - Move entries more than one position at a time by `h-sorting` the array  What's the `h value` Knuth says `3x+1`  
+- Complexity N<sup>3/2</sup>
 
 `Algorithm`
 
@@ -365,22 +368,12 @@ to allow sort any generic data types
 
 -------------------------------------------------------------------------------------------------------------------------------
 
-### Elmentary sort algorithms complexity
-
-| Algorithm | Best | Average | Worst |
-|-----------|------|---------|-------|
-| Selectionsort| N<sup>2</sup> | N<sup>2</sup> | N<sup>2</sup> |
-| Insertionsort| N | N<sup>2</sup> | N<sup>2</sup> |
-| Shellsort `3x+1`| NlogN | ? | N<sup>3/2</sup> |
-
--------------------------------------------------------------------------------------------------------------------------------
-
 ## Shuffle sort  
 - Generate a random real number for each array entry  
 - Sort array  
 
 ### Knuth shuffle  
-- Pick integer r between 0 and i uniformaly at random  
+- Pick integer r between 0 and i uniformly at random  
 - Swap `a[i]` and `a[r]`
 - Complexity: `O(n)`
 
@@ -410,7 +403,7 @@ to allow sort any generic data types
 - Steps:  
     + Divide array into two halves  
     + Recursively sort each half  
-    + Merge two havles
+    + Merge two halves
     
 - Complexity `N lg N`
 
@@ -442,7 +435,7 @@ to allow sort any generic data types
         }
     }
 ```
-- Mergesort improment
+- Mergesort improvement
     + Stop if array is already sorted: !less(arr[mid+1], arr[mid])
     + Cutoff to insertion sort = 7
     + Eliminate-the-copy-to-the-auxiliary-array trick
@@ -466,7 +459,7 @@ to allow sort any generic data types
 
 - Note:`Good algorithm are better than supercomputers`
 
-### Buttom-up version of Mergesort
+### Bottom-up version of Mergesort
 - Basic plan  
 	1. Pass through array, merging subarrays of size 1
 	2. Repeat for subarrays of size 2, 4, 8, 16, ...
@@ -475,7 +468,7 @@ to allow sort any generic data types
 `Algorithm`
 
 ```java
-    public static <Item extends Comparable<Item>> void sortButtomUp(Item[] arr) {
+    public static <Item extends Comparable<Item>> void sortBottomUp(Item[] arr) {
         int N = arr.length;
         Item[] aux = (Item[]) new Comparable[N];
         for (int sz = 1; sz < N; sz = sz + sz)
@@ -505,7 +498,11 @@ to allow sort any generic data types
 	1. Shuffle the array
 	2. Partition
 	3. Sort
-
+- Complexity `N lg N`
+- Faster than Mergesort
+- In place algorithm
+- Not stable
+- Worst case in quicksort will not gonna happen
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -513,12 +510,12 @@ to allow sort any generic data types
 
 |Name|Inplace|Stable|Best|Average|Worst|
 |-----|-------|------|----|-------|-----|
-|Selection|Yes|No|l/2N<sup>2</sup>|l/2N<sup>2</sup>|l/2N<sup>2</sup>|
-|Insertion|Yes|Yes|N|l/4N<sup>2</sup>|l/2N<sup>2</sup>|
-|Shell|Yes|No|Nlog<sub>3</sub>N|?|cN<sup>3/2</sup>|
-|Merge|No|Yes|½ N lg N|N lg N|N lg N|
-|Time|No|Yes|N|N lg N|N lg N|
-
+|Selectionsort|Yes|No|l/2N<sup>2</sup>|l/2N<sup>2</sup>|l/2N<sup>2</sup>|
+|Insertionsort|Yes|Yes|N|l/4N<sup>2</sup>|l/2N<sup>2</sup>|
+|Shellsort|Yes|No|N log<sub>3</sub>N|?|cN<sup>3/2</sup>|
+|Mergesort|No|Yes|½ N lg N|N lg N|N lg N|
+|Timesort|No|Yes|N|N lg N|N lg N|
+|Quicksort|Yes|No|N|N lg N|½ N<sup>2</sup>|
 
 
 

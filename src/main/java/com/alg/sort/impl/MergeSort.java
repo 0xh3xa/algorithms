@@ -4,20 +4,21 @@ import java.util.Comparator;
 
 public class MergeSort {
 
-    private static final int CUTOFF = 12;
+    private static final int CUTOFF = 7;
 
     private MergeSort() throws IllegalAccessException {
         throw new IllegalAccessException("can not create an object from the class");
     }
 
     /**
-     * Merge sort recurisive version
+     * Merge sort recursive version
      */
     public static <Item extends Comparable<Item>> void sort(Item[] arr, Item[] aux, int lo, int hi) {
         if (hi <= lo)
             return;
-        if (hi <= lo + CUTOFF - 1) {
+        if (hi <= lo + CUTOFF) {
             InsertionSort.sort(arr, lo, hi);
+            return;
         }
         int mid = lo + (hi - lo) / 2;
         sort(arr, aux, lo, mid);
@@ -28,9 +29,9 @@ public class MergeSort {
     }
 
     /**
-     * Mergesort Buttom up version
+     * Mergesort Bottom up version
      */
-    public static <Item extends Comparable<Item>> void sortButtomUp(Item[] arr) {
+    public static <Item extends Comparable<Item>> void sortBottomUp(Item[] arr) {
         int N = arr.length, hi;
         Item[] aux = (Item[]) new Comparable[N];
         for (int sz = 1; sz < N; sz = sz + sz)
@@ -51,6 +52,7 @@ public class MergeSort {
             return;
         if (hi <= lo + CUTOFF - 1) {
             InsertionSort.sort(arr, lo, hi, comparator);
+            return;
         }
         int mid = lo + (hi - lo) / 2;
         sort(arr, aux, lo, mid, comparator);
@@ -78,7 +80,7 @@ public class MergeSort {
     }
 
     /**
-     * Merge method for buttom up version
+     * Merge method for bottom up version
      */
     private static <Item extends Comparable<Item>> void mergeCopyAux(Item[] arr, Item[] aux, int lo, int mid, int hi) {
         int i = lo, j = mid + 1;
