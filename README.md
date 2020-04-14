@@ -223,8 +223,11 @@ A model for many physical systems
 | social interaction | population | person | empty | communicates |
 
 -------------------------------------------------------------------------------------------------------------------------------
-## Algorithms Design
-Good practice to make an abstraction between the outside world and internal implementation, In java we will use interface
+
+## Data structure Design
+Good practice to make an abstraction between the outside world and internal implementation  
+In java we will use interface
+
 
 ## Stack
 - `LIFO` (last in first out), useful in many applications
@@ -250,7 +253,9 @@ if time is important and don't want to lose any input i.e. dealing with internet
 	+ Implementation function calls in a compiler
 	+ Arithmetic expression evaluation
 	+ Reverse objects
+	
 -------------------------------------------------------------------------------------------------------------------------------
+
 ## Queue
 - `FIFO` (first in first out), useful in many applications  
 - Operation: enqueue, dnqueue, size, isEmpty
@@ -261,7 +266,9 @@ if time is important and don't want to lose any input i.e. dealing with internet
 	+ Data transfer asynchronously between two processes.Queue is used for synchronization.
 	+ Breadth First search in a Graph
 	+ Call Center phone systems
+	
 -------------------------------------------------------------------------------------------------------------------------------
+
 ## Elementry sorts
 - Rerrange array of N times into ascending/descending order based on a key
 	1. Selection sort
@@ -270,18 +277,20 @@ if time is important and don't want to lose any input i.e. dealing with internet
 	4. Heap sort
 	5. Quick sort
 
-- `Imp` In java there is `Comparable` and `Comparator` interfaces we will them any of them in the implementation of the sort algorithms 
+- Implementation in java there are `Comparable` and `Comparator` interfaces we will them any of them in the implementation of the sort algorithms 
 to allow sort any generic data types  
 - There are three return values: 1, 0, -1 and throw Exception if incompatable types or null
 	+ V less than W (return -1)  
 	+ V equal to W (return 0)  
 	+ V greater than W (return 1)  
 
-#### Total order
-1. `Antisymmetry`: if v<=w and w<=v, then v=w
-2. `Transitivity`: if v<=w and w<=x, then v<=x
-3. `Totality`: either v<=w or w<=v or both
+- Total order
+	1. `Antisymmetry`: if v<=w and w<=v, then v=w
+	2. `Transitivity`: if v<=w and w<=x, then v<=x
+	3. `Totality`: either v<=w or w<=v or both
+
 -------------------------------------------------------------------------------------------------------------------------------
+
 ### Selection sort
 - Scan from left to right  
 - Find the index of `min` of smallest remaning entry, then swap `a[i]` and `a[min]`  `-->` `Time Complexity O(N<sup>2</sup>)` and doesn't sensetive if the input is sorted  
@@ -303,7 +312,9 @@ to allow sort any generic data types
         }
     }
 ```
+
 -------------------------------------------------------------------------------------------------------------------------------
+
 ### Insertion sort
 - Scan from left to right  
 - Swap `a[i]` with each larger enry to its left `<--` `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`  
@@ -324,6 +335,7 @@ to allow sort any generic data types
     }
 ```
 -------------------------------------------------------------------------------------------------------------------------------
+
 ### Shell sort
 - Move entries more than one position at a time by `h-sorting` the array  What's the `h value` Knuth says `3x+1`  
 
@@ -351,6 +363,8 @@ to allow sort any generic data types
 	1. Fast unless array size is huge
 	2. Tiny used in some embedded systems
 	3. Hardware sort prototype
+
+-------------------------------------------------------------------------------------------------------------------------------
 
 ### Elmentary sort algorithms complexity
 
@@ -468,6 +482,7 @@ to allow sort any generic data types
     }
 ```
 -------------------------------------------------------------------------------------------------------------------------------
+
 ## Sort Stability
 - Suppose you want to sort `BY_NAME` then `BY_SECTION`
 - Which sorts are stable?
@@ -478,13 +493,14 @@ to allow sort any generic data types
 	because they keep pointer from past and can be equal to coming iteration
 
 -------------------------------------------------------------------------------------------------------------------------------
+
 ## Quick sort
 - One of the most important algorithm in 20<sup>th</sup> century
 - Java sort for primitive types
 - Basic plan
-1. Shuffle the array
-2. Partition
-3. Sort
+	1. Shuffle the array
+	2. Partition
+	3. Sort
 
 
 
