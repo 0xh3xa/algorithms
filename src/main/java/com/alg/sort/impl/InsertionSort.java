@@ -11,11 +11,8 @@ public class InsertionSort {
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
         int N = arr.length;
         for (int i = 1; i < N; i++) {
-            for (int j = i; j > 0; j--) {
-                if (less(arr[j], arr[j - 1])) {
-                    swap(arr, j, j - 1);
-                } else
-                    break;
+            for (int j = i; j > 0 && less(arr[j], arr[j - 1]); j--) {
+                swap(arr, j, j - 1);
             }
         }
     }
@@ -23,33 +20,24 @@ public class InsertionSort {
     public static void sort(Object[] arr, Comparator comparator) {
         int N = arr.length;
         for (int i = 1; i < N; i++) {
-            for (int j = i; j > 0; j--) {
-                if (less(comparator, arr[j], arr[j - 1])) {
-                    swap(arr, j, j - 1);
-                } else
-                    break;
+            for (int j = i; j > 0 && less(comparator, arr[j], arr[j - 1]); j--) {
+                swap(arr, j, j - 1);
             }
         }
     }
 
     public static void sort(Object[] arr, int lo, int hi, Comparator comparator) {
         for (int i = lo; i <= hi; i++) {
-            for (int j = i; j > 0; j--) {
-                if (less(comparator, arr[j], arr[j - 1])) {
-                    swap(arr, j, j - 1);
-                } else
-                    break;
+            for (int j = i; j > 0 && less(comparator, arr[j], arr[j - 1]); j--) {
+                swap(arr, j, j - 1);
             }
         }
     }
 
     public static <Item extends Comparable<Item>> void sort(Item[] arr, int lo, int hi) {
         for (int i = lo; i <= hi; i++) {
-            for (int j = i; j > 0; j--) {
-                if (less(arr[j], arr[j - 1])) {
-                    swap(arr, j, j - 1);
-                } else
-                    break;
+            for (int j = i; j > 0 && less(arr[j], arr[j - 1]); j--) {
+                swap(arr, j, j - 1);
             }
         }
     }

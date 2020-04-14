@@ -318,6 +318,8 @@ to allow sort any generic data types
 ### Insertion sort
 - Scan from left to right  
 - Swap `a[i]` with each larger enry to its left `<--` `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`  
+- Fast when the array is partially sorted `O(N)`
+- Array called partially sorted when number of elements to be changed less than or equal cN
 
 `Algorithm`
 
@@ -325,11 +327,8 @@ to allow sort any generic data types
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
         int N = arr.length;
         for (int i = 1; i < N; i++) {
-            for (int j = i; j > 0; j--) {
-                if (less(arr[j], arr[j - 1])) {
+            for (int j = i; j > 0 && less(arr[j], arr[j - 1]); j--) {
                     swap(arr, j, j - 1);
-                } else
-                    break;
             }
         }
     }
@@ -480,7 +479,7 @@ to allow sort any generic data types
         int N = arr.length;
         Item[] aux = (Item[]) new Comparable[N];
         for (int sz = 1; sz < N; sz = sz + sz)
-            for (int lo = 0; lo < N - sz; lo += sz + sz)
+            for (int lo = 0; lo <= N - sz; lo += sz + sz)
                 merge(arr, aux, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, N - 1));
     }
 ```
@@ -488,12 +487,14 @@ to allow sort any generic data types
 
 ## Sort Stability
 - Suppose you want to sort `BY_NAME` then `BY_SECTION`
+- You should sort and keep the equal elements that they came as input, don't change equal elements position
 - Which sorts are stable?
 	1. Insertionsort
 	2. Mergesort
 
 - Why Selectionsort and Shellsort not stable?  
-	because they keep pointer from past and can be equal to coming iteration
+	+ Selectionsort keeps keep pointer from past and might move an item some equal item
+    + Shellsort makes long distance exchanges
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -504,10 +505,6 @@ to allow sort any generic data types
 	1. Shuffle the array
 	2. Partition
 	3. Sort
-
-
-
-
 
 
 
