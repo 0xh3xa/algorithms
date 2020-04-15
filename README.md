@@ -233,7 +233,7 @@ In java we will use interface
 
 ## Stack
 - `LIFO` (last in first out), useful in many applications
-- Operation: push, pop, size, isEmpty
+- Operations: push(Item item), pop(), size(), isEmpty()
 - There are two implementation of stack using `Linkedlist` and `Array`
 - Stack removes the item most recently added
 - What are the Differences between LinkedList and Array implementation?
@@ -260,7 +260,7 @@ if time is important and don't want to lose any input i.e. dealing with internet
 
 ## Queue
 - `FIFO` (first in first out), useful in many applications  
-- Operation: enqueue, dequeue, size, isEmpty
+- Operations: enqueue(Item item), dequeue(), size(), isEmpty()
 - Queue removes the item lest recently
 - There are two implementation of stack using `Linkedlist` and `Array`
 - Queue applications
@@ -563,7 +563,7 @@ to allow sort any generic data types
 
 ## Priority Queues
 - Remove the largest or smallest item
-- Operations: insert, delMax, isEmpty, max, size
+- Operations: insert(Item item), delMax(), isEmpty(), max(), size()
 - Applications
     1. Event-driven simulation: [customers in a line, colliding particles]
     2. Numerical computation: [reducing roundoff error]
@@ -656,13 +656,45 @@ to allow sort any generic data types
     + Create max heap with all N keys
     + Repeatedly remove the maximum keys
 
+- In place sorting algorithm with `N lg N` worst-case
+- Bottom line: heapsort is optimal for both time and space, but: 
+    + Inner loop longer than quicksort's
+    + Make poor usage of cache memory
+    + Not stable
+- Not stable
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+### Event driven simulation
+- Application based on priority queue
+- Simulate the motion of N moving particles that behave according to the laws of elastic collision
+- Hard disc model
+    + Moving particles interact via elastic collisions with each other and walls
+    + Each particle is a disc with know position, velocity, mass and radius
+    + No other forces
 
 
+-------------------------------------------------------------------------------------------------------------------------------
 
+## Symbol tables
+- Key-value pair
+- Insert a value with specified key
+- Give a key, search for the corresponding value
+- i.e DNS lookup
+    + insert URL with specified IP address
+    + Give URL, find corresponding IP address
+- Applications
+    1. Dictionary
+    2. Book index
+    3. File share
+    4. Compiler
+    5. Routing table
+    6. DNS
+    7. Genomics
+    8. File system
+    9. Web search
 
-
-
-
+- Operations: put(Key key, Value val), get(Key key), delete(Key key), contains(Key key), isEmpty(), size(), keys()
 
 
 

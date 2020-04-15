@@ -20,6 +20,7 @@ public final class HeapSort<Item extends Comparable<Item>> {
         }
     }
 
+    // Get the largest and put as a parent
     private static <Item extends Comparable<Item>> void sink(Item[] pq, int k, int n) {
         while (2 * k <= n) {
             int j = 2 * k;
