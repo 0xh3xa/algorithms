@@ -2,13 +2,13 @@ package com.alg.sort.impl;
 
 import java.util.Comparator;
 
-public class SelectionSort {
+public final class SelectionSort {
 
     private SelectionSort() throws IllegalAccessException {
         throw new IllegalAccessException("can not create an object from the class");
     }
 
-    public static <Item extends Comparable<Item>> void sort(Item[] arr) {
+    public final static <Item extends Comparable<Item>> void sort(Item[] arr) {
         int N = arr.length;
         int min;
         for (int i = 0; i < N; i++) {
@@ -22,7 +22,7 @@ public class SelectionSort {
         }
     }
 
-    public static void sort(Object[] arr, Comparator comparator) {
+    public final static void sort(Object[] arr, Comparator comparator) {
         int N = arr.length;
         int min;
         for (int i = 0; i < N; i++) {

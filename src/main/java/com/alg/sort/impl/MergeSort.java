@@ -13,7 +13,7 @@ public class MergeSort {
     /**
      * Merge sort recursive version
      */
-    public static <Item extends Comparable<Item>> void sort(Item[] arr, Item[] aux, int lo, int hi) {
+    public final static <Item extends Comparable<Item>> void sort(Item[] arr, Item[] aux, int lo, int hi) {
         if (hi <= lo)
             return;
         if (hi <= lo + CUTOFF) {
@@ -31,7 +31,7 @@ public class MergeSort {
     /**
      * Mergesort Bottom up version
      */
-    public static <Item extends Comparable<Item>> void sortBottomUp(Item[] arr) {
+    public final static <Item extends Comparable<Item>> void sortBottomUp(Item[] arr) {
         int N = arr.length, hi;
         Item[] aux = (Item[]) new Comparable[N];
         for (int sz = 1; sz < N; sz = sz + sz)

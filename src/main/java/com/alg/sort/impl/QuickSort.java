@@ -1,6 +1,6 @@
 package com.alg.sort.impl;
 
-public class QuickSort {
+public final class QuickSort {
 
     private static final int CUTOFF = 8;
 

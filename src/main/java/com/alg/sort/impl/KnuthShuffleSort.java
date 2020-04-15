@@ -1,12 +1,12 @@
 package com.alg.sort.impl;
 
-public class KnuthShuffleSort {
+public final class KnuthShuffleSort {
 
     private KnuthShuffleSort() throws IllegalAccessException {
         throw new IllegalAccessException("can not create an object from the class");
     }
 
-    public static <Item extends Comparable<Item>> void shuffle(Item[] arr) {
+    public final static <Item extends Comparable<Item>> void shuffle(Item[] arr) {
         int N = arr.length;
         for (int i = 0; i < N; i++) {
             int r = (int) Math.random() * (i + 1);

@@ -2,13 +2,13 @@ package com.alg.sort.impl;
 
 import java.util.Comparator;
 
-public class InsertionSort {
+public final class InsertionSort {
 
     private InsertionSort() throws IllegalAccessException {
         throw new IllegalAccessException("can not create an object from the class");
     }
 
-    public static <Item extends Comparable<Item>> void sort(Item[] arr) {
+    public final static <Item extends Comparable<Item>> void sort(Item[] arr) {
         int N = arr.length;
         for (int i = 1; i < N; i++) {
             for (int j = i; j > 0 && less(arr[j], arr[j - 1]); j--) {
@@ -17,7 +17,7 @@ public class InsertionSort {
         }
     }
 
-    public static void sort(Object[] arr, Comparator comparator) {
+    public final static void sort(Object[] arr, Comparator comparator) {
         int N = arr.length;
         for (int i = 1; i < N; i++) {
             for (int j = i; j > 0 && less(comparator, arr[j], arr[j - 1]); j--) {
@@ -26,7 +26,7 @@ public class InsertionSort {
         }
     }
 
-    public static void sort(Object[] arr, int lo, int hi, Comparator comparator) {
+    public final static void sort(Object[] arr, int lo, int hi, Comparator comparator) {
         for (int i = lo; i <= hi; i++) {
             for (int j = i; j > 0 && less(comparator, arr[j], arr[j - 1]); j--) {
                 swap(arr, j, j - 1);
@@ -34,7 +34,7 @@ public class InsertionSort {
         }
     }
 
-    public static <Item extends Comparable<Item>> void sort(Item[] arr, int lo, int hi) {
+    public final static <Item extends Comparable<Item>> void sort(Item[] arr, int lo, int hi) {
         for (int i = lo; i <= hi; i++) {
             for (int j = i; j > 0 && less(arr[j], arr[j - 1]); j--) {
                 swap(arr, j, j - 1);

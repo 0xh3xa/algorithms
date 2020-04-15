@@ -2,13 +2,13 @@ package com.alg.sort.impl;
 
 import java.util.Comparator;
 
-public class ShellSort {
+public final class ShellSort {
 
     private ShellSort() throws IllegalAccessException {
         throw new IllegalAccessException("can not create an object from the class");
     }
 
-    public static <Item extends Comparable<Item>> void sort(Item[] arr) {
+    public final static <Item extends Comparable<Item>> void sort(Item[] arr) {
         int N = arr.length;
         int h = 1;
         while (h < N / 3)
@@ -24,7 +24,7 @@ public class ShellSort {
         }
     }
 
-    public static void sort(Object[] arr, Comparator comparator) {
+    public final static void sort(Object[] arr, Comparator comparator) {
         int N = arr.length;
         int h = 1;
         while (h < N / 3)
