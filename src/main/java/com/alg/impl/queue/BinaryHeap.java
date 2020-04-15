@@ -45,7 +45,7 @@ public class BinaryHeap<Item extends Comparable<Item>> implements PriorityQueue<
     }
 
     private void swim(int k) {
-        while (k > 1 && greater(k, k / 2)) { // k greater than parent, swap
+        while (k > 1 && less(k / 2, k)) { // k less than parent, swap
             swap(k / 2, k);
             k /= 2;
         }
@@ -54,17 +54,17 @@ public class BinaryHeap<Item extends Comparable<Item>> implements PriorityQueue<
     private void sink(int k) {
         while (2 * k <= N) {
             int j = 2 * k;
-            if (j < N && greater(j + 1, j))
+            if (j < N && less(j, j + 1))
                 j++;
-            if (greater(k, j)) // K greater than children then break
+            if (!less(k, j)) // K less than children then break
                 break;
             swap(k, j);
             k = j;
         }
     }
 
-    private boolean greater(int firstIndex, int secondIndex) {
-        return pq[firstIndex].compareTo(pq[secondIndex]) > 0;
+    private boolean less(int firstIndex, int secondIndex) {
+        return pq[firstIndex].compareTo(pq[secondIndex]) < 0;
     }
 
     private void swap(int firstIndex, int secondIndex) {
