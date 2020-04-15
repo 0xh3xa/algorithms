@@ -1,6 +1,6 @@
 package com.alg.base;
 
-public interface PriorityQueue<Item> {
+public interface PriorityQueue<Item extends Comparable<Item>> {
 
     void insert(Item key);
 

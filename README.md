@@ -611,7 +611,7 @@ to allow sort any generic data types
 
 - Algorithm
 ```java
-@Override
+    @Override
     public void insert(Item key) {
         pq[++N] = key;
         swim(N);
@@ -619,6 +619,8 @@ to allow sort any generic data types
 
     @Override
     public Item delMax() {
+        if (isEmpty())
+            throw new IndexOutOfBoundsException();
         Item max = pq[1];
         swap(1, N--);
         sink(1);
@@ -627,7 +629,7 @@ to allow sort any generic data types
     }
 
     private void swim(int k) {
-        while (k > 1 && greater(k / 2, k)) {
+        while (k > 1 && greater(k, k / 2)) { // k greater than parent, swap
             swap(k / 2, k);
             k /= 2;
         }
@@ -636,15 +638,14 @@ to allow sort any generic data types
     private void sink(int k) {
         while (2 * k <= N) {
             int j = 2 * k;
-            if (j < N && greater(j, j - 1))
+            if (j < N && greater(j + 1, j))
                 j++;
-            if (!greater(k, j)) // K greater than children then break
+            if (greater(k, j)) // K greater than children then break
                 break;
             swap(k, j);
             k = j;
         }
     }
-}
 
 ```
 
