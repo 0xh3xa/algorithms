@@ -563,7 +563,7 @@ to allow sort any generic data types
 
 ## Priority Queues
 - Remove the largest or smallest item
-- Operation: insert, delMax, isEmpty, max, size
+- Operations: insert, delMax, isEmpty, max, size
 - Applications
     1. Event-driven simulation: [customers in a line, colliding particles]
     2. Numerical computation: [reducing roundoff error]
@@ -577,16 +577,17 @@ to allow sort any generic data types
     10. Spam filtering: [Bayesian spam filters]
 
 - Implementation: you can make multiple implementation using unordered and ordered array, and Binary heap
-- Complexity
+- Complexity of unordered and ordered array
 
 |Implementation|Insert|Del max|Max|
 |--------------|------|-------|---|
 |unordered array|1|N|N|
 |ordered array|N|1|1|
-|goal|lgN|lgN|lgN|
+|goal|log N|log N|log N|
 
 ### Binary heap
 - Binary tree
+- Complexity: `lg N`
 - Complete tree, perfectly balanced, except for bottom level
 - Height of complete tree with N nodes is `lgN`, why?
     Height only increase when N is a power of 2
@@ -600,14 +601,59 @@ to allow sort any generic data types
     + Parent's key no smaller than children's keys
 
 - Array representation:
-    + Parent of node at k is at k/2
+    + Parent of node at k is at `k/2`
     + Children of node at k are at `2k` and right `2k+1`
 
+- Best practice use immutable keys
+- Underflow and overflow
+    + Underflow: throw exception if deleting from empty PQ
+    + Overflow: add no-arg constructor and use resize array
 
+- Algorithm
+```java
+@Override
+    public void insert(Item key) {
+        pq[++N] = key;
+        swim(N);
+    }
 
+    @Override
+    public Item delMax() {
+        Item max = pq[1];
+        swap(1, N--);
+        sink(1);
+        pq[N + 1] = null; // prevent loitering, object no longer needed
+        return max;
+    }
 
+    private void swim(int k) {
+        while (k > 1 && greater(k / 2, k)) {
+            swap(k / 2, k);
+            k /= 2;
+        }
+    }
 
+    private void sink(int k) {
+        while (2 * k <= N) {
+            int j = 2 * k;
+            if (j < N && greater(j, j - 1))
+                j++;
+            if (!greater(k, j)) // K greater than children then break
+                break;
+            swap(k, j);
+            k = j;
+        }
+    }
+}
 
+```
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+## Heapsort
+- Basic plan
+    + Create max heap with all N keys
+    + Repeatedly remove the maximum keys
 
 
 
