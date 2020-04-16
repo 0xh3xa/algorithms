@@ -483,8 +483,8 @@ to allow sort any generic data types
 - Suppose you want to sort `BY_NAME` then `BY_SECTION`
 - You should sort and keep the equal elements that they came as input, don't change equal elements position
 - Which sorts are stable?
-	1. Insertionsort
-	2. Mergesort
+	+ Insertionsort
+	+ Mergesort
 
 - Why Selectionsort and Shellsort not stable?  
 	+ Selectionsort keeps keep pointer from past and might move an item some equal item
@@ -505,6 +505,7 @@ to allow sort any generic data types
 - Not stable
 - Worst case in quicksort will not gonna happen
 - Problems in quick sort
+
 `Algorithm`
 
 ```java
