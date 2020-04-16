@@ -547,9 +547,9 @@ to allow sort any generic data types
 
 ## Sort complexity
 
-|Name|Inplace|Stable|Best|Average|Worst|Remarks|
-|----|-------|------|----|-------|-----|-------|
-|Selectionsort|Yes|No|l/2N<sup>2</sup>|l/2N<sup>2</sup>|l/2N<sup>2</sup>|N exchanges|
+|Name|Inplace|Stable|Best|Average|Worst   |Remarks|
+|----|-------|------|----|-------|--------|-------|
+|Selectionsort|Yes|No|1/2 N<sup>2</sup>|1/2 N<sup>2</sup>|1/2 N<sup>2</sup>|N exchanges|
 |Insertionsort|Yes|Yes|N|l/4N<sup>2</sup>|l/2N<sup>2</sup>|use for small N or partially ordered|
 |Shellsort|Yes|No|N log<sub>3</sub>N|?|cN<sup>3/2</sup>|tight code, sub-quadratic|
 |Mergesort|No|Yes|½ N lg N|N lg N|N lg N|N lg N guarantee, stable|
