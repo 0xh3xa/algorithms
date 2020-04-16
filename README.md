@@ -505,6 +505,42 @@ to allow sort any generic data types
 - Not stable
 - Worst case in quicksort will not gonna happen
 - Problems in quick sort
+`Algorithm`
+
+```java
+    public static <Item extends Comparable<Item>> void sort(Item[] arr) {
+        KnuthShuffleSort.shuffle(arr);
+        sort(arr, 0, arr.length - 1);
+    }
+
+    private static <Item extends Comparable<Item>> void sort(Item[] arr, int lo, int hi) {
+        if (hi <= lo)
+            return;
+        if (hi <= lo + CUTOFF) {
+            InsertionSort.sort(arr, lo, hi);
+            return;
+        }
+        int j = partition(arr, lo, hi);
+        sort(arr, lo, j - 1);
+        sort(arr, j + 1, hi);
+    }
+
+    private static <Item extends Comparable<Item>> int partition(Item[] arr, int lo, int hi) {
+        int i = lo, j = hi + 1;
+        while (true) {
+            while (less(arr[++i], arr[lo]))
+                if (i == hi)
+                    break;
+            while (less(arr[lo], arr[--j]))
+                ;
+            if (i >= j)
+                break;
+            swap(arr, i, j);
+        }
+        swap(arr, lo, j);
+        return j;
+    }
+```
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -609,7 +645,8 @@ to allow sort any generic data types
     + Underflow: throw exception if deleting from empty PQ
     + Overflow: add no-arg constructor and use resize array
 
-- Algorithm
+`Algorithm`
+
 ```java
     @Override
     public void insert(Item key) {
