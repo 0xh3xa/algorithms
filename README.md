@@ -646,42 +646,42 @@ to allow sort any generic data types
 `Algorithm`
 
 ```java
-    @Override
-    public void insert(Item key) {
-        pq[++N] = key;
-        swim(N);
-    }
+    public final static <Item extends Comparable<Item>> void sort(Item[] pq) {
+        int n = pq.length;
 
-    @Override
-    public Item delMax() {
-        if (isEmpty())
-            throw new IndexOutOfBoundsException();
-        Item max = pq[1];
-        swap(1, N--);
-        sink(1);
-        pq[N + 1] = null; // prevent loitering, object no longer needed
-        return max;
-    }
+        for (int k = n / 2; k >= 1; k--) {
+            sink(pq, k, n);
+        }
 
-    private void swim(int k) {
-        while (k > 1 && less(k / 2, k)) { // k less than parent, swap
-            swap(k / 2, k);
-            k /= 2;
+        int k = n;
+        while (k > 1) {
+            swap(pq, 1, k--);
+            sink(pq, 1, k);
         }
     }
 
-    private void sink(int k) {
-        while (2 * k <= N) {
+    // Get the largest and put as a parent
+    private static <Item extends Comparable<Item>> void sink(Item[] pq, int k, int n) {
+        while (2 * k <= n) {
             int j = 2 * k;
-            if (j < N && less(j, j + 1))
+            if (j < n && less(pq, j, j + 1))
                 j++;
-            if (!less(k, j)) // K less than children then break
+            if (!less(pq, k, j)) // K less than children then break
                 break;
-            swap(k, j);
+            swap(pq, k, j);
             k = j;
         }
     }
 
+    private static <Item extends Comparable<Item>> boolean less(Item[] pq, int firstIndex, int secondIndex) {
+        return pq[firstIndex - 1].compareTo(pq[secondIndex - 1]) < 0;
+    }
+
+    private static <Item extends Comparable<Item>> void swap(Item[] pq, int firstIndex, int secondIndex) {
+        Item temp = pq[firstIndex - 1];
+        pq[firstIndex - 1] = pq[secondIndex - 1];
+        pq[secondIndex - 1] = temp;
+    }
 ```
 
 -------------------------------------------------------------------------------------------------------------------------------
@@ -730,17 +730,58 @@ to allow sort any generic data types
     9. Web search
 
 - Operations: put(Key key, Value val), get(Key key), delete(Key key), contains(Key key), isEmpty(), size(), keys()
+- Conventions:
+    + Values are not null
+    + Method get() returns null if values not present
+    + Method put() overwrites old values with new values
+
+- Best practices: Use immutable types for symbol data types
+    + Immutable in java: String, Integer, Double, java.io.File, ...
+    + Mutable in java:: StringBuilder, java.net.URL, Arrays, ...
+
+### Binary search tree
+- BST is a binary tree in symmetric order
+- A binary tree is either
+    + Empty
+    + Two disjoint binary tress(left and right)
+- Symmetric order each node has a key, and every node's key is:
+    + Larger than all keys in its left subtree
+    + Smaller than all keys in its right subtree
+
+- Representation in java using linked list has key, value and reference to left and right
+    ```java
+    private class Node {
+        private Key key;
+        private Value val;
+        private Node left, right;
+
+        public Node(Key key, Value val) {
+            this.key = key;
+            this.val = val;
+        }
+    }
+    ```
+- How to find min/max in BST?
+    + Move to the left from the root until find null key
+    + Move to the right from the root until find null key
+
+- 
 
 
 
 
 
+- ST Implementations
+    + Linked list
+    + Binary search in an order array
+    + BST Binary search tress
+    + Complexity
 
-
-
-
-
-
+    |ST implementation|Worst-case search| Worst-case insert|Ordered iteration|key interface|
+    |-----------------|----------|------------|-----------------|-------------|
+    |Linked list|N|N|no|equals()|
+    |Binary search (ordered array)|log N|N|yes|compareTo()|
+    |BST|N|N|1.39 lg N|stay tuned|compareTo()|
 
 
 
