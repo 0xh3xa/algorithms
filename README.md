@@ -557,7 +557,6 @@ to allow sort any generic data types
 |3-ways Quicksort|Yes|No|N<sup>2</sup>/2|2 N ln N|½ N<sup>2</sup>|improves quicksort in presence of duplicate keys|
 |Timesort|No|Yes|N|N lg N|N lg N|-|
 
--------------------------------------------------------------------------------------------------------------------------------
 
 ## Sort applications
 1. Sort a list of names
@@ -576,8 +575,6 @@ to allow sort any generic data types
 2. Computer graphics
 3. Computational biology
 4. Load balancing on a parallel computers
-
--------------------------------------------------------------------------------------------------------------------------------
 
 ## System sorts
 - Java uses:
