@@ -1,4 +1,4 @@
-package com.alg.base;
+package com.alg.base.st;
 
 public interface SymbolTable<Key extends Comparable, Value> {
 

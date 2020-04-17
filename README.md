@@ -739,6 +739,11 @@ to allow sort any generic data types
     + Immutable in java: String, Integer, Double, java.io.File, ...
     + Mutable in java:: StringBuilder, java.net.URL, Arrays, ...
 
+- ST Implementations
+    + Linked list
+    + Binary search in an order array
+    + BST Binary search tress
+
 ### Binary search tree
 - BST is a binary tree in symmetric order
 - A binary tree is either
@@ -762,27 +767,32 @@ to allow sort any generic data types
     }
     ```
 - How to find min/max in BST?
-    + Move to the left from the root until find null key
-    + Move to the right from the root until find null key
+    + For min move to the left from the root until find null key
+    + For max move to the right from the root until find null key
 
-- 
+### 2-3 Trees
+- Allow 1 or 2 keys per node
+    + 2-node: one key, two children
+    + 3-node: two keys, three children
+- Perfect balance: every path from the root to null link has same length
+- Implementation: Red-black BSTs
 
+### Red-black BSTs
+- Represent 2-3 tree as a BST
+- Use "internal" left-learning links as "glue" for 3-nodes
+- A BST such that:
+    + No node has two red links connected to it
+    + Every path from root to the null link has the same number of black links
+    + Red links lean left
 
-
-
-
-- ST Implementations
-    + Linked list
-    + Binary search in an order array
-    + BST Binary search tress
-    + Complexity
+### ST Complexity
 
     |ST implementation|Worst-case search| Worst-case insert|Ordered iteration|key interface|
     |-----------------|----------|------------|-----------------|-------------|
     |Linked list|N|N|no|equals()|
     |Binary search (ordered array)|log N|N|yes|compareTo()|
     |BST|N|N|1.39 lg N|stay tuned|compareTo()|
-
+    |2-3 tree|c lg N|c lg N|c lg N|yes|compareTo()|
 
 
 
