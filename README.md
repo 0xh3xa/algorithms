@@ -856,7 +856,7 @@ to allow sort any generic data types
 - Note, Array size M must be greater than number of key-value pairs M
 - Clustering: a contiguous block of items
 
-### Separate chaining vs Linear probing
+### Separate chaining vs. Linear probing
 - Separate chaining
     + Easier to implement delete
     + Performance degrades gracefully
@@ -867,10 +867,30 @@ to allow sort any generic data types
     + Better cache performance
 
 ### Applications
-- One way hash function: MD4, MD5, SHA-0, SHA-1, SHA-2, WHIRLPOOL, RIPEMD-160, ...
+- Security One way hash function: MD4, MD5, SHA-0, SHA-1, SHA-2, WHIRLPOOL, RIPEMD-160, ...
     + Digital fingerprint
     + Message digest
     + Storing passwords
+- Dictionary lookup
+    + DNS lookup
+    + Amino acids
+    + Class list
+
+### Hash tables vs. balanced search trees
+- Hash tables
+    + Simpler to code
+    + No effective alternative for unordered keys
+    + Faster for simple keys (a few arithmetic ops versus log N compares)
+    + Better system support in Java for strings (e.g. cached hash code)
+
+- Balanced search trees
+    + Stronger performance guarantee
+    + Support for ordered ST operations
+    + Easier to implement compareTo() correctly than equals() and hashCode()
+
+- Java system includes both:
+    + Red-black BSTs: java.util.TreeMap, java.util.TreeSet
+    + Hash tables: java.util.HashMap, java.util.IdentityHashMap
 
 ### ST Complexity
 
