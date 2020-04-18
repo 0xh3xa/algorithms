@@ -785,39 +785,104 @@ to allow sort any generic data types
     + Every path from root to the null link has the same number of black links
     + Red links lean left
 
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+## Hash tables
+- Basic plan:
+    + Save items in a key-indexed table (index is a function of the key)
+    + Hash function:method for computing array index from key
+- Issues:
+    + Computing the has function
+    + Equality test: Method for checking whether two keys are equal
+    + Collision resolution: Algorithm and data structure to handle two keys that hash to the same array index
+
+- Classic space-time tradeoff
+    + No space limitation: trivial hash function with key as index
+    + No time limitation: trivial collision resolution with sequential search
+    + Space and time limitations: hashing (the real world)
+
+### Hash functions
+- Efficiently computable
+- Each table index equally likely for each key
+- Ex 1. Phone numbers:
+    + Bad: first three digits
+    + Better: last three digits
+- Ex 2. Social security numbers:
+    + Bad: first three digits
+    + Better: last three digits
+- Practical challenge, need different approach for each key type
+- Java's hash code conventions
+    + All java classes inherit a method hashCode(), with return 32-bit in
+    + Requirement, if x.equals(y), then (x.hashCode() == y.hashCode())
+    + Highly desirable: if !x.equals(y), then (x.hashCode() != y.hashCode())
+
+```
+      X
+      |
+    -----
+    `    `
+    `````
+      |
+    x.hashCode()
+```
+
+- hash code design
+    + Combine each significant field using the `31x+y`
+    + If field is a primitive type, use wrapper type hashCode()
+    + If field is null, return 0
+    + If field is a reference type, use hashCode()
+    + If field is an array, apply to each entry
+- Basic rule, need to use the whole key to compute hash code, consult an expert for state-of-the-art hash codes
+
+### Separate chaining (Collision resolution)
+- Collision, Two distinct keys hashing to the same index
+- Basic idea
+    + Use an array of M < N linked list
+    + Hash: map key to integer i between 0 and M-1
+    + Insert: put at front of i<sub>th</sub> chain
+    + Search need to search only i<sub>th</sub> chain
+
+- Consequence, Number of probes for search/insert is proportional to N/M
+    + M too large ==> too many empty chains
+    + M too small ==> chains too long 
+    + Typical choice M ~ N/5 ==> constant time ops
+
+### Linear probing
+- Open addressing, When a new key collides, find the next empty slot and put it there
+- Hash. Map key to integer i between 0 and M-1
+- Insert. Put at table index i if free, if not try i+1, i+2, etc
+- Search. Search table index i, if occupied but no match, try i+1, i+2, etc
+- Note, Array size M must be greater than number of key-value pairs M
+- Clustering: a contiguous block of items
+
+### Separate chaining vs Linear probing
+- Separate chaining
+    + Easier to implement delete
+    + Performance degrades gracefully
+    + Clustering less sensitive to poorly-designed hash function
+
+- Linear probing
+    + Less wasted space
+    + Better cache performance
+
+### Applications
+- One way hash function: MD4, MD5, SHA-0, SHA-1, SHA-2, WHIRLPOOL, RIPEMD-160, ...
+    + Digital fingerprint
+    + Message digest
+    + Storing passwords
+
 ### ST Complexity
 
 |ST implementation|Worst-case search| Worst-case insert|Ordered iteration|key interface|
 |-----------------|-----------------|------------------|-----------------|-------------|
-|Linked list|N|N|no|equals()|
-|Binary search (ordered array)|log N|N|yes|compareTo()|
+|linked list|N|N|no|equals()|
+|binary search (ordered array)|log N|N|yes|compareTo()|
 |BST|N|N|stay tuned|compareTo()|
 |2-3 tree|c lg N|c lg N|yes|compareTo()|
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+|red-black tree|2 lg N|2 lg N|yes|compareTo()|
+|separate chaining|lg N<sub>*</sub>|lg N<sub>*</sub>|no|equals()|
+|linear probing|lg N<sub>*</sub>|lg N<sub>*</sub>|no|equals()|
 
 
 
