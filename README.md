@@ -233,7 +233,7 @@ In java we will use interface
 
 ## Stack
 - `LIFO` (last in first out), useful in many applications
-- Operations: push(Item item), pop(), size(), isEmpty()
+- Operations: `push(Item item), pop(), size(), isEmpty()`
 - There are two implementation of stack using `Linkedlist` and `Array`
 - Stack removes the item most recently added
 - What are the Differences between LinkedList and Array implementation?
@@ -260,7 +260,7 @@ if time is important and don't want to lose any input i.e. dealing with internet
 
 ## Queue
 - `FIFO` (first in first out), useful in many applications  
-- Operations: enqueue(Item item), dequeue(), size(), isEmpty()
+- Operations: `enqueue(Item item), dequeue(), size(), isEmpty()`
 - Queue removes the item lest recently
 - There are two implementation of stack using `Linkedlist` and `Array`
 - Queue applications
@@ -597,7 +597,7 @@ to allow sort any generic data types
 
 ## Priority Queues
 - Remove the largest or smallest item
-- Operations: insert(Item item), delMax(), isEmpty(), max(), size()
+- Operations: `insert(Item item), delMax(), isEmpty(), max(), size()`
 - Applications
     1. Event-driven simulation: [customers in a line, colliding particles]
     2. Numerical computation: [reducing roundoff error]
@@ -729,7 +729,7 @@ to allow sort any generic data types
     8. File system
     9. Web search
 
-- Operations: put(Key key, Value val), get(Key key), delete(Key key), contains(Key key), isEmpty(), size(), keys()
+- Operations: `put(Key key, Value val), get(Key key), delete(Key key), contains(Key key), isEmpty(), size(), keys()`
 - Conventions:
     + Values are not null
     + Method get() returns null if values not present
@@ -813,9 +813,9 @@ to allow sort any generic data types
     + Better: last three digits
 - Practical challenge, need different approach for each key type
 - Java's hash code conventions
-    + All java classes inherit a method hashCode(), with return 32-bit in
-    + Requirement, if x.equals(y), then (x.hashCode() == y.hashCode())
-    + Highly desirable: if !x.equals(y), then (x.hashCode() != y.hashCode())
+    + All java classes inherit a method `hashCode()`, with return 32-bit in
+    + Requirement, if `x.equals(y), then (x.hashCode() == y.hashCode())`
+    + Highly desirable: if `!x.equals(y), then (x.hashCode() != y.hashCode())`
 
 ```
       X
@@ -829,9 +829,9 @@ to allow sort any generic data types
 
 - hash code design
     + Combine each significant field using the `31x+y`
-    + If field is a primitive type, use wrapper type hashCode()
+    + If field is a primitive type, use wrapper type `hashCode()`
     + If field is null, return 0
-    + If field is a reference type, use hashCode()
+    + If field is a reference type, use `hashCode()`
     + If field is an array, apply to each entry
 - Basic rule, need to use the whole key to compute hash code, consult an expert for state-of-the-art hash codes
 
@@ -886,7 +886,7 @@ to allow sort any generic data types
 - Balanced search trees
     + Stronger performance guarantee
     + Support for ordered ST operations
-    + Easier to implement compareTo() correctly than equals() and hashCode()
+    + Easier to implement `compareTo()` correctly than `equals()` and `hashCode()`
 
 - Java system includes both:
     + Red-black BSTs: java.util.TreeMap, java.util.TreeSet
