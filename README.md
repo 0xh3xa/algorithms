@@ -788,11 +788,11 @@ to allow sort any generic data types
 ### ST Complexity
 
     |ST implementation|Worst-case search| Worst-case insert|Ordered iteration|key interface|
-    |-----------------|----------|------------|-----------------|-------------|
+    |-----------------|-----------------|------------------|-----------------|-------------|
     |Linked list|N|N|no|equals()|
     |Binary search (ordered array)|log N|N|yes|compareTo()|
-    |BST|N|N|1.39 lg N|stay tuned|compareTo()|
-    |2-3 tree|c lg N|c lg N|c lg N|yes|compareTo()|
+    |BST|N|N|stay tuned|compareTo()|
+    |2-3 tree|c lg N|c lg N|yes|compareTo()|
 
 
 
