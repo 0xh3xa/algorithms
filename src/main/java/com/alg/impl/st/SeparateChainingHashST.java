@@ -29,7 +29,7 @@ public class SeparateChainingHashST<Key, Value> {
                 return;
             }
         }
-        st[i] = new Node(key, val, st[i];
+        st[i] = new Node(key, val, st[i]);
     }
 
     public Value get(Key key) {
