@@ -894,8 +894,7 @@ to allow sort any generic data types
 
 ### Set
 - Mathematical set: a collection of distinct keys
-- Operations: `add(Key key), contains(Key key), remove(Key key), size(), iterator()
-`
+- Operations: `add(Key key), contains(Key key), remove(Key key), size(), iterator()`
 
 ### ST Complexity
 
