@@ -14,7 +14,7 @@ public final class Stopwatch {
 
     public final static double elapsedTime() {
         if (start == null) {
-            throw new IllegalAccessError("Please call start function before elapsedTime");
+            throw new IllegalArgumentException("Please call start function before elapsedTime");
         }
         long now = System.currentTimeMillis();
         double result = (now - start) / 1000.0;

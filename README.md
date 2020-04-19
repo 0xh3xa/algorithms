@@ -892,26 +892,147 @@ to allow sort any generic data types
     + Red-black BSTs: java.util.TreeMap, java.util.TreeSet
     + Hash tables: java.util.HashMap, java.util.IdentityHashMap
 
+### Set
+- Mathematical set: a collection of distinct keys
+- Operations: `add(Key key), contains(Key key), remove(Key key), size(), iterator()
+`
+
 ### ST Complexity
 
-|ST implementation|Worst-case search| Worst-case insert|Ordered iteration|key interface|
-|-----------------|-----------------|------------------|-----------------|-------------|
-|linked list|N|N|no|equals()|
-|binary search (ordered array)|log N|N|yes|compareTo()|
-|BST|N|N|stay tuned|compareTo()|
-|2-3 tree|c lg N|c lg N|yes|compareTo()|
-|red-black tree|2 lg N|2 lg N|yes|compareTo()|
+|ST implementation|Worst-case search| Worst-case insert|Worst-case delete|Ordered iteration|key interface|
+|-----------------|-----------------|------------------|-----------------|-----------------|-------------|
+|linked list|N|N|N|no|equals()|
+|binary search (ordered array)|log N|N|N|yes|compareTo()|
+|BST|N|N|N|stay tuned|compareTo()|
+|2-3 tree|c lg N|c lg N|?|yes|compareTo()|
+|red-black tree|2 lg N|2 lg N|2 lg N|yes|compareTo()|
 |separate chaining|lg N<sub>*</sub>|lg N<sub>*</sub>|no|equals()|
 |linear probing|lg N<sub>*</sub>|lg N<sub>*</sub>|no|equals()|
 
 
+-------------------------------------------------------------------------------------------------------------------------------
 
+## Graph
+- Graph: Set of vertices connected pairwise by edges
+- Why study graph algorithms?
+    + Thousand of practical applications
+    + Hundreds of graph algorithms known
+    + Interesting and broadly useful abstraction
+    + Challenging branch of computer science and discrete math
+- Example of graph
+    + protein-protein interaction network
+    + The internet as mapped by the Opte project
+    + Map of science click-streams
+    + Facebook friends
+    + One week of Enron emails
+    + Framingham heart study
+- Graph terminology
+    + Path: sequence of vertices connected by edges
+    + Cycle: path whose first and last vertices are the same
+    + Two vertices are connected if there is a path between them
 
+`Algorithm`
 
+```java
+   public class Graph {
+        private final int V;
+        private Bag<Integer>[] adj;
 
+        public Graph(int V) {
+            this.V = V;
+            adj = (Bag<Integer>[]) new Bag[V];
+            for (int v = 0; v < V; v++)
+                adj[v] = new Bag<Integer>();
+        }
 
+        public void addEdge(int v, int w) {
+            adj[v].add(w);
+            adj[w].add(v);
+        }
 
+        public Iterable<Integer> adj(int v) {
+            return adj[v];
+        }
+    }
+```
 
+### Undirected graph
+- Operations: `addEdge(int v, int w), adj(int v), V(), E()`
+
+`Algorithm`
+
+```java
+    public class DepthFirstPaths {
+        private boolean[] marked;
+        private int[] edgeTo;
+        private int s;
+
+        public DepthFirstPaths(Graph G, int s) {
+            dfs(G, s);
+        }
+
+        private void dfs(Graph G, int v) {
+            marked[v] = true;
+            for (int w : G.adj(v))
+                if (!marked[w]) {
+                    dfs(G, w);
+                    edgeTo[w] = v;
+                }
+        }
+    }
+```
+
+#### Depth-first search DFS
+- Classical graphical search algorithm
+- Maze graph
+    + Vertex = intersection
+    + Edge = passage
+- To visit a vertex v:    
+    + Mark v as visited
+    + Recursively visit all unmarked vertices w adjacent to v
+- Design pattern: We decouple Graph representation and graph-processing routine
+    + Create a Graph object
+    + Pass the Graph to a graph-processing routine
+    + Query the graph-processing routine for information
+- Put unvisited vertices on a stack
+
+`Algorithm`
+
+```java
+    public class BreadthFirstPaths {
+        private boolean[] marked;
+        private int[] edgeTo;
+        private int[] distTo;
+
+        private void bfs(Graph G, int s) {
+            Queue<Integer> q = new Queue<Integer>();
+            q.enqueue(s);
+            marked[s] = true;
+            distTo[s] = 0;
+            while (!q.isEmpty()) {
+                int v = q.dequeue();
+                for (int w : G.adj(v)) {
+                    if (!marked[w]) {
+                        q.enqueue(w);
+                        marked[w] = true;
+                        edgeTo[w] = v;
+                        distTo[w] = distTo[v] + 1;
+                    }
+                }
+            }
+        }
+    }
+```
+
+#### Breadth-first search BFS
+- Put s into a FIFO queue, and mark s as visited, Repeat until the queue is empty
+    + Remove the least recently added vertex v
+    + Add each of v's unvisited neighbors to the queue, and mark them as visited
+- BFS computes the shortest paths (fewest number of edges) from s to all other vertices in a graph in time proportional to E + V
+- Application: routing
+
+#### Connected component
+- 
 
 
 
