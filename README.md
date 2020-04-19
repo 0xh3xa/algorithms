@@ -958,6 +958,20 @@ to allow sort any generic data types
 ### Undirected graph
 - Operations: `addEdge(int v, int w), adj(int v), V(), E()`
 
+#### Depth-first search DFS
+- Classical graphical search algorithm
+- Maze graph
+    + Vertex = intersection
+    + Edge = passage
+- To visit a vertex v:    
+    + Mark v as visited
+    + Recursively visit all unmarked vertices w adjacent to v
+- Design pattern: We decouple Graph representation and graph-processing routine
+    + Create a Graph object
+    + Pass the Graph to a graph-processing routine
+    + Query the graph-processing routine for information
+- Put unvisited vertices on a stack
+
 `Algorithm`
 
 ```java
@@ -981,19 +995,12 @@ to allow sort any generic data types
     }
 ```
 
-#### Depth-first search DFS
-- Classical graphical search algorithm
-- Maze graph
-    + Vertex = intersection
-    + Edge = passage
-- To visit a vertex v:    
-    + Mark v as visited
-    + Recursively visit all unmarked vertices w adjacent to v
-- Design pattern: We decouple Graph representation and graph-processing routine
-    + Create a Graph object
-    + Pass the Graph to a graph-processing routine
-    + Query the graph-processing routine for information
-- Put unvisited vertices on a stack
+#### Breadth-first search BFS
+- Put s into a FIFO queue, and mark s as visited, Repeat until the queue is empty
+    + Remove the least recently added vertex v
+    + Add each of v's unvisited neighbors to the queue, and mark them as visited
+- BFS computes the shortest paths (fewest number of edges) from s to all other vertices in a graph in time proportional to E + V
+- Application: routing
 
 `Algorithm`
 
@@ -1023,15 +1030,214 @@ to allow sort any generic data types
     }
 ```
 
-#### Breadth-first search BFS
-- Put s into a FIFO queue, and mark s as visited, Repeat until the queue is empty
-    + Remove the least recently added vertex v
-    + Add each of v's unvisited neighbors to the queue, and mark them as visited
-- BFS computes the shortest paths (fewest number of edges) from s to all other vertices in a graph in time proportional to E + V
-- Application: routing
-
 #### Connected component
 - 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
