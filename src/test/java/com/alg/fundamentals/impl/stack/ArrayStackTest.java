@@ -8,13 +8,13 @@ import com.alg.fundamentals.base.Stack;
 import org.junit.Before;
 import org.junit.Test;
 
-public class StackArrayTest extends BaseTest {
+public class ArrayStackTest extends BaseTest {
 
     private Stack<Integer> stack;
 
     @Before
     public void setUp() {
-        stack = new StackArray<>();
+        stack = new ArrayStack<>();
     }
 
     @Test

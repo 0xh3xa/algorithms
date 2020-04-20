@@ -1,8 +1,10 @@
 package com.alg.fundamentals.impl.stack;
 
+import java.util.Iterator;
+
 import com.alg.fundamentals.base.Stack;
 
-public class StackLinkedList<Item> implements Stack<Item> {
+public class LinkedListStack<Item> implements Stack<Item> {
 
     private class NodeList {
         Item item;
@@ -49,6 +51,27 @@ public class StackLinkedList<Item> implements Stack<Item> {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public Iterator<Item> iterator() {
+        return new Iterator<Item>() {
+            NodeList head = first;
+
+            @Override
+            public boolean hasNext() {
+                return head != null;
+            }
+
+            @Override
+            public Item next() {
+                NodeList oldHead = head;
+                Item item = oldHead.item;
+                oldHead = null;
+                head = head.next;
+                return item;
+            }
+        };
     }
 
 }

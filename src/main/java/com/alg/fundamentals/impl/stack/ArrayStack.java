@@ -1,8 +1,10 @@
 package com.alg.fundamentals.impl.stack;
 
+import java.util.Iterator;
+
 import com.alg.fundamentals.base.Stack;
 
-public class StackArray<Item> implements Stack<Item> {
+public class ArrayStack<Item> implements Stack<Item> {
 
     private Item[] arr = (Item[]) new Object[4];
     private int ptr = 0;
@@ -45,4 +47,20 @@ public class StackArray<Item> implements Stack<Item> {
         arr = newArr;
     }
 
+    @Override
+    public Iterator<Item> iterator() {
+        return new Iterator<Item>() {
+            int i = 0, N = arr.length;
+
+            @Override
+            public boolean hasNext() {
+                return i < N;
+            }
+
+            @Override
+            public Item next() {
+                return arr[i++];
+            }
+        };
+    }
 }

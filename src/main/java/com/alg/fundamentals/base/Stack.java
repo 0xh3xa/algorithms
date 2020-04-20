@@ -1,6 +1,6 @@
 package com.alg.fundamentals.base;
 
-public interface Stack<Item> {
+public interface Stack<Item> extends Iterable<Item> {
 
     void push(Item item);
 
@@ -9,4 +9,5 @@ public interface Stack<Item> {
     boolean isEmpty();
 
     int size();
+
 }

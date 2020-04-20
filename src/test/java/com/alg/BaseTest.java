@@ -17,6 +17,7 @@ public abstract class BaseTest {
     protected static final int THREE_INT = 3;
     protected static final int FOUR_INT = 4;
     protected static final int FIVE_INT = 5;
+    protected static final int TINY_GRAPH = 13;
 
     public ErrorCollector collector = new ErrorCollector();
     public ExpectedException expected = ExpectedException.none();

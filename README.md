@@ -911,13 +911,15 @@ to allow sort any generic data types
 
 -------------------------------------------------------------------------------------------------------------------------------
 
-## Graph
-- Graph: Set of vertices connected pairwise by edges
+## Undirected Graph
+- Definition: is a Graph from set of vertices connected pairwise by edges
+
 - Why study graph algorithms?
     + Thousand of practical applications
     + Hundreds of graph algorithms known
     + Interesting and broadly useful abstraction
     + Challenging branch of computer science and discrete math
+
 - Example of graph
     + protein-protein interaction network
     + The internet as mapped by the Opte project
@@ -925,62 +927,106 @@ to allow sort any generic data types
     + Facebook friends
     + One week of Enron emails
     + Framingham heart study
+
 - Graph terminology
-    + Path: sequence of vertices connected by edges
-    + Cycle: path whose first and last vertices are the same
-    + Two vertices are connected if there is a path between them
+    + Path: sequence of `vertices` `connected` by `edges`
+    + Cycle: path whose `first` and `last` vertices are the `same`
+    + Two vertices are `connected` if there is a `path between them`
+
+- Some graph-processing problems
+    + Path. Is there a path between v and w?
+    + Shortest path. What is the shortest path between v and w?
+    + Cycle. Is there a cycle in the graph?
+    + Euler tour. Is there a cycle that uses each edge exactly once?
+    + Hamilton tour. Is there a cycle that uses each vertex exactly once
+    + Connectivity. Is there a way to connect all of the vertices?
+    + MST. What is the best way to connect all of the vertices?
+    + Bi-connectivity. Is there a vertex whose removal disconnects the graph?
+
+## Graph api
+- Graph drawing provides intuition about the structure of the graph
+- Caveat intuition can be misleading
+- Vertex representation
+    + Will use integers between 0 and V-1
+    + Applications: convert between names and integers which symbol table
+- Operations: `addEdge(int v, int w), adj(int v), V(), E(), toString()`
 
 `Algorithm`
 
 ```java
-   public class Graph {
-        private final int V;
-        private Bag<Integer>[] adj;
+public class Graph {
 
-        public Graph(int V) {
-            this.V = V;
-            adj = (Bag<Integer>[]) new Bag[V];
-            for (int v = 0; v < V; v++)
-                adj[v] = new Bag<Integer>();
-        }
+    private final int vertices;
+    private int edges;
+    private Bag<Integer>[] adj;
 
-        public void addEdge(int v, int w) {
-            adj[v].add(w);
-            adj[w].add(v);
-        }
-
-        public Iterable<Integer> adj(int v) {
-            return adj[v];
+    public Graph(int v) {
+        this.vertices = v;
+        this.edges = 0;
+        adj = (Bag<Integer>[]) new Bag[v];
+        for (int i = 0; i < v; i++) {
+            adj[v] = new Bag<Integer>();
         }
     }
+
+    public int getVertices() {
+        return vertices;
+    }
+
+    public int getEdges() {
+        return edges;
+    }
+
+    public void addEdge(int v, int w) {
+        adj[v].add(w);
+        adj[w].add(v);
+        edges++;
+    }
+
+    public int degree(int v) {
+        return adj[v].size();
+    }
+
+    public Iterable<Integer> adj(int v) {
+        return adj[v];
+    }
+}
 ```
 
-### Undirected graph
-- Operations: `addEdge(int v, int w), adj(int v), V(), E()`
-
-#### Depth-first search DFS
+### Depth-first search DFS
 - Classical graphical search algorithm
-- Maze graph
+
+- Good example: Maze graph
     + Vertex = intersection
     + Edge = passage
+
+- Algorithm Idea:
+    + Unroll a ball of string behind you
+    + Mark each visited intersection and each visited passage
+    + Retrace steps when no unvisited options
+
+- Goal: find all vertices connected to s (and a corresponding path)
+
 - To visit a vertex v:    
     + Mark v as visited
     + Recursively visit all unmarked vertices w adjacent to v
-- Design pattern: We decouple Graph representation and graph-processing routine
+
+- Design pattern: We decouple Graph representation from graph-processing routine
     + Create a Graph object
     + Pass the Graph to a graph-processing routine
     + Query the graph-processing routine for information
-- Put unvisited vertices on a stack
+
+- Put unvisited vertices on a `stack`
 
 `Algorithm`
 
 ```java
-    public class DepthFirstPaths {
+    public class DepthFirstPath {
         private boolean[] marked;
         private int[] edgeTo;
         private int s;
 
-        public DepthFirstPaths(Graph G, int s) {
+        public DepthFirstPath(Graph G, int s) {
             dfs(G, s);
         }
 
@@ -995,7 +1041,7 @@ to allow sort any generic data types
     }
 ```
 
-#### Breadth-first search BFS
+### Breadth-first search BFS
 - Put s into a FIFO queue, and mark s as visited, Repeat until the queue is empty
     + Remove the least recently added vertex v
     + Add each of v's unvisited neighbors to the queue, and mark them as visited
@@ -1005,7 +1051,7 @@ to allow sort any generic data types
 `Algorithm`
 
 ```java
-    public class BreadthFirstPaths {
+    public class BreadthFirstPath {
         private boolean[] marked;
         private int[] edgeTo;
         private int[] distTo;
@@ -1030,7 +1076,7 @@ to allow sort any generic data types
     }
 ```
 
-#### Connected component
+### Connected component
 - 
 
 
