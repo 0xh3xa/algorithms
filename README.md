@@ -876,8 +876,6 @@ to allow sort any generic data types
 
 * Representation in java using linked list has key, value and reference to left and right
 
-    
-
 ``` java
 
     private class Node {
@@ -890,7 +888,8 @@ to allow sort any generic data types
             this.val = val; 
         }
     }
-    ```
+
+```
 
 * How to find min/max in BST?
 
