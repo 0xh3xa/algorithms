@@ -2,6 +2,9 @@ package com.alg.advanced.graph;
 
 import com.alg.fundamentals.impl.Bag;
 
+/**
+ * Graph representation using vertices, adjacency and edges
+ */
 public class Graph {
 
     private static final String NEW_LINE = System.lineSeparator();
@@ -10,6 +13,9 @@ public class Graph {
     private int edges;
     private Bag<Integer>[] adj;
 
+    /**
+     * create graph of size of v vertices
+     */
     public Graph(int v) {
         if (v < 0)
             throw new IllegalArgumentException("Number of vertices must be non-negative");
@@ -21,24 +27,39 @@ public class Graph {
         }
     }
 
+    /**
+     * get number of vertices
+     */
     public int getVertices() {
         return vertices;
     }
 
+    /**
+     * get number of edge
+     */
     public int getEdges() {
         return edges;
     }
 
+    /**
+     * connect two vertices with each other
+     */
     public void addEdge(int v, int w) {
         adj[v].add(w);
         adj[w].add(v);
         edges++;
     }
 
+    /**
+     * get number of adjacency to vertex v
+     */
     public int degree(int v) {
         return adj[v].size();
     }
 
+    /**
+     * get adjacency to vertex v
+     */
     public Iterable<Integer> adj(int v) {
         return adj[v];
     }

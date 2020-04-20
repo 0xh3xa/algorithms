@@ -3,44 +3,35 @@ package com.alg.advanced.graph;
 import com.alg.fundamentals.base.Stack;
 import com.alg.fundamentals.impl.stack.ArrayStack;
 
-public class DepthFirstSearch extends Path {
+/**
+ * DFS algorithm, graph-processing routine
+ */
+public class DepthFirstSearch {
 
     private boolean[] marked;
-    private int[] edgeTo;
-    private int s;
+    private int count;
 
     public DepthFirstSearch(Graph graph, int s) {
-        super(graph, s);
-        marked = new boolean[s];
-        edgeTo = new int[s];
-        this.s = s;
-        dfs(s);
+        this.marked = new boolean[graph.getVertices()];
+        count = 0;
+        dfs(graph, s);
     }
 
-    private void dfs(int v) {
-        marked[v] = true;
-        for (int w : graph.adj(v)) {
-            if (!marked[w]) {
-                dfs(w);
-                edgeTo[w] = v;
+    private void dfs(Graph graph, int v) {
+        count++;
+        marked[v] = true; // mark v as visited
+        for (int w : graph.adj(v)) { // get adjacency to v
+            if (!marked[w]) { // visit if not marked
+                dfs(graph, w); // recursive
             }
         }
     }
 
-    @Override
-    public boolean hasPathTo(int v) {
+    public boolean marked(int v) {
         return marked[v];
     }
 
-    @Override
-    public Iterable<Integer> pathTo(int v) {
-        if (!hasPathTo(v))
-            return null;
-        Stack<Integer> path = new ArrayStack<>();
-        for (int x = v; x != s; x = edgeTo[x]) {
-            path.push(x);
-        }
-        path.push(s);
-        return path;
+    public int count() {
+        return count;
     }
 }
