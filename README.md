@@ -1177,6 +1177,8 @@ public class Graph {
 
 * Classical graphical search algorithm
 
+* Once you explored vertex suspend then explore the new vertices
+
 * Good example: Maze graph
 
     - Vertex = intersection
@@ -1230,6 +1232,8 @@ public class Graph {
 
 ### Breadth-first search BFS
 
+* Explore vertices and it's adjacency then go next vertices for exploration
+
 * Put s into a FIFO queue, and mark s as visited, Repeat until the queue is empty
 
     - Remove the least recently added vertex v
@@ -1268,6 +1272,23 @@ public class Graph {
     }
 
 ```
+
+### BFS vs. DFS
+
+``` 
+
+      1
+     /  \
+    /    \
+
+   2       3
+  / \     / \
+ 4   5   6   7
+ 
+```
+
+* Level order, BFS: 1, 2, 3, 4, 5, 6, 7
+* Pre-order, DFS: 1, 2, 4, 5, 3, 6, 7
 
 ### Connected components
 
