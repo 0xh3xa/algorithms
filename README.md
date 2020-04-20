@@ -963,11 +963,8 @@ to allow sort any generic data types
       X
       |
     -----
-
-`    ` 
-
-    `````
-
+    |   |   
+    -----
       |
     x.hashCode()
 
