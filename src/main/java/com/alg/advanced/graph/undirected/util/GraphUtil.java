@@ -1,4 +1,6 @@
-package com.alg.advanced.graph;
+package com.alg.advanced.graph.undirected.util;
+
+import com.alg.advanced.graph.undirected.represent.Graph;
 
 /**
  * Util class for graph to computer operation like degree, maxDegree,

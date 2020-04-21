@@ -69,18 +69,18 @@ Algorithms all around us
 
 ### Principles
 
-* Experiments must be reproducible.
-* Hypotheses must be falsifiable.
+* Experiments must be reproducible. 
+* Hypotheses must be falsifiable. 
 
 ### Empirical Analysis
 
-* Manual measurement (benchmarking) with a stopwatch or programmatic timing method.
-* Measure running time for different input sizes *N* (e.g.doubling time) and observe the relationship between the running times.
+* Manual measurement (benchmarking) with a stopwatch or programmatic timing method. 
+* Measure running time for different input sizes *N* (e. g. doubling time) and observe the relationship between the running times. 
 
 ### Data Analysis
 
-* Plot running time T(N) vs input size *N*.
-* Plot as log-log plot, often get a straight line.lg(T(N)) vs lg(N). Plot tells you the exponent of *N*.
+* Plot running time T(N) vs input size *N*. 
+* Plot as log-log plot, often get a straight line. lg(T(N)) vs lg(N). Plot tells you the exponent of *N*. 
 * Regression, power law: *a x N<sup>b</sup>*
 * Once you have the power b from the slope of the log-log plot, solve for *a* in the equation *T(N) = a x N<sup>b</sup>*
 
@@ -90,14 +90,14 @@ Algorithms all around us
 
 |  N   | T(N) | Ratio | lg(Ratio) |
 | ---- | ---- | ----- | --------  |
-| 1000 | 0.1  |   -   |     -     |
-| 2000 | 0.8  |  7.7  |    2.9    |
-| 4000 | 6.4  |   8   |     3     |
+| 1000 | 0. 1  |   -   |     -     |
+| 2000 | 0. 8  |  7. 7  |    2. 9    |
+| 4000 | 6. 4  |   8   |     3     |
 | ... | ... |  ... |    ... |
 
 * Hypothesis: Running time is about *a x N<sup>b</sup>*, where *b = lg(Ratio)*
-* Caveat: Cannot identify logarithmic factors with the doubling hypothesis.
-* Calculate *a* by solving *T(N) = a x N<sup>b</sup>* for a with all other variables now known.
+* Caveat: Cannot identify logarithmic factors with the doubling hypothesis. 
+* Calculate *a* by solving *T(N) = a x N<sup>b</sup>* for a with all other variables now known. 
 
 ### Experimental algorithmic
 
@@ -118,11 +118,11 @@ Algorithms all around us
 
 * Simplification 1
 
-  Count only the most expensive ones, i.e.those that take the most time or where time x frequency is highest.
+  Count only the most expensive ones, i. e. those that take the most time or where time x frequency is highest. 
 
 * Simplification 2
 
-  Ignore lower order terms, e.g.in 5xN<sup>3</sup> + 20N + 16, ignore the term with N
+  Ignore lower order terms, e. g. in 5xN<sup>3</sup> + 20N + 16, ignore the term with N
   and the constant 16 (which is 16 x N<sup>0</sup>) because they are less significant in
   comparison with the highest order term. We use *tilde notation* `~` to say that *5
   x N<sup>3</sup> + 20 x N + 16 __~ 5 x N<sup>3</sup>__*. Technical definition is that for *f(N) ~
@@ -145,7 +145,7 @@ Algorithms all around us
 
 <p align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Comparison_computational_complexity.svg/800px-Comparison_computational_complexity.svg.png" alt="graph_order_growth" width="400"/></p>
 
-* We say the algorithm "is proportional to" e.g.constant time
+* We say the algorithm "is proportional to" e. g. constant time
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -198,7 +198,7 @@ Applications based on this:
 * 10<sup>9</sup> words of main memory
 * Touch all words in approximately 1 second
 
-#### E.g Huge problem for quick find
+#### E. g Huge problem for quick find
 
 * 10<sup>9</sup> union commands of 10<sup>9</sup> objects
 * Quick find takes more than 10<sup>18</sup> operations
@@ -278,7 +278,7 @@ In java we will use interface
 
 * When should I use Linkedlist or Array implementation?
 
-if time is important and don't want to lose any input i.e.dealing with internet packet use `Linkedlist` implementation, But if you take care of `memory` space use `Array` implementation  
+if time is important and don't want to lose any input i. e. dealing with internet packet use `Linkedlist` implementation, But if you take care of `memory` space use `Array` implementation  
 
 * How duplicate/shrinking array?
 
@@ -309,7 +309,7 @@ if time is important and don't want to lose any input i.e.dealing with internet 
 
   + Cpu scheduling
   + Disk scheduling
-  + Data transfer asynchronously between two processes. Queue is used for synchronization.
+  + Data transfer asynchronously between two processes. Queue is used for synchronization. 
   + Breadth First search in a Graph
   + Call Center phone systems
 
@@ -526,7 +526,7 @@ to allow sort any generic data types
 
 | Million   | Billion   |
 |-----------|-----------|
-| 2.8 hours | 317 years |
+| 2. 8 hours | 317 years |
 | 1 second  | 1 week    |
 
         Mergesort N lg N
@@ -826,7 +826,7 @@ to allow sort any generic data types
 * Key-value pair
 * Insert a value with specified key
 * Give a key, search for the corresponding value
-* i.e DNS lookup
+* i. e DNS lookup
 
     - insert URL with specified IP address
     - Give URL, find corresponding IP address
@@ -1292,8 +1292,8 @@ public class Graph {
 
 ### Connected components
 
-* Def.vertices v and w are connected if there is a path between them
-* Goal.preprocess graph to answer queries of the form is v connected to w? in constant time
+* Def. vertices v and w are connected if there is a path between them
+* Goal. preprocess graph to answer queries of the form is v connected to w? in constant time
 * Operations: `connected(int v, int w), count(), id(int v)` 
 * Union-find? not quite
 * Depth-first search. Yes
@@ -1307,17 +1307,56 @@ public class Graph {
 
 ## Directed graph
 
-* Digraph.set of vertices connected pairwise by directed edges
+* Edges now have direction
+* Digraph: set of vertices connected pairwise by `direct` edges
 * Example, road network
 
     - Vertex = intersection
     - Edge = one-way street
+* Digraph application
+
+|Digraph|Vertex|Directed Edge|
+|-------|------|-------------|
+|web|web page|hyperlink|
+|game|board position|legal move|
+|object graph|object|pointer|
+|cell phone|person|placed call|
+|financial|bank|transaction|
+|control flow|code block|jump|
+|Inheritance hierarchy |class|inherits from|
+
+* Some digraph problems:
+    - Is there a directed path from s to t?
+    - Shortest path, What's the shortest directed path from s to t?
+    - Topological sort, can you draw a digraph so that all edge point upwards?
+    - Strong connectivity, Is there a directed path between all pairs of vertices?
+    - Transitive closure, For which vertices v and w is there a path from v to w?
+    - PageRank, What is the importance of a web page?
 
 ### Digraph api
 
 * Operations: `addEdge(int v, int w), adj(int v), vertices(), edges(), reverse(), toString()` 
+* In practice, use adjacency-lists representation
+
+    - Algorithms based on iterating over vertices adjacent to v
+    - Real-world graphs tend to be `sparse` 
+
+| representation   | space         | add edge      | edge between v and w? | iterate over vertices adjacent to v? |
+|------------------|---------------|---------------|-----------------------|--------------------------------------|
+| list of edges    | E             | 1             | E                     | E                                    |
+| adjacency matrix | v<sub>2</sub> | 1<sub>|<sub>^</sub></sub></sub> | 1                     | v                                    |
+| adjacency lists  | E+V           | 1             | degree(v)             | degree(v)  
+
+### Digraph search
+
+* Problem. find all vertices reachable from s along a directed path
+* Some method as for undirected graphs
+    - Every undirected graph is digraph (with edges in both directions)
+    - DFS is a `digraph` algorithm
+* Application. Program control-flow analysis
+    - Vertex = basic block of instructions
+    - Edge = jump
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
-

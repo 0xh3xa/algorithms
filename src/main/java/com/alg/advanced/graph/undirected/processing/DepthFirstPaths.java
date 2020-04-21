@@ -1,5 +1,6 @@
-package com.alg.advanced.graph;
+package com.alg.advanced.graph.undirected.processing;
 
+import com.alg.advanced.graph.undirected.represent.Graph;
 import com.alg.fundamentals.base.Stack;
 import com.alg.fundamentals.impl.stack.ArrayStack;
 

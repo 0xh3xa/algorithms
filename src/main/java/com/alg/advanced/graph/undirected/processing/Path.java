@@ -1,4 +1,6 @@
-package com.alg.advanced.graph;
+package com.alg.advanced.graph.undirected.processing;
+
+import com.alg.advanced.graph.undirected.represent.Graph;
 
 /**
  * Find paths in graph from source s

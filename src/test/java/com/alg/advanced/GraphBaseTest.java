@@ -1,7 +1,7 @@
 package com.alg.advanced;
 
 import com.alg.BaseTest;
-import com.alg.advanced.graph.Graph;
+import com.alg.advanced.graph.undirected.represent.Graph;
 
 public abstract class GraphBaseTest extends BaseTest {
 

@@ -1,9 +1,9 @@
-package com.alg.advanced.graph;
+package com.alg.advanced.graph.undirected.represent;
 
 import com.alg.fundamentals.impl.Bag;
 
 /**
- * Graph representation using vertices, adjacency and edges
+ * Undirected Graph representation using vertices, adjacency and edges
  */
 public class Graph {
 

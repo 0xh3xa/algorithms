@@ -1,7 +1,5 @@
 package com.alg;
 
-import java.util.Arrays;
-
 import org.junit.Rule;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
@@ -26,8 +24,4 @@ public abstract class BaseTest {
 
     @Rule
     public RuleChain rule = RuleChain.outerRule(collector).around(expected);
-
-    private void d(){
-        Arrays.binarySearch(a, key)
-    }
 }
