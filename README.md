@@ -1066,8 +1066,8 @@ to allow sort any generic data types
 |BST|N|N|N|stay tuned|compareTo()|
 |2-3 tree|c lg N|c lg N|?|yes|compareTo()|
 |red-black tree|2 lg N|2 lg N|2 lg N|yes|compareTo()|
-|separate chaining|lg N<sub>*</sub>|lg N<sub>*</sub>|no|equals()|
-|linear probing|lg N<sub>*</sub>|lg N<sub>*</sub>|no|equals()|
+|separate chaining|lg N<sub>*</sub>|lg N<sub>*</sub>|lg N<sub>*</sub>|no|equals()|
+|linear probing|lg N<sub>*</sub>|lg N<sub>*</sub>|lg N<sub>*</sub>|no|equals()|
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -1311,7 +1311,7 @@ public class Graph {
 * Example, road network
 
     - Vertex = intersection
-    - Edge = ove-way street
+    - Edge = one-way street
 
 ### Digraph api
 
