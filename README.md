@@ -1173,7 +1173,7 @@ public class Graph {
 | adjacency matrix | v<sub>2</sub> | 1<sub>*</sub> | 1                     | v                                    |
 | adjacency lists  | E+V           | 1             | degree(v)             | degree(v)                            |
 
-### Depth-first search DFS
+### Depth-first search DFS Undirected search
 
 * Classical graphical search algorithm
 
@@ -1230,7 +1230,7 @@ public class Graph {
 
 ```
 
-### Breadth-first search BFS
+### Breadth-first search BFS Undirected search
 
 * Explore vertices and it's adjacency then go next vertices for exploration
 
@@ -1347,15 +1347,52 @@ public class Graph {
 | adjacency matrix | v<sub>2</sub> | 1<sub>|<sub>^</sub></sub></sub> | 1                     | v                                    |
 | adjacency lists  | E+V           | 1             | degree(v)             | degree(v)  
 
-### Digraph search
+### DFS Digraph search
 
 * Problem. find all vertices reachable from s along a directed path
 * Some method as for undirected graphs
+
     - Every undirected graph is digraph (with edges in both directions)
     - DFS is a `digraph` algorithm
-* Application. Program control-flow analysis
-    - Vertex = basic block of instructions
-    - Edge = jump
+
+* Applications:
+
+    1\. Program control-flow analysis
+
+        - Vertex = basic block of instructions
+        - Edge = jump
+        - Benefits
+            + Dead-code elimination, find and remove unreachable code
+            + Infinite-loop detected, Determine whether exit is unreachable
+
+    2\. Mark-sweep garbage collector
+
+        - Vertex = object
+        - Edge = reference
+
+* DFS enables direct solution of simple digraph problems
+
+    1\. Reachability
+    2\. Path finding
+    3\. Topological sort
+    4\. Directed cycle direction
+
+* Basis for solving difficult digraph problems
+
+    1\. 2- satisfiability
+    2\. Directed Euler path
+    3\. Strongly-connected components
+
+### BFS Digraph search
+
+* BFS is a `digraph` algorithms
+* BFS computes shortest paths (fewest number of edges) from s to all other vertices n a digraph in time proportional to E+V
+
+### Topological sort
+
+* DAG Directed acyclic graph, has no cycle
+
+### Strong component
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
