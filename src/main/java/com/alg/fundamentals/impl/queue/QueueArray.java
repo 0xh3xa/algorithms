@@ -1,5 +1,7 @@
 package com.alg.fundamentals.impl.queue;
 
+import java.util.Iterator;
+
 import com.alg.fundamentals.base.Queue;
 
 public class QueueArray<Item> implements Queue<Item> {
@@ -54,5 +56,25 @@ public class QueueArray<Item> implements Queue<Item> {
         tail = size - 1;
         head = 0;
         arr = newArr;
+    }
+
+    @Override
+    public Iterator<Item> iterator() {
+        return new InnerIterator();
+    }
+
+    private class InnerIterator implements Iterator<Item> {
+        int i = 0;
+
+        @Override
+        public boolean hasNext() {
+            return i < size;
+        }
+
+        @Override
+        public Item next() {
+            return arr[i++];
+        }
+
     }
 }

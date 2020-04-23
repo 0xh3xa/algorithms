@@ -1,5 +1,7 @@
 package com.alg.fundamentals.impl.queue;
 
+import java.util.Iterator;
+
 import com.alg.fundamentals.base.Queue;
 
 public class QueueLinkedList<Item> implements Queue<Item> {
@@ -50,6 +52,27 @@ public class QueueLinkedList<Item> implements Queue<Item> {
     @Override
     public int size() {
         return size;
+    }
+
+    @Override
+    public Iterator<Item> iterator() {
+        return new InnerIterator();
+    }
+
+    private class InnerIterator implements Iterator<Item> {
+        NodeList head = first;
+
+        @Override
+        public boolean hasNext() {
+            return head.next != null;
+        }
+
+        @Override
+        public Item next() {
+            Item item = head.item;
+            head = head.next;
+            return item;
+        }
     }
 
 }
