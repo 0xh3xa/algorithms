@@ -1071,7 +1071,7 @@ to allow sort any generic data types
 
 -------------------------------------------------------------------------------------------------------------------------------
 
-## Undirected Graph
+## Graph
 
 * Definition: is a Graph from set of vertices connected pairwise by edges
 
@@ -1102,13 +1102,13 @@ to allow sort any generic data types
     - Path. Is there a path between v and w?
     - Shortest path. What is the shortest path between v and w?
     - Cycle. Is there a cycle in the graph?
-    - Euler tour. Is there a cycle that uses each edge exactly once?
-    - Hamilton tour. Is there a cycle that uses each vertex exactly once
+    - Euler cycle. Is there a cycle that uses each edge exactly once?
+    - Hamilton cycle. Is there a cycle that uses each vertex exactly once
     - Connectivity. Is there a way to connect all of the vertices?
     - MST. What is the best way to connect all of the vertices?
     - Bi-connectivity. Is there a vertex whose removal disconnects the graph?
 
-## Graph api
+## Undirected Graph api
 
 * Graph drawing provides intuition about the structure of the graph
 * Caveat intuition can be misleading
@@ -1393,6 +1393,8 @@ public class Graph {
 * DAG Directed acyclic graph, has no cycle
 
 ### Strong component
+
+## MST Minimum spanning tree
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
