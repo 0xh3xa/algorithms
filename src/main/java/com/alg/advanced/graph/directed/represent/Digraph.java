@@ -1,4 +1,4 @@
-package com.alg.advanced.graph.directed;
+package com.alg.advanced.graph.directed.represent;
 
 import com.alg.fundamentals.impl.Bag;
 
