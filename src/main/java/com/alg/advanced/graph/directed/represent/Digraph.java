@@ -23,7 +23,7 @@ public class Digraph {
         this.edges = 0;
         adj = (Bag<Integer>[]) new Bag[v];
         for (int i = 0; i < v; i++) {
-            adj[v] = new Bag<Integer>();
+            adj[i] = new Bag<Integer>();
         }
     }
 

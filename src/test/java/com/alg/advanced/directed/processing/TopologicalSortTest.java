@@ -1,7 +1,5 @@
 package com.alg.advanced.directed.processing;
 
-import java.io.FileNotFoundException;
-
 import com.alg.advanced.graph.directed.processing.TopologicalSort;
 import com.alg.advanced.graph.directed.represent.SymbolDigraph;
 
@@ -10,7 +8,7 @@ import org.junit.Test;
 
 public class TopologicalSortTest {
 
-    private static final String FILE_NAME = "/Users/ninja/Documents/topological_sort";
+    private static final String FILE_NAME = "C:\\Users\\space\\Desktop\\jobs.txt";
 
     private SymbolDigraph symbolDigraph;
 
@@ -22,10 +20,10 @@ public class TopologicalSortTest {
     @Test
     public void shouldOrder() {
         // Act
-        TopologicalSort sort = new TopologicalSort(symbolDigraph.graph());
+        TopologicalSort topological = new TopologicalSort(symbolDigraph.graph());
 
         // Assert
-        for (int v : sort.order()) {
+        for (int v : topological.order()) {
             System.out.println(symbolDigraph.name(v));
         }
     }

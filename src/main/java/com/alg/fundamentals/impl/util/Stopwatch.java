@@ -1,4 +1,4 @@
-package com.alg.fundamentals;
+package com.alg.fundamentals.impl.util;
 
 public final class Stopwatch {
 

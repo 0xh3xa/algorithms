@@ -1,8 +1,8 @@
 package com.alg.advanced.graph.directed.processing;
 
+import java.util.Stack;
+
 import com.alg.advanced.graph.directed.represent.Digraph;
-import com.alg.fundamentals.base.Stack;
-import com.alg.fundamentals.impl.stack.ArrayStack;
 
 /**
  * Detect cycle in directed graph
@@ -16,10 +16,11 @@ public class DirectedCycleDetector {
 
     public DirectedCycleDetector(Digraph graph) {
         onStack = new boolean[graph.getVertices()];
-        edgeTo = new int[graph.getVertices()];
         marked = new boolean[graph.getVertices()];
+        edgeTo = new int[graph.getVertices()];
+
         for (int v = 0; v < graph.getVertices(); v++) {
-            if (!marked[v])
+            if (!marked[v] && cycle == null)
                 dfs(graph, v);
         }
     }
@@ -28,13 +29,20 @@ public class DirectedCycleDetector {
         onStack[v] = true;
         marked[v] = true;
         for (int w : graph.adj(v)) {
-            if (hasCycle())
+
+            // short circuit if directed cycle found
+            if (cycle != null)
                 return;
-            else if (!marked[v]) {
+
+            // found new vertex, so recur
+            else if (!marked[w]) {
                 edgeTo[w] = v;
                 dfs(graph, w);
-            } else if (onStack[w]) {
-                cycle = new ArrayStack<>();
+            }
+
+            // trace back directed cycle
+            else if (onStack[w]) {
+                cycle = new Stack<>();
                 for (int x = v; x != w; x = edgeTo[x]) {
                     cycle.push(x);
                 }
@@ -42,6 +50,7 @@ public class DirectedCycleDetector {
                 cycle.push(v);
             }
         }
+        onStack[v] = false;
     }
 
     public boolean hasCycle() {
