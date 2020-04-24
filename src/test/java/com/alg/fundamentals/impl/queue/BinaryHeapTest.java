@@ -1,9 +1,8 @@
 package com.alg.fundamentals.impl.queue;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 import com.alg.BaseTest;
-import com.alg.fundamentals.base.Queue;
 
 import org.junit.Before;
 import org.junit.Test;

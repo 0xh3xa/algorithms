@@ -63,6 +63,19 @@ public class Digraph {
         return adj[v];
     }
 
+    /**
+     * return copy from Digraph
+     */
+    public Digraph copyDigraph() {
+        Digraph reverse = new Digraph(vertices);
+        for (int v = 0; v < vertices; v++) {
+            for (int w : adj(v)) {
+                reverse.addEdge(w, v);
+            }
+        }
+        return reverse;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
