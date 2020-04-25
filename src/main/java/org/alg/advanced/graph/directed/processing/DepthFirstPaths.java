@@ -1,6 +1,6 @@
-package org.alg.advanced.graph.undirected.processing;
+package org.alg.advanced.graph.directed.processing;
 
-import org.alg.advanced.graph.undirected.represent.Graph;
+import org.alg.advanced.graph.directed.represent.Digraph;
 import org.alg.fundamentals.base.Stack;
 import org.alg.fundamentals.impl.stack.ArrayStack;
 
@@ -13,14 +13,14 @@ public class DepthFirstPaths {
     private int[] edgeTo;
     private boolean[] marked;
 
-    public DepthFirstPaths(Graph graph, int s) {
+    public DepthFirstPaths(Digraph graph, int s) {
         this.s = s;
         this.edgeTo = new int[graph.getVertices()];
         this.marked = new boolean[graph.getVertices()];
         dfs(graph, s);
     }
 
-    private void dfs(Graph graph, int v) {
+    private void dfs(Digraph graph, int v) {
         marked[v] = true; // mark v as visited
         for (int w : graph.adj(v)) { // get adjacency to v
             if (!marked[w]) { // visit if not marked

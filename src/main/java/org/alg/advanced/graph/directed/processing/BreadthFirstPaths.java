@@ -1,6 +1,6 @@
-package org.alg.advanced.graph.undirected.processing;
+package org.alg.advanced.graph.directed.processing;
 
-import org.alg.advanced.graph.undirected.represent.Graph;
+import org.alg.advanced.graph.directed.represent.Digraph;
 import org.alg.fundamentals.base.Queue;
 import org.alg.fundamentals.base.Stack;
 import org.alg.fundamentals.impl.queue.ArrayQueue;
@@ -15,7 +15,7 @@ public class BreadthFirstPaths {
     private int[] edgeTo;
     private int[] distTo;
 
-    public BreadthFirstPaths(Graph graph, int s) {
+    public BreadthFirstPaths(Digraph graph, int s) {
         marked = new boolean[graph.getVertices()];
         distTo = new int[graph.getVertices()];
         edgeTo = new int[graph.getVertices()];
@@ -25,7 +25,7 @@ public class BreadthFirstPaths {
         bfs(graph, s);
     }
 
-    private void bfs(Graph graph, int s) {
+    private void bfs(Digraph graph, int s) {
         Queue<Integer> q = new ArrayQueue<>();
         for (int v = 0; v < graph.getVertices(); v++) {
             distTo[v] = Integer.MAX_VALUE;
