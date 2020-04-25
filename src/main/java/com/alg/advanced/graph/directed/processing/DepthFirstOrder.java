@@ -41,7 +41,7 @@ public class DepthFirstOrder {
         return post;
     }
 
-    public Iterable<Integer> reversePost() {
+    public Stack<Integer> reversePost() {
         Stack<Integer> reverse = new Stack<Integer>();
         while (!post.isEmpty()) {
             reverse.push(post.poll());
