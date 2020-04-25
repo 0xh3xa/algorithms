@@ -3,7 +3,7 @@ package org.alg.advanced.graph.directed.processing;
 import org.alg.advanced.graph.directed.represent.Digraph;
 
 /**
- * Directed DFS search algorithm
+ * Directed DFS search algorithm for Digraph
  */
 public class DirectedDFS {
 

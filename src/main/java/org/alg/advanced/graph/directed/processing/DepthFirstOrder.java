@@ -6,6 +6,9 @@ import org.alg.fundamentals.base.Stack;
 import org.alg.fundamentals.impl.queue.ArrayQueue;
 import org.alg.fundamentals.impl.stack.ArrayStack;
 
+/**
+ * Provides preorder, postorder, reverser postorder
+ */
 public class DepthFirstOrder {
 
     private boolean[] marked;
@@ -19,8 +22,9 @@ public class DepthFirstOrder {
         reverseOrder = new ArrayStack<>();
         marked = new boolean[graph.getVertices()];
         for (int v = 0; v < graph.getVertices(); v++) {
-            if (!marked[v])
+            if (!marked[v]) {
                 dfs(graph, v);
+            }
         }
     }
 
