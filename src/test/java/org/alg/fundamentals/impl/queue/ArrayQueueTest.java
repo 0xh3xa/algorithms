@@ -2,13 +2,15 @@ package org.alg.fundamentals.impl.queue;
 
 import static org.hamcrest.CoreMatchers.*;
 
+import java.util.NoSuchElementException;
+
 import org.alg.BaseTest;
 import org.alg.fundamentals.base.Queue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class QueueArrayTest extends BaseTest {
+public class ArrayQueueTest extends BaseTest {
 
     private Queue<Integer> queue;
 
@@ -54,7 +56,7 @@ public class QueueArrayTest extends BaseTest {
     @Test
     public void shouldThrowException() {
         // Assert
-        expected.expect(IndexOutOfBoundsException.class);
+        expected.expect(NoSuchElementException.class);
 
         // Act
         queue.dequeue();

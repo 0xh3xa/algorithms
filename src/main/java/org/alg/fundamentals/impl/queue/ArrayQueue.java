@@ -33,7 +33,7 @@ public class ArrayQueue<Item> implements Queue<Item> {
     @Override
     public Item dequeue() {
         if (isEmpty()) {
-            throw new IndexOutOfBoundsException();
+            throw new NoSuchElementException();
         }
         Item item = q[first];
         q[first] = null;
