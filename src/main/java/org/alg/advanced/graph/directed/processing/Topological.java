@@ -1,27 +1,26 @@
 package org.alg.advanced.graph.directed.processing;
 
-import java.util.Stack;
-
 import org.alg.advanced.graph.directed.represent.Digraph;
+import org.alg.fundamentals.base.Stack;
 
 /**
  * Put vertices on order
  */
 public class Topological {
 
-    private Iterable<Integer> order;
-    private Stack<Integer> stack;
+    // private Iterable<Integer> order;
+    private Stack<Integer> order;
 
     public Topological(Digraph graph) {
         DirectedCycleDetector finder = new DirectedCycleDetector(graph);
         if (!finder.hasCycle()) {
             DepthFirstOrder dfs = new DepthFirstOrder(graph);
-            stack = dfs.reversePost();
+            order = dfs.reversePost();
         }
     }
 
     public Stack<Integer> order() {
-        return stack;
+        return order;
     }
 
     public boolean hasOrder() {
@@ -33,17 +32,17 @@ public class Topological {
     }
 
     // public static void main(String[] a) throws Exception {
-    //     String FILE_NAME = "C:\\Users\\space\\Desktop\\jobs.txt";
+    // String FILE_NAME = "C:\\Users\\space\\Desktop\\jobs.txt";
 
-    //     SymbolDigraph symbolDigraph;
+    // SymbolDigraph symbolDigraph;
 
-    //     symbolDigraph = new SymbolDigraph(FILE_NAME, "/");
+    // symbolDigraph = new SymbolDigraph(FILE_NAME, "/");
 
-    //     Topological topological = new Topological(symbolDigraph.graph());
+    // Topological topological = new Topological(symbolDigraph.graph());
 
-    //     // Assert
-    //     while (!topological.order().empty()) {
-    //         System.out.println(symbolDigraph.name(topological.order().pop()));
-    //     }
+    // // Assert
+    // while (!topological.order().empty()) {
+    // System.out.println(symbolDigraph.name(topological.order().pop()));
+    // }
     // }
 }

@@ -64,9 +64,9 @@ public class Digraph {
     }
 
     /**
-     * return copy from Digraph
+     * Returns the reverse of the digraph
      */
-    public Digraph copyDigraph() {
+    public Digraph reverse() {
         Digraph reverse = new Digraph(vertices);
         for (int v = 0; v < vertices; v++) {
             for (int w : adj(v)) {

@@ -1,20 +1,22 @@
 package org.alg.advanced.graph.directed.processing;
 
-import java.util.ArrayDeque;
-import java.util.Queue;
-import java.util.Stack;
-
 import org.alg.advanced.graph.directed.represent.Digraph;
+import org.alg.fundamentals.base.Queue;
+import org.alg.fundamentals.base.Stack;
+import org.alg.fundamentals.impl.queue.ArrayQueue;
+import org.alg.fundamentals.impl.stack.ArrayStack;
 
 public class DepthFirstOrder {
 
     private boolean[] marked;
     private Queue<Integer> pre;
     private Queue<Integer> post;
+    private Stack<Integer> reverseOrder;
 
     public DepthFirstOrder(Digraph graph) {
-        pre = new ArrayDeque<>();
-        post = new ArrayDeque<>();
+        pre = new ArrayQueue<>();
+        post = new ArrayQueue<>();
+        reverseOrder = new ArrayStack<>();
         marked = new boolean[graph.getVertices()];
         for (int v = 0; v < graph.getVertices(); v++) {
             if (!marked[v])
@@ -23,14 +25,15 @@ public class DepthFirstOrder {
     }
 
     private void dfs(Digraph graph, int v) {
-        pre.add(v);
+        pre.enqueue(v);
         marked[v] = true;
         for (int w : graph.adj(v)) {
             if (!marked[w]) {
                 dfs(graph, w);
             }
         }
-        post.add(v);
+        post.enqueue(v);
+        reverseOrder.push(v);
     }
 
     public Iterable<Integer> pre() {
@@ -42,10 +45,6 @@ public class DepthFirstOrder {
     }
 
     public Stack<Integer> reversePost() {
-        Stack<Integer> reverse = new Stack<Integer>();
-        while (!post.isEmpty()) {
-            reverse.push(post.poll());
-        }
-        return reverse;
+        return reverseOrder;
     }
 }
