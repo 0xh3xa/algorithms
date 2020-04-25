@@ -1,12 +1,11 @@
 package org.alg.fundamentals.impl.queue;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 import java.util.NoSuchElementException;
 
 import org.alg.BaseTest;
 import org.alg.fundamentals.base.Queue;
-
 import org.junit.Before;
 import org.junit.Test;
 

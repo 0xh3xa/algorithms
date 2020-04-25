@@ -1,6 +1,7 @@
 package org.alg.fundamentals.impl.stack;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import org.alg.fundamentals.base.Stack;
 
@@ -18,15 +19,14 @@ public class ArrayStack<Item> implements Stack<Item> {
 
     @Override
     public Item pop() {
-        try {
-            Item item = arr[--ptr];
-            arr[ptr] = null;
-            if (ptr > 0 && ptr == arr.length / 4)
-                resize(arr.length / 2);
-            return item;
-        } catch (IndexOutOfBoundsException e) {
-            throw e;
+        if (isEmpty()) {
+            throw new NoSuchElementException("stack underflow");
         }
+        Item item = arr[--ptr];
+        arr[ptr] = null;
+        if (ptr > 0 && ptr == arr.length / 4)
+            resize(arr.length / 2);
+        return item;
     }
 
     @Override

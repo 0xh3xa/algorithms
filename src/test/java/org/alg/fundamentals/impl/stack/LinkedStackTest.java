@@ -1,20 +1,21 @@
 package org.alg.fundamentals.impl.stack;
 
-import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+
+import java.util.NoSuchElementException;
 
 import org.alg.BaseTest;
 import org.alg.fundamentals.base.Stack;
-
 import org.junit.Before;
 import org.junit.Test;
 
-public class LinkedListStackTest extends BaseTest {
+public class LinkedStackTest extends BaseTest {
 
     private Stack<Integer> stack;
 
     @Before
     public void setUp() {
-        stack = new LinkedListStack<>();
+        stack = new LinkedStack<>();
     }
 
     @Test
@@ -43,7 +44,7 @@ public class LinkedListStackTest extends BaseTest {
     @Test
     public void shouldThrowException() {
         // Assert
-        expected.expect(IndexOutOfBoundsException.class);
+        expected.expect(NoSuchElementException.class);
 
         // Act
         stack.pop();

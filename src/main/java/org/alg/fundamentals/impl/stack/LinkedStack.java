@@ -1,10 +1,11 @@
 package org.alg.fundamentals.impl.stack;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import org.alg.fundamentals.base.Stack;
 
-public class LinkedListStack<Item> implements Stack<Item> {
+public class LinkedStack<Item> implements Stack<Item> {
 
     private class NodeList {
         Item item;
@@ -33,14 +34,13 @@ public class LinkedListStack<Item> implements Stack<Item> {
 
     @Override
     public Item pop() {
-        try {
-            Item item = first.item;
-            first = first.next;
-            size--;
-            return item;
-        } catch (NullPointerException e) {
-            throw new IndexOutOfBoundsException();
+        if (isEmpty()) {
+            throw new NoSuchElementException("stack underflow");
         }
+        Item item = first.item;
+        first = first.next;
+        size--;
+        return item;
     }
 
     @Override
