@@ -13,7 +13,7 @@ import org.junit.Test;
 
 public class TopologicalTest extends BaseTest {
 
-    private static final String FILE_NAME = "src/test/resources/jobs.txt";
+    private static final String FILE_NAME = "src/test/resources/topological/jobs";
 
     private SymbolDigraph symbolDigraph;
 
