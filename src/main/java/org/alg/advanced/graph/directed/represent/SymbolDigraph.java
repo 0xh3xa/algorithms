@@ -17,8 +17,7 @@ public class SymbolDigraph {
 
     public SymbolDigraph(String path, String sp) throws Exception {
         st = new ST<>();
-        List<String> lines = Files.readAllLines(new File(path).toPath());
-        lines.forEach(line -> {
+        Files.lines(new File(path).toPath()).forEach(line -> {
             String[] split = line.split(sp);
             for (int i = 0; i < split.length; i++) {
                 if (!st.contains(split[i])) {
@@ -32,7 +31,7 @@ public class SymbolDigraph {
             keys[st.get(name)] = name;
         }
         graph = new Digraph(st.size());
-        lines.forEach(line -> {
+        Files.lines(new File(path).toPath()).forEach(line -> {
             String[] split = line.split(sp);
             int v = st.get(split[0]);
             for (int i = 1; i < split.length; i++) {

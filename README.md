@@ -1394,7 +1394,71 @@ public class Graph {
 
 ### Strong component
 
-## MST Minimum spanning tree
+## MST (Minimum spanning tree)
+
+* Edge-weighted graph: is a graph with weights or costs with each edge
+* Spanning tree connected sub graph with no cycles that includes all vertices
+* Minimum Spanning tree: spanning tree who weight no larger than the weight of any other spanning tree
+* MST is fundamental problem with diverse application
+    - Cluster analysis
+    - Real-time face verification
+    - Image registration with renyi entropy
+    - Find road networks in satellite and aerial imagery
+    - Network design (communication, electrical, computer, road)
+    - Auto config protocol for ether bridging to avoid cycles in a network
+    - Reducing data storage in sequencing amino acids in a protein
+
+### Greedy algorithm
+
+* Simplifying assumptions
+    - Edge weights are `distinct` 
+    - Graph is `connected` 
+    - Based on these `MST exists and unique` 
+
+* Cut property
+    - Partition of its vertices into two nonempty set
+    - Crossing edge connected a vertex in one set with a vertex in the other
+
+* Greedy MST algorithm
+    - Start with all edges colored gray
+    - Find cut with no block crossing edges, color its min0weight edge black
+    - Repeat until V-1 edges are colored black
+
+* Efficient implementations. Choose cut? find min-weight edge?
+    - Kruskal's algorithm [stay tuned]
+    - Prim's algorithm [stay tuned]
+    - Boruvka's algorithm
+
+* Q. What if edge weights are not all distinct?
+    - A. Greedy MST algorithm still correct if equal weights are present!
+
+* Q. What iff graph is not connected?
+    - A. Compute m,minimum spanning forest = MST of each components
+
+### Kruskal's algorithm
+
+* classical algorithm for computing MST
+*  Steps:
+
+    - Consider edges in ascending order of weight
+    - Add next edge to tree T unless doing so would create a cycle
+    - Ignore edge that create a cycle
+
+* We will use `union-find` to add edge `v-w` to tree that not creating cycle
+* And use `Min-Priority-Queue` to detect the min weight
+
+### Prim's algorithm
+
+* Classical algorithm for computing MST
+* Steps:
+
+    - Start with vertex 0 and greedily grow tree T
+    - Add to T the min weight edge with exactly one endpoint in T
+    - Repeat until V-1 edges
+
+### MST context
+
+- 
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
