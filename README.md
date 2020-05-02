@@ -1173,6 +1173,8 @@ public class Graph {
 | adjacency matrix | v<sub>2</sub> | 1<sub>*</sub> | 1                     | v                                    |
 | adjacency lists  | E+V           | 1             | degree(v)             | degree(v)                            |
 
+-------------------------------------------------------------------------------------------------------------------------------
+
 ### Depth-first search DFS Undirected search
 
 * Classical graphical search algorithm
@@ -1229,6 +1231,8 @@ public class Graph {
     }
 
 ```
+
+-------------------------------------------------------------------------------------------------------------------------------
 
 ### Breadth-first search BFS Undirected search
 
@@ -1290,6 +1294,8 @@ public class Graph {
 * Level order, BFS: 1, 2, 3, 4, 5, 6, 7
 * Pre-order, DFS: 1, 2, 4, 5, 3, 6, 7
 
+-------------------------------------------------------------------------------------------------------------------------------
+
 ### Connected components
 
 * Def. vertices v and w are connected if there is a path between them
@@ -1304,6 +1310,8 @@ public class Graph {
     - Transitive
 
 * Def. A connected component is a maximal set of connected vertices
+
+-------------------------------------------------------------------------------------------------------------------------------
 
 ## Directed graph
 
@@ -1394,6 +1402,8 @@ public class Graph {
 
 ### Strong component
 
+-------------------------------------------------------------------------------------------------------------------------------
+
 ## MST (Minimum spanning tree)
 
 * Edge-weighted graph: is a graph with weights or costs with each edge
@@ -1458,8 +1468,223 @@ public class Graph {
 
 ### MST context
 
-- 
+ 
+-------------------------------------------------------------------------------------------------------------------------------
+
+## Shortest path
+
+* Given an edge weighted digraph, find the shortest path from s to t
+
+* Applications:
+
+    - Google maps
+    - Car navigation
+    - Network routing protocols (OSPF, BGP, RIP)
+    - Optimal pipelining of VLSI chip
+    - Robot navigation
+
+* Which vertices?
+
+    - Source-sink: from one vertex to another
+    - Single source: from one vertex to every other
+    - All pairs: between all pairs of vertices
+
+* Restrictions on edge weights
+
+    - Nonnegative weights
+    - Arbitrary weights
+    - Euclidean weights
+
+* Cycles?
+    - No directed cycles
+    - No "negative cycles"
+
+### Weighted directed edge API
+
+* DirectedEdge API
+
+``` java
+public class DirectedEdge {
+
+    DirectedEdge(int v, int w, double weight)
+
+    int from()
+
+    int to()
+
+    double weight()
+
+    String toString()
+}
+
+```
+
+* Edge-weighted digraph API
+
+``` java
+public class EdgeWeightedDigraph {
+
+    EdgeWeightedDigraph(int v)
+
+    void addEdge(DirectedEdge e)
+
+    Iterable<DirectedEdge> adj(int v)
+
+    int V()
+
+    int E()
+
+    Iterable<DirectedEdge> edges()
+
+    String toString()
+}
+```
+
+`TODO` continue from Minimum spanning tree
+-------------------------------------------------------------------------------------------------------------------------------
+
+## Strings
+
+* Definition `string` is a sequence of characters
+* Important fundamentals abstractions
+    - Information processing
+    - Genomic sequences
+    - Communication systems (e.g email)
+    - Programming systems (e.g java programs)
+* C char data type
+    - Supports 7-bit ASCII
+    - Can represent only 256 characters
+
+### Strings in java
+
+* Java char data type
+    - Support 16-bit Unicode
+    - Support 21-bit Unicode 3.0
+
+* String data type in Java. sequence of characters (immutable)
+* Length. Number of characters
+* Substring extraction. Get a contiguous subsequence of characters
+* String concatenation. Append one character to end of another string
+
+`representation in java`
+
+```java
+public final class String implements Comparable<String> {
+    private char[] value; // characters
+    private int offset; // index of first char in array
+    private int length; // length of substring
+    private int hash; // cache of hashCode()
+
+    public int length() { return length;}
+
+    public char charAt(int i) { return value[i + offset];}
+
+    private String(int offset, int length, char[] value) {
+        this.offset = offset;
+        this.length = length;
+        this.value = value;
+    }
+
+    public String substring(int from, int to) {
+        return new String(offset + from, to - from, value); // copy of reference to char array
+    }
+}
+
+```
+
+* String data type performance
+
+|operation|guarantee|extra space|
+|---------|---------|-----------|
+|length()|1|1|
+|charAt()|1|1|
+|substring()|1|1|
+|concat()|N|N|
+
+    - Memory `40+2N` bytes for a virgin String of length of N
+
+* StringBuilder data type performance
+
+|operation|guarantee|extra space|
+|---------|---------|-----------|
+|length()|1|1|
+|charAt()|1|1|
+|substring()|N|N|
+|concat()|1<sub>*</sub>|1<sub>*</sub>|
+
+    - `Remark` StringBuffer data type is similar, but thread safe (and slower)
+
+* For `Concat` string use `StringBuilder`, for `substring()` use `String`
+* Alphabets
+    - Radix. Number of possible value in String
+
+    |name|R()|lgR()|characters|
+    |----|---|-----|----------|
+    |Binary|2|1|01|
+    |Octal|8|3|01234567|
+    |Decimal|10|4|0123456789|
+    |HexaDecimal|16|4|0123456789ABCED|
+    |DNA|4|2|ACTG|
+    |LowerCase|26|5|a-z|
+    |UpperCase|26|5|A-Z|
+    |Protein|20|5|A-Y|
+    |Base64|64|6|A-Za-z0-9+/|
+    |ASCII|128|7|ASCII characters|
+    |Extended ASCII|256|8|extended ASCII characters|
+    |Unicode16|65536|16|unicode characters|
+
+### Key indexed counting
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
