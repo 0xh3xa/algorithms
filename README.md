@@ -1612,7 +1612,7 @@ public final class String implements Comparable<String> {
 |substring()|N|N|
 |concat()|1<sub>*</sub>|1<sub>*</sub>|
 
-    - `Remark` StringBuffer data type is similar, but thread safe (and slower)
+    - Remark StringBuffer data type is similar, but thread safe (and slower)
 
 * For `Concat` string use `StringBuilder`, for `substring()` use `String`
 * Alphabets
@@ -1633,11 +1633,60 @@ public final class String implements Comparable<String> {
     |Extended ASCII|256|8|extended ASCII characters|
     |Unicode16|65536|16|unicode characters|
 
-### Key indexed counting
+### Key-indexed counting algorithms
+
+* we stop in sort at Heap sort
+    - Lower bound ~ N lg N compares required by any compared-based algorithm
+    - Q. Can e do better (despite the lower bound) ?  
+        A. Yes if e don't depend o key compares
+* Frequency of operations = key compares
+* Assumption about keys
+    - Assumption. Keys are integers between 0 and R-1
+    - Implication. Can use key as an array index
+    - Applications
+        1. Sort string by first letter
+        2. Sort class roster by section
+        3. Sort phone numbers by area code
+        4. Subroutine in a sorting algorithm
+
+    - Remark. keys may have associated data => can't just count up number of keys of each value
+
+* Steps
+    - Count frequencies of each letter using key as index
+    - Compute frequency cumulates which specify destination
+    - Access cumulates using key as index to remove items
+    - Copy back into original array
+
+* Performance ~ `11 N + 4 R` and use extra space `N + R`
+    - R is Radix from table above
+
+`algorithms`
+
+```java
+int N = a.length;
+int[] count = new int[R+1];
+
+for (int i = 0; i < N; i++) 
+    count[a[i]+1]++;
+
+for (int i = 0; i < N; i++)
+    count[r+1] += count[r];
+
+for (int i = 0; i < N; i++)
+    aux[count[a[i]]++] = a[i];
+
+for (int i = 0; i < N; i++)
+    a[i] = aux[i];
+
+```
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
+
+
+
+
 
 
 
