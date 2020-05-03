@@ -1710,11 +1710,11 @@ public static void sort(String[] a, int W) { // Fixed length W strings
 
 |algorithm|guarantee|random|extra space|stable?|operations on keys|
 |---------|---------|------|-----------|-------|------------------|
-|insertion sort|N<sub>2</sub>/2|N<sub>2</sub>/4|1|yes|compareTo()|
+|insertion sort|N<sup>2</sup>/2|N<sup>2</sup>/4|1|yes|compareTo()|
 |mergesort|N lg N|N lg N|N |yes|compareTo()|
 |quicksort|1.39 N lg N|1.39 N lg N|c lg N |no|compareTo()|
 |heapsort|2 N lg N|2 N lg N|1|no|compareTo()|
-|LSD<sub>*</sub>|2 W N|2 W N|N + R|yes|charAt()|
+|LSD<sup>*</sup>|2 W N|2 W N|N + R|yes|charAt()|
 
 ### Most-significant-digit-first (MSD radix) string sort
 
