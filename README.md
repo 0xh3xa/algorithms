@@ -1667,29 +1667,66 @@ int N = a.length;
 int[] count = new int[R+1];
 
 for (int i = 0; i < N; i++) 
-    count[a[i]+1]++;
+    count[a[i]+1]++; // count frequencies offset by 1
 
 for (int i = 0; i < N; i++)
-    count[r+1] += count[r];
+    count[r+1] += count[r]; // compute cumulates
 
 for (int i = 0; i < N; i++)
-    aux[count[a[i]]++] = a[i];
+    aux[count[a[i]]++] = a[i]; // move items
 
 for (int i = 0; i < N; i++)
-    a[i] = aux[i];
+    a[i] = aux[i]; // copy back
 
 ```
 
-### Least-significant-digit-first string sort
+### Least-significant-digit-first (LSD radix) string sort
 
 * LSD string (radix) sort
     - Consider characters from right to left
     - Stably sort using d<sub>th</sub> character as the key (using key-indexed counting)
 
+```java
+public static void sort(String[] a, int W) { // Fixed length W strings
+    int R = 256; // radix R
+    int N = a.length;
+    String[] aux = new String[N];
+
+    for(int d = W-1; d >= 0; d--) { // do key-indexed counting for each digit from right to left
+        int[] count = new int[R+1];
+        for(int i = 0; i < N; i++)
+            count[a[i].charAt(d)+1]++; // key-indexed counting
+        for(int r = 0; r < R; r++)
+            count[r+1] += count[r];
+        for(int i = 0; i < N; i++)
+            aux[count[a[i].charAt(d)]++] = a[i];
+        for(int i = 0; i < N; i++)
+            a[i] = aux[i];
+    }
+}
+```
+
+* Summary of the performance of sorting algorithms
+
+|algorithm|guarantee|random|extra space|stable?|operations on keys|
+|---------|---------|------|-----------|-------|------------------|
+|insertion sort|N<sub>2</sub>/2|N<sub>2</sub>/4|1|yes|compareTo()|
+|mergesort|N lg N|N lg N|N |yes|compareTo()|
+|quicksort|1.39 N lg N|1.39 N lg N|c lg N |no|compareTo()|
+|heapsort|2 N lg N|2 N lg N|1|no|compareTo()|
+|LSD<sub>*</sub>|2 W N|2 W N|N + R|yes|charAt()|
+
+### Most-significant-digit-first (MSD radix) string sort
+
+* 
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
+
+
+
+
 
 
 
