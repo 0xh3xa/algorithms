@@ -1779,6 +1779,7 @@ public static void sort(String[] a, int W) { // Fixed length W strings
     - Has to re-scan many characters in keys with long prefix matches
 
 * Complexity
+
 |algorithm|guarantee|random|extra space|stable?|operations on keys|
 |---------|---------|------|-----------|-------|------------------|
 |insertion sort|N<sup>2</sup>/2|N<sup>2</sup>/4|1|yes|compareTo()|
@@ -1798,11 +1799,10 @@ public static void sort(String[] a, int W) { // Fixed length W strings
 ## Search in String
 
 * Data structure for searching in String
-* ComplexityQS
-*
+* Complexity for previous searching
 
 |algorithm|search|insert|delete|ordered operations|operations on keys|
-|---------|-------------|------|------------------|------------------|
+|---------|------|------|------|------------------|------------------|
 |red-black BST|lg N|lg N|lg N|yes|compareAt()|
 |hash table|1<sup>*</sup>|1<sup>*</sup>|1<sup>*</sup>|no|compareAt()|
 
@@ -1837,20 +1837,156 @@ public class StringST<Value> {
     - Search hit: node where search ends has a non-null value
     - Search miss: reach null link or node where search ends has null value
 
+* Delete in an R-way tries
+    - Find the node corresponding to key and set value to null
+    - If node has null value and all null links, remove that node (and recur)
+
+* Trie performance
+    - Search hit. Need to examine all L characters for equality
+    - Search miss. Could have mismatch on first character, typical case examine only a few characters
+    - Space. R null links at each leaf. (but sub-linear space possible if many short strings share common prefixes)
+    - Bottom line. Fast search hit and even faster search miss, but `wastes space`
+
+* Goal. Design a data structure to perform efficient spell checking
+    - Solution. Build a 26 way trie (key = word, value = bit), 26 English letters
+
 `Implementation`
 
 ```java
 
+public class TriesST<Value> {
 
+    private final static int R = 256;
+    private Node root = new Node();
 
+    private class Node {
+        private Object val;
+        private Node[] next = (Node[]) new Object[R];
+    }
+
+    public void put(String key, Value val) {
+        root = put(root, key, val, 0);
+    }
+
+    private Node put(Node node, String key, Value val, int d) {
+        if (node == null)
+            node = new Node();
+        if (d == key.length()) {
+            node.val = val;
+            return node;
+        }
+        char c = key.charAt(d);
+        node.next[c] = put(node.next[c], key, val, d + 1);
+        return node;
+    }
+
+    public boolean contains(String key) {
+        return get(key) != null;
+    }
+
+    public Value get(String key) {
+        Node node = get(root, key, 0);
+        if (node == null)
+            return null;
+        return (Value) node.val;
+    }
+
+    private Node get(Node node, String key, int d) {
+        if (node == null)
+            return null;
+        if (d == key.length())
+            return node;
+        char c = key.charAt(d);
+        return get(node.next[c], key, d + 1);
+    }
+}
 ```
+
+* Comparison 
+
+|algorithm|search|search miss|insert|space|
+|---------|------|-----------|------|-----|
+|red-black BST|L + c lg<sup>2</sup> N|c lg<sup>2</sup>N|c lg<sup>2</sup>N|4N|
+|hash table (linear probing)|L|L|L|4N to 16N|
+|R-way tries|L|log<sub>*</sub>N|L|(R+1)N|
+
+* R-way tries
+    - Method of choice for small R
+    - Too much memory for large R
+
+* Challenge. Use less memory, e.g. 65,536-way trie for Unicode!
 
 ### Ternary Tries
 
-  
+* Store characters and values in nodes (not keys)
+* Each node has 3 children: small(left), equal(middle), larger(right)
+* Follow links corresponding to each character in the key
+    - If less take left link, if greater take right link
+    - If equal take the middle link and move to the next key character
+
+* Search hit. Node where search ends has a non-nul value
+* Search miss. Reach a null link or node where search node ends has null value
+
+* 26-way trie vs. TST
+    
+    - 26-way trie. 26 null links in each leaf
+    - TST. 3 null links in each leaf
+
+* Comparison 
+
+|algorithm|search|search miss|insert|space|
+|---------|------|-----------|------|-----|
+|red-black BST|L + c lg<sup>2</sup> N|c lg<sup>2</sup>N|c lg<sup>2</sup>N|4N|
+|hash table (linear probing)|L|L|L|4N to 16N|
+|R-way tries|L|log<sub>*</sub>N|L|(R+1)N|
+|TST|L + ln N|ln N|L + ln N|4 N|
+
+* Remark. can build balanced TST via rotations to achieve `L + Log N` worst-case guarantees
+
+* String symbol table implementation cost summary
+
+|algorithm|search|search miss|insert|space|
+|---------|------|-----------|------|-----|
+|red-black BST|L + c lg<sup>2</sup> N|c lg<sup>2</sup>N|c lg<sup>2</sup>N|4N|
+|hash table (linear probing)|L|L|L|4N to 16N|
+|R-way tries|L|log<sub>*</sub>N|L|(R+1)N|
+|TST|L + ln N|ln N|L + ln N|4 N|
+|TST with R<sup>2</sup>|L + ln N|ln N|L + ln N|4 N + R<sup>2</sup>|
+
+* Bottom line. TST is as fast as hashing (for string keys), space efficient
+
+* TST vs. hashing
+    - Hashing
+        1. Need to examine entire key
+        2. Search hits and misses cost about the same
+        3. Performance relies on hash function
+        4. Does not support ordered symbol table operations
+    
+    - TSTs.
+        1. works only for strings (or digital keys)
+        2. Only examines just enough key characters
+        3. Search miss may involve only a fe characters
+        4. Supports ordered symbol table operations (plus others)
+
+* Bottom line. TSTs are:
+    - Faster than hashing (especially for search misses)
+    - MOre flexible than red-black BSTs [stay tuned]
+
+### Character based operations
+
+
+
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
+
+
+
+
+
+
+
+
 
 
 
