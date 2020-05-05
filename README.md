@@ -1663,21 +1663,23 @@ public final class String implements Comparable<String> {
 `algorithms`
 
 ```java
-int N = a.length;
-int[] count = new int[R+1];
+    public final static void sort(char[] a) {
+        int N = a.length;
+        int R = 256;
+        int[] count = new int[R + 1];
+        char[] aux = new char[N];
+        for (int i = 0; i < N; i++)
+            count[a[i] + 1]++; // count frequencies offset by 1
 
-for (int i = 0; i < N; i++) 
-    count[a[i]+1]++; // count frequencies offset by 1
+        for (int r = 0; r < R; r++)
+            count[r + 1] += count[r]; // compute cumulates
 
-for (int r = 0; r < R; r++)
-    count[r+1] += count[r]; // compute cumulates
+        for (int i = 0; i < N; i++)
+            aux[count[a[i]]++] = a[i]; // move items
 
-for (int i = 0; i < N; i++)
-    aux[count[a[i]]++] = a[i]; // move items
-
-for (int i = 0; i < N; i++)
-    a[i] = aux[i]; // copy back
-
+        for (int i = 0; i < N; i++)
+            a[i] = aux[i]; // copy back
+    }
 ```
 
 ### Least-significant-digit-first (LSD radix) string sort
@@ -1688,22 +1690,22 @@ for (int i = 0; i < N; i++)
 
 ```java
 public static void sort(String[] a, int W) { // Fixed length W strings
-    int R = 256; // radix R
-    int N = a.length;
-    String[] aux = new String[N];
+        int R = 256; // radix R
+        int N = a.length;
+        String[] aux = new String[N];
 
-    for (int d = W-1; d >= 0; d--) { // do key-indexed counting for each digit from right to left
-        int[] count = new int[R+1];
-        for (int i = 0; i < N; i++)
-            count[a[i].charAt(d)+1]++; // key-indexed counting
-        for (int r = 0; r < R; r++)
-            count[r+1] += count[r];
-        for (int i = 0; i < N; i++)
-            aux[count[a[i].charAt(d)]++] = a[i];
-        for (int i = 0; i < N; i++)
-            a[i] = aux[i];
+        for (int d = W - 1; d >= 0; d--) { // do key-indexed counting for each digit from right to left
+            int[] count = new int[R + 1];
+            for (int i = 0; i < N; i++)
+                count[a[i].charAt(d) + 1]++; // key-indexed counting
+            for (int r = 0; r < R; r++)
+                count[r + 1] += count[r];
+            for (int i = 0; i < N; i++)
+                aux[count[a[i].charAt(d)]++] = a[i];
+            for (int i = 0; i < N; i++)
+                a[i] = aux[i];
+        }
     }
-}
 ```
 
 * Summary of the performance of sorting algorithms
@@ -1725,31 +1727,35 @@ public static void sort(String[] a, int W) { // Fixed length W strings
 `Algorithm`
 
 ```java
-private static int charAt(String s, int d) {
-    if (d < s.length()) return s.charAt(d);
-    else return -1
-}
+  public final static void sort(String[] a) {
+        String[] aux = new String[a.length];
+        sort(a, aux, 0, a.length - 1, 0);
+    }
 
-public static void sort(String[] a) {
-    aux = new String[a.length];
-    sort(a, aux, 0, a.length-1, 0)
-}
+    private final static void sort(String[] a, String[] aux, int lo, int hi, int d) {
+        if (hi <= lo)
+            return;
+        int R = 256;
+        int[] count = new int[R + 1];
+        for (int i = lo; i <= hi; i++)
+            count[charAt(a[i], d) + 2]++;
+        for (int r = 0; r < R + 1; r++)
+            count[r + 1] += count[r];
+        for (int i = lo; i <= hi; i++)
+            aux[count[charAt(a[i], d) + 1]++] = a[i];
+        for (int i = lo; i <= hi; i++)
+            a[i] = aux[i - lo];
 
-private static void sort(String[] a, String[] aux, int lo, int hi, int d) {
-    if (hi <= lo) return;
-    int[] count = new int[R+2];
-    for (int i = lo; i <= hi; i++)
-        count[charAt(a[i], d) + 2]++;
-    for (int r = 0; r < R+1; r++)
-        count[r+1] += count[r];
-    for (int i = lo; i <= hi; i++)
-        aux[count[charAt(a[i], d) + 1]++] = a[i];
-    for (int i = lo; i<= hi; i++)
-        a[i] = aux[i -lo];
-    
-    for (int r = 0; r < R; r++)
-        sort(a, aux, lo + count[r], lo + count[r+1] - 1, d+1); // sort R subarrays recursively 
-}
+        for (int r = 0; r < R; r++)
+            sort(a, aux, lo + count[r], lo + count[r + 1] - 1, d + 1); // sort R subarrays recursively
+    }
+
+    private final static int charAt(String s, int d) {
+        if (d < s.length())
+            return s.charAt(d);
+        else
+            return -1;
+    }
 ```
 
 * Observation 1. Much too slow for small subarrays
@@ -1792,7 +1798,8 @@ private static void sort(String[] a, String[] aux, int lo, int hi, int d) {
 ## Search in String
 
 * Data structure for searching in String
-* Complexity
+* ComplexityQS
+*
 
 |algorithm|search|insert|delete|ordered operations|operations on keys|
 |---------|-------------|------|------------------|------------------|
@@ -1830,10 +1837,28 @@ public class StringST<Value> {
     - Search hit: node where search ends has a non-null value
     - Search miss: reach null link or node where search ends has null value
 
+`Implementation`
 
+```java
+
+
+
+```
+
+### Ternary Tries
+
+  
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
+
+
+
+
+
+
+
+
 
 
 
