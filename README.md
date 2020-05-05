@@ -1772,7 +1772,7 @@ private static void sort(String[] a, String[] aux, int lo, int hi, int d) {
     - Linearithmic number of string compares (not linear)
     - Has to re-scan many characters in keys with long prefix matches
 
-
+* Complexity
 |algorithm|guarantee|random|extra space|stable?|operations on keys|
 |---------|---------|------|-----------|-------|------------------|
 |insertion sort|N<sup>2</sup>/2|N<sup>2</sup>/4|1|yes|compareTo()|
@@ -1789,13 +1789,57 @@ private static void sort(String[] a, String[] aux, int lo, int hi, int d) {
 
 -------------------------------------------------------------------------------------------------------------------------------
 
-## Tries
+## Search in String
 
 * Data structure for searching in String
+* Complexity
+
+|algorithm|search|insert|delete|ordered operations|operations on keys|
+|---------|-------------|------|------------------|------------------|
+|red-black BST|lg N|lg N|lg N|yes|compareAt()|
+|hash table|1<sup>*</sup>|1<sup>*</sup>|1<sup>*</sup>|no|compareAt()|
+
+* Q. Can we do better?  
+    A. yes, if we can avoid examining the entire key, as with string sorting 
+
+* String symbol table API
+
+```java
+public class StringST<Value> {
+    StringST()
+
+    void put(String key, Value val)
+
+    void get(String key)
+
+    void delete(String key)
+}
+```
+
+* Goal. Faster than hashing, more flexible than BSTs
+* Challenge. Efficient performance for string keys
+
+### R-way Tries
+
+* From retrieval, but pronounced "try"
+* For now store characters in nodes (not key)
+* Each node has R children, one for each possible character
+* Store values in nodes corresponding to last characters in keys
+* Search in a trie
+    - Follow links corresponding to each character in the key
+    - Search hit: node where search ends has a non-null value
+    - Search miss: reach null link or node where search ends has null value
+
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
+
+
+
+
+
+
 
 
 
