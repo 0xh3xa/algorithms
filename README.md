@@ -1669,7 +1669,7 @@ int[] count = new int[R+1];
 for (int i = 0; i < N; i++) 
     count[a[i]+1]++; // count frequencies offset by 1
 
-for (int i = 0; i < N; i++)
+for (int r = 0; r < R; r++)
     count[r+1] += count[r]; // compute cumulates
 
 for (int i = 0; i < N; i++)
@@ -1692,15 +1692,15 @@ public static void sort(String[] a, int W) { // Fixed length W strings
     int N = a.length;
     String[] aux = new String[N];
 
-    for(int d = W-1; d >= 0; d--) { // do key-indexed counting for each digit from right to left
+    for (int d = W-1; d >= 0; d--) { // do key-indexed counting for each digit from right to left
         int[] count = new int[R+1];
-        for(int i = 0; i < N; i++)
+        for (int i = 0; i < N; i++)
             count[a[i].charAt(d)+1]++; // key-indexed counting
-        for(int r = 0; r < R; r++)
+        for (int r = 0; r < R; r++)
             count[r+1] += count[r];
-        for(int i = 0; i < N; i++)
+        for (int i = 0; i < N; i++)
             aux[count[a[i].charAt(d)]++] = a[i];
-        for(int i = 0; i < N; i++)
+        for (int i = 0; i < N; i++)
             a[i] = aux[i];
     }
 }
@@ -1714,15 +1714,104 @@ public static void sort(String[] a, int W) { // Fixed length W strings
 |mergesort|N lg N|N lg N|N |yes|compareTo()|
 |quicksort|1.39 N lg N|1.39 N lg N|c lg N |no|compareTo()|
 |heapsort|2 N lg N|2 N lg N|1|no|compareTo()|
-|LSD<sup>*</sup>|2 W N|2 W N|N + R|yes|charAt()|
+|LSD<sup>*</sup>|2 N W|2 N W|N + R|yes|charAt()|
 
 ### Most-significant-digit-first (MSD radix) string sort
 
-* 
+* Steps
+    - Partition array into R pieces according to first character (use key-indexed counting)
+    - Recursively sort all strings that start ith each character (key-indexed counts delineate subarrays to sort)
+
+`Algorithm`
+
+```java
+private static int charAt(String s, int d) {
+    if (d < s.length()) return s.charAt(d);
+    else return -1
+}
+
+public static void sort(String[] a) {
+    aux = new String[a.length];
+    sort(a, aux, 0, a.length-1, 0)
+}
+
+private static void sort(String[] a, String[] aux, int lo, int hi, int d) {
+    if (hi <= lo) return;
+    int[] count = new int[R+2];
+    for (int i = lo; i <= hi; i++)
+        count[charAt(a[i], d) + 2]++;
+    for (int r = 0; r < R+1; r++)
+        count[r+1] += count[r];
+    for (int i = lo; i <= hi; i++)
+        aux[count[charAt(a[i], d) + 1]++] = a[i];
+    for (int i = lo; i<= hi; i++)
+        a[i] = aux[i -lo];
+    
+    for (int r = 0; r < R; r++)
+        sort(a, aux, lo + count[r], lo + count[r+1] - 1, d+1); // sort R subarrays recursively 
+}
+```
+
+* Observation 1. Much too slow for small subarrays
+    - Each function call needs its own count[] array
+    - ASCII (256 counts) 100x slower than copy pass for N=2
+    - Unicode (65,536 counts): 32.000x slower for N = 2
+
+* Observation 2. Huge number of small subarrays because of recursion
+
+* Improvement
+    1. Cutoff to insertion sort for small subarrays
+
+* Disadvantage of MSD string sort
+    - ACcess memory "randomly" (cache inefficient)
+    - Inner loop has a lot of instructions
+    - Extra space for count[]
+    - Extra space for aux[]
+
+* Disadvantage of quicksort
+    - Linearithmic number of string compares (not linear)
+    - Has to re-scan many characters in keys with long prefix matches
+
+
+|algorithm|guarantee|random|extra space|stable?|operations on keys|
+|---------|---------|------|-----------|-------|------------------|
+|insertion sort|N<sup>2</sup>/2|N<sup>2</sup>/4|1|yes|compareTo()|
+|mergesort|N lg N|N lg N|N |yes|compareTo()|
+|quicksort|1.39 N lg N|1.39 N lg N|c lg N |no|compareTo()|
+|heapsort|2 N lg N|2 N lg N|1|no|compareTo()|
+|LSD<sup>*</sup>|2 N W|2 N W|N + R|yes|charAt()|
+|MSD<sup>*</sup>|2 N W|N log<sub>2</sub>N|N + D R|yes|charAt()|
+
+
+### 3-Way string quicksort
+
+### Suffix arrays
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+## Tries
+
+* Data structure for searching in String
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
