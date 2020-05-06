@@ -2112,6 +2112,71 @@ public class TriesST<Value> {
 * Theoretical challenge. Linear-time guarantee
 * Practical challenge. Avoid backup in text stream
 
+#### Knuth-Morris-Pratt substring search
+
+* Coolest algorithm :)
+* Intuition. Suppose e are search in text for pattern BAAAAAAAAA
+* Clever method to avoid backup in brute-force substring
+* Deterministic finite state automaton (DFA)
+    - Finite number of states (includes start and halt)
+    - Exactly one transition for each char in alphabet
+    - Accept if sequence of transitions leads to halt state
+
+* Q. what is interpretation of DFA state after reading in txt[i]?
+    - A. State = number of characters in pattern that have been matched
+
+* Key difference from brute-force implementation
+    - Need to pre-compute dfa[][] from pattern
+    - Text pointer i never decrements
+
+* Running time
+    - Simulate DFA on text: at most N character accesses
+    - Build DFA: ho to do efficiently? [warning: tricky algorithm ahead!]
+
+* Running time. M character access (but space/time proportional to R M)
+
+`algorithm` 
+
+``` java
+public class KMP {
+
+    private static final int R = 256;
+
+    private int M;
+    private int[][] dfa;
+
+    public KMP(String pattern) {
+        M = pattern.length();
+        dfa = new int[R][M];
+        dfa[pattern.charAt(0)][0] = 1;
+        for (int i = 0, j = 1; j < M; j++) {
+            for (int c = 0; c < R; c++) {
+                dfa[c][j] = dfa[c][i]; // copy mis-match cases
+            }
+            dfa[pattern.charAt(j)][j] = j + 1; // set match case
+            i = dfa[pattern.charAt(j)][i]; // update restart state
+        }
+    }
+
+    public int search(String text) {
+        int i, j, N = text.length();
+        for (i = 0, j = 0; i < N && j < M; i++) {
+            j = dfa[text.charAt(i)][j]; // no backup
+        }
+        if (j == M)
+            return i - M;
+        else
+            return N;
+    }
+}
+```
+
+#### Boyer-Moore
+
+* Scan characters in pattern from right to left
+* Can skip as many as M text chars when finding one not in the pattern
+
+
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat

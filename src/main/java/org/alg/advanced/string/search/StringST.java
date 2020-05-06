@@ -9,7 +9,7 @@ public class StringST<Value> {
 
     private class Node {
         private Object val;
-        private Node[] next = (Node[]) new Object[R];
+        private Node[] next = (StringST<Value>.Node[]) new Object[R];
     }
 
     public void put(String key, Value val) {
@@ -81,8 +81,9 @@ public class StringST<Value> {
             return length;
         if (node.val != null)
             length = d;
-        if(d==query.length()) return length;
+        if (d == query.length())
+            return length;
         char c = query.charAt(d);
-        return search(node.next[c], query, d+1, length);
+        return search(node.next[c], query, d + 1, length);
     }
 }

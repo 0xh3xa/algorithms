@@ -35,4 +35,22 @@ public final class MSD {
         else
             return -1;
     }
+    
+    for (int i = 0; i < this.numberBooks && removed<quantitytoremove ; i++) {
+        for (int j = i+1; j < this.numberBooks && removed<quantitytoremove; j++) {
+            if (!(this.BooksArray.get(i).equals(this.BooksArray.get(j)))) {
+
+                Book Book_i= this.BooksArray.get(i);
+                Book Book_j= this.BooksArray.get(j);
+                this.BooksArray.remove(Book_i);
+                this.BooksArray.remove(Book_j);
+
+                removed=removed+2;
+                this.numberBooks=numberBooks-2;
+                i=0;j=1;
+
+            }
+
+        } 
+    }
 }
