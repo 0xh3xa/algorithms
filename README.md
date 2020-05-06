@@ -1970,29 +1970,63 @@ public class TriesST<Value> {
 
 * Bottom line. TSTs are:
     - Faster than hashing (especially for search misses)
-    - MOre flexible than red-black BSTs [stay tuned]
+    - More flexible than red-black BSTs [stay tuned]
 
 ### Character based operations
 
+* The string symbol table API supports several useful character-based operations
 
+* Prefix match. keys with prefix "sh": "she", "shells" and "shore"
+
+* wildcard match. keys that match ".he": "she" and "the"
+
+* Longest prefix. key that is the longest prefix of "shellsort": "shells"
+
+* Prefix matches
+    - Find all keys in a symbol table starting with a given prefix
+    - Ex. Autocomplete in a cell phone, search bar, text editor or shell
+        1. User types characters one at a time
+        2. System reports all matching strings
+
+* T9 texting
+    - Goal. type text messages on a phone keypad
+    - Multi-tap input. Enter a letter by repeatedly pressing a key until the desired
+    - T9 text input
+        1. Find all words that correspond to given sequence of numbers
+        2. Press 0 to see all completion options
+
+* Patricia trie
+    - Remove one-way branching
+    - Each node represents a sequence of characters
+    - Implementation: one step beyond this course
+    - Applications
+        1. Database search
+        2. P2P network search
+        3. IP routing table: find longest prefix match
+        4. Compressed quad-tree for N-body simulation
+        5. Efficiently storing and query XML documents
+
+### String symbol tables summary
+
+* A success stroy in algorithm design and analysis
+
+* Red-black BST
+    - Performance guarantee: log N key compares
+    - Supports ordered symbol table API
+
+* Hash tables
+    - Performance guarantee: constant number of probes
+    - Requires good hash function for key type
+
+* Tries. R-way TST
+    - Performance guarantee: log N characters accessed
+    - Support character-based operations
+
+`Bottom line. You can get at anything by examining 50-100 bits!!!!!`
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
