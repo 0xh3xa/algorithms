@@ -1646,6 +1646,7 @@ public final class String implements Comparable<String> {
     - Assumption. Keys are integers between 0 and R-1
     - Implication. Can use key as an array index
     - Applications
+
         1\. Sort string by first letter
         2\. Sort class roster by section
         3\. Sort phone numbers by area code
@@ -1768,6 +1769,7 @@ public static void sort(String[] a, int W) { // Fixed length W strings
 * Observation 2. Huge number of small subarrays because of recursion
 
 * Improvement
+
     1\. Cutoff to insertion sort for small subarrays
 
 * Disadvantage of MSD string sort
@@ -1961,6 +1963,7 @@ public class TriesST<Value> {
 
 * TST vs. hashing
     - Hashing
+
         1\. Need to examine entire key
         2\. Search hits and misses cost about the same
         3\. Performance relies on hash function
@@ -1969,6 +1972,7 @@ public class TriesST<Value> {
     
 
     - TSTs.
+
         1\. works only for strings \(or digital keys\)
         2\. Only examines just enough key characters
         3\. Search miss may involve only a fe characters
@@ -1991,6 +1995,7 @@ public class TriesST<Value> {
 * Prefix matches
     - Find all keys in a symbol table starting with a given prefix
     - Ex. Autocomplete in a cell phone, search bar, text editor or shell
+
         1\. User types characters one at a time
         2\. System reports all matching strings
 
@@ -1998,6 +2003,7 @@ public class TriesST<Value> {
     - Goal. type text messages on a phone keypad
     - Multi-tap input. Enter a letter by repeatedly pressing a key until the desired
     - T9 text input
+
         1\. Find all words that correspond to given sequence of numbers
         2\. Press 0 to see all completion options
 
@@ -2006,6 +2012,7 @@ public class TriesST<Value> {
     - Each node represents a sequence of characters
     - Implementation: one step beyond this course
     - Applications
+
         1\. Database search
         2\. P2P network search
         3\. IP routing table: find longest prefix match
