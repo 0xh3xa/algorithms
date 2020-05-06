@@ -2037,6 +2037,20 @@ public class TriesST<Value> {
 
 `Bottom line. You can get at anything by examining 50-100 bits!!!!!` 
 
+### Substring search
+
+* Goal. find pattern of length <i>M</i> in a text of length <i>N</i> typically N>>M
+* Applications
+    - Find and replace
+    - computer forensics. Search memory or disk for signatures, e.g. al URLs or RSA keys that the user has entered
+    - Identify patterns indicative of spam
+        1. Profits
+        2. Lose weight
+        3. herbal viagra
+        4. there is no catch
+        5. this is a one-time mailing
+        6. this message is sent in compliance with spam regulations
+
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat

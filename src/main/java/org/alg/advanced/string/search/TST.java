@@ -10,8 +10,8 @@ public class TST<Value> {
         Node left, mid, right;
     }
 
-    public void put(String key, Value val){
-        root = put(root, key, val, 0)ك
+    public void put(String key, Value val) {
+        root = put(root, key, val, 0);
     }
 
     private Node put(Node node, String key, Value val, int d) {
@@ -48,8 +48,9 @@ public class TST<Value> {
             return get(node.left, key, d);
         else if (c > node.c)
             return get(node.right, key, d);
-        else if(d<key.length()-1)
-        return get(node.mid, key, d+1);
-        else return node;
+        else if (d < key.length() - 1)
+            return get(node.mid, key, d + 1);
+        else
+            return node;
     }
 }

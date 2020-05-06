@@ -1,5 +1,6 @@
 package org.alg.advanced.graph.undirected.represent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.alg.fundamentals.impl.Bag;
@@ -13,7 +14,7 @@ public class Graph {
 
     private final int vertices;
     private int edges;
-    private List<Integer>[] adj;
+    private Bag<Integer>[] adj;
 
     /**
      * create graph of size of v vertices
@@ -23,9 +24,9 @@ public class Graph {
             throw new IllegalArgumentException("Number of vertices must be non-negative");
         this.vertices = v;
         this.edges = 0;
-        adj = (List<Integer>[]) new List[v];
+        adj = (Bag[]) new List[v];
         for (int i = 0; i < v; i++) {
-            adj[v] = new List<Integer>();
+            adj[v] = new Bag<>();
         }
     }
 

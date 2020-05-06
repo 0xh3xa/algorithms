@@ -5,7 +5,7 @@ import java.util.Scanner;
 import org.alg.fundamentals.impl.symboltable.ST;
 
 /**
- * Define graph with String vertex na˝mes instead of integer indices
+ * Define graph with String vertex names instead of integer indices
  */
 public class SymbolGraph {
 
