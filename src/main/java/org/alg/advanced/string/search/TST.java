@@ -30,7 +30,7 @@ public class TST<Value> {
     }
 
     public boolean contains(String key) {
-        return get(key) = null;
+        return get(key) == null;
     }
 
     public Value get(String key) {
