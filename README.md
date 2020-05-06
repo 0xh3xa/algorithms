@@ -2044,12 +2044,73 @@ public class TriesST<Value> {
     - Find and replace
     - computer forensics. Search memory or disk for signatures, e.g. al URLs or RSA keys that the user has entered
     - Identify patterns indicative of spam
-        1. Profits
-        2. Lose weight
-        3. herbal viagra
-        4. there is no catch
-        5. this is a one-time mailing
-        6. this message is sent in compliance with spam regulations
+
+        1\. Profits
+        2\. Lose weight
+        3\. herbal viagra
+        4\. there is no catch
+        5\. this is a one-time mailing
+        6\. this message is sent in compliance with spam regulations
+
+    - Screen scraping. Extract relevant data from web page
+
+        1\. Ex\. find string delimited by <b> and </b> after first occurrence of pattern last trade
+
+#### Brute-force substring search
+
+* Check for pattern starting at each text position
+* Worst case ~ <i>M N</i> char compares
+* Brute-force algorithm can be slow if text and pattern are repetitive
+
+`algorithm` 
+
+``` java
+    public final static int indexOf(String text, String sub) {
+        int N = text.length();
+        int M = sub.length();
+
+        for (int i = 0; i <= N - M; i++) {
+            int j;
+            for (j = 0; j < M; j++) {
+                if (sub.charAt(i + j) != text.charAt(j))
+                    break;
+                if (j == M)
+                    return i; // index in text where patterns starts
+            }
+        }
+        return N; // not found
+    }
+```
+
+* Backup
+    - In  many applications, we want to avoid backup in text stream
+
+        1\. Treat input as stream of data
+        2\. Abstract model: standard input
+
+``` java
+    public final static int indexOfEnhanced(String text, String sub) {
+        int i, N = text.length();
+        int j, M = sub.length();
+
+        for (i = 0, j = 0; i < N && j < M; i++) {
+            if (sub.charAt(i) == text.charAt(j))
+                j++;
+            else { // backup
+                i -= j;
+                j = 0;
+            }
+        }
+        if (j == M)
+            return i - M;
+        else
+            return N;
+    }
+```
+
+* Brute-force is not always good enough
+* Theoretical challenge. Linear-time guarantee
+* Practical challenge. Avoid backup in text stream
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
