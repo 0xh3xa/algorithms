@@ -1566,9 +1566,9 @@ public class EdgeWeightedDigraph {
 * Substring extraction. Get a contiguous subsequence of characters
 * String concatenation. Append one character to end of another string
 
-`representation in java`
+`representation in java` 
 
-```java
+``` java
 public final class String implements Comparable<String> {
     private char[] value; // characters
     private int offset; // index of first char in array
@@ -1614,7 +1614,7 @@ public final class String implements Comparable<String> {
 
     - Remark StringBuffer data type is similar, but thread safe (and slower)
 
-* For `Concat` string use `StringBuilder`, for `substring()` use `String`
+* For `Concat` string use `StringBuilder` , for `substring()` use `String` 
 * Alphabets
     - Radix. Number of possible value in String
 
@@ -1638,16 +1638,18 @@ public final class String implements Comparable<String> {
 * we stop in sort at Heap sort
     - Lower bound ~ N lg N compares required by any compared-based algorithm
     - Q. Can e do better (despite the lower bound) ?  
+
         A. Yes if e don't depend o key compares
+
 * Frequency of operations = key compares
 * Assumption about keys
     - Assumption. Keys are integers between 0 and R-1
     - Implication. Can use key as an array index
     - Applications
-        1. Sort string by first letter
-        2. Sort class roster by section
-        3. Sort phone numbers by area code
-        4. Subroutine in a sorting algorithm
+        1\. Sort string by first letter
+        2\. Sort class roster by section
+        3\. Sort phone numbers by area code
+        4\. Subroutine in a sorting algorithm
 
     - Remark. keys may have associated data => can't just count up number of keys of each value
 
@@ -1657,12 +1659,12 @@ public final class String implements Comparable<String> {
     - Access cumulates using key as index to remove items
     - Copy back into original array
 
-* Performance ~ `11 N + 4 R` and use extra space `N + R`
+* Performance ~ `11 N + 4 R` and use extra space `N + R` 
     - R is Radix from table above
 
-`algorithms`
+`algorithms` 
 
-```java
+``` java
     public final static void sort(char[] a) {
         int N = a.length;
         int R = 256;
@@ -1688,7 +1690,7 @@ public final class String implements Comparable<String> {
     - Consider characters from right to left
     - Stably sort using d<sub>th</sub> character as the key (using key-indexed counting)
 
-```java
+``` java
 public static void sort(String[] a, int W) { // Fixed length W strings
         int R = 256; // radix R
         int N = a.length;
@@ -1724,9 +1726,9 @@ public static void sort(String[] a, int W) { // Fixed length W strings
     - Partition array into R pieces according to first character (use key-indexed counting)
     - Recursively sort all strings that start ith each character (key-indexed counts delineate subarrays to sort)
 
-`Algorithm`
+`Algorithm` 
 
-```java
+``` java
   public final static void sort(String[] a) {
         String[] aux = new String[a.length];
         sort(a, aux, 0, a.length - 1, 0);
@@ -1766,7 +1768,7 @@ public static void sort(String[] a, int W) { // Fixed length W strings
 * Observation 2. Huge number of small subarrays because of recursion
 
 * Improvement
-    1. Cutoff to insertion sort for small subarrays
+    1\. Cutoff to insertion sort for small subarrays
 
 * Disadvantage of MSD string sort
     - ACcess memory "randomly" (cache inefficient)
@@ -1789,7 +1791,6 @@ public static void sort(String[] a, int W) { // Fixed length W strings
 |LSD<sup>*</sup>|2 N W|2 N W|N + R|yes|charAt()|
 |MSD<sup>*</sup>|2 N W|N log<sub>2</sub>N|N + D R|yes|charAt()|
 
-
 ### 3-Way string quicksort
 
 ### Suffix arrays
@@ -1807,11 +1808,12 @@ public static void sort(String[] a, int W) { // Fixed length W strings
 |hash table|1<sup>*</sup>|1<sup>*</sup>|1<sup>*</sup>|no|compareAt()|
 
 * Q. Can we do better?  
+
     A. yes, if we can avoid examining the entire key, as with string sorting 
 
 * String symbol table API
 
-```java
+``` java
 public class StringST<Value> {
     StringST()
 
@@ -1845,14 +1847,14 @@ public class StringST<Value> {
     - Search hit. Need to examine all L characters for equality
     - Search miss. Could have mismatch on first character, typical case examine only a few characters
     - Space. R null links at each leaf. (but sub-linear space possible if many short strings share common prefixes)
-    - Bottom line. Fast search hit and even faster search miss, but `wastes space`
+    - Bottom line. Fast search hit and even faster search miss, but `wastes space` 
 
 * Goal. Design a data structure to perform efficient spell checking
     - Solution. Build a 26 way trie (key = word, value = bit), 26 English letters
 
-`Implementation`
+`Implementation` 
 
-```java
+``` java
 
 public class TriesST<Value> {
 
@@ -1914,7 +1916,7 @@ public class TriesST<Value> {
     - Method of choice for small R
     - Too much memory for large R
 
-* Challenge. Use less memory, e.g. 65,536-way trie for Unicode!
+* Challenge. Use less memory, e.g. 65, 536-way trie for Unicode!
 
 ### Ternary Tries
 
@@ -1928,7 +1930,9 @@ public class TriesST<Value> {
 * Search miss. Reach a null link or node where search node ends has null value
 
 * 26-way trie vs. TST
+
     
+
     - 26-way trie. 26 null links in each leaf
     - TST. 3 null links in each leaf
 
@@ -1957,16 +1961,18 @@ public class TriesST<Value> {
 
 * TST vs. hashing
     - Hashing
-        1. Need to examine entire key
-        2. Search hits and misses cost about the same
-        3. Performance relies on hash function
-        4. Does not support ordered symbol table operations
+        1\. Need to examine entire key
+        2\. Search hits and misses cost about the same
+        3\. Performance relies on hash function
+        4\. Does not support ordered symbol table operations
+
     
+
     - TSTs.
-        1. works only for strings (or digital keys)
-        2. Only examines just enough key characters
-        3. Search miss may involve only a fe characters
-        4. Supports ordered symbol table operations (plus others)
+        1\. works only for strings \(or digital keys\)
+        2\. Only examines just enough key characters
+        3\. Search miss may involve only a fe characters
+        4\. Supports ordered symbol table operations \(plus others\)
 
 * Bottom line. TSTs are:
     - Faster than hashing (especially for search misses)
@@ -1985,26 +1991,26 @@ public class TriesST<Value> {
 * Prefix matches
     - Find all keys in a symbol table starting with a given prefix
     - Ex. Autocomplete in a cell phone, search bar, text editor or shell
-        1. User types characters one at a time
-        2. System reports all matching strings
+        1\. User types characters one at a time
+        2\. System reports all matching strings
 
 * T9 texting
     - Goal. type text messages on a phone keypad
     - Multi-tap input. Enter a letter by repeatedly pressing a key until the desired
     - T9 text input
-        1. Find all words that correspond to given sequence of numbers
-        2. Press 0 to see all completion options
+        1\. Find all words that correspond to given sequence of numbers
+        2\. Press 0 to see all completion options
 
 * Patricia trie
     - Remove one-way branching
     - Each node represents a sequence of characters
     - Implementation: one step beyond this course
     - Applications
-        1. Database search
-        2. P2P network search
-        3. IP routing table: find longest prefix match
-        4. Compressed quad-tree for N-body simulation
-        5. Efficiently storing and query XML documents
+        1\. Database search
+        2\. P2P network search
+        3\. IP routing table: find longest prefix match
+        4\. Compressed quad-tree for N-body simulation
+        5\. Efficiently storing and query XML documents
 
 ### String symbol tables summary
 
@@ -2022,100 +2028,8 @@ public class TriesST<Value> {
     - Performance guarantee: log N characters accessed
     - Support character-based operations
 
-`Bottom line. You can get at anything by examining 50-100 bits!!!!!`
+`Bottom line. You can get at anything by examining 50-100 bits!!!!!` 
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
