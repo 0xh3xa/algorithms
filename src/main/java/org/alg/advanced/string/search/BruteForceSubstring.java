@@ -31,7 +31,7 @@ public final class BruteForceSubstring {
         int j, M = sub.length();
 
         for (i = 0, j = 0; i < N && j < M; i++) {
-            if (sub.charAt(i) == text.charAt(j))
+            if (text.charAt(i) == sub.charAt(j))
                 j++;
             else {
                 i -= j;

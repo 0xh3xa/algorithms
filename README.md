@@ -1933,8 +1933,6 @@ public class TriesST<Value> {
 
 * 26-way trie vs. TST
 
-    
-
     - 26-way trie. 26 null links in each leaf
     - TST. 3 null links in each leaf
 
@@ -1969,8 +1967,6 @@ public class TriesST<Value> {
         3\. Performance relies on hash function
         4\. Does not support ordered symbol table operations
 
-    
-
     - TSTs.
 
         1\. works only for strings \(or digital keys\)
@@ -1994,7 +1990,7 @@ public class TriesST<Value> {
 
 * Prefix matches
     - Find all keys in a symbol table starting with a given prefix
-    - Ex. Autocomplete in a cell phone, search bar, text editor or shell
+    - Ex. Autocomplete in a cell phone, search bar (Google search), text editor or shell
 
         1\. User types characters one at a time
         2\. System reports all matching strings
@@ -2082,6 +2078,8 @@ public class TriesST<Value> {
     }
 ```
 
+* Bad performance for search in repeated e.g. "AB" in "AAAAAAAAAB"
+
 * Backup
     - In  many applications, we want to avoid backup in text stream
 
@@ -2094,7 +2092,7 @@ public class TriesST<Value> {
         int j, M = sub.length();
 
         for (i = 0, j = 0; i < N && j < M; i++) {
-            if (sub.charAt(i) == text.charAt(j))
+            if (text.charAt(i) == sub.charAt(j))
                 j++;
             else { // backup
                 i -= j;
@@ -2115,6 +2113,7 @@ public class TriesST<Value> {
 #### Knuth-Morris-Pratt substring search
 
 * Coolest algorithm :)
+* This is the algorithm when theoretical meets practices, this discovered by two theoreticians and a hacker
 * Intuition. Suppose e are search in text for pattern BAAAAAAAAA
 * Clever method to avoid backup in brute-force substring
 * Deterministic finite state automaton (DFA)
@@ -2133,7 +2132,14 @@ public class TriesST<Value> {
     - Simulate DFA on text: at most N character accesses
     - Build DFA: ho to do efficiently? [warning: tricky algorithm ahead!]
 
-* Running time. M character access (but space/time proportional to R M)
+* How to build DFA from pattern?
+
+    - if in state j and next char `c != pat.charAt(j)` , then the last `j-1` characters of input are pat[1..j-1] followed by c
+
+* Proposition. KMP substring search access no more than `M + N` chars to search for a pattern of length M in a text of length N
+    - Pf. each pattern char accessed once when constructing DFA, each text char accessed once (in the worst case) when simulating of the DFA
+
+* Proposition. KMP constructs dfa[][] in time and space proportional to RM
 
 `algorithm` 
 
@@ -2173,9 +2179,61 @@ public class KMP {
 
 #### Boyer-Moore
 
-* Scan characters in pattern from right to left
-* Can skip as many as M text chars when finding one not in the pattern
+* KMP in linear time can we improve over that? yes : D
 
+* Steps
+    - Scan characters in pattern from right to left
+    - Can skip as many as M text chars when finding one not in the pattern
+
+* Property. substring search with the Boyer-Moore mismatched character heuristic takes about ~ `N / M` character compares to search for a pattern of length M in a text of length N
+
+* worse-case can be as bad as ~ `M N` 
+
+* Boyer-Moore variant. Can improve worst case to ~ `3 N` by adding a KMP-like rule to guard against repetitive patterns
+
+`algorithm` 
+
+``` java
+public class BoyerMoore {
+
+    private final int R;
+    private int[] right;
+    private String pat;
+
+    public BoyerMoore(String pattern) {
+        this.R = 256;
+        this.pat = pat;
+        right = new int[R];
+        for (int c = 0; c < R; c++)
+            right[c] = -1;
+        for (int j = 0; j < pat.length(); j++)
+            right[pat.charAt(j)] = j;
+
+    }
+
+    public int indexOf(String text) {
+        int N = text.length();
+        int M = pat.length();
+        int skip;
+        for (int i = 0; i <= N - M; i += -skip) {
+            skip = 0;
+            for (int j = M - 1; j >= 0; j--) {
+                if (pat.charAt(j) != text.charAt(i + j)) {
+                    skip = Math.max(1, j - right[text.charAt(i + 1)]);
+                }
+            }
+
+            if (skip == 0)
+                return i;
+        }
+        return -1; // not found
+    }
+}
+```
+
+#### Rabin-Karp algorithm
+
+* 
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
