@@ -2181,9 +2181,19 @@ public class KMP {
 
 * KMP in linear time can we improve over that? yes : D
 
+* Rather than scan elements from left to right will do scan from right to left
+
+, to know fast if then end pattern matches or not to avoid from 1 to M-1
+
+* Key here: find the mismatch quickly
+
 * Steps
     - Scan characters in pattern from right to left
     - Can skip as many as M text chars when finding one not in the pattern
+
+* How much to skip?
+
+    - Pre-compute index of rightmost occurrence of character c in pattern (-1 if character not in the pattern)
 
 * Property. substring search with the Boyer-Moore mismatched character heuristic takes about ~ `N / M` character compares to search for a pattern of length M in a text of length N
 
@@ -2215,11 +2225,12 @@ public class BoyerMoore {
         int N = text.length();
         int M = pat.length();
         int skip;
-        for (int i = 0; i <= N - M; i += -skip) {
+        for (int i = 0; i <= N - M; i += skip) {
             skip = 0;
             for (int j = M - 1; j >= 0; j--) {
                 if (pat.charAt(j) != text.charAt(i + j)) {
-                    skip = Math.max(1, j - right[text.charAt(i + 1)]);
+                    skip = Math.max(1, j - right[text.charAt(i + j)]);
+                    break;
                 }
             }
 
@@ -2233,7 +2244,89 @@ public class BoyerMoore {
 
 #### Rabin-Karp algorithm
 
-* 
+* Basic idea = modular hashing
+
+    - Computer a hash of pattern characters 0 to M-1
+    - For each i, compute a hash of text characters i to M+i-1
+    - If pattern hash = text substring hash check for a match
+
+* Complexity `7N` 
+
+* Advantage
+
+    - Extends to 2d patterns
+    - Extends to finding multiple patterns
+
+`algorithm` 
+
+``` java
+public class RabinKarp {
+
+    private long patHash;
+    private int M;
+    private long Q;
+    private int R;
+    private long RM;
+
+    public RabinKarp(String pattern) {
+        M = pattern.length();
+        R = 256;
+        Q = longRandomPrime();
+
+        RM = 1;
+
+        for (int i = 1; i <= M - 1; i++) {
+            RM = (R * RM) % Q;
+        }
+        patHash = hash(pattern, M);
+    }
+
+    private long hash(String key, int M) {
+        long h = 0;
+        for (int j = 0; j < M; j++) {
+            h = (R * h + key.charAt(j)) % Q;
+        }
+        return h;
+    }
+
+    private static long longRandomPrime() {
+        BigInteger prime = BigInteger.probablePrime(31, new Random());
+        return prime.longValue();
+    }
+
+    public int search(String text) {
+        int N = text.length();
+        long txtHash = hash(text, M);
+
+        if (patHash == txtHash)
+            return 0;
+
+        for (int i = M; i < N; i++) {
+            txtHash = (txtHash + 0 - RM * text.charAt(i - M) % Q) % Q;
+            txtHash = (txtHash + R + text.charAt(i)) % Q;
+
+            if (patHash == txtHash)
+                return i - M + 1;
+
+        }
+        return -1;
+    }
+}
+```
+
+* Compare the substring algorithms
+
+|algorithm|version|guarantee|typical|backup in input|correct|extra space|
+|---------|-------|---------|-------|---------------|-------|-----------|
+|brute force|M N|1.1 N|yes|yes|1|
+|knuth-Morris-Pratt (full DFA)|2 N|1.1 N|no|yes|M R|
+|knuth-Morris-Pratt (mismatch transitions only)|3 N|1.1 N|no|yes|M|
+|Boyer-Moore (full algorithm)|3 N|N / M|yes|yes|R|
+|Boyer-Moore (mismatched char)|M N|N / M|yes|yes|R|
+|Robin-Karp (monte carlo)|7 N|7 N|no|yes<sup>*</sup>|1|
+|Robin-Karp (las vegas)|7 N<sup>*</sup>|7 N|yes|yes|1|
+
+`*` probability guarantee with uniform hash function
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat

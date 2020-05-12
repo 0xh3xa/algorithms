@@ -25,11 +25,12 @@ public class BoyerMoore {
         int N = text.length();
         int M = pat.length();
         int skip;
-        for (int i = 0; i <= N - M; i += -skip) {
+        for (int i = 0; i <= N - M; i += skip) {
             skip = 0;
             for (int j = M - 1; j >= 0; j--) {
                 if (pat.charAt(j) != text.charAt(i + j)) {
-                    skip = Math.max(1, j - right[text.charAt(i + 1)]);
+                    skip = Math.max(1, j - right[text.charAt(i + j)]);
+                    break;
                 }
             }
 
