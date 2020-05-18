@@ -1,7 +1,7 @@
 package org.alg.advanced.compression;
 
 /**
- * uffman compression algorithm implementation
+ * Huffman compression algorithm implementation
  */
 public class Huffman {
 

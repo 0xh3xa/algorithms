@@ -2511,6 +2511,75 @@ public class RabinKarp {
 
 * Running time. Use a binary heap `N + R log R` 
 
+-------------------------------------------------------------------------------------------------------------------------------
+
+### LZW compression
+
+*  Static model. Same model for all texts
+
+    
+
+    - Fast
+    - Not optimal: different texts have different statistical properties
+    - Ex: ASCII, Morse code
+
+* Dynamic model. Generate model based on text
+
+    - Preliminary pass needed to generate model
+    - Must transmit the model
+    - Ex: Huffman code
+
+* Adaptive model. Progressively learn and update model as you read text
+
+    - More accurate modeling produces better compression
+    - Decoding must start from beginning
+    - EX: LZW
+
+* Steps
+
+    1\. Create ST associating W-bit codewords with string keys
+    2\. Initialize ST with codewords for single-char keys
+    3\. Find longest string s in ST that is a prefix of un-scanned part of input
+    4\. Write the w-bit codeword associated with s
+    5\. Add s\+c to ST, where c is next char in the input
+
+* Q. How to represent LZW compression code table?
+    - A. A trie to support longest prefix match
+
+* How big to make ST?
+    - How long is message?
+    - While message similar model
+    - [many variations have been developed]
+
+* What to do when ST fills up?
+    - Throw away and start over [GIF]
+    - Throw away when not effective [Unix compression]
+    - [many other variations]
+
+* LZW in the real world
+
+    - Lempel-Ziv and friends
+
+        . LZ77
+        . LZ78
+        . LZW
+        . Deflate / zlib = LZ77 variant + huffman
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+### Data compression summary
+
+* Lossless compression
+    - Represent fixed-length symbols with variable-length codes [huffman]
+    - Represent variable-length symbols with fixed-length codes [LZW]
+
+* Lossy compression [not covered in this course]
+
+    - JPEG, MPEG, MP3
+    - FFT, wavelets, fractals
+
+-------------------------------------------------------------------------------------------------------------------------------
+
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
