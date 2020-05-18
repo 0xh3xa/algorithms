@@ -2580,6 +2580,12 @@ public class RabinKarp {
 
 -------------------------------------------------------------------------------------------------------------------------------
 
+## Overview: introduction to advanced topics
+
+* Reduction: design algorithms, establish lower bounds, classify problems
+* Linear programming: the ultimate practical problem-solving model
+* Intractability: problems beyond our reach
+
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
