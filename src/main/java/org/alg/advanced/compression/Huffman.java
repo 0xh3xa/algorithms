@@ -19,8 +19,8 @@ public class Huffman {
         }
 
         public void expand(String file) {
-            Node root = readTrie();
-            int N = 
+            // Node root = readTrie();
+            // int N = 
         }
 
         public boolean isLeaf() {
