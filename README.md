@@ -2585,6 +2585,58 @@ public class RabinKarp {
 * Reduction: design algorithms, establish lower bounds, classify problems
 * Linear programming: the ultimate practical problem-solving model
 * Intractability: problems beyond our reach
+* Shifting gears
+
+    - From individual problems to problem-solving models
+    - From linear/quadratic to polynomial/exponential scale
+    - From details of implementation to conceptual framework
+
+* Goal
+
+    - Place algorithms we've studied in a larger context
+    - Introduce you to important and essential ideas
+    - Inspire you to learn more about algorithms :smile: !
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+### Reductions
+
+* Classify problems according to computational requirements
+
+|complexity|order of growth|examples|
+|----------|---------------|--------|
+|linear|N|min, max, median, burrows-wheeler transform|
+|linearithmic|N log N|sorting, convex hull, closest pair, farthest pair|
+|quadratic|N2|?|
+|.....|.....|.....|
+|exponential|c<sup>N</sup>|?|
+
+* Frustrating news. Huge number of problems have defined classification
+
+* Suppose we could (could not) solve problem X efficiently
+
+what else could (could not) we solve efficiently?
+
+* Definition
+    - Problem X reduces to problem Y if you can use an algorithm that solves Y to help solve X
+    - Cost of solving X = total cost of solving Y + cost of reduction
+    - Ex 1. [finding the median reduces to sorting]
+
+        . To find median of N items
+
+            1\. Sort N items
+            2\. Return item in the middle
+
+        . Cost of solving finding the median `N log N + 1` 
+
+    - Ex 2. [element distinctness reduces to sorting]
+
+        . To solve elements distinctness on N times:
+
+            1\. Sort N items
+            2\. Check adjacent paris for equality
+
+        . Cost of solving finding the median `N log N + 1` 
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
