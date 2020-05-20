@@ -2638,6 +2638,22 @@ what else could (could not) we solve efficiently?
 
         . Cost of solving finding the median `N log N + 1` 
 
+-------------------------------------------------------------------------------------------------------------------------------
+
+### Design algorithms
+
+* Def. Problem X reduces to problem Y if you can use an algorithm that solves Y to help solve X
+* Design  algorithm. Given algorithm for Y, can also solve X
+* Ex.
+    - 3-collinear reduces to sorting
+    - Finding the median reduces to sorting
+    - Element distinctness reduces to sorting
+    - CPM reduces to topological sort
+    - Arbitrage reduces to shortest paths
+    - Burrows-wheeler transform reduces to suffix sort
+
+* Mentality. Since I know how to solve Y, can I use that algorithm to solve X
+
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
