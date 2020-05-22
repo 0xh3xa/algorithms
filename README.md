@@ -2654,6 +2654,58 @@ what else could (could not) we solve efficiently?
 
 * Mentality. Since I know how to solve Y, can I use that algorithm to solve X
 
+-------------------------------------------------------------------------------------------------------------------------------
+
+### Establish lower bound
+
+* Goal. prove that a problem require a certain number of steps
+* Ex. In decision tree model, any compare-based sorting algorithm requires theta N log N in the worst case
+* BAd news. very difficult to establish lower bounds from scratch
+* Good news. spreed theta N log N lower bound to Y by reducing sorting to Y
+
+* Linear-time reductions
+
+    - Def. problem X `linear-time reduces` to problem Y if x can be solved with:
+
+        . Linear number of standard computational steps
+        . Constant number of calls to Y
+    
+
+    - Ex. almost all of the reductions we've seen so far
+
+    - Establish lower bound
+
+        . If x takes theta N log N steps, then so does Y
+        . If x takes theta N<sup>2</sup>, then so does Y
+        
+
+    - Mentality
+
+        . If I could easily solve Y, then I could easily solve X
+        . I can't easily solve X
+        . Therefore, I can't easily solve Y
+    
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+### Classify problems
+
+* Desiderata. Problem with algorithm that matches lower bound
+    - Ex. sorting and convex hull have complexity of N log N
+
+* Desiderata. prove that two problems X and Y have the same complexity
+    - First, show that problem X linear-time reduces to Y
+    - Second, show that Y linear-time reduces to X
+    - Concludes that X and Y have same complexity
+
+* Integer arithmetic reductions
+
+    - Integer multiplication. given two N-bit integers, compute their product
+    - Brute force. N<sup>2</sup> bit operations
+    - Q. Is brute-force algorithm optimal?
+
+-------------------------------------------------------------------------------------------------------------------------------
+
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
 [datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
