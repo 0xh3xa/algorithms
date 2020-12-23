@@ -336,11 +336,11 @@ if time is important and don't want to lose any input i. e. dealing with interne
 
 * Rearrange array of N times into ascending/descending order based on a key
 
-01. Selection sort
-02. Insertion sort
-03. Shell sort
-04. Heap sort
-05. Quick sort
+    - Selection sort
+    - Insertion sort
+    - Shell sort
+    - Heap sort
+    - Quick sort
 
 * Implementation in java there are `Comparable` and `Comparator` interfaces we will them any of them in the implementation of the sort algorithms 
 
@@ -354,9 +354,9 @@ to allow sort any generic data types
 
 * Total order
 
-	01. `Antisymmetric` : if v<=w and w<=v, then v=w
-	02. `Transitivity` : if v<=w and w<=x, then v<=x
-	03. `Totality` : either v<=w or w<=v or both
+  + `Antisymmetric` : if v<=w and w<=v, then v=w
+  + `Transitivity` : if v<=w and w<=x, then v<=x
+  + `Totality` : either v<=w or w<=v or both
 
 -------------------------------------------------------------------------------------------------------------------------------
 
