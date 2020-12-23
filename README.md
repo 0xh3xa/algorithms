@@ -336,11 +336,11 @@ if time is important and don't want to lose any input i. e. dealing with interne
 
 * Rearrange array of N times into ascending/descending order based on a key
 
-	01. Selection sort
-	02. Insertion sort
-	03. Shell sort
-	04. Heap sort
-	05. Quick sort
+01. Selection sort
+02. Insertion sort
+03. Shell sort
+04. Heap sort
+05. Quick sort
 
 * Implementation in java there are `Comparable` and `Comparator` interfaces we will them any of them in the implementation of the sort algorithms 
 
