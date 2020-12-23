@@ -1,7 +1,8 @@
 # Algorithms :heart: :smile:
+
 ![Algorithms][alg-img] ![Datastructure][datastructure-img] ![Open Source Love][Open-Source-img]
 
-Algorithms and data structures implementations from the `Algorithms 4th edition` :book: :atom:
+Algorithms and data structures' implementations in Java from the `Algorithms 4th edition` :book: :atom:
 
 ## What's is this course?
 
@@ -12,21 +13,23 @@ Algorithms and data structures implementations from the `Algorithms 4th edition`
 
 * `Algorithms` : Method for solving a problem
 * `Data structures` : Method to store information
-* `Program = Algorithms + Data structures` 
+* `Program = Algorithms + Data structures`
 
 ## Topics
 
-`Part I` 
+* `Part I`
 
 01. Data types: stack, queue, bag, union find, priority queue  
 02. Sorting: quicksort, mergesort, heapsort, radix sorts  
 03. Searching: BST, red-black BST, hash table  
 
-`Part II` 
+* `Part II`
 
 04. Graphs: BFS, DFS, Prime, Kruskal, Dijkstra  
 05. Strings: KMP, regular expression, TST, Huffman, LZW  
 06. Advanced: B-tee, suffix array, maxflow  
+
+---
 
 ## Why Algorithms is so important?
 
@@ -41,6 +44,8 @@ Algorithms all around us
 07. Social networks: Recommendations, news feeds, advertisements, ... 
 08. Physics: N-body simulation, particle collision simulation, ... 
 
+---
+
 ## Steps for solving the problem
 
 01. Model the problem  
@@ -49,6 +54,8 @@ Algorithms all around us
 04. If not, figure out why  
 05. Find a way to address the problem  
 06. Iterate until satisfied  
+
+---
 
 ## Algorithm Analyze
 
@@ -147,13 +154,15 @@ Algorithms all around us
 
 * We say the algorithm "is proportional to" e. g. constant time
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Properties
 
 01. Reflexive: p is connected to q  
 02. Symmetric: if p is connected to q, then q is connected to p  
 03. Transitive: if p is connected to q and q is connected to r, then p is connected to r
+
+---
 
 ## Dynamic connectivity
 
@@ -223,17 +232,19 @@ Applications based on this:
 01. Weighted Quick union
 * Modify the Quick union to avoid tall trees
 * Balance by linking root of smaller tree to root of larger tree
-* Depth of any node x is at most `lg N` 
+* Depth of any node x is at most `lg N`
+
 * Complexity
 
 | Initialize | Union | Find |
 |------------|-------|------|
 | N          | lg N' | lg N |
 
-02. Quick union with path compression `N+ M lg N` 
-03. Weighted Quick union with path compression `N+ M lg*N` 
+02. Quick union with path compression `N+ M lg N`
 
-* Note `WQUPC reduce time from 30 years to 6 seconds` 
+03. Weighted Quick union with path compression `N+ M lg*N`
+
+* Note `WQUPC reduce time from 30 years to 6 seconds`
 
 ### Union find Applications
 
@@ -268,8 +279,10 @@ In java we will use interface
 ## Stack
 
 * `LIFO` (last in first out), useful in many applications
-* Operations: `push(Item item), pop(), size(), isEmpty()` 
-* There are two implementation of stack using `Linkedlist` and `Array` 
+* Operations: `push(Item item), pop(), size(), isEmpty()`
+
+* There are two implementation of stack using `Linkedlist` and `Array`
+
 * Stack removes the item most recently added
 * What are the Differences between LinkedList and Array implementation?
 
@@ -302,9 +315,11 @@ if time is important and don't want to lose any input i. e. dealing with interne
 ## Queue
 
 * `FIFO` (first in first out), useful in many applications  
-* Operations: `enqueue(Item item), dequeue(), size(), isEmpty()` 
+* Operations: `enqueue(Item item), dequeue(), size(), isEmpty()`
+
 * Queue removes the item lest recently
-* There are two implementation of stack using `Linkedlist` and `Array` 
+* There are two implementation of stack using `Linkedlist` and `Array`
+
 * Queue applications
 
   + Cpu scheduling
@@ -350,7 +365,7 @@ to allow sort any generic data types
 * Scan from left to right  
 * Find the index of `min` of smallest remaining entry, then swap `a[i]` and `a[min]`  `-->`  `Time Complexity O(N<sup>2</sup>)` and doesn't sensitive if the input is sorted  
 
-`Algorithm` 
+ `Algorithm`
 
 ``` java
 
@@ -375,11 +390,13 @@ to allow sort any generic data types
 ### Insertion sort
 
 * Scan from left to right  
-* Swap `a[i]` with each larger entry to its left `<--`  `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays` 
-* Fast when the array is partially sorted `O(N)` 
+* Swap `a[i]` with each larger entry to its left `<--`  `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`
+
+* Fast when the array is partially sorted `O(N)`
+
 * Array called partially sorted when number of elements to be changed less than or equal cN
 
-`Algorithm` 
+ `Algorithm`
 
 ``` java
 
@@ -398,10 +415,11 @@ to allow sort any generic data types
 
 ### Shell sort
 
-* Move entries more than one position at a time by `h-sorting` the array  What's the `h value` Knuth says `3x+1` 
+* Move entries more than one position at a time by `h-sorting` the array  What's the `h value` Knuth says `3x+1`
+
 * Complexity N<sup>3/2</sup>
 
-`Algorithm` 
+ `Algorithm`
 
 ``` java
 
@@ -439,10 +457,11 @@ to allow sort any generic data types
 ### Knuth shuffle  
 
 * Pick integer r between 0 and i uniformly at random  
-* Swap `a[i]` and `a[r]` 
-* Complexity: `O(n)` 
+* Swap `a[i]` and `a[r]`
 
-`Algorithm` 
+* Complexity: `O(n)`
+
+ `Algorithm`
 
 ``` java
 
@@ -466,7 +485,8 @@ to allow sort any generic data types
 
 ## Merge sort
 
-* This sort based on the technique of `divide-and-conquer` 
+* This sort based on the technique of `divide-and-conquer`
+
 * Java sort for objects
 * Steps:  
 
@@ -476,9 +496,9 @@ to allow sort any generic data types
 
     
 
-* Complexity `N lg N` 
+* Complexity `N lg N`
 
-`Algorithm` 
+ `Algorithm`
 
 ``` java
 
@@ -536,7 +556,7 @@ to allow sort any generic data types
 | 1 second | 18 min  |
 | instant  | instant |
 
-* Note: `Good algorithm are better than supercomputers` 
+* Note: `Good algorithm are better than supercomputers`
 
 ### Bottom-up version of Mergesort
 
@@ -546,7 +566,7 @@ to allow sort any generic data types
 	02. Repeat for subarrays of size 2, 4, 8, 16, ... 
 	03. Slower than Recursive by 10%
 
-`Algorithm` 
+ `Algorithm`
 
 ``` java
 
@@ -564,7 +584,8 @@ to allow sort any generic data types
 
 ## Sort Stability
 
-* Suppose you want to sort `BY_NAME` then `BY_SECTION` 
+* Suppose you want to sort `BY_NAME` then `BY_SECTION`
+
 * You should sort and keep the equal elements that they came as input, don't change equal elements position
 * Which sorts are stable?
 
@@ -589,14 +610,15 @@ to allow sort any generic data types
 	02. Partition
 	03. Sort
 
-* Complexity `N lg N` 
+* Complexity `N lg N`
+
 * Faster than Mergesort
 * In place algorithm
 * Not stable
 * Worst case in quicksort will not gonna happen
 * Problems in quick sort
 
-`Algorithm` 
+ `Algorithm`
 
 ``` java
 
@@ -694,7 +716,8 @@ to allow sort any generic data types
 ## Priority Queues
 
 * Remove the largest or smallest item
-* Operations: `insert(Item item), delMax(), isEmpty(), max(), size()` 
+* Operations: `insert(Item item), delMax(), isEmpty(), max(), size()`
+
 * Applications
 
     01. Event-driven simulation: [customers in a line, colliding particles]
@@ -720,7 +743,8 @@ to allow sort any generic data types
 ### Binary heap
 
 * Binary tree
-* Complexity: `lg N` 
+* Complexity: `lg N`
+
 * Complete tree, perfectly balanced, except for bottom level
 * Height of complete tree with N nodes is `lgN` , why?
 
@@ -737,8 +761,9 @@ to allow sort any generic data types
 
 * Array representation:
 
-    - Parent of node at k is at `k/2` 
-    - Children of node at k are at `2k` and right `2k+1` 
+    - Parent of node at k is at `k/2`
+
+    - Children of node at k are at `2k` and right `2k+1`
 
 * Best practice use immutable keys
 * Underflow and overflow
@@ -746,7 +771,7 @@ to allow sort any generic data types
     - Underflow: throw exception if deleting from empty PQ
     - Overflow: add no-arg constructor and use resize array
 
-`Algorithm` 
+ `Algorithm`
 
 ``` java
 
@@ -843,7 +868,8 @@ to allow sort any generic data types
     08. File system
     09. Web search
 
-* Operations: `put(Key key, Value val), get(Key key), delete(Key key), contains(Key key), isEmpty(), size(), keys()` 
+* Operations: `put(Key key, Value val), get(Key key), delete(Key key), contains(Key key), isEmpty(), size(), keys()`
+
 * Conventions:
 
     - Values are not null
@@ -955,8 +981,9 @@ to allow sort any generic data types
 * Java's hash code conventions
 
     - All java classes inherit a method `hashCode()` , with return 32-bit in
-    - Requirement, if `x.equals(y), then (x.hashCode() == y.hashCode())` 
-    - Highly desirable: if `!x.equals(y), then (x.hashCode() != y.hashCode())` 
+    - Requirement, if `x.equals(y), then (x.hashCode() == y.hashCode())`
+
+    - Highly desirable: if `!x.equals(y), then (x.hashCode() != y.hashCode())`
 
 ``` 
 
@@ -968,14 +995,17 @@ to allow sort any generic data types
       |
     x.hashCode()
 
-``` 
+```
 
 * hash code design
 
-    - Combine each significant field using the `31x+y` 
-    - If field is a primitive type, use wrapper type `hashCode()` 
+    - Combine each significant field using the `31x+y`
+
+    - If field is a primitive type, use wrapper type `hashCode()`
+
     - If field is null, return 0
-    - If field is a reference type, use `hashCode()` 
+    - If field is a reference type, use `hashCode()`
+
     - If field is an array, apply to each entry
 
 * Basic rule, need to use the whole key to compute hash code, consult an expert for state-of-the-art hash codes
@@ -1045,7 +1075,7 @@ to allow sort any generic data types
 
     - Stronger performance guarantee
     - Support for ordered ST operations
-    - Easier to implement `compareTo()` correctly than `equals()` and `hashCode()` 
+    - Easier to implement `compareTo()` correctly than `equals()` and `hashCode()`
 
 * Java system includes both:
 
@@ -1055,7 +1085,7 @@ to allow sort any generic data types
 ### Set
 
 * Mathematical set: a collection of distinct keys
-* Operations: `add(Key key), contains(Key key), remove(Key key), size(), iterator()` 
+* Operations: `add(Key key), contains(Key key), remove(Key key), size(), iterator()`
 
 ### ST Complexity
 
@@ -1093,9 +1123,11 @@ to allow sort any generic data types
 
 * Graph terminology
 
-    - Path: sequence of `vertices`  `connected` by `edges` 
-    - Cycle: path whose `first` and `last` vertices are the `same` 
-    - Two vertices are `connected` if there is a `path between them` 
+    - Path: sequence of `vertices`  `connected` by `edges`
+
+    - Cycle: path whose `first` and `last` vertices are the `same`
+
+    - Two vertices are `connected` if there is a `path between them`
 
 * Some graph-processing problems
 
@@ -1117,11 +1149,11 @@ to allow sort any generic data types
     - Will use integers between 0 and V-1
     - Applications: convert between names and integers which symbol table
 
-* Operations: `addEdge(int v, int w), adj(int v), V(), E(), toString()` 
+* Operations: `addEdge(int v, int w), adj(int v), V(), E(), toString()`
 
-`Algorithm` 
+ `Algorithm`
 
-```java
+``` java
 public class Graph {
 
     private final int vertices; 
@@ -1165,7 +1197,7 @@ public class Graph {
 * In practice, use adjacency-lists representation
 
     - Algorithms based on iterating over vertices adjacent to v
-    - Real-world graphs tend to be `sparse` 
+    - Real-world graphs tend to be `sparse`
 
 | representation   | space         | add edge      | edge between v and w? | iterate over vertices adjacent to v? |
 |------------------|---------------|---------------|-----------------------|--------------------------------------|
@@ -1205,9 +1237,9 @@ public class Graph {
     - Pass the Graph to a graph-processing routine
     - Query the graph-processing routine for information
 
-* Put unvisited vertices on a `stack` 
+* Put unvisited vertices on a `stack`
 
-`Algorithm` 
+ `Algorithm`
 
 ``` java
 
@@ -1247,7 +1279,7 @@ public class Graph {
 
 * Application: routing
 
-`Algorithm` 
+ `Algorithm`
 
 ``` java
 
@@ -1300,7 +1332,8 @@ public class Graph {
 
 * Def. vertices v and w are connected if there is a path between them
 * Goal. preprocess graph to answer queries of the form is v connected to w? in constant time
-* Operations: `connected(int v, int w), count(), id(int v)` 
+* Operations: `connected(int v, int w), count(), id(int v)`
+
 * Union-find? not quite
 * Depth-first search. Yes
 * The relation "is connected to" is an equivalence relation
@@ -1343,11 +1376,12 @@ public class Graph {
 
 ### Digraph api
 
-* Operations: `addEdge(int v, int w), adj(int v), vertices(), edges(), reverse(), toString()` 
+* Operations: `addEdge(int v, int w), adj(int v), vertices(), edges(), reverse(), toString()`
+
 * In practice, use adjacency-lists representation
 
     - Algorithms based on iterating over vertices adjacent to v
-    - Real-world graphs tend to be `sparse` 
+    - Real-world graphs tend to be `sparse`
 
 | representation   | space         | add edge      | edge between v and w? | iterate over vertices adjacent to v? |
 |------------------|---------------|---------------|-----------------------|--------------------------------------|
@@ -1421,9 +1455,11 @@ public class Graph {
 ### Greedy algorithm
 
 * Simplifying assumptions
-    - Edge weights are `distinct` 
-    - Graph is `connected` 
-    - Based on these `MST exists and unique` 
+    - Edge weights are `distinct`
+
+    - Graph is `connected`
+
+    - Based on these `MST exists and unique`
 
 * Cut property
     - Partition of its vertices into two nonempty set
@@ -1566,7 +1602,7 @@ public class EdgeWeightedDigraph {
 * Substring extraction. Get a contiguous subsequence of characters
 * String concatenation. Append one character to end of another string
 
-`representation in java` 
+ `representation in java`
 
 ``` java
 public final class String implements Comparable<String> {
@@ -1614,7 +1650,8 @@ public final class String implements Comparable<String> {
 
     - Remark StringBuffer data type is similar, but thread safe (and slower)
 
-* For `Concat` string use `StringBuilder` , for `substring()` use `String` 
+* For `Concat` string use `StringBuilder` , for `substring()` use `String`
+
 * Alphabets
     - Radix. Number of possible value in String
 
@@ -1660,10 +1697,11 @@ public final class String implements Comparable<String> {
     - Access cumulates using key as index to remove items
     - Copy back into original array
 
-* Performance ~ `11 N + 4 R` and use extra space `N + R` 
+* Performance ~ `11 N + 4 R` and use extra space `N + R`
+
     - R is Radix from table above
 
-`algorithms` 
+ `algorithms`
 
 ``` java
     public final static void sort(char[] a) {
@@ -1727,7 +1765,7 @@ public static void sort(String[] a, int W) { // Fixed length W strings
     - Partition array into R pieces according to first character (use key-indexed counting)
     - Recursively sort all strings that start ith each character (key-indexed counts delineate subarrays to sort)
 
-`Algorithm` 
+ `Algorithm`
 
 ``` java
   public final static void sort(String[] a) {
@@ -1849,12 +1887,12 @@ public class StringST<Value> {
     - Search hit. Need to examine all L characters for equality
     - Search miss. Could have mismatch on first character, typical case examine only a few characters
     - Space. R null links at each leaf. (but sub-linear space possible if many short strings share common prefixes)
-    - Bottom line. Fast search hit and even faster search miss, but `wastes space` 
+    - Bottom line. Fast search hit and even faster search miss, but `wastes space`
 
 * Goal. Design a data structure to perform efficient spell checking
     - Solution. Build a 26 way trie (key = word, value = bit), 26 English letters
 
-`Implementation` 
+ `Implementation`
 
 ``` java
 
@@ -2031,7 +2069,7 @@ public class TriesST<Value> {
     - Performance guarantee: log N characters accessed
     - Support character-based operations
 
-`Bottom line. You can get at anything by examining 50-100 bits!!!!!` 
+ `Bottom line. You can get at anything by examining 50-100 bits!!!!!`
 
 ### Substring search
 
@@ -2058,7 +2096,7 @@ public class TriesST<Value> {
 * Worst case ~ <i>M N</i> char compares
 * Brute-force algorithm can be slow if text and pattern are repetitive
 
-`algorithm` 
+ `algorithm`
 
 ``` java
     public final static int indexOf(String text, String sub) {
@@ -2141,7 +2179,7 @@ public class TriesST<Value> {
 
 * Proposition. KMP constructs dfa[][] in time and space proportional to RM
 
-`algorithm` 
+ `algorithm`
 
 ``` java
 public class KMP {
@@ -2197,11 +2235,11 @@ public class KMP {
 
 * Property. substring search with the Boyer-Moore mismatched character heuristic takes about ~ `N / M` character compares to search for a pattern of length M in a text of length N
 
-* worse-case can be as bad as ~ `M N` 
+* worse-case can be as bad as ~ `M N`
 
 * Boyer-Moore variant. Can improve worst case to ~ `3 N` by adding a KMP-like rule to guard against repetitive patterns
 
-`algorithm` 
+ `algorithm`
 
 ``` java
 public class BoyerMoore {
@@ -2250,14 +2288,14 @@ public class BoyerMoore {
     - For each i, compute a hash of text characters i to M+i-1
     - If pattern hash = text substring hash check for a match
 
-* Complexity `7N` 
+* Complexity `7N`
 
 * Advantage
 
     - Extends to 2d patterns
     - Extends to finding multiple patterns
 
-`algorithm` 
+ `algorithm`
 
 ``` java
 public class RabinKarp {
@@ -2382,7 +2420,7 @@ public class RabinKarp {
 
     - Expand. Reconstructs original bit-stream B
 
-    - Compression ration. Bits in `C(B) / bits in B` 
+    - Compression ration. Bits in `C(B) / bits in B`
 
     - Ex. 50-75% or better compression ration for natural language
 
@@ -2417,7 +2455,8 @@ public class RabinKarp {
 ### Run length coding
 
 * Simple type of redundancy in a bitstream. Long runs of repeated bits
-    - This string `0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1` 
+    - This string `0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1`
+
     - Representation. 4-bit counts to represent alternating runs of 0s and 1s: 15 0s, then7 1s, then 7 0s, then 11 1a
     - Q. How many bits to store the counts?
 
@@ -2433,7 +2472,8 @@ public class RabinKarp {
 
 * Variable-length codes
 * Use different number of bits to encode different chars
-* Ex. Morse code: `. . . - - - . . .` 
+* Ex. Morse code: `. . . - - - . . .`
+
 * Issue. Ambiguity
 
     SOS ?
@@ -2509,7 +2549,7 @@ public class RabinKarp {
                 Select two tries with min weight freq[i] and freq[j]  
                 Merge into single trie with freq[i] + freq[j]
 
-* Running time. Use a binary heap `N + R log R` 
+* Running time. Use a binary heap `N + R log R`
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -2627,7 +2667,7 @@ what else could (could not) we solve efficiently?
             1\. Sort N items
             2\. Return item in the middle
 
-        . Cost of solving finding the median `N log N + 1` 
+        . Cost of solving finding the median `N log N + 1`
 
     - Ex 2. [element distinctness reduces to sorting]
 
@@ -2636,7 +2676,7 @@ what else could (could not) we solve efficiently?
             1\. Sort N items
             2\. Check adjacent paris for equality
 
-        . Cost of solving finding the median `N log N + 1` 
+        . Cost of solving finding the median `N log N + 1`
 
 -------------------------------------------------------------------------------------------------------------------------------
 
