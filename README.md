@@ -1,15 +1,15 @@
 # Algorithms :heart: :smile:
 
-![Algorithms][alg-img] ![Datastructure][datastructure-img] ![Open Source Love][Open-Source-img]
+![Algorithms][alg-img] ![Datastructures][datastructure-img] ![Open Source Love][Open-Source-img]
 
-Algorithms and data structures' implementations in Java from the `Algorithms 4th edition` :book: :atom:
+Algorithms and data structures' implementations in Java from the `Algorithms 4th edition` :book:
 
 ## What's is this course?
 
 * Intermediate level survey course
 * Programming and problem solving with applications
 
-## Definition
+## Definitions
 
 * `Algorithms` : Method for solving a problem
 * `Data structures` : Method to store information
@@ -240,9 +240,9 @@ Applications based on this:
 |------------|-------|------|
 | N          | lg N' | lg N |
 
-02. Quick union with path compression `N+ M lg N`
+02. Quick union with path compression `N + M lg N`
 
-03. Weighted Quick union with path compression `N+ M lg*N`
+03. Weighted Quick union with path compression `N + M lg*N`
 
 * Note `WQUPC reduce time from 30 years to 6 seconds`
 
