@@ -299,7 +299,7 @@ A model for many physical systems
 
 * When should I use Linkedlist or Array implementation?
 
-if time is important and don't want to lose any input i. e. dealing with internet packet use `Linkedlist` implementation, But if you take care of `memory` space use `Array` implementation  
+    - if time is important and don't want to lose any input i. e. dealing with internet packet use `Linkedlist` implementation, But if you take care of `memory` space use `Array` implementation  
 
 * How duplicate/shrinking array?
 
@@ -308,13 +308,13 @@ if time is important and don't want to lose any input i. e. dealing with interne
 
 * Stack applications
 
-  + Parsing in a compiler
-  + Java virtual machine
-  + Undo in word processor
-  + Back button in a web browser
-  + Implementation function calls in a compiler
-  + Arithmetic expression evaluation
-  + Reverse objects
+    - Parsing in a compiler
+    - Java virtual machine
+    - Undo in word processor
+    - Back button in a web browser
+    - Implementation function calls in a compiler
+    - Arithmetic expression evaluation
+    - Reverse objects
 
 * LinkedList implementation code
 
@@ -381,11 +381,11 @@ public class LinkedStack<Item> implements Stack<Item> {
 
 * Queue applications
 
-  + CPU scheduling
-  + Disk scheduling
-  + Data transfer asynchronously between two processes. Queue is used for synchronization. 
-  + Breadth First search in a Graph
-  + Call Center phone systems
+    - CPU scheduling
+    - Disk scheduling
+    - Data transfer asynchronously between two processes. Queue is used for synchronization. 
+    - Breadth First search in a Graph
+    - Call Center phone systems
 
 * LinkedList implementation code
 
