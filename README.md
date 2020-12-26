@@ -267,18 +267,16 @@ A model for many physical systems
 
 ## Data structures Design
 
-* Good practice to make an abstraction between the outside world and internal implementation  
-
-In java we will use interface
+* Good practice to make an abstraction between the outside world and internal implementation, In java we will use interface
 
     - Benefits
-        01. Client can't know details of implementation
+        + Client can't know details of implementation
 
-        02. Implementation can't know details of client needs
+        + Implementation can't know details of client needs
 
-        03. Design: creates modular, reusable libraries
+        + Design: creates modular, reusable libraries
 
-        04. Performance: use optimized implementation where it matters
+        + Performance: use optimized implementation where it matters
 
 * Client: program using operations defined in interface
 
@@ -368,28 +366,6 @@ public class LinkedStack<Item> implements Stack<Item> {
     public int size() {
         return size;
     }
-
-    @Override
-    public Iterator<Item> iterator() {
-        return new Iterator<Item>() {
-            NodeList head = first;
-
-            @Override
-            public boolean hasNext() {
-                return head != null;
-            }
-
-            @Override
-            public Item next() {
-                NodeList oldHead = head;
-                Item item = oldHead.item;
-                oldHead = null;
-                head = head.next;
-                return item;
-            }
-        };
-    }
-
 }
 ```
 
@@ -413,7 +389,7 @@ public class LinkedStack<Item> implements Stack<Item> {
 
 * LinkedList implementation code
 
-```java
+``` java
 public class LinkedQueue<Item> implements Queue<Item> {
 
     private class NodeList {
@@ -479,28 +455,6 @@ public class LinkedQueue<Item> implements Queue<Item> {
     @Override
     public int size() {
         return size;
-    }
-
-    @Override
-    public Iterator<Item> iterator() {
-        return new InnerIterator();
-    }
-
-    private class InnerIterator implements Iterator<Item> {
-
-        NodeList head = first;
-
-        @Override
-        public boolean hasNext() {
-            return head.next != null;
-        }
-
-        @Override
-        public Item next() {
-            Item item = head.item;
-            head = head.next;
-            return item;
-        }
     }
 }
 ```
