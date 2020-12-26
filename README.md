@@ -316,7 +316,7 @@ A model for many physical systems
     - Arithmetic expression evaluation
     - Reverse objects
 
-* LinkedList implementation code
+* `LinkedList` implementation code
 
 ``` java
 public class LinkedStack<Item> implements Stack<Item> {
@@ -356,16 +356,6 @@ public class LinkedStack<Item> implements Stack<Item> {
         size--;
         return item;
     }
-
-    @Override
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    @Override
-    public int size() {
-        return size;
-    }
 }
 ```
 
@@ -387,7 +377,7 @@ public class LinkedStack<Item> implements Stack<Item> {
     - Breadth First search in a Graph
     - Call Center phone systems
 
-* LinkedList implementation code
+* `LinkedList` implementation code
 
 ``` java
 public class LinkedQueue<Item> implements Queue<Item> {
@@ -445,16 +435,6 @@ public class LinkedQueue<Item> implements Queue<Item> {
             throw new NoSuchElementException("Queue underflow");
         }
         return first.item;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return first == null;
-    }
-
-    @Override
-    public int size() {
-        return size;
     }
 }
 ```
