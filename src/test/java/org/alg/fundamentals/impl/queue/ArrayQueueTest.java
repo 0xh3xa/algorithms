@@ -50,6 +50,9 @@ public class ArrayQueueTest extends BaseTest {
         collector.checkThat(queue.dequeue(), equalTo(9));
         collector.checkThat(queue.size(), equalTo(1));
         collector.checkThat(queue.isEmpty(), equalTo(false));
+        collector.checkThat(queue.dequeue(), equalTo(11));
+        collector.checkThat(queue.size(), equalTo(0));
+        collector.checkThat(queue.isEmpty(), equalTo(true));
     }
 
     @Test

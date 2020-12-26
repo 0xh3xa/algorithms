@@ -4,7 +4,7 @@
 
 Algorithms and data structures' implementations in Java from the `Algorithms 4th edition` :book:
 
-## What's is this course?
+## What is this course?
 
 * Intermediate level survey course
 * Programming and problem solving with applications
@@ -12,7 +12,7 @@ Algorithms and data structures' implementations in Java from the `Algorithms 4th
 ## Definitions
 
 * `Algorithms` : Method for solving a problem
-* `Data structures` : Method to store information
+* `Data structures` : Method to store inform    ation
 * `Program = Algorithms + Data structures`
 
 ## Topics
@@ -35,16 +35,14 @@ Algorithms and data structures' implementations in Java from the `Algorithms 4th
 
 Algorithms all around us  
 
-01. Internet: Web search, packet routing, distribute file sharing, ... 
-02. Biology: Human genome project, protein folding, ... 
-03. Computers: Circuit layout, file system, compilers, ... 
-04. Computer graphics: Movies, Video games, virtual reality, ... 
-05. Security: Cell phones, e-commerce, voting machines, ... 
+01. Internet: web search, packet routing, distribute file sharing, ... 
+02. Biology: human genome project, protein folding, ... 
+03. Computers: circuit layout, file system, compilers, ... 
+04. Computer graphics: Movies, video games, virtual reality, ... 
+05. Security: cell phones, e-commerce, voting machines, ... 
 06. Multimedia: MP3, JPG, Divx, HDTV, face recognition, ... 
-07. Social networks: Recommendations, news feeds, advertisements, ... 
+07. Social networks: recommendations, news feeds, advertisements, ... 
 08. Physics: N-body simulation, particle collision simulation, ... 
-
----
 
 ## Steps for solving the problem
 
@@ -54,8 +52,6 @@ Algorithms all around us
 04. If not, figure out why  
 05. Find a way to address the problem  
 06. Iterate until satisfied  
-
----
 
 ## Algorithm Analyze
 
@@ -162,8 +158,6 @@ Algorithms all around us
 02. Symmetric: if p is connected to q, then q is connected to p  
 03. Transitive: if p is connected to q and q is connected to r, then p is connected to r
 
----
-
 ## Dynamic connectivity
 
 Applications based on this:
@@ -269,12 +263,28 @@ A model for many physical systems
 | fluid flow | material| empty | blocked | porous |
 | social interaction | population | person | empty | communicates |
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Data structure Design
+## Data structures Design
 
-Good practice to make an abstraction between the outside world and internal implementation  
+* Good practice to make an abstraction between the outside world and internal implementation  
+
 In java we will use interface
+
+    - Benefits
+        01. Client can't know details of implementation
+
+        02. Implementation can't know details of client needs
+
+        03. Design: creates modular, reusable libraries
+
+        04. Performance: use optimized implementation where it matters
+
+* Client: program using operations defined in interface
+
+* Implementation: actual code implementing operations
+
+* Interface: description of data type, basic operations
 
 ## Stack
 
@@ -295,8 +305,8 @@ if time is important and don't want to lose any input i. e. dealing with interne
 
 * How duplicate/shrinking array?
 
-    - Resize When reach 100% full the array resize(arr.length*2)
-    - Shrink when reach one quarter full to the half resize(arr.length/2)
+    - Resize When reach 100% full the array resize(arr.length * 2)
+    - Shrink when reach one quarter full to the half resize(arr.length / 2)
 
 * Stack applications
 
@@ -308,9 +318,82 @@ if time is important and don't want to lose any input i. e. dealing with interne
   + Arithmetic expression evaluation
   + Reverse objects
 
-	
+* LinkedList implementation code
 
--------------------------------------------------------------------------------------------------------------------------------
+``` java
+public class LinkedStack<Item> implements Stack<Item> {
+
+    private class NodeList {
+        Item item;
+        NodeList next;
+
+        public NodeList(Item item) {
+            this.item = item;
+        }
+    }
+
+    private NodeList first = null;
+    private int size = 0;
+
+    @Override
+    public void push(Item item) {
+        if (first == null) {
+            first = new NodeList(item);
+            first.next = null;
+        } else {
+            NodeList oldFirst = first;
+            first = new NodeList(item);
+            first.next = oldFirst;
+        }
+        size++;
+    }
+
+    @Override
+    public Item pop() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("stack underflow");
+        }
+        Item item = first.item;
+        first = first.next;
+        size--;
+        return item;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public Iterator<Item> iterator() {
+        return new Iterator<Item>() {
+            NodeList head = first;
+
+            @Override
+            public boolean hasNext() {
+                return head != null;
+            }
+
+            @Override
+            public Item next() {
+                NodeList oldHead = head;
+                Item item = oldHead.item;
+                oldHead = null;
+                head = head.next;
+                return item;
+            }
+        };
+    }
+
+}
+```
+
+---
 
 ## Queue
 
@@ -322,15 +405,107 @@ if time is important and don't want to lose any input i. e. dealing with interne
 
 * Queue applications
 
-  + Cpu scheduling
+  + CPU scheduling
   + Disk scheduling
   + Data transfer asynchronously between two processes. Queue is used for synchronization. 
   + Breadth First search in a Graph
   + Call Center phone systems
 
-	
+* LinkedList implementation code
 
--------------------------------------------------------------------------------------------------------------------------------
+```java
+public class LinkedQueue<Item> implements Queue<Item> {
+
+    private class NodeList {
+
+        Item item;
+        NodeList next;
+
+        public NodeList(Item item) {
+            this.item = item;
+        }
+    }
+
+    private NodeList first;
+    private NodeList last;
+    private int size;
+
+    public LinkedQueue() {
+        first = null;
+        last = null;
+        size = 0;
+    }
+
+    @Override
+    public void enqueue(Item item) {
+        NodeList oldLast = last;
+        last = new NodeList(item);
+        last.next = null;
+        if (isEmpty()) {
+            first = last;
+        } else {
+            oldLast.next = last;
+        }
+        size++;
+    }
+
+    @Override
+    public Item dequeue() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Queue underflow");
+        }
+        Item item = first.item;
+        first = first.next;
+        if (isEmpty()) {
+            last = null;
+        }
+        size--;
+        return item;
+    }
+
+    @Override
+    public Item peek() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Queue underflow");
+        }
+        return first.item;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return first == null;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public Iterator<Item> iterator() {
+        return new InnerIterator();
+    }
+
+    private class InnerIterator implements Iterator<Item> {
+
+        NodeList head = first;
+
+        @Override
+        public boolean hasNext() {
+            return head.next != null;
+        }
+
+        @Override
+        public Item next() {
+            Item item = head.item;
+            head = head.next;
+            return item;
+        }
+    }
+}
+```
+
+---
 
 ## Elementary sorts
 
@@ -358,7 +533,7 @@ to allow sort any generic data types
   + `Transitivity` : if v<=w and w<=x, then v<=x
   + `Totality` : either v<=w or w<=v or both
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Selection sort
 
@@ -385,7 +560,7 @@ to allow sort any generic data types
 
 ```
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Insertion sort
 
@@ -411,7 +586,7 @@ to allow sort any generic data types
 
 ```
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Shell sort
 
@@ -447,7 +622,7 @@ to allow sort any generic data types
 	02. Tiny used in some embedded systems
 	03. Hardware sort prototype
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Shuffle sort  
 
@@ -481,7 +656,7 @@ to allow sort any generic data types
 01. Convex hull of a set of N points is the smallest perimeter fence enclosing the points  
 02. TODO // complete this part
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Merge sort
 
@@ -580,7 +755,7 @@ to allow sort any generic data types
 
 ```
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Sort Stability
 
@@ -598,7 +773,7 @@ to allow sort any generic data types
 
     - Shellsort makes long distance exchanges
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Quick sort
 
@@ -657,7 +832,7 @@ to allow sort any generic data types
 
 ```
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Sort complexity
 
@@ -711,7 +886,7 @@ to allow sort any generic data types
     - Is your array randomly ordered?
     - Need guaranteed performance?
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Priority Queues
 
@@ -814,7 +989,7 @@ to allow sort any generic data types
 
 ```
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Heapsort
 
@@ -832,7 +1007,7 @@ to allow sort any generic data types
 
 * Not stable
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Event driven simulation
 
@@ -844,7 +1019,7 @@ to allow sort any generic data types
     - Each particle is a disc with know position, velocity, mass and radius
     - No other forces
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Symbol tables
 
@@ -942,7 +1117,7 @@ to allow sort any generic data types
     - Every path from root to the null link has the same number of black links
     - Red links lean left
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Hash tables
 
@@ -1099,7 +1274,7 @@ to allow sort any generic data types
 |separate chaining|lg N<sub>*</sub>|lg N<sub>*</sub>|lg N<sub>*</sub>|no|equals()|
 |linear probing|lg N<sub>*</sub>|lg N<sub>*</sub>|lg N<sub>*</sub>|no|equals()|
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Graph
 
@@ -1205,7 +1380,7 @@ public class Graph {
 | adjacency matrix | v<sub>2</sub> | 1<sub>*</sub> | 1                     | v                                    |
 | adjacency lists  | E+V           | 1             | degree(v)             | degree(v)                            |
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Depth-first search DFS Undirected search
 
@@ -1264,7 +1439,7 @@ public class Graph {
 
 ```
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Breadth-first search BFS Undirected search
 
@@ -1326,7 +1501,7 @@ public class Graph {
 * Level order, BFS: 1, 2, 3, 4, 5, 6, 7
 * Pre-order, DFS: 1, 2, 4, 5, 3, 6, 7
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Connected components
 
@@ -1344,7 +1519,7 @@ public class Graph {
 
 * Def. A connected component is a maximal set of connected vertices
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Directed graph
 
@@ -1436,7 +1611,7 @@ public class Graph {
 
 ### Strong component
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## MST (Minimum spanning tree)
 
@@ -1505,7 +1680,7 @@ public class Graph {
 ### MST context
 
  
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Shortest path
 
@@ -1577,7 +1752,7 @@ public class EdgeWeightedDigraph {
 ```
 
 `TODO` continue from Minimum spanning tree
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Strings
 
@@ -1835,7 +2010,7 @@ public static void sort(String[] a, int W) { // Fixed length W strings
 
 ### Suffix arrays
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Search in String
 
@@ -2366,11 +2541,11 @@ public class RabinKarp {
 
 `*` probability guarantee with uniform hash function
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Regular expression
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Data compression
 
@@ -2551,7 +2726,7 @@ public class RabinKarp {
 
 * Running time. Use a binary heap `N + R log R`
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### LZW compression
 
@@ -2605,7 +2780,7 @@ public class RabinKarp {
         . LZW
         . Deflate / zlib = LZ77 variant + huffman
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Data compression summary
 
@@ -2618,7 +2793,7 @@ public class RabinKarp {
     - JPEG, MPEG, MP3
     - FFT, wavelets, fractals
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Overview: introduction to advanced topics
 
@@ -2637,7 +2812,7 @@ public class RabinKarp {
     - Introduce you to important and essential ideas
     - Inspire you to learn more about algorithms :smile: !
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Reductions
 
@@ -2678,7 +2853,7 @@ what else could (could not) we solve efficiently?
 
         . Cost of solving finding the median `N log N + 1`
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Design algorithms
 
@@ -2694,7 +2869,7 @@ what else could (could not) we solve efficiently?
 
 * Mentality. Since I know how to solve Y, can I use that algorithm to solve X
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Establish lower bound
 
@@ -2726,7 +2901,7 @@ what else could (could not) we solve efficiently?
         . Therefore, I can't easily solve Y
     
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Classify problems
 
@@ -2744,7 +2919,7 @@ what else could (could not) we solve efficiently?
     - Brute force. N<sup>2</sup> bit operations
     - Q. Is brute-force algorithm optimal?
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 [Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
 [alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
