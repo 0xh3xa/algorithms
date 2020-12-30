@@ -1,8 +1,8 @@
-# Algorithms and Data Structures
+# Algorithms 
 
 [![Algorithms][alg-img]][rep-url] [![Data Structures][datastr-img]][rep-url]
 
-Algorithms and data structures' implementations in Java from the `Algorithms 4th edition` :book:
+Algorithms and data structures based on `Algorithms 4th edition` :book: by Robert Sedgewick and Kevin Wayne
 
 ## What is this course?
 
