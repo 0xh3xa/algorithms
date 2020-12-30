@@ -1,6 +1,6 @@
-# Algorithms :heart: :smile:
+# Algorithms and Data Structures
 
-![Algorithms][alg-img] ![Datastructures][datastructure-img] ![Open Source Love][Open-Source-img]
+[![Algorithms][alg-img]][rep-url] [![Data Structures][datastr-img]][rep-url]
 
 Algorithms and data structures' implementations in Java from the `Algorithms 4th edition` :book:
 
@@ -236,7 +236,7 @@ Applications based on this:
 
 02. Quick union with path compression `N + M lg N`
 
-03. Weighted Quick union with path compression `N + M lg*N`
+03. Weighted Quick union with path compression `N + M lg * N`
 
 * Note `WQUPC reduce time from 30 years to 6 seconds`
 
@@ -2855,6 +2855,7 @@ what else could (could not) we solve efficiently?
 
 ---
 
-[Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
-[alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
-[datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
+[open-source-img]:https://badges.frapsoft.com/os/v1/open-source.svg?v=10
+[alg-img]:https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
+[datastr-img]:https://img.shields.io/static/v1?label=Topic&message=Data-Structures&color=blue&style=flat
+[rep-url]: https://github.com/ahmadmoawad/algorithms
