@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 public class MergeSort {
 
-    private static final int CUTOFF = 7;
+    private static final int CUTOFF = 12;
 
     private MergeSort() throws IllegalAccessException {
         throw new IllegalAccessException("can not create an object from the class");
@@ -16,7 +16,8 @@ public class MergeSort {
     public final static <Item extends Comparable<Item>> void sort(Item[] arr, Item[] aux, int lo, int hi) {
         if (hi <= lo)
             return;
-        if (hi <= lo + CUTOFF) {
+        int n = hi - lo + 1;
+        if (n <= CUTOFF) {
             InsertionSort.sort(arr, lo, hi);
             return;
         }

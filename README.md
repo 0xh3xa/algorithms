@@ -797,6 +797,58 @@ Mergesort `N lg N`
 
 ---
 
+### Selection
+
+* Goal. Given an array of N items, find the k<sup>th</sup> largest
+
+    - Min(k=0), max(k=N-1), median(k=N/2)
+
+    
+
+* Applications
+
+    - Order statistics
+    - Find the top k
+
+* Use theory as a guide
+    - Easy `N lg N` upper bound. How? By sorting the array and loop util reach k<sup>th</sup>
+    - Easy `N` upper bound for k = 1,2,3. How?
+    - Easy `N` lower bound. Why?
+
+* Which is true?
+    - `N lg N` lower bound?
+    - `N` upper bound?
+
+* Quick-select
+    - Entry a[j] is in 
+    - No larger entry to the left of j
+    - No smaller entry to the right of j
+    - Repeat in one subarray, depending on j; finished when j equals k
+
+    - Analysis: Linear time on average
+    - Remark. Quick-select uses ~ 1/2N<sup>2</sup> compares in the worst case, but (as with quicksort) the random shuffle provides a probabilistic guarantee
+
+    - Algorithm
+
+``` java
+    public static <Item extends Comparable<Item>> Comparable<Item> select(Item[] arr, int k) {
+        KnuthShuffleSort.shuffle(arr);
+        int lo = 0, hi = arr.length - 1;
+        while (hi > lo) {
+            int j = partition(arr, lo, hi);
+            if (j < k)
+                lo = j + 1;
+            else if (j > k)
+                hi = j - 1;
+            else
+                return arr[k];
+        }
+        return arr[k];
+    }
+```
+
+---
+
 ## Sort complexity
 
 |Name|Inplace|Stable|Best|Average|Worst   |Remarks|
@@ -1335,6 +1387,7 @@ public class Graph {
 * In practice, use adjacency-lists representation
 
     - Algorithms based on iterating over vertices adjacent to v
+
     - Real-world graphs tend to be `sparse`
 
 | representation   | space         | add edge      | edge between v and w? | iterate over vertices adjacent to v? |
@@ -1519,6 +1572,7 @@ public class Graph {
 * In practice, use adjacency-lists representation
 
     - Algorithms based on iterating over vertices adjacent to v
+
     - Real-world graphs tend to be `sparse`
 
 | representation   | space         | add edge      | edge between v and w? | iterate over vertices adjacent to v? |
