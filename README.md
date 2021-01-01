@@ -1,8 +1,8 @@
-# Algorithms 
+# Algorithms and Data Structures
 
-[![Algorithms][alg-img]][rep-url] [![Data Structures][datastr-img]][rep-url]
+[![Algorithms][alg-img]][rep-url] [![Data Structures][datastr-img]][rep-url] [![Open Source Love][open-source-img]][rep-url]
 
-Algorithms and data structures based on `Algorithms 4th edition` :book: by Robert Sedgewick and Kevin Wayne
+Algorithms and data structures' implementations in Java from the `Algorithms 4th edition` :book:
 
 ## What is this course?
 
@@ -188,12 +188,7 @@ Applications based on this:
 
 * Note
 
-``` diff
-
-* We can not accept Quadratic in big problems
-* Quadratic algorithms do not scale
-
-```
+> We can not accept Quadratic in big problems Quadratic algorithms do not scale
 
 #### Rough standards (for now)
 
@@ -303,8 +298,8 @@ A model for many physical systems
 
 * How duplicate/shrinking array?
 
-    - Resize When reach 100% full the array resize(arr.length * 2)
-    - Shrink when reach one quarter full to the half resize(arr.length / 2)
+    - `Duplicate` When reach 100% full the array resize`(arr.length * 2)`
+    - `Shrink` when reach one quarter full to the half `resize(arr.length / 2)`
 
 * Stack applications
 
@@ -477,7 +472,6 @@ to allow sort any generic data types
  `Algorithm`
 
 ``` java
-
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
         int N = arr.length; 
         int min; 
@@ -491,7 +485,6 @@ to allow sort any generic data types
             swap(arr, i, min); 
         }
     }
-
 ```
 
 ---
@@ -508,7 +501,6 @@ to allow sort any generic data types
  `Algorithm`
 
 ``` java
-
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
         int N = arr.length; 
         for (int i = 1; i < N; i++) {
@@ -517,7 +509,6 @@ to allow sort any generic data types
             }
         }
     }
-
 ```
 
 ---
@@ -531,7 +522,6 @@ to allow sort any generic data types
  `Algorithm`
 
 ``` java
-
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
         int N = arr.length; 
         int h = 1; 
@@ -547,7 +537,6 @@ to allow sort any generic data types
             h /= 3; 
         }
     }
-
 ```
 
 * Why Shell sort uses insertion sort internally?  
@@ -561,19 +550,18 @@ to allow sort any generic data types
 ## Shuffle sort  
 
 * Generate a random real number for each array entry  
-* Sort array  
+* Sort array
 
 ### Knuth shuffle  
 
 * Pick integer r between 0 and i uniformly at random  
 * Swap `a[i]` and `a[r]`
 
-* Complexity: `O(n)`
+* Complexity: `O(N)`
 
  `Algorithm`
 
 ``` java
-
     public static <Item extends Comparable<Item>> void shuffle(Item[] arr) {
         int N = arr.length; 
         Random random = new Random(); 
@@ -582,13 +570,59 @@ to allow sort any generic data types
             swap(arr, i, r); 
         }
     }
-
 ```
 
 ### Applications in sorting
 
-01. Convex hull of a set of N points is the smallest perimeter fence enclosing the points  
-02. TODO // complete this part
+* Convex hull of a set of N points
+
+    - Is the smallest perimeter fence enclosing the points
+    - Equivalent definitions:
+        01. Smallest convex set containing all the points
+        02. Smallest area convex polygon enclosing the points
+        03. Convex polygon enclosing the points, whose vertices are points in set
+
+    - Convex hull output. Sequence of vertices in counterclockwise order
+    - Mechanical algorithm. Hammer nails perpendicular to plane, search elastic rubber band around points
+    - Convex hull application
+        01. Robot motion planning. Find shortest path in the plan from s to t that avoids a polygonal obstacle
+            + Fact. Shortest path is either straight line from s to t or it is one of two polygonai chains of convex hull
+
+        02. Farthest pair problem. Given N points in the plane, find a pair, find a pair of points with the largest Euclidean distance between them
+            + Fact. Farthest pair of points are extreme points on convex hull
+    - Convex hull: geometric properties
+        + Fact. Can traverse the convex hull by making only counterclockwise turns
+        + Fact. The vertices of convex hull appear in interesting order of polar angle with respect to point p with lowest y-coordinate
+    - Graham scan, based on above facts |
+        + Choose point p with smallest y-coordinate
+        + Sort points by polar angle with p
+        + Consider points in order, discard unless if create a ccw turn
+        + Q. How to find point p with smallest y-coordinate?
+
+            A. Define a total order, comparing by y-coordinate
+
+        + Q. How to sort points by polar angle with respect to p?
+
+            A. Define a total order for each point p
+
+        + Q. How to determine where p1  -> p2 -> p3 is counterclockwise turn?
+
+            A. Computational geometry
+
+        + Q. How to sort efficiently?
+
+            A. Merge sort in `N lg N`
+
+    - Implement CCW
+        + CCW. Given three points a, b and c, is a->b->c a counterclockwise turn?
+
+            A. Determinant (or cross product) gives 2x signed area of planer triangle
+
+                01. if signed area > 0, then a->b->c is counterclockwise
+                02. if signed area < 0, then a->b->c is clockwise
+                03. if signed area = 0, then a->b->c are colliner
+
+        + Running time `N lg N` for sorting and linear for rest
 
 ---
 
@@ -603,14 +637,11 @@ to allow sort any generic data types
     - Recursively sort each half  
     - Merge two halves
 
-    
-
 * Complexity `N lg N`
 
  `Algorithm`
 
 ``` java
-
     public static <Item extends Comparable<Item>> void sort(Item[] arr, Item[] aux, int lo, int hi) {
         if (hi <= lo)
             return; 
@@ -621,9 +652,11 @@ to allow sort any generic data types
     }
 
     private static <Item extends Comparable<Item>> void merge(Item[] arr, Item[] aux, int lo, int mid, int hi) {
-        int i = lo, j = mid + 1; 
+
         for (int k = lo; k <= hi; k++)
-            aux[k] = arr[k]; 
+            aux[k] = arr[k];
+        
+        int i = lo, j = mid + 1;
         for (int k = lo; k <= hi; k++) {
             if (i > mid)
                 arr[k] = aux[j++]; 
@@ -635,7 +668,6 @@ to allow sort any generic data types
                 arr[k] = aux[i++]; 
         }
     }
-
 ```
 
 * Mergesort improvement
@@ -658,14 +690,14 @@ to allow sort any generic data types
 | 2. 8 hours | 317 years |
 | 1 second  | 1 week    |
 
-        Mergesort N lg N
+Mergesort `N lg N`
 
 | Million  | Billion |
 |----------|---------|
 | 1 second | 18 min  |
 | instant  | instant |
 
-* Note: `Good algorithm are better than supercomputers`
+> Note: `Good algorithm are better than supercomputers`
 
 ### Bottom-up version of Mergesort
 
@@ -678,15 +710,14 @@ to allow sort any generic data types
  `Algorithm`
 
 ``` java
-
     public static <Item extends Comparable<Item>> void sortBottomUp(Item[] arr) {
         int N = arr.length; 
-        Item[] aux = (Item[]) new Comparable[N]; 
+        Item[] aux = (Item[]) new Comparable[N];
+
         for (int sz = 1; sz < N; sz = sz + sz)
             for (int lo = 0; lo <= N - sz; lo += sz + sz)
                 merge(arr, aux, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, N - 1)); 
     }
-
 ```
 
 ---
@@ -730,7 +761,6 @@ to allow sort any generic data types
  `Algorithm`
 
 ``` java
-
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
         KnuthShuffleSort.shuffle(arr); 
         sort(arr, 0, arr.length - 1); 
@@ -763,7 +793,6 @@ to allow sort any generic data types
         swap(arr, lo, j); 
         return j; 
     }
-
 ```
 
 ---
