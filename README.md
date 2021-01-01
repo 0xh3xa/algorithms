@@ -53,6 +53,8 @@ Algorithms all around us
 05. Find a way to address the problem  
 06. Iterate until satisfied  
 
+---
+
 ## Algorithm Analyze
 
 ### Reasons to Analyze Algorithms
