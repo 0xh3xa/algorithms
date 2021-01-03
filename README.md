@@ -953,6 +953,22 @@ Mergesort `N lg N`
 
 ### System sort: Which algorithm to use?
 
+* Many sorting algorithms to choose from
+
+    - Internal sorts
+        + Insertion sort, selection sort, bubblesort, shaker sort
+        + Quicksort, mergesort, heapsort, samplesort, shellsort
+        + Solitaire sort, red-black sort, splaysort, Yaroslavskiy sort, psort
+
+    - External sorts. Poly-phase mergesort, cascade-merge, oscallating sort
+
+    - String/radix sorts. Distribution, MSD, LSD, 3-way string quicksort
+
+    - Parallel sorts
+        + Bitonic sort, Batcher even-odd sort
+        + Smooth sort, cube sort, column sort
+        + GPUsort
+
 * Applications have diverse attributes
 
     - Stable?
@@ -989,7 +1005,17 @@ Mergesort `N lg N`
 
 ## Priority Queues
 
-* Remove the largest or smallest item
+### Priority Queue (PQ)
+
+* Collections. Insert and delete items. which item to delete?
+
+    
+
+    - Stack. Remove the item most recently added
+    - Queue. Remove the item least recently added
+    - Randomized queue. Remove a random item
+    - Priority Queue. Remove the `largest` or `smallest` item
+
 * Operations: `insert(Item item), delMax(), isEmpty(), max(), size()`
 
 * Applications
