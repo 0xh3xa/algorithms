@@ -462,8 +462,6 @@ to allow sort any generic data types
   + `Transitivity` : if v<=w and w<=x, then v<=x
   + `Totality` : either v<=w or w<=v or both
 
----
-
 ### Selection sort
 
 * Scan from left to right  
@@ -487,8 +485,6 @@ to allow sort any generic data types
     }
 ```
 
----
-
 ### Insertion sort
 
 * Scan from left to right  
@@ -510,8 +506,6 @@ to allow sort any generic data types
         }
     }
 ```
-
----
 
 ### Shell sort
 
@@ -545,19 +539,15 @@ to allow sort any generic data types
 	02. Tiny used in some embedded systems
 	03. Hardware sort prototype
 
----
-
-## Shuffle sort  
+### Shuffle sort  
 
 * Generate a random real number for each array entry  
 * Sort array
+* Knuth shuffle  
 
-### Knuth shuffle  
-
-* Pick integer r between 0 and i uniformly at random  
-* Swap `a[i]` and `a[r]`
-
-* Complexity: `O(N)`
+    - Pick integer r between 0 and i uniformly at random  
+    - Swap `a[i]` and `a[r]`
+    - Complexity: `O(N)`
 
  `Algorithm`
 
@@ -624,9 +614,7 @@ to allow sort any generic data types
 
         + Running time `N lg N` for sorting and linear for rest
 
----
-
-## Merge sort
+### Merge sort
 
 * This sort based on the technique of `divide-and-conquer`
 
@@ -720,9 +708,7 @@ Mergesort `N lg N`
     }
 ```
 
----
-
-## Sort Stability
+### Sort Stability
 
 * Suppose you want to sort `BY_NAME` then `BY_SECTION`
 
@@ -738,9 +724,7 @@ Mergesort `N lg N`
 
     - Shellsort makes long distance exchanges
 
----
-
-## Quick sort
+### Quick sort
 
 * One of the most important algorithm in 20<sup>th</sup> century
 * Java sort for primitive types
@@ -802,8 +786,6 @@ Mergesort `N lg N`
         - Best choice of pivot item = median
         - Median-of-3 random items
 
----
-
 ### Selection
 
 * Goal. Given an array of N items, find the k<sup>th</sup> largest
@@ -860,9 +842,7 @@ Mergesort `N lg N`
     - Still in worthwhile to seek practical linear time (worst-case) algorithm
     - Until one is discovered, use quick-select if you don't need a full sort   
 
----
-
-## Duplicate keys
+### Duplicate keys
 
 * Often, purpose of sort is to bring items with equal keys together
     - Sort population by age
@@ -939,34 +919,33 @@ Mergesort `N lg N`
 
 * Bottom line. Randomized quicksort with 3-way partitioning reduces running time from linearithmic to linear in broad class of application
 
----
+### System sorts
 
-## System sorts
+* Sort applications
 
-### Sort applications
+    - obvious applications
+        + Sort a list of names
+        + Organize an MP3 library
+        + Display Google PageRank results
+        + List Rss feed in reverse chronological order
 
-01. Sort a list of names
-02. Organize an MP3 library
-03. Display Google PageRank results
-04. List Rss feed in reverse chronological order
+    - Problems became easy once items are in sorted order
 
-, Problems became easy once items are in sorted order 
+        + Find the median
+        + Binary search in a database
+        + Identify statistical outliers
+        + Find duplicates in a mailing list
 
-01. Find the median
-02. Binary search in a database
-03. Identify statistical outliers
-04. Find duplicates in a mailing list
+    - Non-obvious applications
 
-, Non-obvious applications
+        + Data compression
+        + Computer graphics
+        + Computational biology
+        + Load balancing on a parallel computers
 
-01. Data compression
-02. Computer graphics
-03. Computational biology
-04. Load balancing on a parallel computers
+* Java System sort
 
-### Java System sort
-
-* Arrays.sort()
+    - Arrays.sort()
     - Has different method for each primitive type
     - Has a method for data types that implement Comparable
     - Has a method that uses a Comparator
@@ -991,6 +970,8 @@ Mergesort `N lg N`
 * Q. Is the system sort good enough?
 
     A. Usually
+
+---
 
 ### Sort complexity
 
