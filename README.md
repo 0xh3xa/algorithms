@@ -1038,7 +1038,9 @@ Mergesort `N lg N`
 |--------------|------|-------|---|
 |unordered array|1|N|N|
 |ordered array|N|1|1|
-|goal|log N|log N|log N|
+|goal|lg N|lg N|lg N|
+
+---
 
 ### Binary heap
 
