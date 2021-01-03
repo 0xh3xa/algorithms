@@ -797,6 +797,13 @@ Mergesort `N lg N`
     }
 ```
 
+* Improvement
+    01. Insertion sort for small subarrays
+        - Cut OFF ~ 10 items
+    02. Median of sample
+        - Best choice of pivot item = median
+        - Median-of-3 random items
+
 ---
 
 ### Selection
@@ -804,8 +811,6 @@ Mergesort `N lg N`
 * Goal. Given an array of N items, find the k<sup>th</sup> largest
 
     - Min(k=0), max(k=N-1), median(k=N/2)
-
-    
 
 * Applications
 
@@ -818,14 +823,15 @@ Mergesort `N lg N`
     - Easy `N` lower bound. Why?
 
 * Which is true?
-    - `N lg N` lower bound?
-    - `N` upper bound?
+    - `N lg N` lower bound? <- Is selection as hard as sorting?
+    - `N` upper bound? <- Is there a linear algorithm for each k?
 
 * Quick-select
-    - Entry a[j] is in 
+    - Version of Quick-sort
+    - Entry a[j] is in
     - No larger entry to the left of j
     - No smaller entry to the right of j
-    - Repeat in one subarray, depending on j; finished when j equals k
+    - Repeat in one sub-array, depending on j; finished when j equals k
 
     - Analysis: Linear time on average
     - Remark. Quick-select uses ~ 1/2N<sup>2</sup> compares in the worst case, but (as with quicksort) the random shuffle provides a probabilistic guarantee
@@ -849,21 +855,97 @@ Mergesort `N lg N`
     }
 ```
 
+* Remark. But, constants are too high => not used in practice
+
+* Use theory as a guide
+
+    - Still in worthwhile to seek practical linear time (worst-case) algorithm
+    - Until one is discovered, use quick-select if you don't need a full sort   
+
 ---
 
-## Sort complexity
+## Duplicate keys
 
-|Name|Inplace|Stable|Best|Average|Worst   |Remarks|
-|----|-------|------|----|-------|--------|-------|
-|Selectionsort|Yes|No|1/2 N<sup>2</sup>|1/2 N<sup>2</sup>|1/2 N<sup>2</sup>|N exchanges|
-|Insertionsort|Yes|Yes|N|l/4N<sup>2</sup>|l/2N<sup>2</sup>|use for small N or partially ordered|
-|Shellsort|Yes|No|N log<sub>3</sub>N|?|cN<sup>3/2</sup>|tight code, sub-quadratic|
-|Mergesort|No|Yes|½ N lg N|N lg N|N lg N|N lg N guarantee, stable|
-|Quicksort|Yes|No|N|N lg N|½ N<sup>2</sup>|N lg N probabilistic guarantee fastest in practice|
-|3-ways Quicksort|Yes|No|N<sup>2</sup>/2|2 N ln N|½ N<sup>2</sup>|improves quicksort in presence of duplicate keys|
-|Timesort|No|Yes|N|N lg N|N lg N|-|
+* Often, purpose of sort is to bring items with equal keys together
+    - Sort population by age
+    - Find collinear points
+    - Remove duplicates from mailing list
+    - Sort job applicants by college attended
 
-## Sort applications
+* Typical characteristics of such applications
+    - Huge array
+    - Small number of key values
+
+* Mergesort with duplicate keys. always between 1/2 N lg N and N lg N compares
+
+* Quicksort with duplicate keys.
+    - Algorithms goes quadratic unless partition stop on equal keys
+
+    - 1990s C user found this defect in qsort()
+    - Mistake. Put all items equals to the partitioning item in one side
+        + Consequence. ~1/2N<sup>2</sup> compares when all keys equal
+
+            B A A B A B B B C C C       A A A A A A A A A A `A`
+
+    - Recommended. Stp scan on item equals to the partitioning item
+        + Consequence. ~ N lg N compares when all keys equal
+
+            B A A B A B B B C C C       A A A A A `A` A A A A A
+
+    - Desirable. Put all items equal to the partitioning item in place
+
+            A A A `B B B B B` C C C `A A A A A A A A A A A`
+
+* 3-way partitioning
+    - Goal. Partition array into 3 parts so that:
+        01. Entries between lt and gt equal to partition item v
+        02. No larger entries to left of lt
+        03. No smaller entries to right of gt
+    - Dutch national flag problem. [Edsger Dijkstra]
+        + Conventional wisdom until mid 1990s: not worth doing
+        + New approach discovered when fixing mistake in C library qsort()
+        + Now incorporated into qsort() and Java system sort
+    - Steps
+        01. Let v be partitioning item a[lo]
+        02. Scan i from left to right
+
+            . (a[i] < v): exchange a[lt] with a[i]; increment both it and i
+            . (a[i] > v): exchange a[gt] with a[i]; decrement gt
+            . (a[i] == v): increment i
+
+ `Algorithm`
+
+``` java
+    private static <Item extends Comparable<Item>> void sort(Item[] arr, int lo, int hi) {
+        if (hi <= lo)
+            return;
+        int lt = lo, gt = hi;
+        Item v = arr[lo];
+        int i = lo;
+        while (i <= gt) {
+            int cmp = arr[i].compareTo(v);
+            if (cmp < 0)
+                swap(arr, lt++, i++);
+            else if (cmp > 0)
+                swap(arr, i, gt--);
+            else
+                i++;
+        }
+        sort(arr, lo, lt - 1);
+        sort(arr, gt + 1, hi);
+    }
+```
+
+* Proposition. [Sedgewick-Bentley, 1997]
+    - Quicksort with 3-way partition is entropy-optimal
+
+* Bottom line. Randomized quicksort with 3-way partitioning reduces running time from linearithmic to linear in broad class of application
+
+---
+
+## System sorts
+
+### Sort applications
 
 01. Sort a list of names
 02. Organize an MP3 library
@@ -884,15 +966,18 @@ Mergesort `N lg N`
 03. Computational biology
 04. Load balancing on a parallel computers
 
-## System sorts
+### Java System sort
 
-* Java uses:
-01. Tuned quicksort for primitive types
-02. Mergesort for objects
+* Arrays.sort()
+    - Has different method for each primitive type
+    - Has a method for data types that implement Comparable
+    - Has a method that uses a Comparator
+    - Uses tuned quicksort for primitive types; tuned mergesort for objects
 
-* Which algorithm to use?
+### System sort: Which algorithm to use?
 
-    - Applications have diverse attributes
+* Applications have diverse attributes
+
     - Stable?
     - Parallel?
     - Deterministic?
@@ -902,6 +987,24 @@ Mergesort `N lg N`
     - Large or small items?
     - Is your array randomly ordered?
     - Need guaranteed performance?
+
+* Elementary sort may be method of choice for some combination
+    - Cannot cover all combinations of attributes
+* Q. Is the system sort good enough?
+
+    A. Usually
+
+### Sort complexity
+
+|Name|Inplace|Stable|Best  |Average  |Worst|Remarks|
+|----|-------|------|------|---------|-----|-------|
+|Selectionsort|Yes|No|1/2 N<sup>2</sup>|1/2 N<sup>2</sup>|1/2 N<sup>2</sup>|N exchanges|
+|Insertionsort|Yes|Yes|N|l/4N<sup>2</sup>|l/2N<sup>2</sup>|use for small N or partially ordered|
+|Shellsort|Yes|No|N log<sub>3</sub>N|?|cN<sup>3/2</sup>|tight code, sub-quadratic|
+|Mergesort|No|Yes|½ N lg N|N lg N|N lg N|N lg N guarantee, stable|
+|Quicksort|Yes|No|N|N lg N|½ N<sup>2</sup>|N lg N probabilistic guarantee fastest in practice|
+|3-ways Quicksort|Yes|No|N<sup>2</sup>/2|2 N ln N|½ N<sup>2</sup>|improves quicksort in presence of duplicate keys|
+|Timesort|No|Yes|N|N lg N|N lg N|-|
 
 ---
 

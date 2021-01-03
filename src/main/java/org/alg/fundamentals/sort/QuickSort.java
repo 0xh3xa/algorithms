@@ -44,6 +44,8 @@ public final class QuickSort {
     }
 
     private static <Item extends Comparable<Item>> boolean less(Item item1, Item item2) {
+        if (item1 == item2)
+            return false; // optimization when reference equals
         return item1.compareTo(item2) < 0;
     }
 
