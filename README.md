@@ -144,7 +144,7 @@ Algorithms all around us
  	+ N<sup>3</sup> (cubic)
  	+ 2<sup>N</sup> (exponential)
 
-* Note: lgN means log<sub>2</sub>N
+> Note: lgN means log<sub>2</sub>N
 
 	
 
@@ -188,9 +188,7 @@ Applications based on this:
     - Find too expensive (Could be N array accesses)  
     - If you have N union commands over N objects will be O(N<sup>2</sup>) quadratic  
 
-* Note
-
-> We can not accept Quadratic in big problems Quadratic algorithms do not scale
+* Note: We can not accept Quadratic in big problems Quadratic algorithms do not scale
 
 #### Rough standards (for now)
 
@@ -235,7 +233,7 @@ Applications based on this:
 
 03. Weighted Quick union with path compression `N + M lg * N`
 
-* Note `WQUPC reduce time from 30 years to 6 seconds`
+> Note: WQUPC reduce time from 30 years to 6 seconds
 
 ### Union find Applications
 
@@ -699,7 +697,7 @@ Mergesort `N lg N`
 | 1 second | 18 min  |
 | instant  | instant |
 
-> Note: `Good algorithm are better than supercomputers`
+> Note: Good algorithm are better than supercomputers
 
 ### Bottom-up version of Mergesort
 
@@ -1327,7 +1325,9 @@ Mergesort `N lg N`
 * Hash. Map key to integer i between 0 and M-1
 * Insert. Put at table index i if free, if not try i+1, i+2, etc
 * Search. Search table index i, if occupied but no match, try i+1, i+2, etc
-* Note, Array size M must be greater than number of key-value pairs M
+
+> Note: Array size M must be greater than number of key-value pairs M
+
 * Clustering: a contiguous block of items
 
 ### Separate chaining vs. Linear probing
