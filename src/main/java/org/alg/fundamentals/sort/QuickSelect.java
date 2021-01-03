@@ -1,30 +1,24 @@
 package org.alg.fundamentals.sort;
 
-public final class QuickSort {
+public final class QuickSelect {
 
-    private static final int CUTOFF = 8;
-
-    private QuickSort() throws IllegalAccessException {
+    private QuickSelect() throws IllegalAccessException {
         throw new IllegalAccessException("can not create an object from the class");
     }
 
-    public static <Item extends Comparable<Item>> void sort(Item[] arr) {
+    public static <Item extends Comparable<Item>> Comparable<Item> select(Item[] arr, int k) {
         KnuthShuffleSort.shuffle(arr);
-        sort(arr, 0, arr.length - 1);
-    }
-
-    private static <Item extends Comparable<Item>> void sort(Item[] arr, int lo, int hi) {
-        if (hi <= lo)
-            return;
-        int n = hi - lo + 1;
-
-        if (n <= CUTOFF) {
-            InsertionSort.sort(arr, lo, hi);
-            return;
+        int lo = 0, hi = arr.length - 1;
+        while (hi > lo) {
+            int j = partition(arr, lo, hi);
+            if (j < k)
+                lo = j + 1;
+            else if (j > k)
+                hi = j - 1;
+            else
+                return arr[k];
         }
-        int j = partition(arr, lo, hi);
-        sort(arr, lo, j - 1);
-        sort(arr, j + 1, hi);
+        return arr[k];
     }
 
     private static <Item extends Comparable<Item>> int partition(Item[] arr, int lo, int hi) {
@@ -44,8 +38,6 @@ public final class QuickSort {
     }
 
     private static <Item extends Comparable<Item>> boolean less(Item item1, Item item2) {
-        if (item1 == item2)
-            return false; // optimization when reference equals
         return item1.compareTo(item2) < 0;
     }
 

@@ -92,5 +92,4 @@ public class LinkedQueue<Item> implements Queue<Item> {
             return item;
         }
     }
-
 }

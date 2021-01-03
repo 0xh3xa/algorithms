@@ -1,10 +1,10 @@
-# Algorithms :heart: :smile:
+# Algorithms and Data Structures
 
-![Algorithms][alg-img] ![Datastructures][datastructure-img] ![Open Source Love][Open-Source-img]
+[![Algorithms][alg-img]][rep-url] [![Data Structures][datastr-img]][rep-url] [![Open Source Love][open-source-img]][rep-url]
 
 Algorithms and data structures' implementations in Java from the `Algorithms 4th edition` :book:
 
-## What's is this course?
+## What is this course?
 
 * Intermediate level survey course
 * Programming and problem solving with applications
@@ -12,7 +12,7 @@ Algorithms and data structures' implementations in Java from the `Algorithms 4th
 ## Definitions
 
 * `Algorithms` : Method for solving a problem
-* `Data structures` : Method to store information
+* `Data structures` : Method to store inform    ation
 * `Program = Algorithms + Data structures`
 
 ## Topics
@@ -35,16 +35,14 @@ Algorithms and data structures' implementations in Java from the `Algorithms 4th
 
 Algorithms all around us  
 
-01. Internet: Web search, packet routing, distribute file sharing, ... 
-02. Biology: Human genome project, protein folding, ... 
-03. Computers: Circuit layout, file system, compilers, ... 
-04. Computer graphics: Movies, Video games, virtual reality, ... 
-05. Security: Cell phones, e-commerce, voting machines, ... 
+01. Internet: web search, packet routing, distribute file sharing, ... 
+02. Biology: human genome project, protein folding, ... 
+03. Computers: circuit layout, file system, compilers, ... 
+04. Computer graphics: Movies, video games, virtual reality, ... 
+05. Security: cell phones, e-commerce, voting machines, ... 
 06. Multimedia: MP3, JPG, Divx, HDTV, face recognition, ... 
-07. Social networks: Recommendations, news feeds, advertisements, ... 
+07. Social networks: recommendations, news feeds, advertisements, ... 
 08. Physics: N-body simulation, particle collision simulation, ... 
-
----
 
 ## Steps for solving the problem
 
@@ -146,7 +144,7 @@ Algorithms all around us
  	+ N<sup>3</sup> (cubic)
  	+ 2<sup>N</sup> (exponential)
 
-* Note: lgN means log<sub>2</sub>N
+> Note: lgN means log<sub>2</sub>N
 
 	
 
@@ -161,8 +159,6 @@ Algorithms all around us
 01. Reflexive: p is connected to q  
 02. Symmetric: if p is connected to q, then q is connected to p  
 03. Transitive: if p is connected to q and q is connected to r, then p is connected to r
-
----
 
 ## Dynamic connectivity
 
@@ -192,14 +188,7 @@ Applications based on this:
     - Find too expensive (Could be N array accesses)  
     - If you have N union commands over N objects will be O(N<sup>2</sup>) quadratic  
 
-* Note
-
-``` diff
-
-* We can not accept Quadratic in big problems
-* Quadratic algorithms do not scale
-
-```
+* Note: We can not accept Quadratic in big problems Quadratic algorithms do not scale
 
 #### Rough standards (for now)
 
@@ -242,9 +231,9 @@ Applications based on this:
 
 02. Quick union with path compression `N + M lg N`
 
-03. Weighted Quick union with path compression `N + M lg*N`
+03. Weighted Quick union with path compression `N + M lg * N`
 
-* Note `WQUPC reduce time from 30 years to 6 seconds`
+> Note: WQUPC reduce time from 30 years to 6 seconds
 
 ### Union find Applications
 
@@ -269,12 +258,26 @@ A model for many physical systems
 | fluid flow | material| empty | blocked | porous |
 | social interaction | population | person | empty | communicates |
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
-## Data structure Design
+## Data structures Design
 
-Good practice to make an abstraction between the outside world and internal implementation  
-In java we will use interface
+* Good practice to make an abstraction between the outside world and internal implementation, In java we will use interface
+
+    - Benefits
+        + Client can't know details of implementation
+
+        + Implementation can't know details of client needs
+
+        + Design: creates modular, reusable libraries
+
+        + Performance: use optimized implementation where it matters
+
+* Client: program using operations defined in interface
+
+* Implementation: actual code implementing operations
+
+* Interface: description of data type, basic operations
 
 ## Stack
 
@@ -291,26 +294,67 @@ In java we will use interface
 
 * When should I use Linkedlist or Array implementation?
 
-if time is important and don't want to lose any input i. e. dealing with internet packet use `Linkedlist` implementation, But if you take care of `memory` space use `Array` implementation  
+    - if time is important and don't want to lose any input i. e. dealing with internet packet use `Linkedlist` implementation, But if you take care of `memory` space use `Array` implementation  
 
 * How duplicate/shrinking array?
 
-    - Resize When reach 100% full the array resize(arr.length*2)
-    - Shrink when reach one quarter full to the half resize(arr.length/2)
+    - `Duplicate` When reach 100% full the array resize`(arr.length * 2)`
+    - `Shrink` when reach one quarter full to the half `resize(arr.length / 2)`
 
 * Stack applications
 
-  + Parsing in a compiler
-  + Java virtual machine
-  + Undo in word processor
-  + Back button in a web browser
-  + Implementation function calls in a compiler
-  + Arithmetic expression evaluation
-  + Reverse objects
+    - Parsing in a compiler
+    - Java virtual machine
+    - Undo in word processor
+    - Back button in a web browser
+    - Implementation function calls in a compiler
+    - Arithmetic expression evaluation
+    - Reverse objects
 
-	
+* `LinkedList` implementation code
 
--------------------------------------------------------------------------------------------------------------------------------
+``` java
+public class LinkedStack<Item> implements Stack<Item> {
+
+    private class NodeList {
+        Item item;
+        NodeList next;
+
+        public NodeList(Item item) {
+            this.item = item;
+        }
+    }
+
+    private NodeList first = null;
+    private int size = 0;
+
+    @Override
+    public void push(Item item) {
+        if (first == null) {
+            first = new NodeList(item);
+            first.next = null;
+        } else {
+            NodeList oldFirst = first;
+            first = new NodeList(item);
+            first.next = oldFirst;
+        }
+        size++;
+    }
+
+    @Override
+    public Item pop() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("stack underflow");
+        }
+        Item item = first.item;
+        first = first.next;
+        size--;
+        return item;
+    }
+}
+```
+
+---
 
 ## Queue
 
@@ -322,15 +366,75 @@ if time is important and don't want to lose any input i. e. dealing with interne
 
 * Queue applications
 
-  + Cpu scheduling
-  + Disk scheduling
-  + Data transfer asynchronously between two processes. Queue is used for synchronization. 
-  + Breadth First search in a Graph
-  + Call Center phone systems
+    - CPU scheduling
+    - Disk scheduling
+    - Data transfer asynchronously between two processes. Queue is used for synchronization. 
+    - Breadth First search in a Graph
+    - Call Center phone systems
 
-	
+* `LinkedList` implementation code
 
--------------------------------------------------------------------------------------------------------------------------------
+``` java
+public class LinkedQueue<Item> implements Queue<Item> {
+
+    private class NodeList {
+
+        Item item;
+        NodeList next;
+
+        public NodeList(Item item) {
+            this.item = item;
+        }
+    }
+
+    private NodeList first;
+    private NodeList last;
+    private int size;
+
+    public LinkedQueue() {
+        first = null;
+        last = null;
+        size = 0;
+    }
+
+    @Override
+    public void enqueue(Item item) {
+        NodeList oldLast = last;
+        last = new NodeList(item);
+        last.next = null;
+        if (isEmpty()) {
+            first = last;
+        } else {
+            oldLast.next = last;
+        }
+        size++;
+    }
+
+    @Override
+    public Item dequeue() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Queue underflow");
+        }
+        Item item = first.item;
+        first = first.next;
+        if (isEmpty()) {
+            last = null;
+        }
+        size--;
+        return item;
+    }
+
+    @Override
+    public Item peek() {
+        if (isEmpty()) {
+            throw new NoSuchElementException("Queue underflow");
+        }
+        return first.item;
+    }
+}
+```
+
+---
 
 ## Elementary sorts
 
@@ -358,7 +462,7 @@ to allow sort any generic data types
   + `Transitivity` : if v<=w and w<=x, then v<=x
   + `Totality` : either v<=w or w<=v or both
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Selection sort
 
@@ -368,7 +472,6 @@ to allow sort any generic data types
  `Algorithm`
 
 ``` java
-
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
         int N = arr.length; 
         int min; 
@@ -382,10 +485,9 @@ to allow sort any generic data types
             swap(arr, i, min); 
         }
     }
-
 ```
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Insertion sort
 
@@ -399,7 +501,6 @@ to allow sort any generic data types
  `Algorithm`
 
 ``` java
-
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
         int N = arr.length; 
         for (int i = 1; i < N; i++) {
@@ -408,10 +509,9 @@ to allow sort any generic data types
             }
         }
     }
-
 ```
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Shell sort
 
@@ -422,7 +522,6 @@ to allow sort any generic data types
  `Algorithm`
 
 ``` java
-
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
         int N = arr.length; 
         int h = 1; 
@@ -438,7 +537,6 @@ to allow sort any generic data types
             h /= 3; 
         }
     }
-
 ```
 
 * Why Shell sort uses insertion sort internally?  
@@ -447,24 +545,23 @@ to allow sort any generic data types
 	02. Tiny used in some embedded systems
 	03. Hardware sort prototype
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Shuffle sort  
 
 * Generate a random real number for each array entry  
-* Sort array  
+* Sort array
 
 ### Knuth shuffle  
 
 * Pick integer r between 0 and i uniformly at random  
 * Swap `a[i]` and `a[r]`
 
-* Complexity: `O(n)`
+* Complexity: `O(N)`
 
  `Algorithm`
 
 ``` java
-
     public static <Item extends Comparable<Item>> void shuffle(Item[] arr) {
         int N = arr.length; 
         Random random = new Random(); 
@@ -473,15 +570,61 @@ to allow sort any generic data types
             swap(arr, i, r); 
         }
     }
-
 ```
 
 ### Applications in sorting
 
-01. Convex hull of a set of N points is the smallest perimeter fence enclosing the points  
-02. TODO // complete this part
+* Convex hull of a set of N points
 
--------------------------------------------------------------------------------------------------------------------------------
+    - Is the smallest perimeter fence enclosing the points
+    - Equivalent definitions:
+        01. Smallest convex set containing all the points
+        02. Smallest area convex polygon enclosing the points
+        03. Convex polygon enclosing the points, whose vertices are points in set
+
+    - Convex hull output. Sequence of vertices in counterclockwise order
+    - Mechanical algorithm. Hammer nails perpendicular to plane, search elastic rubber band around points
+    - Convex hull application
+        01. Robot motion planning. Find shortest path in the plan from s to t that avoids a polygonal obstacle
+            + Fact. Shortest path is either straight line from s to t or it is one of two polygonai chains of convex hull
+
+        02. Farthest pair problem. Given N points in the plane, find a pair, find a pair of points with the largest Euclidean distance between them
+            + Fact. Farthest pair of points are extreme points on convex hull
+    - Convex hull: geometric properties
+        + Fact. Can traverse the convex hull by making only counterclockwise turns
+        + Fact. The vertices of convex hull appear in interesting order of polar angle with respect to point p with lowest y-coordinate
+    - Graham scan, based on above facts |
+        + Choose point p with smallest y-coordinate
+        + Sort points by polar angle with p
+        + Consider points in order, discard unless if create a ccw turn
+        + Q. How to find point p with smallest y-coordinate?
+
+            A. Define a total order, comparing by y-coordinate
+
+        + Q. How to sort points by polar angle with respect to p?
+
+            A. Define a total order for each point p
+
+        + Q. How to determine where p1  -> p2 -> p3 is counterclockwise turn?
+
+            A. Computational geometry
+
+        + Q. How to sort efficiently?
+
+            A. Merge sort in `N lg N`
+
+    - Implement CCW
+        + CCW. Given three points a, b and c, is a->b->c a counterclockwise turn?
+
+            A. Determinant (or cross product) gives 2x signed area of planer triangle
+
+                01. if signed area > 0, then a->b->c is counterclockwise
+                02. if signed area < 0, then a->b->c is clockwise
+                03. if signed area = 0, then a->b->c are colliner
+
+        + Running time `N lg N` for sorting and linear for rest
+
+---
 
 ## Merge sort
 
@@ -494,14 +637,11 @@ to allow sort any generic data types
     - Recursively sort each half  
     - Merge two halves
 
-    
-
 * Complexity `N lg N`
 
  `Algorithm`
 
 ``` java
-
     public static <Item extends Comparable<Item>> void sort(Item[] arr, Item[] aux, int lo, int hi) {
         if (hi <= lo)
             return; 
@@ -512,9 +652,11 @@ to allow sort any generic data types
     }
 
     private static <Item extends Comparable<Item>> void merge(Item[] arr, Item[] aux, int lo, int mid, int hi) {
-        int i = lo, j = mid + 1; 
+
         for (int k = lo; k <= hi; k++)
-            aux[k] = arr[k]; 
+            aux[k] = arr[k];
+        
+        int i = lo, j = mid + 1;
         for (int k = lo; k <= hi; k++) {
             if (i > mid)
                 arr[k] = aux[j++]; 
@@ -526,7 +668,6 @@ to allow sort any generic data types
                 arr[k] = aux[i++]; 
         }
     }
-
 ```
 
 * Mergesort improvement
@@ -549,14 +690,14 @@ to allow sort any generic data types
 | 2. 8 hours | 317 years |
 | 1 second  | 1 week    |
 
-        Mergesort N lg N
+Mergesort `N lg N`
 
 | Million  | Billion |
 |----------|---------|
 | 1 second | 18 min  |
 | instant  | instant |
 
-* Note: `Good algorithm are better than supercomputers`
+> Note: Good algorithm are better than supercomputers
 
 ### Bottom-up version of Mergesort
 
@@ -569,18 +710,17 @@ to allow sort any generic data types
  `Algorithm`
 
 ``` java
-
     public static <Item extends Comparable<Item>> void sortBottomUp(Item[] arr) {
         int N = arr.length; 
-        Item[] aux = (Item[]) new Comparable[N]; 
+        Item[] aux = (Item[]) new Comparable[N];
+
         for (int sz = 1; sz < N; sz = sz + sz)
             for (int lo = 0; lo <= N - sz; lo += sz + sz)
                 merge(arr, aux, lo, lo + sz - 1, Math.min(lo + sz + sz - 1, N - 1)); 
     }
-
 ```
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Sort Stability
 
@@ -598,7 +738,7 @@ to allow sort any generic data types
 
     - Shellsort makes long distance exchanges
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Quick sort
 
@@ -621,7 +761,6 @@ to allow sort any generic data types
  `Algorithm`
 
 ``` java
-
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
         KnuthShuffleSort.shuffle(arr); 
         sort(arr, 0, arr.length - 1); 
@@ -654,24 +793,157 @@ to allow sort any generic data types
         swap(arr, lo, j); 
         return j; 
     }
-
 ```
 
--------------------------------------------------------------------------------------------------------------------------------
+* Improvement
+    01. Insertion sort for small subarrays
+        - Cut OFF ~ 10 items
+    02. Median of sample
+        - Best choice of pivot item = median
+        - Median-of-3 random items
 
-## Sort complexity
+---
 
-|Name|Inplace|Stable|Best|Average|Worst   |Remarks|
-|----|-------|------|----|-------|--------|-------|
-|Selectionsort|Yes|No|1/2 N<sup>2</sup>|1/2 N<sup>2</sup>|1/2 N<sup>2</sup>|N exchanges|
-|Insertionsort|Yes|Yes|N|l/4N<sup>2</sup>|l/2N<sup>2</sup>|use for small N or partially ordered|
-|Shellsort|Yes|No|N log<sub>3</sub>N|?|cN<sup>3/2</sup>|tight code, sub-quadratic|
-|Mergesort|No|Yes|½ N lg N|N lg N|N lg N|N lg N guarantee, stable|
-|Quicksort|Yes|No|N|N lg N|½ N<sup>2</sup>|N lg N probabilistic guarantee fastest in practice|
-|3-ways Quicksort|Yes|No|N<sup>2</sup>/2|2 N ln N|½ N<sup>2</sup>|improves quicksort in presence of duplicate keys|
-|Timesort|No|Yes|N|N lg N|N lg N|-|
+### Selection
 
-## Sort applications
+* Goal. Given an array of N items, find the k<sup>th</sup> largest
+
+    - Min(k=0), max(k=N-1), median(k=N/2)
+
+* Applications
+
+    - Order statistics
+    - Find the top k
+
+* Use theory as a guide
+    - Easy `N lg N` upper bound. How? By sorting the array and loop util reach k<sup>th</sup>
+    - Easy `N` upper bound for k = 1,2,3. How?
+    - Easy `N` lower bound. Why?
+
+* Which is true?
+    - `N lg N` lower bound? <- Is selection as hard as sorting?
+    - `N` upper bound? <- Is there a linear algorithm for each k?
+
+* Quick-select
+    - Version of Quick-sort
+    - Entry a[j] is in
+    - No larger entry to the left of j
+    - No smaller entry to the right of j
+    - Repeat in one sub-array, depending on j; finished when j equals k
+
+    - Analysis: Linear time on average
+    - Remark. Quick-select uses ~ 1/2N<sup>2</sup> compares in the worst case, but (as with quicksort) the random shuffle provides a probabilistic guarantee
+
+    - Algorithm
+
+``` java
+    public static <Item extends Comparable<Item>> Comparable<Item> select(Item[] arr, int k) {
+        KnuthShuffleSort.shuffle(arr);
+        int lo = 0, hi = arr.length - 1;
+        while (hi > lo) {
+            int j = partition(arr, lo, hi);
+            if (j < k)
+                lo = j + 1;
+            else if (j > k)
+                hi = j - 1;
+            else
+                return arr[k];
+        }
+        return arr[k];
+    }
+```
+
+* Remark. But, constants are too high => not used in practice
+
+* Use theory as a guide
+
+    - Still in worthwhile to seek practical linear time (worst-case) algorithm
+    - Until one is discovered, use quick-select if you don't need a full sort   
+
+---
+
+## Duplicate keys
+
+* Often, purpose of sort is to bring items with equal keys together
+    - Sort population by age
+    - Find collinear points
+    - Remove duplicates from mailing list
+    - Sort job applicants by college attended
+
+* Typical characteristics of such applications
+    - Huge array
+    - Small number of key values
+
+* Mergesort with duplicate keys. always between 1/2 N lg N and N lg N compares
+
+* Quicksort with duplicate keys.
+    - Algorithms goes quadratic unless partition stop on equal keys
+
+    - 1990s C user found this defect in qsort()
+    - Mistake. Put all items equals to the partitioning item in one side
+        + Consequence. ~1/2N<sup>2</sup> compares when all keys equal
+
+            B A A B A B B B C C C       A A A A A A A A A A `A`
+
+    - Recommended. Stp scan on item equals to the partitioning item
+        + Consequence. ~ N lg N compares when all keys equal
+
+            B A A B A B B B C C C       A A A A A `A` A A A A A
+
+    - Desirable. Put all items equal to the partitioning item in place
+
+            A A A `B B B B B` C C C `A A A A A A A A A A A`
+
+* 3-way partitioning
+    - Goal. Partition array into 3 parts so that:
+        01. Entries between lt and gt equal to partition item v
+        02. No larger entries to left of lt
+        03. No smaller entries to right of gt
+    - Dutch national flag problem. [Edsger Dijkstra]
+        + Conventional wisdom until mid 1990s: not worth doing
+        + New approach discovered when fixing mistake in C library qsort()
+        + Now incorporated into qsort() and Java system sort
+    - Steps
+        01. Let v be partitioning item a[lo]
+        02. Scan i from left to right
+
+            . (a[i] < v): exchange a[lt] with a[i]; increment both it and i
+            . (a[i] > v): exchange a[gt] with a[i]; decrement gt
+            . (a[i] == v): increment i
+
+ `Algorithm`
+
+``` java
+    private static <Item extends Comparable<Item>> void sort(Item[] arr, int lo, int hi) {
+        if (hi <= lo)
+            return;
+        int lt = lo, gt = hi;
+        Item v = arr[lo];
+        int i = lo;
+        while (i <= gt) {
+            int cmp = arr[i].compareTo(v);
+            if (cmp < 0)
+                swap(arr, lt++, i++);
+            else if (cmp > 0)
+                swap(arr, i, gt--);
+            else
+                i++;
+        }
+        sort(arr, lo, lt - 1);
+        sort(arr, gt + 1, hi);
+    }
+```
+
+* Proposition. [Sedgewick-Bentley, 1997]
+    - Quicksort with 3-way partition is entropy-optimal
+
+* Bottom line. Randomized quicksort with 3-way partitioning reduces running time from linearithmic to linear in broad class of application
+
+---
+
+## System sorts
+
+### Sort applications
 
 01. Sort a list of names
 02. Organize an MP3 library
@@ -692,15 +964,18 @@ to allow sort any generic data types
 03. Computational biology
 04. Load balancing on a parallel computers
 
-## System sorts
+### Java System sort
 
-* Java uses:
-01. Tuned quicksort for primitive types
-02. Mergesort for objects
+* Arrays.sort()
+    - Has different method for each primitive type
+    - Has a method for data types that implement Comparable
+    - Has a method that uses a Comparator
+    - Uses tuned quicksort for primitive types; tuned mergesort for objects
 
-* Which algorithm to use?
+### System sort: Which algorithm to use?
 
-    - Applications have diverse attributes
+* Applications have diverse attributes
+
     - Stable?
     - Parallel?
     - Deterministic?
@@ -711,7 +986,25 @@ to allow sort any generic data types
     - Is your array randomly ordered?
     - Need guaranteed performance?
 
--------------------------------------------------------------------------------------------------------------------------------
+* Elementary sort may be method of choice for some combination
+    - Cannot cover all combinations of attributes
+* Q. Is the system sort good enough?
+
+    A. Usually
+
+### Sort complexity
+
+|Name|Inplace|Stable|Best  |Average  |Worst|Remarks|
+|----|-------|------|------|---------|-----|-------|
+|Selectionsort|Yes|No|1/2 N<sup>2</sup>|1/2 N<sup>2</sup>|1/2 N<sup>2</sup>|N exchanges|
+|Insertionsort|Yes|Yes|N|l/4N<sup>2</sup>|l/2N<sup>2</sup>|use for small N or partially ordered|
+|Shellsort|Yes|No|N log<sub>3</sub>N|?|cN<sup>3/2</sup>|tight code, sub-quadratic|
+|Mergesort|No|Yes|½ N lg N|N lg N|N lg N|N lg N guarantee, stable|
+|Quicksort|Yes|No|N|N lg N|½ N<sup>2</sup>|N lg N probabilistic guarantee fastest in practice|
+|3-ways Quicksort|Yes|No|N<sup>2</sup>/2|2 N ln N|½ N<sup>2</sup>|improves quicksort in presence of duplicate keys|
+|Timesort|No|Yes|N|N lg N|N lg N|-|
+
+---
 
 ## Priority Queues
 
@@ -814,7 +1107,7 @@ to allow sort any generic data types
 
 ```
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Heapsort
 
@@ -832,7 +1125,7 @@ to allow sort any generic data types
 
 * Not stable
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Event driven simulation
 
@@ -844,7 +1137,7 @@ to allow sort any generic data types
     - Each particle is a disc with know position, velocity, mass and radius
     - No other forces
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Symbol tables
 
@@ -942,7 +1235,7 @@ to allow sort any generic data types
     - Every path from root to the null link has the same number of black links
     - Red links lean left
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Hash tables
 
@@ -1032,7 +1325,9 @@ to allow sort any generic data types
 * Hash. Map key to integer i between 0 and M-1
 * Insert. Put at table index i if free, if not try i+1, i+2, etc
 * Search. Search table index i, if occupied but no match, try i+1, i+2, etc
-* Note, Array size M must be greater than number of key-value pairs M
+
+> Note: Array size M must be greater than number of key-value pairs M
+
 * Clustering: a contiguous block of items
 
 ### Separate chaining vs. Linear probing
@@ -1099,7 +1394,7 @@ to allow sort any generic data types
 |separate chaining|lg N<sub>*</sub>|lg N<sub>*</sub>|lg N<sub>*</sub>|no|equals()|
 |linear probing|lg N<sub>*</sub>|lg N<sub>*</sub>|lg N<sub>*</sub>|no|equals()|
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Graph
 
@@ -1197,6 +1492,7 @@ public class Graph {
 * In practice, use adjacency-lists representation
 
     - Algorithms based on iterating over vertices adjacent to v
+
     - Real-world graphs tend to be `sparse`
 
 | representation   | space         | add edge      | edge between v and w? | iterate over vertices adjacent to v? |
@@ -1205,7 +1501,7 @@ public class Graph {
 | adjacency matrix | v<sub>2</sub> | 1<sub>*</sub> | 1                     | v                                    |
 | adjacency lists  | E+V           | 1             | degree(v)             | degree(v)                            |
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Depth-first search DFS Undirected search
 
@@ -1264,7 +1560,7 @@ public class Graph {
 
 ```
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Breadth-first search BFS Undirected search
 
@@ -1326,7 +1622,7 @@ public class Graph {
 * Level order, BFS: 1, 2, 3, 4, 5, 6, 7
 * Pre-order, DFS: 1, 2, 4, 5, 3, 6, 7
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Connected components
 
@@ -1344,7 +1640,7 @@ public class Graph {
 
 * Def. A connected component is a maximal set of connected vertices
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Directed graph
 
@@ -1381,6 +1677,7 @@ public class Graph {
 * In practice, use adjacency-lists representation
 
     - Algorithms based on iterating over vertices adjacent to v
+
     - Real-world graphs tend to be `sparse`
 
 | representation   | space         | add edge      | edge between v and w? | iterate over vertices adjacent to v? |
@@ -1436,7 +1733,7 @@ public class Graph {
 
 ### Strong component
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## MST (Minimum spanning tree)
 
@@ -1505,7 +1802,7 @@ public class Graph {
 ### MST context
 
  
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Shortest path
 
@@ -1577,7 +1874,7 @@ public class EdgeWeightedDigraph {
 ```
 
 `TODO` continue from Minimum spanning tree
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Strings
 
@@ -1835,7 +2132,7 @@ public static void sort(String[] a, int W) { // Fixed length W strings
 
 ### Suffix arrays
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Search in String
 
@@ -2366,11 +2663,11 @@ public class RabinKarp {
 
 `*` probability guarantee with uniform hash function
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Regular expression
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Data compression
 
@@ -2551,7 +2848,7 @@ public class RabinKarp {
 
 * Running time. Use a binary heap `N + R log R`
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### LZW compression
 
@@ -2605,7 +2902,7 @@ public class RabinKarp {
         . LZW
         . Deflate / zlib = LZ77 variant + huffman
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Data compression summary
 
@@ -2618,7 +2915,7 @@ public class RabinKarp {
     - JPEG, MPEG, MP3
     - FFT, wavelets, fractals
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## Overview: introduction to advanced topics
 
@@ -2637,7 +2934,7 @@ public class RabinKarp {
     - Introduce you to important and essential ideas
     - Inspire you to learn more about algorithms :smile: !
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Reductions
 
@@ -2678,7 +2975,7 @@ what else could (could not) we solve efficiently?
 
         . Cost of solving finding the median `N log N + 1`
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Design algorithms
 
@@ -2694,7 +2991,7 @@ what else could (could not) we solve efficiently?
 
 * Mentality. Since I know how to solve Y, can I use that algorithm to solve X
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Establish lower bound
 
@@ -2726,7 +3023,7 @@ what else could (could not) we solve efficiently?
         . Therefore, I can't easily solve Y
     
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
 ### Classify problems
 
@@ -2744,8 +3041,9 @@ what else could (could not) we solve efficiently?
     - Brute force. N<sup>2</sup> bit operations
     - Q. Is brute-force algorithm optimal?
 
--------------------------------------------------------------------------------------------------------------------------------
+---
 
-[Open-Source-img]: https://badges.frapsoft.com/os/v1/open-source.svg?v=103
-[alg-img]: https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
-[datastructure-img]: https://img.shields.io/static/v1?label=Topic&message=Datastructure&color=blue&style=flat
+[open-source-img]:https://badges.frapsoft.com/os/v1/open-source.svg?v=10
+[alg-img]:https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
+[datastr-img]:https://img.shields.io/static/v1?label=Topic&message=Data-Structures&color=blue&style=flat
+[rep-url]: https://github.com/ahmadmoawad/algorithms
