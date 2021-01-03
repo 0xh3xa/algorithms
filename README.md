@@ -1020,16 +1020,16 @@ Mergesort `N lg N`
 
 * Applications
 
-    01. Event-driven simulation: [customers in a line, colliding particles]
-    02. Numerical computation: [reducing roundoff error]
-    03. Data compression: [Huffman codes]
-    04. Graph searching: [Dijkstra's algorithm, Prim's algorithms]
-    05. Number theory: [sum of powers]
-    06. Artificial intelligence: [A* search]
-    07. Statistics: [maintain largest M values in a sequence]
-    08. Operating systems: [load balancing, interrupt handling]
-    09. Discrete optimization: [bin packing, scheduling]
-    10. Spam filtering: [Bayesian spam filters]
+    - Event-driven simulation: [customers in a line, colliding particles]
+    - Numerical computation: [reducing roundoff error]
+    - Data compression: [Huffman codes]
+    - Graph searching: [Dijkstra's algorithm, Prim's algorithms]
+    - Number theory: [sum of powers]
+    - Artificial intelligence: [A* search]
+    - Statistics: [maintain largest M values in a sequence]
+    - Operating systems: [load balancing, interrupt handling]
+    - Discrete optimization: [bin packing, scheduling]
+    - Spam filtering: [Bayesian spam filters]
 
 * Implementation: you can make multiple implementation using unordered and ordered array, and Binary heap
 * Complexity of unordered and ordered array
