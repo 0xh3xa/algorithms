@@ -4,18 +4,18 @@
 
 Algorithms and data structures' implementations in Java from the `Algorithms 4th edition` :book:
 
-## What is this course?
+# What is this course?
 
 * Intermediate level survey course
 * Programming and problem solving with applications
 
-## Definitions
+# Definitions
 
 * `Algorithms` : Method for solving a problem
 * `Data structures` : Method to store inform    ation
 * `Program = Algorithms + Data structures`
 
-## Topics
+# Topics
 
 * `Part I`
 
@@ -31,7 +31,7 @@ Algorithms and data structures' implementations in Java from the `Algorithms 4th
 
 ---
 
-## Why Algorithms is so important?
+# Why Algorithms is so important?
 
 Algorithms all around us  
 
@@ -44,7 +44,7 @@ Algorithms all around us
 07. Social networks: recommendations, news feeds, advertisements, ... 
 08. Physics: N-body simulation, particle collision simulation, ... 
 
-## Steps for solving the problem
+# Steps for solving the problem
 
 01. Model the problem  
 02. Find an algorithm to solve it  
@@ -55,7 +55,7 @@ Algorithms all around us
 
 ---
 
-## Algorithm Analyze
+# Algorithm Analyze
 
 ### Reasons to Analyze Algorithms
 
@@ -808,6 +808,7 @@ Mergesort `N lg N`
     - Repeat in one sub-array, depending on j; finished when j equals k
 
     - Analysis: Linear time on average
+
     > Remark. Quick-select uses ~ 1/2N<sup>2</sup> compares in the worst case, but (as with quicksort) the random shuffle provides a probabilistic guarantee
 
     - Algorithm
@@ -1199,10 +1200,12 @@ while (N > 1) {
     public final static <Item extends Comparable<Item>> void sort(Item[] pq) {
         int n = pq.length;
 
+        // heapify phase
         for (int k = n / 2; k >= 1; k--) {
             sink(pq, k, n);
         }
 
+        // sortdown phase
         int k = n;
         while (k > 1) {
             swap(pq, 1, k--);
@@ -1216,7 +1219,7 @@ while (N > 1) {
             int j = 2 * k;
             if (j < n && less(pq, j, j + 1))
                 j++;
-            if (!less(pq, k, j)) // K less than children then break
+            if (!less(pq, k, j)) // K greater or equal than children then break
                 break;
             swap(pq, k, j);
             k = j;
@@ -1242,9 +1245,11 @@ while (N > 1) {
 
 ### Event driven simulation
 
-* Application based on priority queue
-
 * Goal. Simulate the motion of N moving particles that behave according to the laws of elastic collision
+
+* Idea goes back to Einstein 
+
+* Application based on priority queue, without PQ you can not do it with large number of particles because would required quadratic time and not affordable
 
 * Hard disc model
 
@@ -1252,16 +1257,48 @@ while (N > 1) {
     - Each particle is a disc with know position, velocity, mass and radius
     - No other forces
 
+* Significance. Relates macroscopic observables to microscopic dynamics
+    - Maxwell-Boltzmann: distribution of speeds as function of temperature
+    - Einstein: explain Brownian motion of pollen grains
+
+* Time-driven simulation
+    - Update the position of each particle every after dt units of time, and check for overlaps
+    - If overlap, roll back the clock to the time of the collision, update the velocities of the colliding particles, and continue the simulation
+    - Main drawbacks
+        + ~ N<sup>2</sup>/2 overlap checks per time quantum
+        + Simulation is too slow if dt is very small
+        + May miss collisions if dt is too large
+
+* Event-driven simulation
+    - Between collisions, particle move in straight-line trajectories
+    - Change sate only when something happens
+    - Focus on times when collision occur
+    - Maintain PQ of collision events, prioritized by time
+    - Remove the min = get next collision
+
+    - Collision prediction. Given position, velocity, and radius of a particle, when will it collide next a wall or another particle?
+
+    - Collision resolution. if collision occurs, update colliding particle(s) according to law of elastic collisions
+
+    - Steps
+        + Initialization
+            01. Fill PQ with all potential particle-wall collisions
+            02. Fill PQ with all potential particle-particle collisions
+
 ---
 
 ## Symbol tables
 
-* Key-value pair
-* Insert a value with specified key
-* Give a key, search for the corresponding value
-* i. e DNS lookup
+### API
 
-    - insert URL with specified IP address
+* Key-value pair abstraction
+
+    - Insert a value with specified key
+    - Give a key, search for the corresponding value
+
+* Ex. DNS lookup
+
+    - Insert URL with specified IP address
     - Give URL, find corresponding IP address
 
 * Applications
@@ -1276,61 +1313,266 @@ while (N > 1) {
     08. File system
     09. Web search
 
-* Operations: `put(Key key, Value val), get(Key key), delete(Key key), contains(Key key), isEmpty(), size(), keys()`
+* Operations: 
+
+``` 
+
+put(Key key, Value val)
+get(Key key)
+delete(Key key)
+contains(Key key)
+isEmpty()
+size()
+keys()
+```
 
 * Conventions:
 
     - Values are not null
-    - Method get() returns null if values not present
-    - Method put() overwrites old values with new values
+    - Method get() returns null if key not present
+    - Method put() overwrites old values with new value
 
-* Best practices: Use immutable types for symbol data types
+* Key type: several natural assumption
 
-    - Immutable in java: String, Integer, Double, java.io. File, ... 
-    - Mutable in java:: StringBuilder, java.net. URL, Arrays, ... 
+    - Assume keys are Comparable, use compareTo()
+    - Assume keys are any generic type, use equals() to test equality
+    - Assume keys are any generic type, use equals() to test equality, use hashCode() to scramble key
 
-* ST Implementations
+* Best practices: Use immutable types for symbol data keys
 
-    - Linked list
-    - Binary search in an order array
-    - BST Binary search tress
+    - Immutable in Java: String, Integer, Double, java.io. File, ... 
+    - Mutable in Java:: StringBuilder, java.net. URL, Arrays, ... 
 
-### Binary search tree
+* Equality test
+
+    - All Java classes inherit a method equals()
+    - Java requirements. For any references x, y and z
+
+        + Reflexive: x.equals(x) is true
+        + Symmetric: x.equals(y), iff y.equals(x)
+        + Transitive: if x.equals(y) and y.equals(z), then x.equals(z)
+        + Non-null: x.equals(null) is false
+
+* Equals design
+
+    - Standard recipe for user-defined type
+
+        + Optimization for reference equality
+        + Check again null
+        + Check that two objects are of the same type and cast
+        + Compare each significant field
+            01. if field is a primitive type, use ==
+            02. if field is an object, use equals()()
+            03. if field is any array, apply to each entry
+
+    - Best practices
+        + No need to use calculated fields that depends on other fields
+        + Compare fields mostly likely to differ first
+        + Make compareTo() consistent with equals() `x.equals(y), if and only if (x.compareTo(y) == 0)`
+
+### Elementary implementations
+
+* Sequential search in a Linked list
+
+    - Data structure: Maintain an (unordered) linked list of key-value pairs
+    - Node contains key and value
+    - Search: Scan through all keys until find a match
+    - Insert: Scan through all keys until find a match, if no match add to front
+    - summary
+
+|worst-case search|worst-case insert|average-case search|average-case insert|ordered|key interface|
+|-----------------|-----------------|-------------------|-------------------|-------|-------------|
+|N|N|N / 2|N|no|equals()|
+
+* Binary search in an order array
+
+    - Data structure: Maintain an ordered array of key-value pairs
+    - Rank helper function. how many keys < k?
+    - summary
+
+|worst-case search|worst-case insert|average-case search|average-case insert|ordered|key interface|
+|-----------------|-----------------|-------------------|-------------------|-------|-------------|
+|lg N|N|lg N|N / 2|yes|compareTo()|
+
+* BST Binary search tree
+
+### Ordered operations
+
+```java
+void put(Key key, Value value)
+Value get(Key key)
+void delete(Key key)
+boolean contains(Key key)
+boolean isEmpty()
+int size()
+Key min()
+Key max()
+Key floor(Key key) // largest key less than or equal to key
+Key ceiling(Key key) // smallest key greater than or equal to key
+int rank(Key key) // number of key less than key
+Key select(int k) // Key of rank k
+void deleteMin() // delete smallest key
+void deleteMax() // delete largest key
+int size(Key lo, Key hi)
+Iterable<Key> keys(Key lo, Key hi)
+Iterable<Key> keys()
+```
+
+### Binary search trees
+
+* Classic data structure provides efficient implementations of ST algorithm
 
 * BST is a binary tree in symmetric order
-* A binary tree is either
 
+* A binary tree is either
     - Empty
     - Two disjoint binary tress(left and right)
 
 * Symmetric order each node has a key, and every node's key is:
-
+ 
     - Larger than all keys in its left subtree
     - Smaller than all keys in its right subtree
 
-* Representation in java using linked list has key, value and reference to left and right
+* Representation in java using a Node has key, value and reference to left and right
+
+`Algorithm`
 
 ``` java
-
-    private class Node {
-        private Key key; 
-        private Value val; 
-        private Node left, right; 
-
-        public Node(Key key, Value val) {
-            this.key = key; 
-            this.val = val; 
-        }
+    public void put(Key key, Value val) {
+        root = put(root, key, val);
+        size++;
     }
 
+    private Node put(Node node, Key key, Value val) {
+        if (node == null)
+            return new Node(key, val);
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0)
+            node.left = put(node.left, key, val);
+        else if (cmp > 0)
+            node.right = put(node.right, key, val);
+        else
+            node.val = val;
+        return node;
+    }
+
+    public Value get(Key key) {
+        Node node = root;
+        while (node != null) {
+            int cmp = key.compareTo(node.key);
+            if (cmp < 0)
+                node = node.left;
+            else if (cmp > 0)
+                node = node.right;
+            else
+                return node.val;
+        }
+        return null;
+    }
 ```
 
-* How to find min/max in BST?
+* Tree shape
 
-    - For min move to the left from the root until find null key
-    - For max move to the right from the root until find null key
+    - Many BSTs correspond to same set of keys
+    - Number of compares for search/insert is equal to 1 + depth of node
+    - Remark. Tree shape depends on order of insertion
+    - Worst case will be in natural order
 
-### 2-3 Trees
+* Mathematical analysis
+    - Proposition. If N distinct keys are inserted into a BST in random order, the expected number of compares for a search/insert is ~ 2 ln N
+    - Pf. 1-1 correspondence with quicksort partitioning
+    - But worst case height is N
+
+|worst-case search|worst-case insert|average-case search|average-case insert|ordered|key interface|
+|-----------------|-----------------|-------------------|-------------------|-------|-------------|
+|N|N|1.39 lg N|1.39 lg N|stay tunned|compareTo()|
+
+ ### Ordered ST operations
+
+* Minimum and maximum
+
+    - Minimum. Smallest key in table
+    - Maximum. Largest key in table
+    - Q. How to find min/max in BST?
+
+        + For min move to the left from the root until find null key
+        + For max move to the right from the root until find null key
+
+* Floor and ceiling
+    
+    - Floor. Largest key <= to given key
+    - Ceiling. Smallest key >= to given key
+
+* Computing the floor
+
+    - Case 1. [k equals the key at root]
+        + The floor of k is k
+    
+    - Case 2. [k is less than the key at root]
+        + The floor of k in the left subtree
+
+    + Case 3. [k is greater than the key at root]
+        + The floor of k is in the right subtree 
+        + if there is any key <= k in right subtree otherwise it is the key in the root
+
+```java
+public Key floor(Key key) {
+    Node node = floor(root, key);
+    if (node == null) return null;
+    return node.key;
+}
+
+private Node floor(Node node, Key key) {
+    if (node == null) return null;
+
+    int cmp = key.compareTo(node.key);
+    if (cmp == 0) return node;
+    if (cmp < 0) return floor(node.left, key);
+
+    Node n = floor(node.right, key);
+    if (n != null) return n;
+    else return node;
+}
+```
+
+* Ceiling
+
+```java
+    public Key ceiling(Key key) {
+        Node node = ceiling(root, key);
+        if (node == null)
+            return null;
+        return node.key;
+    }
+
+    private Node ceiling(Node node, Key key) {
+        if (node == null)
+            return null;
+
+        int cmp = key.compareTo(node.key);
+        if (cmp == 0)
+            return node;
+        if (cmp < 0) {
+            Node n = ceiling(node.left, key);
+            if (n != null)
+                return n;
+            else
+                return n;
+        }
+
+        return ceiling(node.right, key);
+    }
+```
+
+### Deletion in BST
+
+* Delete in BST
+
+---
+
+## Balanced search tree
+
+### 2-3 search trees
 
 * Allow 1 or 2 keys per node
 
@@ -1495,7 +1737,7 @@ while (N > 1) {
 ### Set
 
 * Mathematical set: a collection of distinct keys
-* Operations: `add(Key key), contains(Key key), remove(Key key), size(), iterator()`
+* Operations:  `add(Key key), contains(Key key), remove(Key key), size(), iterator()`
 
 ### ST Complexity
 
@@ -1559,7 +1801,7 @@ while (N > 1) {
     - Will use integers between 0 and V-1
     - Applications: convert between names and integers which symbol table
 
-* Operations: `addEdge(int v, int w), adj(int v), V(), E(), toString()`
+* Operations:  `addEdge(int v, int w), adj(int v), V(), E(), toString()`
 
  `Algorithm`
 
@@ -1743,7 +1985,7 @@ public class Graph {
 
 * Def. vertices v and w are connected if there is a path between them
 * Goal. preprocess graph to answer queries of the form is v connected to w? in constant time
-* Operations: `connected(int v, int w), count(), id(int v)`
+* Operations:  `connected(int v, int w), count(), id(int v)`
 
 * Union-find? not quite
 * Depth-first search. Yes
@@ -1787,7 +2029,7 @@ public class Graph {
 
 ### Digraph api
 
-* Operations: `addEdge(int v, int w), adj(int v), vertices(), edges(), reverse(), toString()`
+* Operations:  `addEdge(int v, int w), adj(int v), vertices(), edges(), reverse(), toString()`
 
 * In practice, use adjacency-lists representation
 
