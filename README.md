@@ -1397,7 +1397,7 @@ keys()
 
 ## Ordered operations
 
-```java
+``` java
 void put(Key key, Value value)
 Value get(Key key)
 void delete(Key key)
@@ -1428,13 +1428,15 @@ Iterable<Key> keys()
     - Two disjoint binary tress(left and right)
 
 * Symmetric order each node has a key, and every node's key is:
+
  
+
     - Larger than all keys in its left subtree
     - Smaller than all keys in its right subtree
 
 * Representation in java using a Node has key, value and reference to left and right
 
-`Algorithm`
+ `Algorithm`
 
 ``` java
     public void put(Key key, Value val) {
@@ -1498,7 +1500,9 @@ Iterable<Key> keys()
         + For max move to the right from the root until find null key
 
 * Floor and ceiling
+
     
+
     - Floor. Largest key <= to given key
     - Ceiling. Smallest key >= to given key
 
@@ -1506,15 +1510,17 @@ Iterable<Key> keys()
 
     - Case 1. [k equals the key at root]
         + The floor of k is k
+
     
+
     - Case 2. [k is less than the key at root]
         + The floor of k in the left subtree
 
-    + Case 3. [k is greater than the key at root]
+    - Case 3. [k is greater than the key at root]
         + The floor of k is in the right subtree 
         + if there is any key <= k in right subtree otherwise it is the key in the root
 
-```java
+``` java
 public Key floor(Key key) {
     Node node = floor(root, key);
     if (node == null) return null;
@@ -1536,7 +1542,7 @@ private Node floor(Node node, Key key) {
 
 * Ceiling
 
-```java
+``` java
     public Key ceiling(Key key) {
         Node node = ceiling(root, key);
         if (node == null)
@@ -1563,9 +1569,118 @@ private Node floor(Node node, Key key) {
     }
 ```
 
+* Rank
+
+* Rank. How many keys < k?
+
+    - Easy recursive algorithm (3 cases!)
+
+``` java
+public int rank(Key key) {
+    return rank(key, root);
+}
+
+private int rank(Key key, Node node) {
+    if (node == null) return 0;
+    int cmp = key.compareTo(node.key);
+
+    if (cmp < 0) return rank(key, node.left);
+    else if (cmp > 0) return 1 + size(node.left) + rank(key, node.right);
+    else return size(node.left);
+}
+```
+
+* Inorder traversal
+
+    
+
+    - Traverse left subtree
+    - Enqueue key
+    - Traverse right substree
+
+``` java
+public Iterable<Key> keys() {
+    Queue<Key> q = new Queue<>();
+    inorder(root, q);
+    return q;
+}
+
+private void inorder(Node node, Queue<Key> q) {
+    if (node == null) return;
+    inorder(node.left, q);
+    q.enqueue(node.key);
+    inoder(node.right, q);
+}
+```
+
+    - Property. inorder traversal of a BST yields keys in ascending order
+
 ## Deletion in BST
 
-* Delete in BST
+* To remove a node with a given key
+
+    - Set its value to null
+    - Leave key in tree to guide searches (but don't consider it equal in search)
+    - Cost ~ 2 ln N<sup>'</sup> per insert, search, and delete (if keys in random order)
+    - Unsatisfied solution. Tombstone (memory) overload
+
+* To delete the minimum
+
+    - Go left until finding a node with null left link
+    - Replace that node by its right link
+    - Update subtree counts
+
+```java
+public void deleteMin() {
+    root = deleteMin(root);
+}
+
+private Node deleteMin(Node node) {
+    if (node.left == null) return node.right;
+    node.left = deleteMin(node.left);
+    node.count = 1 + size(node.left) + size(node.right);
+    return node;
+}
+```
+
+* Hibbard deletion
+
+    - To delete a node with key k: search for node n containing key k
+        + Case 0. Delete n by setting parent link to null
+        + Case 1. Delete n by replacing parent link
+        + Case 2. [2 children]
+            01. Find successor x of n
+            02. Delete the minimum in n's right subtree
+            03. Put x in n's spot
+
+```java
+    public void delete(Key key) {
+        size--;
+        root = delete(root, key);
+    }
+
+    private Node delete(Node node, Key key) {
+        if (node == null)
+            return null;
+        int cmp = key.compareTo(node.key);
+        if (cmp < 0)
+            node.left = delete(node.left, key);
+        else if (cmp > 0)
+            node.right = delete(node.right, key);
+        else {
+            if (node.right == null)
+                return node.left;
+            if (node.left == null)
+                return node.right;
+            Node t = node;
+            node = min(t.right);
+            node.right = deleteMin(t.right);
+            node.left = t.left;
+        }
+        node.count = size(node.left) + size(node.right) + 1;
+        return node;
+    }
+```
 
 ---
 
