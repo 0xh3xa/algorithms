@@ -985,7 +985,7 @@ Mergesort `N lg N`
 
 ### Sort complexity
 
-|Name|Inplace|Stable|Best  |Average  |Worst|Remarks|
+|Name|In-place|Stable|Best  |Average  |Worst|Remarks|
 |----|-------|------|------|---------|-----|-------|
 |Selectionsort|Yes|No|1/2 N<sup>2</sup>|1/2 N<sup>2</sup>|1/2 N<sup>2</sup>|N exchanges|
 |Insertionsort|Yes|Yes|N|l/4N<sup>2</sup>|l/2N<sup>2</sup>|use for small N or partially ordered|
@@ -1147,29 +1147,104 @@ Mergesort `N lg N`
 * Basic plan
 
     - Create max heap with all N keys
-    - Repeatedly remove the maximum keys
+    - Repeatedly remove the maximum key
+
+* Steps
+    - First pass
+        + Build heap using bottom-up method
+        + arrange from max parent to min child
+
+``` java
+for (int k = N/2; k >= 1; k--) sink(arr, k, N);
+```
+
+        + we will loop from N/2 to 1 because in sink operation
+
+    - Second pass
+        + Remove the maximum, one at a time
+        + Leave in array, instead of nulling out
+        + replace from min to max in the array
+
+``` java
+while (N > 1) {
+    swap(arr, 1, N--);
+    sink(arr, 1, N);
+}
+```
 
 * In place sorting algorithm with `N lg N` worst-case
+
+* Proposition. Heap construction uses <= 2 N compares and exchanges
+
+* Proposition. Heapsort uses <= 2 N lg N compares and exchanges
+
+* Significance. In-place sorting algorithm with N lg N worst-case
+
+    
+
+    - Mergesort: no, linear extra space
+    - Quicksort: no, quadratic time in worst-case
+    - Heapsort: yes
+
 * Bottom line: heapsort is optimal for both time and space, but: 
 
     - Inner loop longer than quicksort's
     - Make poor usage of cache memory
     - Not stable
 
-* Not stable
-
  `Algorithm`
 
 ``` java
+    public final static <Item extends Comparable<Item>> void sort(Item[] pq) {
+        int n = pq.length;
 
+        for (int k = n / 2; k >= 1; k--) {
+            sink(pq, k, n);
+        }
+
+        int k = n;
+        while (k > 1) {
+            swap(pq, 1, k--);
+            sink(pq, 1, k);
+        }
+    }
+
+    // Get the largest and put as a parent
+    private static <Item extends Comparable<Item>> void sink(Item[] pq, int k, int n) {
+        while (2 * k <= n) {
+            int j = 2 * k;
+            if (j < n && less(pq, j, j + 1))
+                j++;
+            if (!less(pq, k, j)) // K less than children then break
+                break;
+            swap(pq, k, j);
+            k = j;
+        }
+    }
 ```
+
+* Sorting algorithms complexity till heapsort
+
+|Name|In-place|Stable|Best  |Average  |Worst|Remarks|
+|----|-------|------|------|---------|-----|-------|
+|Selectionsort|Yes|No|1/2 N<sup>2</sup>|1/2 N<sup>2</sup>|1/2 N<sup>2</sup>|N exchanges|
+|Insertionsort|Yes|Yes|N|l/4N<sup>2</sup>|l/2N<sup>2</sup>|use for small N or partially ordered|
+|Shellsort|Yes|No|N log<sub>3</sub>N|?|cN<sup>3/2</sup>|tight code, sub-quadratic|
+|Mergesort|No|Yes|½ N lg N|N lg N|N lg N|N lg N guarantee, stable|
+|Quicksort|Yes|No|N|N lg N|½ N<sup>2</sup>|N lg N probabilistic guarantee fastest in practice|
+|3-ways Quicksort|Yes|No|N<sup>2</sup>/2|2 N ln N|½ N<sup>2</sup>|improves quicksort in presence of duplicate keys|
+|Timesort|No|Yes|N|N lg N|N lg N|-|
+|Heapsort|Yes|No|N|2 N lg N|2 N lg N|N lg N|N lg N guarantee, in-place|
+|???|Yes|Yes|N lg N|N lg N|N lg N|holy sorting grail|
 
 ---
 
 ### Event driven simulation
 
 * Application based on priority queue
-* Simulate the motion of N moving particles that behave according to the laws of elastic collision
+
+* Goal. Simulate the motion of N moving particles that behave according to the laws of elastic collision
+
 * Hard disc model
 
     - Moving particles interact via elastic collisions with each other and walls
