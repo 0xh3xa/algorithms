@@ -1005,11 +1005,19 @@ Mergesort `N lg N`
 
 ## Priority Queues
 
+* A collection is a data types that store group of items
+
+|data type|key operations|data structures|
+|---------|--------------|---------------|
+|stack|Push, Pop|linked list, resizing array|
+|queue|Enqueue, Dequeue|linked list, resizing array|
+|priority queue|Insert, Del-Max/Min|binary heap|
+|symbol table|Put, Get, Delete|BST, hash table|
+|set|Add, Contains, Delete|BST, hash table|
+
 ### Priority Queue (PQ)
 
 * Collections. Insert and delete items. which item to delete?
-
-    
 
     - Stack. Remove the item most recently added
     - Queue. Remove the item least recently added
@@ -1042,13 +1050,15 @@ Mergesort `N lg N`
 
 ---
 
-### Binary heap
+### Binary heaps
 
-* Binary tree
-* Complexity: `lg N`
+* Binary tree, Empty or node with links to left and right binary trees
 
 * Complete tree, perfectly balanced, except for bottom level
-* Height of complete tree with N nodes is `lgN` , why?
+
+* Complexity: `lg N`
+
+* Height of complete tree with N nodes is `lg N` , why?
 
     Height only increase when N is a power of 2
 
@@ -1056,15 +1066,22 @@ Mergesort `N lg N`
 
 <p align="center"><img src="https://i.pinimg.com/originals/98/f8/73/98f873ccf1dc936a19f1ef9defd62cab.jpg" alt="graph_order_growth" width="400"/></p>
 
-* Heap ordered binary tree
+* Binary heap representations
 
-    - Keys in nodes
-    - Parent's key no smaller than children's keys
+    - Binary heap, Array representation of a heap-ordered complete binary tree.
+    
+    - Heap-ordered binary tree
+        + Keys in nodes
+        + Parent's key no smaller than children's keys
 
-* Array representation:
+    - Array representation
+        + Indices start at 1
+        + Take nodes in level order
+        + No explicit links needed!
+
+* Binary heap properties
 
     - Parent of node at k is at `k/2`
-
     - Children of node at k are at `2k` and right `2k+1`
 
 * Best practice use immutable keys
@@ -1076,7 +1093,6 @@ Mergesort `N lg N`
  `Algorithm`
 
 ``` java
-
     public final static <Item extends Comparable<Item>> void sort(Item[] pq) {
         int n = pq.length; 
 
@@ -1113,7 +1129,6 @@ Mergesort `N lg N`
         pq[firstIndex - 1] = pq[secondIndex - 1]; 
         pq[secondIndex - 1] = temp; 
     }
-
 ```
 
 ---

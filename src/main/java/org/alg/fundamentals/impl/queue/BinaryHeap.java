@@ -1,8 +1,8 @@
 package org.alg.fundamentals.impl.queue;
 
-import org.alg.fundamentals.base.PriorityQueue;
+import org.alg.fundamentals.base.IMaxPQ;
 
-public class BinaryHeap<Item extends Comparable<Item>> implements PriorityQueue<Item> {
+public class BinaryHeap<Item extends Comparable<Item>> implements IMaxPQ<Item> {
 
     private Item[] pq;
     private int N;
@@ -19,24 +19,8 @@ public class BinaryHeap<Item extends Comparable<Item>> implements PriorityQueue<
     }
 
     @Override
-    public Item delMax() {
-        if (isEmpty())
-            throw new IndexOutOfBoundsException();
-        Item max = pq[1];
-        swap(1, N--);
-        sink(1);
-        pq[N + 1] = null; // prevent loitering, object no longer needed
-        return max;
-    }
-
-    @Override
     public boolean isEmpty() {
         return N == 0;
-    }
-
-    @Override
-    public Item max() {
-        return pq[1];
     }
 
     @Override
@@ -61,6 +45,22 @@ public class BinaryHeap<Item extends Comparable<Item>> implements PriorityQueue<
             swap(k, j);
             k = j;
         }
+    }
+
+    @Override
+    public Item delMax() {
+        if (isEmpty())
+            throw new IndexOutOfBoundsException();
+        Item max = pq[1];
+        swap(1, N--);
+        sink(1);
+        pq[N + 1] = null; // prevent loitering, object no longer needed
+        return max;
+    }
+
+    @Override
+    public Item max() {
+        return pq[1];
     }
 
     private boolean less(int firstIndex, int secondIndex) {
