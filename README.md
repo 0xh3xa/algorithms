@@ -1064,8 +1064,6 @@ Mergesort `N lg N`
 
     - Binary heap, Array representation of a heap-ordered complete binary tree.
 
-    
-
     - Heap-ordered binary tree
         + Keys in nodes
         + Parent's key no smaller than children's keys
@@ -1144,7 +1142,7 @@ Mergesort `N lg N`
 
 ---
 
-## Heapsort
+### Heapsort
 
 * Basic plan
 
@@ -1159,6 +1157,12 @@ Mergesort `N lg N`
     - Not stable
 
 * Not stable
+
+ `Algorithm`
+
+``` java
+
+```
 
 ---
 
