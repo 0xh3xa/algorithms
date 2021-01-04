@@ -1613,7 +1613,7 @@ private void inorder(Node node, Queue<Key> q) {
 }
 ```
 
-    - Property. inorder traversal of a BST yields keys in ascending order
+- Property. inorder traversal of a BST yields keys in ascending order
 
 ## Deletion in BST
 
