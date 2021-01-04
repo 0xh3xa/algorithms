@@ -328,7 +328,6 @@ public class LinkedStack<Item> implements Stack<Item> {
     private NodeList first = null;
     private int size = 0;
 
-    @Override
     public void push(Item item) {
         if (first == null) {
             first = new NodeList(item);
@@ -341,7 +340,6 @@ public class LinkedStack<Item> implements Stack<Item> {
         size++;
     }
 
-    @Override
     public Item pop() {
         if (isEmpty()) {
             throw new NoSuchElementException("stack underflow");
@@ -378,7 +376,6 @@ public class LinkedStack<Item> implements Stack<Item> {
 public class LinkedQueue<Item> implements Queue<Item> {
 
     private class NodeList {
-
         Item item;
         NodeList next;
 
@@ -397,7 +394,6 @@ public class LinkedQueue<Item> implements Queue<Item> {
         size = 0;
     }
 
-    @Override
     public void enqueue(Item item) {
         NodeList oldLast = last;
         last = new NodeList(item);
@@ -410,7 +406,6 @@ public class LinkedQueue<Item> implements Queue<Item> {
         size++;
     }
 
-    @Override
     public Item dequeue() {
         if (isEmpty()) {
             throw new NoSuchElementException("Queue underflow");
@@ -424,7 +419,6 @@ public class LinkedQueue<Item> implements Queue<Item> {
         return item;
     }
 
-    @Override
     public Item peek() {
         if (isEmpty()) {
             throw new NoSuchElementException("Queue underflow");
@@ -1069,7 +1063,9 @@ Mergesort `N lg N`
 * Binary heap representations
 
     - Binary heap, Array representation of a heap-ordered complete binary tree.
+
     
+
     - Heap-ordered binary tree
         + Keys in nodes
         + Parent's key no smaller than children's keys
@@ -1090,44 +1086,59 @@ Mergesort `N lg N`
     - Underflow: throw exception if deleting from empty PQ
     - Overflow: add no-arg constructor and use resize array
 
+* To avoid maxing the operating like `delMax(), delMin()` there are two implementations `MaxPQ` and `MinPQ`
+    - The difference in comparing `less()`, `greater()`
+
+* Good practice to use immutable keys, to prevent the client to change the key while processing the PQ
+
+    - Advantages
+        + Simplifies debugging
+        + Safer in presence of hostile code
+        + Simplifies concurrent programming
+        + Safe to use as key in priority queue or symbol table
+
+    - Disadvantages
+        + Must create new object for each data type value
+
  `Algorithm`
 
 ``` java
-    public final static <Item extends Comparable<Item>> void sort(Item[] pq) {
-        int n = pq.length; 
+    public void insert(Item key) {
+        pq[++N] = key;
+        swim(N);
+    }
 
-        for (int k = n / 2; k >= 1; k--) {
-            sink(pq, k, n); 
-        }
+    public Item delMax() {
+        if (isEmpty())
+            throw new IndexOutOfBoundsException();
+        Item max = pq[1];
+        swap(1, N--);
+        sink(1);
+        pq[N + 1] = null; // prevent loitering, object no longer needed
+        return max;
+    }
 
-        int k = n; 
-        while (k > 1) {
-            swap(pq, 1, k--); 
-            sink(pq, 1, k); 
+    public Item max() {
+        return pq[1];
+    }
+
+    private void swim(int k) {
+        while (k > 1 && less(k / 2, k)) { // k less than parent, swap
+            swap(k / 2, k);
+            k /= 2;
         }
     }
 
-    // Get the largest and put as a parent
-    private static <Item extends Comparable<Item>> void sink(Item[] pq, int k, int n) {
-        while (2 * k <= n) {
-            int j = 2 * k; 
-            if (j < n && less(pq, j, j + 1))
-                j++; 
-            if (!less(pq, k, j)) // K less than children then break
-                break; 
-            swap(pq, k, j); 
-            k = j; 
+    private void sink(int k) {
+        while (2 * k <= N) {
+            int j = 2 * k;
+            if (j < N && less(j, j + 1))
+                j++;
+            if (!less(k, j)) // K less than children then break
+                break;
+            swap(k, j);
+            k = j;
         }
-    }
-
-    private static <Item extends Comparable<Item>> boolean less(Item[] pq, int firstIndex, int secondIndex) {
-        return pq[firstIndex - 1].compareTo(pq[secondIndex - 1]) < 0; 
-    }
-
-    private static <Item extends Comparable<Item>> void swap(Item[] pq, int firstIndex, int secondIndex) {
-        Item temp = pq[firstIndex - 1]; 
-        pq[firstIndex - 1] = pq[secondIndex - 1]; 
-        pq[secondIndex - 1] = temp; 
     }
 ```
 
