@@ -808,7 +808,7 @@ Mergesort `N lg N`
     - Repeat in one sub-array, depending on j; finished when j equals k
 
     - Analysis: Linear time on average
-    - Remark. Quick-select uses ~ 1/2N<sup>2</sup> compares in the worst case, but (as with quicksort) the random shuffle provides a probabilistic guarantee
+    > Remark. Quick-select uses ~ 1/2N<sup>2</sup> compares in the worst case, but (as with quicksort) the random shuffle provides a probabilistic guarantee
 
     - Algorithm
 
@@ -829,7 +829,7 @@ Mergesort `N lg N`
     }
 ```
 
-* Remark. But, constants are too high => not used in practice
+> Remark. But, constants are too high => not used in practice
 
 * Use theory as a guide
 
@@ -2059,7 +2059,7 @@ public final class String implements Comparable<String> {
 |substring()|N|N|
 |concat()|1<sub>*</sub>|1<sub>*</sub>|
 
-    - Remark StringBuffer data type is similar, but thread safe (and slower)
+> Remark StringBuffer data type is similar, but thread safe (and slower)
 
 * For `Concat` string use `StringBuilder` , for `substring()` use `String`
 
@@ -2100,7 +2100,7 @@ public final class String implements Comparable<String> {
         3\. Sort phone numbers by area code
         4\. Subroutine in a sorting algorithm
 
-    - Remark. keys may have associated data => can't just count up number of keys of each value
+> Remark. keys may have associated data => can't just count up number of keys of each value
 
 * Steps
     - Count frequencies of each letter using key as index
@@ -2394,7 +2394,7 @@ public class TriesST<Value> {
 |R-way tries|L|log<sub>*</sub>N|L|(R+1)N|
 |TST|L + ln N|ln N|L + ln N|4 N|
 
-* Remark. can build balanced TST via rotations to achieve `L + Log N` worst-case guarantees
+> Remark. can build balanced TST via rotations to achieve `L + Log N` worst-case guarantees
 
 * String symbol table implementation cost summary
 
