@@ -2112,7 +2112,7 @@ public final class String implements Comparable<String> {
 
     - R is Radix from table above
 
- `algorithms`
+ `algorithm`
 
 ``` java
     public final static void sort(char[] a) {
