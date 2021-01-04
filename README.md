@@ -57,14 +57,14 @@ Algorithms all around us
 
 # Algorithm Analyze
 
-### Reasons to Analyze Algorithms
+## Reasons to Analyze Algorithms
 
 * Predict performance
 * Compare algorithms
 * Provide guarantees
 * Understand theoretical basis
 
-### The scientific method
+## The scientific method
 
 * Observe some feature in the natural world
 * Hypothesize a model that is consistent with the observations
@@ -72,24 +72,24 @@ Algorithms all around us
 * Verify the predictions by making further observations
 * Validate by repeating until the hypothesis and observations agree
 
-### Principles
+## Principles
 
 * Experiments must be reproducible. 
 * Hypotheses must be falsifiable. 
 
-### Empirical Analysis
+## Empirical Analysis
 
 * Manual measurement (benchmarking) with a stopwatch or programmatic timing method. 
 * Measure running time for different input sizes *N* (e. g. doubling time) and observe the relationship between the running times. 
 
-### Data Analysis
+## Data Analysis
 
 * Plot running time T(N) vs input size *N*. 
 * Plot as log-log plot, often get a straight line. lg(T(N)) vs lg(N). Plot tells you the exponent of *N*. 
 * Regression, power law: *a x N<sup>b</sup>*
 * Once you have the power b from the slope of the log-log plot, solve for *a* in the equation *T(N) = a x N<sup>b</sup>*
 
-### Doubling Hypothesis
+## Doubling Hypothesis
 
 * Run program, doubling the size of the input and observe ratios. Observe to what it converges, do not take the average!
 
@@ -104,7 +104,7 @@ Algorithms all around us
 * Caveat: Cannot identify logarithmic factors with the doubling hypothesis. 
 * Calculate *a* by solving *T(N) = a x N<sup>b</sup>* for a with all other variables now known. 
 
-### Experimental algorithmic
+## Experimental algorithmic
 
 * System independent effects (determines constant *a* and exponent *b* in power law)
 
@@ -117,7 +117,7 @@ Algorithms all around us
   + Software compiler, interpreter, garbage collector
   + System: OS, network, other applications
 
-### Mathematical Models
+## Mathematical Models
 
 * Analyze individual operations to determine complexity
 
@@ -134,7 +134,8 @@ Algorithms all around us
   G(N)* when *N* goes towards infinity, the lower order terms become so
   insignificant that *f(N)/g(N) = 1*
 
- ### Order-of-Growth Classifications
+ ## Order-of-Growth Classifications
+
  - A great number of algorithms (most) are described by the following order of growth functions
  	+ 1 (constant)
  	+ log N (logarithmic)
@@ -146,21 +147,19 @@ Algorithms all around us
 
 > Note: lgN means log<sub>2</sub>N
 
-	
-
 <p align="center"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Comparison_computational_complexity.svg/800px-Comparison_computational_complexity.svg.png" alt="graph_order_growth" width="400"/></p>
 
 * We say the algorithm "is proportional to" e. g. constant time
 
 ---
 
-## Properties
+# Properties
 
 01. Reflexive: p is connected to q  
 02. Symmetric: if p is connected to q, then q is connected to p  
 03. Transitive: if p is connected to q and q is connected to r, then p is connected to r
 
-## Dynamic connectivity
+# Dynamic connectivity
 
 Applications based on this:
 
@@ -172,7 +171,7 @@ Applications based on this:
 06. Variables names in Fortran program  
 07. Metallic sites in a composite system  
 
-### Quick find (Eager approach)
+## Quick find (Eager approach)
 
 * Data structure
 * Integer array `id[]` of size N
@@ -190,19 +189,19 @@ Applications based on this:
 
 * Note: We can not accept Quadratic in big problems Quadratic algorithms do not scale
 
-#### Rough standards (for now)
+### Rough standards (for now)
 
 * 10<sup>9</sup> operations per second
 * 10<sup>9</sup> words of main memory
 * Touch all words in approximately 1 second
 
-#### E. g Huge problem for quick find
+### E. g Huge problem for quick find
 
 * 10<sup>9</sup> union commands of 10<sup>9</sup> objects
 * Quick find takes more than 10<sup>18</sup> operations
 * 30+ years of computer time!
 
-### Quick Union
+## Quick Union
 
 * Set the first element based on the root of the second element
 * Complexity
@@ -216,7 +215,7 @@ Applications based on this:
     - Tree can get tall
     - Find too expensive (Could be N array accesses)
 
-### Quick Union improvement
+## Quick Union improvement
 
 01. Weighted Quick union
 * Modify the Quick union to avoid tall trees
@@ -235,7 +234,7 @@ Applications based on this:
 
 > Note: WQUPC reduce time from 30 years to 6 seconds
 
-### Union find Applications
+## Union find Applications
 
 01. Percolation
 02. Games (Go, Hex)
@@ -243,7 +242,7 @@ Applications based on this:
 04. Last common ancestor
 05. Hoshen-kopelman algorithm in physics
 
-### Percolation
+## Percolation
 
 A model for many physical systems
 
@@ -260,7 +259,7 @@ A model for many physical systems
 
 ---
 
-## Data structures Design
+# Data structures Design
 
 * Good practice to make an abstraction between the outside world and internal implementation, In java we will use interface
 
@@ -430,7 +429,7 @@ public class LinkedQueue<Item> implements Queue<Item> {
 
 ---
 
-## Elementary sorts
+# Elementary sorts
 
 * Rearrange array of N times into ascending/descending order based on a key
 
@@ -456,7 +455,7 @@ to allow sort any generic data types
   + `Transitivity` : if v<=w and w<=x, then v<=x
   + `Totality` : either v<=w or w<=v or both
 
-### Selection sort
+## Selection sort
 
 * Scan from left to right  
 * Find the index of `min` of smallest remaining entry, then swap `a[i]` and `a[min]`  `-->`  `Time Complexity O(N<sup>2</sup>)` and doesn't sensitive if the input is sorted  
@@ -479,7 +478,7 @@ to allow sort any generic data types
     }
 ```
 
-### Insertion sort
+## Insertion sort
 
 * Scan from left to right  
 * Swap `a[i]` with each larger entry to its left `<--`  `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`
@@ -501,7 +500,7 @@ to allow sort any generic data types
     }
 ```
 
-### Shell sort
+## Shell sort
 
 * Move entries more than one position at a time by `h-sorting` the array  What's the `h value` Knuth says `3x+1`
 
@@ -533,7 +532,7 @@ to allow sort any generic data types
 	02. Tiny used in some embedded systems
 	03. Hardware sort prototype
 
-### Shuffle sort  
+## Shuffle sort  
 
 * Generate a random real number for each array entry  
 * Sort array
@@ -556,7 +555,7 @@ to allow sort any generic data types
     }
 ```
 
-### Applications in sorting
+## Applications in sorting
 
 * Convex hull of a set of N points
 
@@ -608,7 +607,7 @@ to allow sort any generic data types
 
         + Running time `N lg N` for sorting and linear for rest
 
-### Merge sort
+## Merge sort
 
 * This sort based on the technique of `divide-and-conquer`
 
@@ -702,7 +701,7 @@ Mergesort `N lg N`
     }
 ```
 
-### Sort Stability
+## Sort Stability
 
 * Suppose you want to sort `BY_NAME` then `BY_SECTION`
 
@@ -718,7 +717,7 @@ Mergesort `N lg N`
 
     - Shellsort makes long distance exchanges
 
-### Quick sort
+## Quick sort
 
 * One of the most important algorithm in 20<sup>th</sup> century
 * Java sort for primitive types
@@ -780,7 +779,7 @@ Mergesort `N lg N`
         - Best choice of pivot item = median
         - Median-of-3 random items
 
-### Selection
+## Selection
 
 * Goal. Given an array of N items, find the k<sup>th</sup> largest
 
@@ -837,7 +836,7 @@ Mergesort `N lg N`
     - Still in worthwhile to seek practical linear time (worst-case) algorithm
     - Until one is discovered, use quick-select if you don't need a full sort   
 
-### Duplicate keys
+## Duplicate keys
 
 * Often, purpose of sort is to bring items with equal keys together
     - Sort population by age
@@ -914,7 +913,7 @@ Mergesort `N lg N`
 
 * Bottom line. Randomized quicksort with 3-way partitioning reduces running time from linearithmic to linear in broad class of application
 
-### System sorts
+## System sorts
 
 * Sort applications
 
@@ -946,7 +945,7 @@ Mergesort `N lg N`
     - Has a method that uses a Comparator
     - Uses tuned quicksort for primitive types; tuned mergesort for objects
 
-### System sort: Which algorithm to use?
+## System sort: Which algorithm to use?
 
 * Many sorting algorithms to choose from
 
@@ -984,7 +983,7 @@ Mergesort `N lg N`
 
 ---
 
-### Sort complexity
+## Sort complexity
 
 |Name|In-place|Stable|Best  |Average  |Worst|Remarks|
 |----|-------|------|------|---------|-----|-------|
@@ -998,7 +997,7 @@ Mergesort `N lg N`
 
 ---
 
-## Priority Queues
+# Priority Queues
 
 * A collection is a data types that store group of items
 
@@ -1010,7 +1009,7 @@ Mergesort `N lg N`
 |symbol table|Put, Get, Delete|BST, hash table|
 |set|Add, Contains, Delete|BST, hash table|
 
-### Priority Queue (PQ)
+## Priority Queue (PQ)
 
 * Collections. Insert and delete items. which item to delete?
 
@@ -1045,7 +1044,7 @@ Mergesort `N lg N`
 
 ---
 
-### Binary heaps
+## Binary heaps
 
 * Binary tree, Empty or node with links to left and right binary trees
 
@@ -1144,7 +1143,7 @@ Mergesort `N lg N`
 
 ---
 
-### Heapsort
+## Heapsort
 
 * Basic plan
 
@@ -1243,7 +1242,7 @@ while (N > 1) {
 
 ---
 
-### Event driven simulation
+## Event driven simulation
 
 * Goal. Simulate the motion of N moving particles that behave according to the laws of elastic collision
 
@@ -1287,9 +1286,9 @@ while (N > 1) {
 
 ---
 
-## Symbol tables
+# Symbol tables
 
-### API
+## API
 
 * Key-value pair abstraction
 
@@ -1370,7 +1369,7 @@ keys()
         + Compare fields mostly likely to differ first
         + Make compareTo() consistent with equals() `x.equals(y), if and only if (x.compareTo(y) == 0)`
 
-### Elementary implementations
+## Elementary implementations
 
 * Sequential search in a Linked list
 
@@ -1396,7 +1395,7 @@ keys()
 
 * BST Binary search tree
 
-### Ordered operations
+## Ordered operations
 
 ```java
 void put(Key key, Value value)
@@ -1418,7 +1417,7 @@ Iterable<Key> keys(Key lo, Key hi)
 Iterable<Key> keys()
 ```
 
-### Binary search trees
+## Binary search trees
 
 * Classic data structure provides efficient implementations of ST algorithm
 
@@ -1487,7 +1486,7 @@ Iterable<Key> keys()
 |-----------------|-----------------|-------------------|-------------------|-------|-------------|
 |N|N|1.39 lg N|1.39 lg N|stay tunned|compareTo()|
 
- ### Ordered ST operations
+ ## Ordered ST operations
 
 * Minimum and maximum
 
@@ -1564,7 +1563,7 @@ private Node floor(Node node, Key key) {
     }
 ```
 
-### Deletion in BST
+## Deletion in BST
 
 * Delete in BST
 
