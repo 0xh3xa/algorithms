@@ -1110,7 +1110,8 @@ Mergesort `N lg N`
         if (isEmpty())
             throw new IndexOutOfBoundsException();
         Item max = pq[1];
-        swap(1, N--);
+        swap(1, N); 
+        N--; // decrement N here, will be used in sink
         sink(1);
         pq[N + 1] = null; // prevent loitering, object no longer needed
         return max;
