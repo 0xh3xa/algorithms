@@ -1371,7 +1371,7 @@ keys()
 
 ## Elementary implementations
 
-* Sequential search in a Linked list
+* Sequential search (unordered list)
 
     - Data structure: Maintain an (unordered) linked list of key-value pairs
     - Node contains key and value
@@ -1613,7 +1613,7 @@ private void inorder(Node node, Queue<Key> q) {
 }
 ```
 
-- Property. inorder traversal of a BST yields keys in ascending order
+* Property. inorder traversal of a BST yields keys in ascending order
 
 ## Deletion in BST
 
@@ -1630,7 +1630,7 @@ private void inorder(Node node, Queue<Key> q) {
     - Replace that node by its right link
     - Update subtree counts
 
-```java
+``` java
 public void deleteMin() {
     root = deleteMin(root);
 }
@@ -1653,7 +1653,7 @@ private Node deleteMin(Node node) {
             02. Delete the minimum in n's right subtree
             03. Put x in n's spot
 
-```java
+``` java
     public void delete(Key key) {
         size--;
         root = delete(root, key);
@@ -1698,13 +1698,68 @@ private Node deleteMin(Node node) {
 
 ### Red-black BSTs
 
-* Represent 2-3 tree as a BST
-* Use "internal" left-learning links as "glue" for 3-nodes
-* A BST such that:
+* Represent 2-3 tree as a BST (binary search tree)
+* Left-leaning red-black BSTs (Guibas-Sedgewick 1979 and 2007)
+    - Use "internal" left-learning links as "glue" for 3-nodes
+    - A BST such that:
 
-    - No node has two red links connected to it
-    - Every path from root to the null link has the same number of black links
-    - Red links lean left
+        + No node has two red links connected to it
+        + Every path from root to the null link has the same number of black links
+        + Red links lean left
+
+### B-Tree
+
+* TODO this part
+
+---
+
+## Geometric applications of BSTs
+
+* Intersections among geometric objects
+* Applications. CAD, games, movies, virtual reality, database, ...
+* Efficient solutions. Binary search trees (and extensions)
+
+### 1 d range search
+
+* Extensions of ordered symbol table
+    - Same operations or ordered symbol table
+    - Range search: find all keys between k1 and k2
+    - Range count: number of keys between k1 and k2
+
+* Application. Database queries
+    - i.e salary between val-1 AND val-2
+
+* Geometric interpretation
+    - Keys are point of a line
+    - Find/count points in a given 1 d interval
+
+* Implementations
+    - Unordered array. Fast insert, slow range search
+    - Order array. Slow insert, binary search for k1 and k2 to do range search
+    - 1 d range count
+
+### line segment intersection
+
+* TODO this part
+
+### kd trees
+
+* TODO this part
+
+### interval search trees
+
+* Instead of points the data is interval
+* 1 d interval search. Data structure to hold set of (overlapping) intervals
+
+* Create BST, where each node stores an interval (lo, hi)
+    - Use left endpoints as BST key
+    - Store max endpoint in subtree rooted at node
+
+* TODO this part
+
+### rectangle intersection
+
+* TODO this part
 
 ---
 
@@ -1713,7 +1768,7 @@ private Node deleteMin(Node node) {
 * Basic plan:
 
     - Save items in a key-indexed table (index is a function of the key)
-    - Hash function:method for computing array index from key
+    - Hash function: Method for computing array index from key
 
 * Issues:
 
