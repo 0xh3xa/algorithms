@@ -1797,118 +1797,268 @@ private Node deleteMin(Node node) {
     - Better: last three digits
 
 * Practical challenge, need different approach for each key type
+
 * Java's hash code conventions
 
     - All java classes inherit a method `hashCode()` , with return 32-bit in
+
     - Requirement, if `x.equals(y), then (x.hashCode() == y.hashCode())`
 
     - Highly desirable: if `!x.equals(y), then (x.hashCode() != y.hashCode())`
 
-``` 
+    - Default implementation. Memory address of x
 
-      X
+    - Legal (but poor) implementation. Always return 17
+
+    - Customized implementations. Integer, Double, String, File, URL, Date, ...
+
+``` tree
+      x
       |
     -----
     |   |   
     -----
       |
-    x.hashCode()
-
+  x.hashCode()
 ```
 
-* hash code design
+* Implementing hash code: strings
 
-    - Combine each significant field using the `31x+y`
+    - Cache the hash value in an instance variable
+    - Return cached value
 
-    - If field is a primitive type, use wrapper type `hashCode()`
+``` java
+public final class String {
+    private int hash = 0; // cache of hash code
+    private final char[] s;
 
-    - If field is null, return 0
-    - If field is a reference type, use `hashCode()`
+    public int hashCode() {
+        int h = hash;
+        if (h != 0) return h; // returned cached value
+        for (int i = 0; i < length(); i++) {
+            h = s[i] + (31 * h);
+        }
+        hash = h; // store cache of hash code
+        return h;
+    }
+}
+```
 
-    - If field is an array, apply to each entry
+* Implementing hash code: user-defined types
 
-* Basic rule, need to use the whole key to compute hash code, consult an expert for state-of-the-art hash codes
+``` java
+public final class Transaction implements Comparable<Transaction> {
+    private final String who;
+    private final Date when;
+    private final double amount;
+
+    public int hashCode() {
+        int hash = 17; // nonzero constant
+        // typical a small prime 31
+        // get all fields in the class
+        hash = 31 * hash + who.hashCode();
+        hash = 31 * hash + when.hashCode();
+        hash = 31 * hash + ((Double) amount).hashCode();
+        return hash;
+    }
+ }
+```
+
+* Hash code design
+
+    - Standard recipe for user-defined types
+
+        + Combine each significant field using the `31x+y` rule
+
+        + If field is a primitive type, use wrapper type `hashCode()`
+
+        + If field is null, return 0
+
+        + If field is a reference type, use `hashCode()` <- applies rule recursively
+
+        + If field is an array, apply to each entry <- or use `Arrays.deepHashCode()`
+
+    - In practice. Recipe works reasonably well, used in Java libraries
+
+    - In theory. Keys are bit string: universal hash functions exits
+
+    - Basic rule. Need to use the whole key to compute hash code, consult an expert for state-of-the-art hash codes
+
+* Modular hashing
+
+    - Hash code. An int between -2<sup>31</sup> and 2<sup>31</sup>-1
+    - Hash function. An int between 0 and M-1 (for uses as array index)
+        + M typically a prime or power of 2
+
+    - Why choose a prime for M?
+        + We will use all the bits in the number in that point
+
+There is a problem in below code for detect the negative values 
+
+``` java
+// Bug
+private int hash(Key key) {
+    return key.hashCode() % M;
+}
+```
+
+There is another problem in below code which is will hit 
+-2<sup>31</sup>
+
+``` java
+// 1-in-a-billion bug
+private int hash(Key key) {
+    return Math.abs(key.hashCode()) % M;
+}
+```
+
+The correct implementation, this is a template for hashCode to get number between 0 and M - 1
+
+``` java
+private int hash(Key key) {
+    return (key.hashCode() & 0x7fffffff) % M;
+}
+```
+
+* Uniform hashing assumption
+
+    - Uniform hashing assumption. Each key is equally likely to hash to an integer between 0 and M - 1
+
+    - Bins and balls. Throw balls uniformly at random into M bins
+
+    - Classically studies in statistics
+
+        + Birthday problem. Expect two balls in the same bin after `~ sqrt(PI M /2)` tosses
+
+        + Coupon collector. Expect every bin hash >= 1 ball after `~ M ln M` tosses
+
+        + Load balancing. After M tosses, expect most loaded bin hash `Omega (log M / Log Log M)` balls
 
 ### Separate chaining (Collision resolution)
 
 * Collision, Two distinct keys hashing to the same index
-* Basic idea
 
-    - Use an array of M < N linked list
-    - Hash: map key to integer i between 0 and M-1
-    - Insert: put at front of i<sub>th</sub> chain
-    - Search need to search only i<sub>th</sub> chain
+    - Birthday problem -> can't avoid collisions unless you have a ridiculous quadratic amount of memory
 
-* Consequence, Number of probes for search/insert is proportional to N/M
+    - Coupon collector + load balancing -> collisions will be evenly distributed
+
+    
+
+    - Challenge. Deal with collisions efficiently
+
+* Separate chaining symbol table
+
+    - Use an array of M < N linked lists [H.P. Luhn, IBM 1953]
+
+        + Hash: map key to integer i between 0 and M-1
+
+        + Insert: put at front of i<sub>th</sub> chain (if not already there)
+
+        + Search: need to search only i<sub>th</sub> chain
+
+``` java
+public class SeparateChainingHashST<Key, Value> {
+    private int M = 97;
+    private Node[] st = new Node[M];
+
+    private static class Node {
+        private Key key;
+        private Value val;
+        private Node next;
+    }
+
+    private int hash(Key key) {
+        return (key.hashCode() & 0xfffffff) % M;
+    }
+
+    public Value get(Key key) {
+        int i = hash(key);
+        for (Node node = st[i]; node != null; node = node.next) {
+            if (key.equals(node.key)) return node.val;
+        }
+        return null;
+    }
+
+    public void put(Key key, Value val) {
+        int i = hash(key);
+        for (Node node = st[i]; node != null; node = node.next) {
+            if (key.equals(node.key)) {
+                node.val = val;
+                return;
+            }
+        }
+        st[i] = new Node(key, val, st[i]); // put the new node at the beginning of the LinkedList
+    }
+}
+```
+
+* Consequence. Number of probes for search/insert is proportional to N/M
 
     - M too large ==> too many empty chains
+
     - M too small ==> chains too long 
-    - Typical choice M ~ N/5 ==> constant time ops
+
+    
+
+    - Typical choice `M ~ N/5` ==> constant time ops
 
 ### Linear probing
 
-* Open addressing, When a new key collides, find the next empty slot and put it there
+* Open addressing. When a new key collides, find the next empty slot and put it there
+
 * Hash. Map key to integer i between 0 and M-1
+
 * Insert. Put at table index i if free, if not try i+1, i+2, etc
+
 * Search. Search table index i, if occupied but no match, try i+1, i+2, etc
 
-> Note: Array size M must be greater than number of key-value pairs M
+> Note: Array size M must be greater than number of key-value pairs N
 
-* Clustering: a contiguous block of items
+``` java
+public class LinearProbingHashST<Key, Value> {
+    private int M = 30001;
+    private Value[] vals = (Value[]) new Object[M];
+    private Key[] keys = (Key[]) new Object[M];
 
-### Separate chaining vs. Linear probing
+    private int hash(Key key) {
+        return (key.hashCode() & 0xfffffff) % M;
+    }
 
-* Separate chaining
+    public void put(Key key, Value val) {
+        int i;
+        for (i = hash(key); keys[i] != null; i = (i + 1) % M) {
+            if (keys[i].equals(key)) break;
+        }
+        keys[i] = key;
+        vals[i] = val;
+    }
 
-    - Easier to implement delete
-    - Performance degrades gracefully
-    - Clustering less sensitive to poorly-designed hash function
+    public Value get(Key key) {
+        for (int i = hash(key); keys[i] != null; i = (i + 1) %  M) {
+            if (key.equals(keys[i])) return vals[i];
+        }
+        return null;
+    }
+}
+```
 
-* Linear probing
+* Clustering
 
-    - Less wasted space
-    - Better cache performance
+    - Cluster. A contiguous block of items
 
-### Applications
+    - Observation. New keys likely to hash into middle of big clusters
 
-* Security One way hash function: MD4, MD5, SHA-0, SHA-1, SHA-2, WHIRLPOOL, RIPEMD-160, ... 
+* Knuth's parking problem
 
-    - Digital fingerprint
-    - Message digest
-    - Storing passwords
+    - Model. Cars arrive at one-way street with M parking spaces, each desires a random space i: if space i is taken, try i + 1, i + 2, etc
 
-* Dictionary lookup
+    - Q. What is mean displacement of a car?
 
-    - DNS lookup
-    - Amino acids
-    - Class list
+        + Half-full. With M / 2 cars, mean displacement is ~ 3 / 2
 
-### Hash tables vs.balanced search trees
+        + Full. With M cars, mean displacement is ~ sqrt(PI * M / 8)
 
-* Hash tables
-
-    - Simpler to code
-    - No effective alternative for unordered keys
-    - Faster for simple keys (a few arithmetic ops versus log N compares)
-    - Better system support in Java for strings (e.g.cached hash code)
-
-* Balanced search trees
-
-    - Stronger performance guarantee
-    - Support for ordered ST operations
-    - Easier to implement `compareTo()` correctly than `equals()` and `hashCode()`
-
-* Java system includes both:
-
-    - Red-black BSTs: java.util. TreeMap, java.util. TreeSet
-    - Hash tables: java.util. HashMap, java.util. IdentityHashMap
-
-### Set
-
-* Mathematical set: a collection of distinct keys
-* Operations:  `add(Key key), contains(Key key), remove(Key key), size(), iterator()`
-
-### ST Complexity
+### ST implementations: summary
 
 |ST implementation|Worst-case search| Worst-case insert|Worst-case delete|Ordered iteration|key interface|
 |-----------------|-----------------|------------------|-----------------|-----------------|-------------|
@@ -1919,6 +2069,114 @@ private Node deleteMin(Node node) {
 |red-black tree|2 lg N|2 lg N|2 lg N|yes|compareTo()|
 |separate chaining|lg N<sub>*</sub>|lg N<sub>*</sub>|lg N<sub>*</sub>|no|equals()|
 |linear probing|lg N<sub>*</sub>|lg N<sub>*</sub>|lg N<sub>*</sub>|no|equals()|
+
+> Note: * under uniform hashing assumption
+
+### Context
+
+* War storey: String hashing in Java
+
+    - String hashCode() in Java 1.1
+        + For long strings: only examine 8-9 evenly spaced characters
+        + Benefit: save time in performing arithmetic
+        + Downside: great potential for bad collision patterns
+
+``` java
+public int hashCode() {
+    int hash = 0;
+    int skip = Math.max(1, length() / 8);
+    for (int i = 0; i < length(); i += skip) {
+        hash = st[i] + (37 * hash);
+    }
+    return hash;
+}
+```
+
+    - Could end with examine the same spaced character, so you have to examine the all string
+
+* Q. Is the uniform hashing assumption important in practice?
+    - A. Obvious situations: aircraft control, nuclear reactor, pacemaker
+    - A. Surprising situations. denial-of-service attacks
+
+* Algorithmic complexity attach on Java
+    - Goal. Find family of strings with the same hash code
+    - Solution. the base 31 hash code is  part of Java's string API
+
+* Diversion: one-way hash functions
+    - One-way hash function. "Hard" to find a key that will hash to a desired value (or two keys that hash to the same value)
+
+        + Ex. MD4, MD5, SHA-0, SHA-1, SHA-2, WHIRLPOOL, RIPEMD-160, etc
+        + Applications. Digital fingerprint, message digest, storing passwords
+        + Caveat. Too expensive for use in ST implementations
+
+* Separate chaining vs. Linear probing
+
+    - Separate chaining
+        + Easier to implement delete
+        + Performance degrades gracefully
+        + Clustering less sensitive to poorly-designed hash function, if you have a bad function
+
+    - Linear probing
+        + Less wasted space
+        + Better cache performance
+
+    - Q. How to delete?
+    - Q. How to resize?
+
+* Hashing: variations on the theme
+    - Many improved versions have been studied.
+    - Two-probe hashing (separate-chaining variant)
+        + Hash to two positions, insert key in shorter of two chains
+        + Reduces expected length of the longest chain to log log N
+
+    - Double hashing (linear-probing variant)
+        + Use linear probing, but skip a variable amount, not just 1 each time
+        + Effectively eliminates clustering
+        + Can allow table to become nearly full
+        + More difficult to implement delete
+    
+    - Cuckoo hashing (linear-probing variant)
+        + Hash key to two positions, insert key either position, if occupied reinsert displaced key into its alternative position (and recur)
+        _ Constant worst case time for search
+
+* Applications
+
+    - Security One way hash function: MD4, MD5, SHA-0, SHA-1, SHA-2, WHIRLPOOL, RIPEMD-160, ... 
+        + Digital fingerprint
+        + Message digest
+        + Storing passwords
+
+    - Dictionary lookup
+        + DNS lookup
+        + Amino acids
+        + Class list
+
+* Hash tables vs.balanced search trees
+
+    - Hash tables
+
+        + Simpler to code
+        + No effective alternative for unordered keys
+        + Faster for simple keys (a few arithmetic ops versus log N compares)
+        + Better system support in Java for strings (e.g. cached hash code)
+
+    - Balanced search trees
+
+        + Stronger performance guarantee
+        + Support for ordered ST operations
+        + Easier to implement `compareTo()` correctly than `equals()` and `hashCode()`
+
+    - Java system includes both:
+
+        + Red-black BSTs: java.util. TreeMap, java.util. TreeSet
+        + Hash tables: java.util. HashMap, java.util. IdentityHashMap
+
+### Set
+
+* Mathematical set: a collection of `distinct` keys
+
+* Operations:  `add(Key key), contains(Key key), remove(Key key), size(), iterator()`
+
 
 ---
 
