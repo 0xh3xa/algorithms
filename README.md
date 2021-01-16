@@ -2077,8 +2077,11 @@ public class LinearProbingHashST<Key, Value> {
 * War storey: String hashing in Java
 
     - String hashCode() in Java 1.1
+
         + For long strings: only examine 8-9 evenly spaced characters
+        
         + Benefit: save time in performing arithmetic
+
         + Downside: great potential for bad collision patterns
 
 ``` java
@@ -2095,25 +2098,35 @@ public int hashCode() {
     - Could end with examine the same spaced character, so you have to examine the all string
 
 * Q. Is the uniform hashing assumption important in practice?
+
     - A. Obvious situations: aircraft control, nuclear reactor, pacemaker
+
     - A. Surprising situations. denial-of-service attacks
 
 * Algorithmic complexity attach on Java
+
     - Goal. Find family of strings with the same hash code
+
     - Solution. the base 31 hash code is  part of Java's string API
 
 * Diversion: one-way hash functions
+
     - One-way hash function. "Hard" to find a key that will hash to a desired value (or two keys that hash to the same value)
 
         + Ex. MD4, MD5, SHA-0, SHA-1, SHA-2, WHIRLPOOL, RIPEMD-160, etc
+
         + Applications. Digital fingerprint, message digest, storing passwords
+
         + Caveat. Too expensive for use in ST implementations
 
 * Separate chaining vs. Linear probing
 
     - Separate chaining
+
         + Easier to implement delete
+
         + Performance degrades gracefully
+
         + Clustering less sensitive to poorly-designed hash function, if you have a bad function
 
     - Linear probing
@@ -2124,15 +2137,23 @@ public int hashCode() {
     - Q. How to resize?
 
 * Hashing: variations on the theme
+
     - Many improved versions have been studied.
+
     - Two-probe hashing (separate-chaining variant)
+
         + Hash to two positions, insert key in shorter of two chains
+
         + Reduces expected length of the longest chain to log log N
 
     - Double hashing (linear-probing variant)
+
         + Use linear probing, but skip a variable amount, not just 1 each time
+
         + Effectively eliminates clustering
+        
         + Can allow table to become nearly full
+
         + More difficult to implement delete
 
     
@@ -2159,19 +2180,25 @@ public int hashCode() {
     - Hash tables
 
         + Simpler to code
+
         + No effective alternative for unordered keys
+
         + Faster for simple keys (a few arithmetic ops versus log N compares)
+
         + Better system support in Java for strings (e.g. cached hash code)
 
     - Balanced search trees
 
         + Stronger performance guarantee
+
         + Support for ordered ST operations
+
         + Easier to implement `compareTo()` correctly than `equals()` and `hashCode()`
 
     - Java system includes both:
 
         + Red-black BSTs: java.util. TreeMap, java.util. TreeSet
+
         + Hash tables: java.util. HashMap, java.util. IdentityHashMap
 
 ### Applications
@@ -2210,12 +2237,17 @@ public int hashCode() {
     - Vector representations
         
         + 1D array (standard) representation
+
             . Constant time access to elements
+
             . Space proportional to N
         
         + Symbol table representation
+        
             . Key = index, value = entry
+
             . Efficient iterator
+
             . Space proportional to number of nonzeros
 
 ``` java
@@ -2252,61 +2284,87 @@ public class SparseVector {
     - Matrix representations
         
         + 2D array (standard) matrix representation. Each row of matrix is an array
+
         + Space proportional of N<sup>2</sup>
 
     - Sparse matrix representation: Each row of matrix is a sparse vector
         
         + Efficient access to elements
+
         + Space proportional to number of nonzeros (plus N)
 
 ---
 
-## Graph
+# Graph
 
-* Definition: is a Graph from set of vertices connected pairwise by edges
+## Undirected graphs
+
+* Graph.: Set of vertices connected pairwise by edges
 
 * Why study graph algorithms?
 
     - Thousand of practical applications
+
     - Hundreds of graph algorithms known
+
     - Interesting and broadly useful abstraction
+
     - Challenging branch of computer science and discrete math
 
 * Example of graph
 
-    - protein-protein interaction network
+    - Protein-protein interaction network
+
     - The internet as mapped by the Opte project
+
     - Map of science click-streams
+
     - Facebook friends
+
     - One week of Enron emails
+
     - Framingham heart study
 
 * Graph terminology
 
-    - Path: sequence of `vertices`  `connected` by `edges`
+    - Path: Sequence of vertices connected edges
 
-    - Cycle: path whose `first` and `last` vertices are the `same`
+    - Cycle: Path whose first and last vertices are the same
 
-    - Two vertices are `connected` if there is a `path between them`
+    - Two vertices are `connected` if there is a path between them
 
 * Some graph-processing problems
 
     - Path. Is there a path between v and w?
+
     - Shortest path. What is the shortest path between v and w?
+
     - Cycle. Is there a cycle in the graph?
+
     - Euler cycle. Is there a cycle that uses each edge exactly once?
+
     - Hamilton cycle. Is there a cycle that uses each vertex exactly once
+
     - Connectivity. Is there a way to connect all of the vertices?
+
     - MST. What is the best way to connect all of the vertices?
+
     - Bi-connectivity. Is there a vertex whose removal disconnects the graph?
 
-## Undirected Graph api
+    - Planarity. Can you draw the graph in the plane with no crossing edges
+
+    - Graph isomorphism. Do two adjacency lists represent the same graph?
+
+### Undirected Graph API
 
 * Graph drawing provides intuition about the structure of the graph
+
 * Caveat intuition can be misleading
+
 * Vertex representation
 
     - Will use integers between 0 and V-1
+
     - Applications: convert between names and integers which symbol table
 
 * Operations:  `addEdge(int v, int w), adj(int v), V(), E(), toString()`
