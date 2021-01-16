@@ -3,35 +3,50 @@ package org.alg.fundamentals.impl.symboltable;
 import java.util.Iterator;
 
 import org.alg.fundamentals.base.SymbolTable;
-import org.alg.fundamentals.sort.MergeSort;
 
 public class OrderArrayST<Key extends Comparable<Key>, Value> implements SymbolTable<Key, Value> {
 
     private Key[] keys;
     private Value[] values;
-    private int ptr;
+    private int N;
 
     public OrderArrayST(int cap) {
         keys = (Key[]) new Comparable[cap];
         values = (Value[]) new Object[cap];
-        ptr = 0;
+        N = 0;
     }
 
     @Override
     public void put(Key key, Value val) {
-        keys[ptr] = key;
-        values[ptr++] = val;
-        if (ptr > 2)
-            MergeSort.sort(keys, (Key[]) new Comparable[ptr], 0, ptr);
+        if (key == null)
+            throw new IllegalArgumentException("key must not be null");
+
+        int i = rank(key);
+        if (i < N && keys[i].compareTo(key) == 0) {
+            if (val != null) {
+                values[i] = val;
+            } else {
+                delete(key);
+                N--;
+            }
+            return;
+        }
+
+        // inserts a new key-value pair
+        keys[N] = key;
+        values[N] = val;
+        shift(i, N);
+        N++;
     }
 
     @Override
     public Value get(Key key) {
-        int index = rank(key);
-        if (index < ptr && keys[index].compareTo(key) == 0) {
-            return values[index];
-        } else
+        if (isEmpty())
             return null;
+        int i = rank(key);
+        if (i < N && keys[i].compareTo(key) == 0)
+            return values[i];
+        return null;
     }
 
     @Override
@@ -40,8 +55,28 @@ public class OrderArrayST<Key extends Comparable<Key>, Value> implements SymbolT
         if (index >= 0 && keys[index].compareTo(key) == 0) {
             keys[index] = null;
             values[index] = null;
-            ptr--;
+            N--;
         }
+    }
+
+    private void shift(int lo, int hi) {
+        while (keys[lo].compareTo(keys[hi]) > 0) {
+            swap(keys, lo, hi);
+            swap(values, lo, hi);
+            lo++;
+        }
+    }
+
+    public static void swap(Comparable[] a, int i, int j) {
+        Comparable temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+
+    public static <T> void swap(T[] a, int i, int j) {
+        T temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
     }
 
     @Override
@@ -54,12 +89,12 @@ public class OrderArrayST<Key extends Comparable<Key>, Value> implements SymbolT
 
     @Override
     public boolean isEmpty() {
-        return ptr == 0;
+        return N == 0;
     }
 
     @Override
     public int size() {
-        return ptr;
+        return N;
     }
 
     @Override
@@ -86,7 +121,7 @@ public class OrderArrayST<Key extends Comparable<Key>, Value> implements SymbolT
     }
 
     private int rank(Key key) {
-        int lo = 0, hi = ptr - 1;
+        int lo = 0, hi = N - 1;
         while (lo <= hi) {
             int mid = lo + (hi - lo) / 2;
             int cmp = key.compareTo(keys[mid]);
@@ -97,6 +132,6 @@ public class OrderArrayST<Key extends Comparable<Key>, Value> implements SymbolT
             else
                 return mid;
         }
-        return -1;
+        return lo;
     }
 }

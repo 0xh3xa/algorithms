@@ -2134,9 +2134,12 @@ public int hashCode() {
         + Effectively eliminates clustering
         + Can allow table to become nearly full
         + More difficult to implement delete
+
     
+
     - Cuckoo hashing (linear-probing variant)
         + Hash key to two positions, insert key either position, if occupied reinsert displaced key into its alternative position (and recur)
+
         _ Constant worst case time for search
 
 * Applications
@@ -2171,12 +2174,90 @@ public int hashCode() {
         + Red-black BSTs: java.util. TreeMap, java.util. TreeSet
         + Hash tables: java.util. HashMap, java.util. IdentityHashMap
 
-### Set
+### Applications
 
-* Mathematical set: a collection of `distinct` keys
+* Sets
 
-* Operations:  `add(Key key), contains(Key key), remove(Key key), size(), iterator()`
+    - Mathematical set: a collection of `distinct` keys
+    - Operations:  `add(Key key), contains(Key key), remove(Key key), size(), iterator()`
 
+* Dictionary lookup
+
+    - Command-line arguments
+        + A comma-separated value (CVS) file
+        + Key field
+        + Value field
+    
+    - Ex 1. DNS lookup
+    - Ex 2. Amino acids
+    - Ex 3. Class list
+
+* File indexing
+
+    - Goal. Index a PC (or the web), given a list of files specified, create an index so that you can efficiently find all files contains a given query string
+
+    - Book index
+        + Goal. preprocess a text corpus to support concordance queries: given a word, find all occurrences with their immediate contexts
+
+* Sparse vectors
+    
+    - Matrix-vector multiplication
+
+    - Problem. sparse matrix-vector multiplication
+    
+    - Assumptions. Matrix dimension is 10,000 average nonzeros per row ~ 10
+
+    - Vector representations
+        
+        + 1D array (standard) representation
+            . Constant time access to elements
+            . Space proportional to N
+        
+        + Symbol table representation
+            . Key = index, value = entry
+            . Efficient iterator
+            . Space proportional to number of nonzeros
+
+``` java
+public class SparseVector {
+    private HashST<Integer, Double> v;
+
+    public SparseVector() {
+        v = new HashST<>(); // empty ST represents all 0s vector
+    }
+
+    public void put(int i, double x) {
+        v.put(i, x); // put all not zero values
+    }
+
+    public double get(int i) {
+        if (!v.contains(i)) return 0.0;
+        return v.get(i);
+    }
+
+    public Iterable<Integer> indices() {
+        return v.keys;
+    }
+
+    public double dot(double[] that) {
+        double sum = 0.0;
+        fo (int i : indices()) {
+            sum += that[i] * this.get(i);
+        }
+        return sum;
+    }
+}
+```
+
+    - Matrix representations
+        
+        + 2D array (standard) matrix representation. Each row of matrix is an array
+        + Space proportional of N<sup>2</sup>
+
+    - Sparse matrix representation: Each row of matrix is a sparse vector
+        
+        + Efficient access to elements
+        + Space proportional to number of nonzeros (plus N)
 
 ---
 

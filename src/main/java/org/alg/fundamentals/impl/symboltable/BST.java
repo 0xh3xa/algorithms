@@ -14,10 +14,10 @@ public class BST<Key extends Comparable<Key>, Value> implements SymbolTable<Key,
         private Node left, right;
         private int count;
 
-        public Node(Key key, Value val) {
+        public Node(Key key, Value val, int count) {
             this.key = key;
             this.val = val;
-            this.count = 0;
+            this.count = count;
         }
     }
 
@@ -26,13 +26,16 @@ public class BST<Key extends Comparable<Key>, Value> implements SymbolTable<Key,
 
     @Override
     public void put(Key key, Value val) {
+        if (key == null)
+            throw new IllegalArgumentException("key must not be null");
+
         root = put(root, key, val);
         size++;
     }
 
     private Node put(Node node, Key key, Value val) {
         if (node == null)
-            return new Node(key, val);
+            return new Node(key, val, 1);
         int cmp = key.compareTo(node.key);
         if (cmp < 0)
             node.left = put(node.left, key, val);
