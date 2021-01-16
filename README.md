@@ -2250,6 +2250,18 @@ public int hashCode() {
 
             . Space proportional to number of nonzeros
 
+    - Matrix representations
+        
+        + 2D array (standard) matrix representation. Each row of matrix is an array
+
+        + Space proportional of N<sup>2</sup>
+
+    - Sparse matrix representation: Each row of matrix is a sparse vector
+        
+        + Efficient access to elements
+
+        + Space proportional to number of nonzeros (plus N)
+
 ``` java
 public class SparseVector {
     private HashST<Integer, Double> v;
@@ -2280,18 +2292,6 @@ public class SparseVector {
     }
 }
 ```
-
-    - Matrix representations
-        
-        + 2D array (standard) matrix representation. Each row of matrix is an array
-
-        + Space proportional of N<sup>2</sup>
-
-    - Sparse matrix representation: Each row of matrix is a sparse vector
-        
-        + Efficient access to elements
-
-        + Space proportional to number of nonzeros (plus N)
 
 ---
 
