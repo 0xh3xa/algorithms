@@ -1,6 +1,5 @@
 package org.alg.advanced.graph.undirected.represent;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.alg.fundamentals.impl.Bag;

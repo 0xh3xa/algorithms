@@ -2079,7 +2079,9 @@ public class LinearProbingHashST<Key, Value> {
     - String hashCode() in Java 1.1
 
         + For long strings: only examine 8-9 evenly spaced characters
+
         
+
         + Benefit: save time in performing arithmetic
 
         + Downside: great potential for bad collision patterns
@@ -2151,7 +2153,9 @@ public int hashCode() {
         + Use linear probing, but skip a variable amount, not just 1 each time
 
         + Effectively eliminates clustering
+
         
+
         + Can allow table to become nearly full
 
         + More difficult to implement delete
@@ -2214,7 +2218,9 @@ public int hashCode() {
         + A comma-separated value (CVS) file
         + Key field
         + Value field
+
     
+
     - Ex 1. DNS lookup
     - Ex 2. Amino acids
     - Ex 3. Class list
@@ -2227,23 +2233,32 @@ public int hashCode() {
         + Goal. preprocess a text corpus to support concordance queries: given a word, find all occurrences with their immediate contexts
 
 * Sparse vectors
+
     
+
     - Matrix-vector multiplication
 
     - Problem. sparse matrix-vector multiplication
+
     
-    - Assumptions. Matrix dimension is 10,000 average nonzeros per row ~ 10
+
+    - Assumptions. Matrix dimension is 10, 000 average nonzeros per row ~ 10
 
     - Vector representations
+
         
+
         + 1D array (standard) representation
 
             . Constant time access to elements
 
             . Space proportional to N
         
+
         + Symbol table representation
+
         
+
             . Key = index, value = entry
 
             . Efficient iterator
@@ -2251,13 +2266,17 @@ public int hashCode() {
             . Space proportional to number of nonzeros
 
     - Matrix representations
+
         
+
         + 2D array (standard) matrix representation. Each row of matrix is an array
 
         + Space proportional of N<sup>2</sup>
 
     - Sparse matrix representation: Each row of matrix is a sparse vector
+
         
+
         + Efficient access to elements
 
         + Space proportional to number of nonzeros (plus N)
@@ -2302,7 +2321,9 @@ public class SparseVector {
 * Graph.: Set of vertices connected pairwise by edges
 
 * Why study graph algorithms?
+
     
+
     - Thousand of practical applications
 
     - Hundreds of graph algorithms known
@@ -2369,19 +2390,24 @@ public class SparseVector {
 
     - Implementations
 
-        1. Set-of-edges graph representation
+        01. Set-of-edges graph representation
+
             
+
             . Maintain a list of the edges (linked list or array)
 
             . In-efficient implementation make unusable in huge graph
         
-        2. Adjacency-matrix graph representation
+
+        02. Adjacency-matrix graph representation
+
             
+
             . Maintain a two-dimensional V-by-V boolean array, for each edge v-w in graph: adj[v][w] = adj[w][v] = true
 
             . Not very widely used because for a huge graph, you would have billion square number of entries
 
-        3. Adjacency-list graph representation
+        03. Adjacency-list graph representation
 
             . Maintain vertex-indexed array of lists
 
@@ -2516,7 +2542,9 @@ public class Graph {
         + If w marked, then w connected to s (why?)
         + If w connected to s, then w marked
         + If w unmarked, then consider last edge on a path from s to w that goes from a marked vertex to an unmarked one
+
     
+
     - Pf. [running time]
         + Each vertex connected to s is visited once
 
@@ -2529,9 +2557,9 @@ public class Graph {
     - Assumptions. Pictures has millions to billions of pixels
 
         + Solution. Build a grid graph
-            1. Vertex: pixel
-            2. Edge: between two adjacent gray pixels
-            3. Blob: all pixels connected to given pixel
+            01. Vertex: pixel
+            02. Edge: between two adjacent gray pixels
+            03. Blob: all pixels connected to given pixel
 
 ---
 
@@ -2611,31 +2639,191 @@ public class Graph {
 
 ### Connected components
 
-* Def. vertices v and w are connected if there is a path between them
-* Goal. preprocess graph to answer queries of the form is v connected to w? in constant time
-* Operations:  `connected(int v, int w), count(), id(int v)`
+* Connectivity queries
+
+    - Def. vertices v and w are connected if there is a path between them
+    - Goal. preprocess graph to answer queries of the form is v connected to w? in constant time
+    - Operations:  `connected(int v, int w), count(), id(int v)`
 
 * Union-find? not quite
 * Depth-first search. Yes
+
 * The relation "is connected to" is an equivalence relation
 
-    - Reflexive
-    - Symmetric
-    - Transitive
+    - Reflexive: v is connected to v
+    - Symmetric: if v is connected to w, then w is connected to v
+    - Transitive: if v connected to w and w connected to x, then v connected to x
 
 * Def. A connected component is a maximal set of connected vertices
 
+* Goal. Partition vertices into connected components
+
+* Demo
+
+    - To visit a vertex v:
+
+        + Mark vertex v as visited
+        + Recursively visit all unmarked vertices adjacent to v
+
+``` java
+public class ConnectedComponent {
+
+    private boolean[] marked;
+    private int[] id;
+    private int count;
+
+    public ConnectedComponent(Graph graph) {
+        marked = new boolean[graph.getVertices()];
+        id = new int[graph.getVertices()];
+        for (int s = 0; s < graph.getVertices(); s++) {
+            if (!marked[s]) {
+                dfs(graph, s);
+                count++;
+            }
+        }
+    }
+
+    private void dfs(Graph graph, int v) {
+        marked[v] = true;
+        id[v] = count; // all vertices discovered in same call have samd id
+        for (int w : graph.adj(v)) {
+            if (!marked[w])
+                dfs(graph, w);
+        }
+    }
+
+    /**
+     * two vertices are connected if have the same id
+     */
+    public boolean connected(int v, int w) {
+        return id[v] == id[w];
+    }
+
+    /**
+     * the id of the vert
+     */
+    public int id(int v) {
+        return id[v];
+    }
+
+    /**
+     * sum of the connected components in the graph
+     */
+    public int count() {
+        return count;
+    }
+}
+```
+
+* Applications
+
+    - Particle detection
+
+        + Given grayscale image of particles, identity blobs
+
+            01. Vertex: pixel
+            02. Edge: between two adjacent pixels with grayscale value >= 70 "black 0, white = 255"
+            03. Blob: connected components of 20-30 pixels
+
+        + Particle tracking. Track moving particle over time
+
+### Graph challenges
+
+* Graph-processing challenge 1 
+
+    - Problem. Is a graph bipartite?
+
+        + You can use DFS to solve it
+
+        + Divide the vertices into two subsets with property every edge connects one subset to another
+
+   
+
+           > 0-1
+            0-2
+            0-5
+            0-6
+
+            >1-3
+            2-3
+            2-4
+
+            >4-5
+            4-6
+
+        + Application: is dating graph bipartite? 
+
+    - Problem. Find a cycle
+
+        + You can use DFS to solve it
+
+        + Ex. 0-5-4-6-0
+
+    - Problem. the seven bridges of konigsberg [1736]
+
+        + Euler tour. Is there a (general) cycle that uses each edge exactly once?
+
+            . Answer. A connected grapy is Eulerian iff all vertices have `even` degree
+
+    - Problem. Find a (general) cycle that uses every edge exactly once
+
+        + Eulerian tour (classic graph-processing problem)
+
+    - Problem. Find a (cycle) that visits every vertex exactly once
+
+        + Sometimes called "Travelling sells person between cities and visit each city once"
+
+            . Hamiltonian cycle (classical NP-complete problem)
+
+    - Problem. Are two graphs identically except for vertex names?
+
+        + Graph isomorphism problem longstanding open problem
+
+        + No one knows how to classify the problem
+
+    - Problem. Lay out a graph in the plane without crossing edges?
+
+        + Classic problem in graph processing
+
+        + Linear-time DFS-based planarity algorithm discovered by Tarjan in 1970s
+
 ---
 
-## Directed graph
+## Directed graphs
 
 * Edges now have direction
-* Digraph: set of vertices connected pairwise by `direct` edges
-* Example, road network
 
-    - Vertex = intersection
-    - Edge = one-way street
-* Digraph application
+* Digraph: set of vertices connected pairwise by `directed` edges
+
+* Examples
+
+    -  road network
+        + Vertex = intersection
+        + Edge = one-way street
+
+    
+
+    - Political blogosphere graph
+        + Vertex = political blog
+        + Edge = link
+
+    - Overnight interbank load graph
+        + Vertex = bank
+        + Edge = overnight loan
+
+    - Implication graph
+        + Vertex = variable
+        + Edge = logical implication
+
+    - Combinatorial circuit
+        + Vertex = logical gate
+        + Edge = wire
+
+    - WordNet graph
+        + Vertex = synset
+        + Edge = hypernym relationship
+
+* Digraph applications
 
 |Digraph|Vertex|Directed Edge|
 |-------|------|-------------|
@@ -2648,75 +2836,522 @@ public class Graph {
 |Inheritance hierarchy |class|inherits from|
 
 * Some digraph problems:
+
     - Is there a directed path from s to t?
+
     - Shortest path, What's the shortest directed path from s to t?
+
+    
+
     - Topological sort, can you draw a digraph so that all edge point upwards?
+
+    
+
     - Strong connectivity, Is there a directed path between all pairs of vertices?
+
+    
+
     - Transitive closure, For which vertices v and w is there a path from v to w?
+
+    
+
     - PageRank, What is the importance of a web page?
 
-### Digraph api
+### Digraph API
 
 * Operations:  `addEdge(int v, int w), adj(int v), vertices(), edges(), reverse(), toString()`
 
-* In practice, use adjacency-lists representation
+``` java
+public class Digraph {
 
-    - Algorithms based on iterating over vertices adjacent to v
+    private static final String NEW_LINE = System.lineSeparator();
 
-    - Real-world graphs tend to be `sparse`
+    private final int vertices;
+    private int edges;
+    private Bag<Integer>[] adj;
+
+    public Digraph(int v) {
+        this.vertices = v;
+        this.edges = 0;
+        adj = (Bag<Integer>[]) new Bag[v];
+        for (int i = 0; i < v; i++) {
+            adj[i] = new Bag<Integer>();
+        }
+    }
+
+    public int getVertices() {
+        return vertices;
+    }
+
+    public int getEdges() {
+        return edges;
+    }
+
+    public void addEdge(int v, int w) {
+        adj[v].add(w);
+        edges++;
+    }
+
+    /**
+     * get number of adjacency to vertex v
+     */
+    public int degree(int v) {
+        return adj[v].size();
+    }
+
+    /**
+     * get adjacency to vertex v
+     */
+    public Iterable<Integer> adj(int v) {
+        return adj[v];
+    }
+
+    /**
+     * Returns the reverse of the digraph
+     */
+    public Digraph reverse() {
+        Digraph reverse = new Digraph(vertices);
+        for (int v = 0; v < vertices; v++) {
+            for (int w : adj(v)) {
+                reverse.addEdge(w, v);
+            }
+        }
+        return reverse;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        for (int v = 0; v < vertices; v++) {
+            builder.append(v + ": ");
+            for (int w : adj[v]) {
+                builder.append(w + " ");
+            }
+            builder.append(NEW_LINE);
+        }
+        return builder.toString();
+    }
+}
+```
+
+* Digraph representations
+
+    - In practice. Use adjacency-list representation
+
+        + Algorithms based on iterating over vertices adjacent to v
+
+        + Real-world graphs tend to be sparse
 
 | representation   | space         | add edge      | edge between v and w? | iterate over vertices adjacent to v? |
 |------------------|---------------|---------------|-----------------------|--------------------------------------|
 | list of edges    | E             | 1             | E                     | E                                    |
-| adjacency matrix | v<sub>2</sub> | 1<sub>|<sub>^</sub></sub></sub> | 1                     | v                                    |
-| adjacency lists  | E+V           | 1             | degree(v)             | degree(v)  
+| adjacency matrix | v<sup>2</sup> | 1<sup>+</sup> | 1      | v                                    |
+| adjacency lists  | E + V           | 1             | outdegree(v)             | outdegree(v)                            |
 
-### DFS Digraph search
+### Depth-first search in digraphs
 
 * Problem. find all vertices reachable from s along a directed path
+
 * Some method as for undirected graphs
 
     - Every undirected graph is digraph (with edges in both directions)
+
     - DFS is a `digraph` algorithm
 
 * Applications:
 
-    1\. Program control-flow analysis
+    01. Reachability application: Program control-flow analysis
 
-        - Vertex = basic block of instructions
-        - Edge = jump
-        - Benefits
-            + Dead-code elimination, find and remove unreachable code
-            + Infinite-loop detected, Determine whether exit is unreachable
+        - Every program is a digraph
 
-    2\. Mark-sweep garbage collector
+            + Vertex = basic block of instructions (straight-line program)
 
-        - Vertex = object
-        - Edge = reference
+            + Edge = jump
+
+        - Dead-code elimination
+
+            
+
+            + find and remove unreachable code
+
+        - Infinite-loop detected
+
+        
+
+            + Determine whether exit is unreachable
+
+    02. Mark-sweep garbage collector
+
+        
+
+        -  Every data structure is a digraph
+
+            + Vertex = object
+            + Edge = reference
+
+        - Memory cost. Uses 1 extra mark bit per object (plus DFS stack)
+
+        - Roots. Objects known to be directly accessible by program (e.g. stack)
+
+        - Reachable objects. Objects indirectly accessible by program (starting at a root and following a chain of pointers)
+
+        - Mark-sweep algorithm. [McCarthy, 1960]
+            + Mark: mark all reachable objects
+            + Sweep: if object is unmarked, it is garbage (so add to free list)
 
 * DFS enables direct solution of simple digraph problems
 
-    1\. Reachability
-    2\. Path finding
-    3\. Topological sort
-    4\. Directed cycle direction
+    01. Reachability
+    02. Path finding
+    03. Topological sort
+    04. Directed cycle direction
 
 * Basis for solving difficult digraph problems
 
-    1\. 2- satisfiability
-    2\. Directed Euler path
-    3\. Strongly-connected components
+    01. 2-satisfiability
+    02. Directed Euler path
+    03. Strongly-connected components
 
-### BFS Digraph search
+### Breadth-first search in digraphs
 
 * BFS is a `digraph` algorithms
-* BFS computes shortest paths (fewest number of edges) from s to all other vertices n a digraph in time proportional to E+V
+
+* Proposition. BFS computes shortest paths (fewest  number of edges) from s to all other vertices n a digraph in time proportional to `E + V`
+
+* Multiple-source shortest paths
+
+    - Given. a digraph and set of source vertices, find shortest path from any vertex in the set to each other vertex
+
+    - Q. How to implement multi-source constructor?
+        + A. Use BFS, but initialize by `enqueuing all source vertices`
+
+* Web crawler
+
+    - Goal. Crawl web, starting from some root web page, say www.princeton.edu
+
+        + Solution. [BFS with implicit digraph]
+
+            . Choose root web page as source s
+
+            . Maintain a Queue of websites to explore
+
+            . Maintain a SET of discovered websites
+
+            . Dequeue the next website and enqueue websites to which it links (provided you haven't done so before)
+
+    - Q. Why not use DFS?
+
+        + A. You gonna far away for searching web, some web page traps new page
+
+ `Algorithm`
+
+``` java
+public class BareBonesWebCrawler {
+
+    private Queue<String> queue = new ArrayQueue<>();
+    private Set<String> discovered = new HashSet<>();
+    private static final String REGEX = "https://(\\w+\\.)*(\\w+)";
+
+    public BareBonesWebCrawler(String root) {
+        queue.enqueue(root);
+        discovered.add(root);
+        bfs();
+    }
+
+    private void bfs() {
+        while (!queue.isEmpty()) {
+            String v = queue.dequeue();
+            System.out.println(v);
+            String input = readRawHtml(v);
+            Pattern pattern = Pattern.compile(REGEX);
+            Matcher matcher = pattern.matcher(input);
+
+            while (matcher.find()) {
+                String w = matcher.group();
+                if (!discovered.contains(w)) {
+                    discovered.add(w);
+                    queue.enqueue(w);
+                }
+            }
+        }
+    }
+
+    private String readRawHtml(String url) {
+        URL u;
+        try {
+            u = new URL(url);
+            URLConnection conn = u.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            StringBuffer buffer = new StringBuffer();
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                buffer.append(inputLine);
+            }
+            in.close();
+            // System.out.println(buffer.toString());
+            return buffer.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public static void main(String[] args) {
+        new BareBonesWebCrawler("https://github.com/openjdk");
+    }
+}
+```
 
 ### Topological sort
 
-* DAG Directed acyclic graph, has no cycle
+* Goal. Given a set of tasks to completed with precedence constraints in which order should we schedule with the tasks?
 
-### Strong component
+* Digraph model
+
+    - Vertex = task
+
+    - Edge = precedence constraint
+
+* DAG
+    - `acyclic` Digraph with no cycle
+
+    - If you have cycle there is no way to solve the problem
+
+* Topological sort. Redraw DAG so all edges points upwards
+
+* Solution. DFS
+
+* Demo
+
+    01. run depth-first search
+    02. Return vertices in reverse post order
+
+ `algorithm`
+
+``` java
+public class DepthFirstOrder {
+
+    private boolean[] marked;
+    private Stack<Integer> reverseOrder;
+
+    public DepthFirstOrder(Digraph graph) {
+        reverseOrder = new ArrayStack<>();
+        marked = new boolean[graph.getVertices()];
+        for (int v = 0; v < graph.getVertices(); v++) {
+            if (!marked[v]) {
+                dfs(graph, v);
+            }
+        }
+    }
+
+    private void dfs(Digraph graph, int v) {
+        marked[v] = true;
+        for (int w : graph.adj(v)) 
+            if (!marked[w]) {
+                dfs(graph, w);
+        reverseOrder.push(v);
+    }
+
+    // return all vertices in reverse DFS post-order
+    public Stack<Integer> reversePost() {
+        return reverseOrder;
+    }
+}
+```
+
+* Used for package management, like maven, brew, etc
+
+* Proposition. Reverse DFS post-order of a DAG is a topological order
+
+    - Pf. [correctness] Consider any edge v -> w. When dfs(v) is called
+
+        + Case 1: dfs(w) has already been called and returned. Thus, w was done before v
+
+        + Case 2: dfs(w) has not yet been called, dfs(w) will get called directly on indirectly by dfs(v) and will finish before dfs(v). Thus, w will be done before v
+
+        + Case 3: dfs(w) has already been called, but has not yet returned. Can't happen in a DAG: function call stack contains path from w to v, so v->w would complete a cycle
+
+* Directed cycle detection
+
+    - Proposition. A digraph has a topological order iff no directed cycle
+
+        + Pf.
+
+            01. If directed cycle, topological order impossible
+
+            
+
+            02. If directed cycle, DFS-based algorithm finds a topological order
+
+    - Goal. Given a digraph. find a directed cycle
+
+        + Solution. DFS
+
+    - Applications
+
+        01. Scheduling. Given a set of tasks to be completed with precedence constraints, in what order should we schedule the tasks??
+
+            . Remark. A directed cycle implies scheduling problem is infeasible
+
+        2. Java compiler does cycle detection (cyclic inheritance)
+
+        3. Microsoft Excel does cycle detection (and has a circular reference toolbar!)
+
+ `algorithm`
+
+``` java
+public class DirectedCycleDetector {
+
+    private boolean[] marked;
+    private int[] edgeTo;
+    private Stack<Integer> cycle; // vertices on a cycle
+    private boolean[] onStack; // vertices on recursive call stack
+
+    public DirectedCycleDetector(Digraph graph) {
+        onStack = new boolean[graph.getVertices()];
+        marked = new boolean[graph.getVertices()];
+        edgeTo = new int[graph.getVertices()];
+
+        for (int v = 0; v < graph.getVertices(); v++) {
+            if (!marked[v] && cycle == null)
+                dfs(graph, v);
+        }
+    }
+
+    private void dfs(Digraph graph, int v) {
+        onStack[v] = true;
+        marked[v] = true;
+        for (int w : graph.adj(v)) {
+            if (cycle != null) {
+                // short circuit if directed cycle found
+                return;
+            } else if (!marked[w]) {
+                // found new vertex, so recur
+                edgeTo[w] = v;
+                dfs(graph, w);
+            } else if (onStack[w]) {
+                // trace back directed cycle
+                cycle = new Stack<>();
+                for (int x = v; x != w; x = edgeTo[x]) {
+                    cycle.push(x);
+                }
+                cycle.push(w);
+                cycle.push(v);
+            }
+        }
+        onStack[v] = false;
+    }
+
+    public boolean hasCycle() {
+        return cycle != null;
+    }
+
+    public Iterable<Integer> cycle() {
+        return cycle;
+    }
+}
+```
+
+### Strong components
+
+* Def. Vertices v and w are `strongly connected` if there is a directed path from v to w and a directed path from w to v
+
+* Key property. Strong connectivity is an `equivalence relation`
+
+    
+
+    - v is strongly connected to v
+    - If v is strongly connected to w, then w is strongly connected to v
+    - If v is strongly connected to w and w connected to x, then v is strongly connected x
+
+* v and w are `connected` if there is a path between v and w
+
+* Applications
+
+    - Food web graph
+
+        + Vertex = species
+        + Edge = from producer to consumer
+        + Strong component. Subset of species with common energy flow
+
+    - Software modules
+
+        + Vertex = software module
+        + Edge = from module to dependency
+        + Strong component. Subset of mutually interacting modules
+            01. Approach 1. Package strong components together
+            02. Approach 2. Use to improve design
+
+* Kosaraju-Sharir algorithm
+
+    - Reverse graph. Strong components in G are same as G<sup>R</sup>
+
+    - Kernel DAG. Contact each strong components into a single vertex
+
+    - Idea
+        + Compute topological order (reverse post-order) in kernel DAG
+        + Run DFS, considering vertices in reverse topological order
+
+    - Demo
+
+        01. Phase 1. Compute reverse postorder in G<sup>R</sup>
+        02. Phase 2. Run DFS in G, visiting unmarked vertices in reverse postorder of G<sup>R</sup>
+
+    - Simple (but mysterious) algorithm for computing strong components
+
+    - Proposition. Kosaraju-Sharir algorithm computes the strong components of a digraph in time proportional to E + V
+
+        + pf.
+
+            1. Running time: bottleneck is running DFS twice (and computing G<sup>R</sup>)
+            2. Correctness: tricky
+            3. Implementation: easy
+
+`algorithm`
+
+```java
+public class KosarajuSharirCC {
+
+    private boolean[] marked;
+    private int[] id;
+    private int count;
+
+    public KosarajuSharirCC(Digraph graph) {
+        marked = new boolean[graph.getVertices()];
+        id = new int[graph.getVertices()];
+        count = 0;
+        DepthFirstOrder order = new DepthFirstOrder(graph);
+        for (int s : order.reversePost()) {
+            if (!marked[s]) {
+                dfs(graph, s);
+                count++;
+            }
+        }
+    }
+
+    private void dfs(Digraph graph, int v) {
+        marked[v] = true;
+        id[v] = count;
+        for (int w : graph.adj(v)) {
+            if (!marked[w]) {
+                dfs(graph, w);
+            }
+        }
+    }
+
+    public boolean stronglyConnected(int v, int w) {
+        return id[v] == id[w];
+    }
+
+    public int id(int v) {
+        return id[v];
+    }
+
+    public int count() {
+        return count;
+    }
+}
+```
 
 ---
 
@@ -2962,8 +3597,10 @@ public final class String implements Comparable<String> {
 
 * Frequency of operations = key compares
 * Assumption about keys
+
     - Assumption. Keys are integers between 0 and R-1
     - Implication. Can use key as an array index
+
     - Applications
 
         1\. Sort string by first letter
@@ -3324,9 +3961,11 @@ public class TriesST<Value> {
         2\. Press 0 to see all completion options
 
 * Patricia trie
+
     - Remove one-way branching
     - Each node represents a sequence of characters
     - Implementation: one step beyond this course
+
     - Applications
 
         1\. Database search

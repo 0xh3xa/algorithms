@@ -27,8 +27,9 @@ public class BipartiteDetector {
             if (!marked[w]) {
                 color[w] = !color[v];
                 dfs(graph, w);
-            } else if (color[w] == color[v])
+            } else if (color[w] == color[v]) {
                 isTwoColorable = false;
+            }
         }
     }
 

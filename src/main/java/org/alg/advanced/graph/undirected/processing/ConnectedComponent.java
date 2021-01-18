@@ -3,7 +3,7 @@ package org.alg.advanced.graph.undirected.processing;
 import org.alg.advanced.graph.undirected.represent.Graph;
 
 /**
- * Depth-first search to find connected components in a graph
+ * Depth-first search to find all connected components in a graph
  */
 public class ConnectedComponent {
 
@@ -24,7 +24,7 @@ public class ConnectedComponent {
 
     private void dfs(Graph graph, int v) {
         marked[v] = true;
-        id[v] = count;
+        id[v] = count; // all vertices discovered in same call have samd id
         for (int w : graph.adj(v)) {
             if (!marked[w])
                 dfs(graph, w);

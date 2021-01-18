@@ -29,19 +29,15 @@ public class DirectedCycleDetector {
         onStack[v] = true;
         marked[v] = true;
         for (int w : graph.adj(v)) {
-
-            // short circuit if directed cycle found
-            if (cycle != null)
+            if (cycle != null) {
+                // short circuit if directed cycle found
                 return;
-
-            // found new vertex, so recur
-            else if (!marked[w]) {
+            } else if (!marked[w]) {
+                // found new vertex, so recur
                 edgeTo[w] = v;
                 dfs(graph, w);
-            }
-
-            // trace back directed cycle
-            else if (onStack[w]) {
+            } else if (onStack[w]) {
+                // trace back directed cycle
                 cycle = new Stack<>();
                 for (int x = v; x != w; x = edgeTo[x]) {
                     cycle.push(x);

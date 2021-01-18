@@ -38,8 +38,8 @@ public class DepthFirstPaths {
         if (!hasPathTo(v))
             return null;
         Stack<Integer> path = new ArrayStack<>();
-        for (int x = v; x != s; x = edgeTo[x]) {
-            path.push(x);
+        for (int n = v; n != s; n = edgeTo[n]) {
+            path.push(n);
         }
         path.push(s);
         return path;
