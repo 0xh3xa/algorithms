@@ -2302,7 +2302,7 @@ public class SparseVector {
 * Graph.: Set of vertices connected pairwise by edges
 
 * Why study graph algorithms?
-
+    
     - Thousand of practical applications
 
     - Hundreds of graph algorithms known
@@ -2367,6 +2367,26 @@ public class SparseVector {
 
     - Applications: convert between names and integers which symbol table
 
+    - Implementations
+
+        1. Set-of-edges graph representation
+            
+            . Maintain a list of the edges (linked list or array)
+
+            . In-efficient implementation make unusable in huge graph
+        
+        2. Adjacency-matrix graph representation
+            
+            . Maintain a two-dimensional V-by-V boolean array, for each edge v-w in graph: adj[v][w] = adj[w][v] = true
+
+            . Not very widely used because for a huge graph, you would have billion square number of entries
+
+        3. Adjacency-list graph representation
+
+            . Maintain vertex-indexed array of lists
+
+            . Widely used
+
 * Operations:  `addEdge(int v, int w), adj(int v), V(), E(), toString()`
 
  `Algorithm`
@@ -2408,7 +2428,6 @@ public class Graph {
     public Iterable<Integer> adj(int v) {
         return adj[v]; 
     }
-
 }
 ```
 
@@ -2416,13 +2435,13 @@ public class Graph {
 
     - Algorithms based on iterating over vertices adjacent to v
 
-    - Real-world graphs tend to be `sparse`
+    - Real-world graphs tend to be `sparse` (huge number of vertices small average vertex degree)
 
 | representation   | space         | add edge      | edge between v and w? | iterate over vertices adjacent to v? |
 |------------------|---------------|---------------|-----------------------|--------------------------------------|
 | list of edges    | E             | 1             | E                     | E                                    |
-| adjacency matrix | v<sub>2</sub> | 1<sub>*</sub> | 1                     | v                                    |
-| adjacency lists  | E+V           | 1             | degree(v)             | degree(v)                            |
+| adjacency matrix | v<sup>2</sup> | 1<sup>*</sup> | 1                     | v                                    |
+| adjacency lists  | E + V         | 1             | degree(v)             | degree(v)                            |
 
 ---
 
@@ -2445,10 +2464,12 @@ public class Graph {
 
 * Goal: systematically search through a graph
 
-* To visit a vertex v:    
+* Idea: Mimic maze exploration
 
-    - Mark v as visited
-    - Recursively visit all unmarked vertices w adjacent to v
+* Typically applications:
+
+    - Find all vertices connected to a given source vertex
+    - Find a path between two vertices
 
 * Design pattern: We decouple Graph representation from graph-processing routine
 
@@ -2456,12 +2477,18 @@ public class Graph {
     - Pass the Graph to a graph-processing routine
     - Query the graph-processing routine for information
 
-* Put unvisited vertices on a `stack`
+* Depth-first search demo
+
+    - To visit a vertex v:    
+
+        + Mark v as visited
+        + Recursively visit all unmarked vertices w adjacent to v
+
+    - Put unvisited vertices on a `stack`
 
  `Algorithm`
 
 ``` java
-
     public class DepthFirstPath {
         private boolean[] marked; 
         private int[] edgeTo; 
@@ -2473,15 +2500,38 @@ public class Graph {
 
         private void dfs(Graph G, int v) {
             marked[v] = true; 
-            for (int w : G.adj(v))
+            for (int w : G.adj(v)) {
                 if (!marked[w]) {
                     dfs(G, w); 
                     edgeTo[w] = v; 
                 }
+            }
         }
     }
-
 ```
+
+* Proposition. DFS marks all vertices connected to s in time proportional to the sum of their degrees
+
+    - PF. [correctness]
+        + If w marked, then w connected to s (why?)
+        + If w connected to s, then w marked
+        + If w unmarked, then consider last edge on a path from s to w that goes from a marked vertex to an unmarked one
+    
+    - Pf. [running time]
+        + Each vertex connected to s is visited once
+
+* Proposition. After DFS, can find vertices connected to s in constant time and can find a path to s (if not exist) in time proportional to its length
+
+    - Pf. edgeTo[] is parent-link representation of a tree rooted at s
+
+* Challenge. Flood fill (Photoshop magic wand)
+
+    - Assumptions. Pictures has millions to billions of pixels
+
+        + Solution. Build a grid graph
+            1. Vertex: pixel
+            2. Edge: between two adjacent gray pixels
+            3. Blob: all pixels connected to given pixel
 
 ---
 
@@ -2489,19 +2539,22 @@ public class Graph {
 
 * Explore vertices and it's adjacency then go next vertices for exploration
 
+* Not recursive algorithm, it uses a queue
+
 * Put s into a FIFO queue, and mark s as visited, Repeat until the queue is empty
 
     - Remove the least recently added vertex v
     - Add each of v's unvisited neighbors to the queue, and mark them as visited
 
-* BFS computes the shortest paths (fewest number of edges) from s to all other vertices in a graph in time proportional to E + V
+* Proposition. BFS computes the shortest paths (fewest number of edges) from s to all other vertices in a graph in time proportional to `E + V`
 
-* Application: routing
+    - Pf. [correctness] Queue always consists of zero or more vertices of distance k from s, followed by zero more vertices of distance k + 1
+
+    - Pf. [running time] Each vertex connected to s is visited once
 
  `Algorithm`
 
 ``` java
-
     public class BreadthFirstPath {
         private boolean[] marked; 
         private int[] edgeTo; 
@@ -2525,10 +2578,19 @@ public class Graph {
             }
         }
     }
-
 ```
 
+* Applications
+
+    - routing: Fewest number of hops in a communication network
+
 ### BFS vs. DFS
+
+* Depth-first search. Put unvisited vertices on a `stack`
+
+* Breadth-first search. Put unvisited vertices on a `queue`
+
+* Shortest path. Find from s to w that uses `fewest number of edges`
 
 ``` 
 
