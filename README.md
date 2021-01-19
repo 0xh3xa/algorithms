@@ -460,7 +460,7 @@ to allow sort any generic data types
 * Scan from left to right  
 * Find the index of `min` of smallest remaining entry, then swap `a[i]` and `a[min]`  `-&#8594;`  `Time Complexity O(N<sup>2</sup>)` and doesn't sensitive if the input is sorted  
 
- `Algorithm`
+ `Code`
 
 ``` java
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
@@ -487,7 +487,7 @@ to allow sort any generic data types
 
 * Array called partially sorted when number of elements to be changed less than or equal cN
 
- `Algorithm`
+ `Code`
 
 ``` java
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
@@ -506,7 +506,7 @@ to allow sort any generic data types
 
 * Complexity N<sup>3/2</sup>
 
- `Algorithm`
+`Code`
 
 ``` java
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
@@ -542,7 +542,7 @@ to allow sort any generic data types
     - Swap `a[i]` and `a[r]`
     - Complexity: `O(N)`
 
- `Algorithm`
+`Code`
 
 ``` java
     public static <Item extends Comparable<Item>> void shuffle(Item[] arr) {
@@ -620,7 +620,7 @@ to allow sort any generic data types
 
 * Complexity `N lg N`
 
- `Algorithm`
+ `Code`
 
 ``` java
     public static <Item extends Comparable<Item>> void sort(Item[] arr, Item[] aux, int lo, int hi) {
@@ -688,7 +688,7 @@ Mergesort `N lg N`
 	02. Repeat for subarrays of size 2, 4, 8, 16, ... 
 	03. Slower than Recursive by 10%
 
- `Algorithm`
+`Code`
 
 ``` java
     public static <Item extends Comparable<Item>> void sortBottomUp(Item[] arr) {
@@ -735,7 +735,7 @@ Mergesort `N lg N`
 * Worst case in quicksort will not gonna happen
 * Problems in quick sort
 
- `Algorithm`
+`Code`
 
 ``` java
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
@@ -885,7 +885,7 @@ Mergesort `N lg N`
             . (a[i] > v): exchange a[gt] with a[i]; decrement gt
             . (a[i] == v): increment i
 
- `Algorithm`
+`Code`
 
 ``` java
     private static <Item extends Comparable<Item>> void sort(Item[] arr, int lo, int hi) {
@@ -1098,7 +1098,7 @@ Mergesort `N lg N`
     - Disadvantages
         + Must create new object for each data type value
 
- `Algorithm`
+`Code`
 
 ``` java
     public void insert(Item key) {
@@ -1193,7 +1193,7 @@ while (N > 1) {
     - Make poor usage of cache memory
     - Not stable
 
- `Algorithm`
+`Code`
 
 ``` java
     public final static <Item extends Comparable<Item>> void sort(Item[] pq) {
@@ -1436,7 +1436,7 @@ Iterable<Key> keys()
 
 * Representation in java using a Node has key, value and reference to left and right
 
- `Algorithm`
+ `Code`
 
 ``` java
     public void put(Key key, Value val) {
@@ -2415,7 +2415,7 @@ public class SparseVector {
 
 * Operations:  `addEdge(int v, int w), adj(int v), V(), E(), toString()`
 
- `Algorithm`
+`Code`
 
 ``` java
 public class Graph {
@@ -2512,7 +2512,7 @@ public class Graph {
 
     - Put unvisited vertices on a `stack`
 
- `Algorithm`
+`Code`
 
 ``` java
     public class DepthFirstPath {
@@ -2580,7 +2580,7 @@ public class Graph {
 
     - Pf. [running time] Each vertex connected to s is visited once
 
- `Algorithm`
+`Code`
 
 ``` java
     public class BreadthFirstPath {
@@ -2841,19 +2841,11 @@ public class ConnectedComponent {
 
     - Shortest path, What's the shortest directed path from s to t?
 
-    
-
     - Topological sort, can you draw a digraph so that all edge point upwards?
-
-    
 
     - Strong connectivity, Is there a directed path between all pairs of vertices?
 
-    
-
     - Transitive closure, For which vertices v and w is there a path from v to w?
-
-    
 
     - PageRank, What is the importance of a web page?
 
@@ -3043,9 +3035,9 @@ public class Digraph {
 
         + A. You gonna far away for searching web, some web page traps new page
 
- `Algorithm`
+`Code`
 
-``` java
+```java
 public class BareBonesWebCrawler {
 
     private Queue<String> queue = new ArrayQueue<>();
@@ -3126,7 +3118,7 @@ public class BareBonesWebCrawler {
     01. run depth-first search
     02. Return vertices in reverse post order
 
- `algorithm`
+`Code`
 
 ``` java
 public class DepthFirstOrder {
@@ -3197,7 +3189,7 @@ public class DepthFirstOrder {
 
         3. Microsoft Excel does cycle detection (and has a circular reference toolbar!)
 
- `algorithm`
+`Code`
 
 ``` java
 public class DirectedCycleDetector {
@@ -3307,7 +3299,7 @@ public class DirectedCycleDetector {
             02. Correctness: tricky
             03. Implementation: easy
 
- `algorithm`
+`Code`
 
 ``` java
 public class KosarajuSharirCC {
@@ -3554,7 +3546,7 @@ public class MST {
 
         . To add v-w to T, merge sets containing v and w
 
- `algorithm`
+`Code`
 
 ``` java
 public class KruskalMST {
@@ -3648,7 +3640,7 @@ public class KruskalMST {
 
     - Repeat until *V-1* edges
 
- `algorithm`
+`Code`
 
 ``` java
 public class LazyPrimMST {
@@ -3819,11 +3811,11 @@ public class IndexMinPQ<Key extends Comparable<Key>> {
 
 ## Shortest path
 
-* Given an edge weighted digraph, find the shortest path from s to t
+* Given an edge weighted digraph, find the shortest path from *s* to *t*
 
 * Applications:
 
-    - Google maps
+    - Map routing
     - Car navigation
     - Network routing protocols (OSPF, BGP, RIP)
     - Optimal pipelining of VLSI chip
@@ -3842,51 +3834,95 @@ public class IndexMinPQ<Key extends Comparable<Key>> {
     - Euclidean weights
 
 * Cycles?
+
     - No directed cycles
     - No "negative cycles"
 
 ### Weighted directed edge API
 
-* DirectedEdge API
+* Similar to Edge for undirected graphs, but a bit simpler
+
+`Code`
 
 ``` java
 public class DirectedEdge {
 
-    DirectedEdge(int v, int w, double weight)
+    private final int v, w;
+    private final double weight;
 
-    int from()
+    public DirectedEdge(int v, int w, double weight) {
+        this.v = v;
+        this.w = w;
+        this.weight = weight;
+    }
 
-    int to()
+    public int from() {
+        return v;
+    }
 
-    double weight()
+    public int to() {
+        return w;
+    }
 
-    String toString()
+    public double weight() {
+        return weight;
+    }
 }
-
 ```
 
-* Edge-weighted digraph API
+### Edge-weighted digraph API
+
+* Same as EdgeWeightedGraph except replace Graph with Digraph
+
+`Code`
 
 ``` java
 public class EdgeWeightedDigraph {
 
-    EdgeWeightedDigraph(int v)
+    private final int vertices;
+    private final Bag<DirectedEdge>[] adj;
 
-    void addEdge(DirectedEdge e)
+    public EdgeWeightedDigraph(int vertices) {
+        this.vertices = vertices;
+        adj = (Bag<DirectedEdge>[]) new Bag[vertices];
+        for (int v = 0; v < vertices; v++) {
+            adj[v] = new Bag<>();
+        }
+    }
 
-    Iterable<DirectedEdge> adj(int v)
+    public void addEdge(DirectedEdge e) {
+        int v = e.from();
+        adj[v].add(e);
+    }
 
-    int V()
-
-    int E()
-
-    Iterable<DirectedEdge> edges()
-
-    String toString()
+    public Iterable<DirectedEdge> adj(int v) {
+        return adj[v];
+    }
 }
 ```
 
-`TODO` continue from Minimum spanning tree
+### Single-source shortest paths API
+
+* Goal. Find the shortest path from s to every other vertex
+
+`API`
+
+```java
+public class SP {
+    SP(EdgeWeightedDigraph graph, int s)
+
+    double distTo(int v)
+    
+    Iterable<DirectedEdge> pathTo(int v)
+    
+    boolean hasPathTo(int v)
+}
+```
+
+### Shortest paths properties
+
+* Goal. Find the shortest path from s to every other vertex
+
 ---
 
 ## Strings
@@ -4013,7 +4049,7 @@ public final class String implements Comparable<String> {
 
     - R is Radix from table above
 
- `algorithm`
+`Code`
 
 ``` java
     public final static void sort(char[] a) {
@@ -4077,7 +4113,7 @@ public static void sort(String[] a, int W) { // Fixed length W strings
     - Partition array into R pieces according to first character (use key-indexed counting)
     - Recursively sort all strings that start ith each character (key-indexed counts delineate subarrays to sort)
 
- `Algorithm`
+`Code`
 
 ``` java
   public final static void sort(String[] a) {
@@ -4410,7 +4446,7 @@ public class TriesST<Value> {
 * Worst case ~ <i>M N</i> char compares
 * Brute-force algorithm can be slow if text and pattern are repetitive
 
- `algorithm`
+`Code`
 
 ``` java
     public final static int indexOf(String text, String sub) {
@@ -4493,7 +4529,7 @@ public class TriesST<Value> {
 
 * Proposition. KMP constructs dfa[][] in time and space proportional to RM
 
- `algorithm`
+`Code`
 
 ``` java
 public class KMP {
@@ -4553,7 +4589,7 @@ public class KMP {
 
 * Boyer-Moore variant. Can improve worst case to ~ `3 N` by adding a KMP-like rule to guard against repetitive patterns
 
- `algorithm`
+`Code`
 
 ``` java
 public class BoyerMoore {
@@ -4609,7 +4645,7 @@ public class BoyerMoore {
     - Extends to 2d patterns
     - Extends to finding multiple patterns
 
- `algorithm`
+`Code`
 
 ``` java
 public class RabinKarp {
