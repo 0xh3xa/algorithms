@@ -3304,12 +3304,12 @@ public class DirectedCycleDetector {
         + pf.
 
             1. Running time: bottleneck is running DFS twice (and computing G<sup>R</sup>)
-            2. Correctness: tricky
-            3. Implementation: easy
+            02. Correctness: tricky
+            03. Implementation: easy
 
-`algorithm`
+ `algorithm`
 
-```java
+``` java
 public class KosarajuSharirCC {
 
     private boolean[] marked;
@@ -3355,12 +3355,16 @@ public class KosarajuSharirCC {
 
 ---
 
-## MST (Minimum spanning tree)
+## MST (Minimum spanning trees)
 
-* Edge-weighted graph: is a graph with weights or costs with each edge
-* Spanning tree connected sub graph with no cycles that includes all vertices
-* Minimum Spanning tree: spanning tree who weight no larger than the weight of any other spanning tree
-* MST is fundamental problem with diverse application
+* Given. Undirected graph G with positive edge weights (connected)
+
+* Def. A `spanning tree` of G is a subgraph T that is both a `tree` (connected and acyclic) and `spanning` (includes all of the vertices)
+
+* Goal. Find a min weight spanning tree
+
+* Applications
+
     - Cluster analysis
     - Real-time face verification
     - Image registration with renyi entropy
@@ -3372,6 +3376,7 @@ public class KosarajuSharirCC {
 ### Greedy algorithm
 
 * Simplifying assumptions
+
     - Edge weights are `distinct`
 
     - Graph is `connected`
