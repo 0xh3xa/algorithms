@@ -481,7 +481,7 @@ to allow sort any generic data types
 ## Insertion sort
 
 * Scan from left to right  
-* Swap `a[i]` with each larger entry to its left &#8592;  `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`
+* Swap `a[i]` with each larger entry to its left &#8592; `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`
 
 * Fast when the array is partially sorted `O(N)`
 
@@ -3393,7 +3393,9 @@ public class KosarajuSharirCC {
     - Cut property. Given any cut, the crossing edge of min weight is the MST
 
     - Pf. Suppose min-weight crossing edge *e* is not in the MST
+
         
+
         + Adding e to the MST creates a cycle
         + Some other edge *f* in cycle must be a crossing edge
         + Removing *f* and adding *e* is also a spanning tree
@@ -3415,7 +3417,7 @@ public class KosarajuSharirCC {
 * Efficient implementations. Choose cut? find min-weight edge?
     1. Kruskal's algorithm [stay tuned]
     2. Prim's algorithm [stay tuned]
-    3. Boruvka's algorithm
+    03. Boruvka's algorithm
 
 * Q. What if edge weights are not all distinct?
     - A. Greedy MST algorithm still correct if equal weights are present!
@@ -3429,7 +3431,7 @@ public class KosarajuSharirCC {
 
 * Idiom for processing an edge e: `int v = e.either(), w = e.other(v);`
 
-```java
+``` java
 public class Edge implements Comparable<Edge> {
 
     private final int v, w;
@@ -3471,7 +3473,7 @@ public class Edge implements Comparable<Edge> {
 
 * Graph API which has weighted edges, we will use `EdgeWeightedGraph`
 
-```java
+``` java
 public class EdgeWeightedGraph {
 
     private final int vertices;
@@ -3509,7 +3511,7 @@ public class EdgeWeightedGraph {
 
     - Q. How to represent the MST?
 
-```java
+``` java
 public class MST {
     MST(EdgeWeightedGraph G)
     Iterable<Edge> edges() // edges in MST
@@ -3540,11 +3542,11 @@ public class MST {
 
 * Challenge. Would adding edge *v-w* to tree *T* create a cycle? if not, add it
 
-    + *V* run DFS from v, check if w is reachable (T has at most V-1 edges)
+    - *V* run DFS from v, check if w is reachable (T has at most V-1 edges)
 
-    + <i>log<sup>*</sup>V</i> use union-find data structure
+    - <i>log<sup>*</sup>V</i> use union-find data structure
 
-    + Efficient solution. Use the `Union-find` data structure
+    - Efficient solution. Use the `Union-find` data structure
 
         . Maintain a set for each connected component in T
 
@@ -3552,9 +3554,9 @@ public class MST {
 
         . To add v-w to T, merge sets containing v and w
 
-`algorithm`
+ `algorithm`
 
-```java
+``` java
 public class KruskalMST {
 
     private double weight;
@@ -3604,7 +3606,9 @@ public class KruskalMST {
 * Proposition. Prim's algorithm computes the MST
 
     - Pf. Prime's algorithm is a special case of the greedy MST algorithm
+
         
+
         + Suppose edge *e* = min weight edge connecting a vertex on the tree to a vertex not on the tree
 
         + Cut = set of vertices connected on tree
@@ -3619,7 +3623,9 @@ public class KruskalMST {
     - *lg E* &#8592; Priority Queue
 
 ### Prim's algorithm: lazy implementation
+
     
+
 * Challenge. Find the min weight edge with exactly one endpoint in *T*
 
     - Lazy solution. Maintain a PQ of `edges` with (at least) one endpoint in T
@@ -3642,9 +3648,9 @@ public class KruskalMST {
 
     - Repeat until *V-1* edges
 
-`algorithm`
+ `algorithm`
 
-```java
+``` java
 public class LazyPrimMST {
 
     private double weight;
@@ -3698,7 +3704,9 @@ public class LazyPrimMST {
     }
 }
 ```
+
 * Proposition. Lazy Prim's algorithm computes the MST in time proportional to *E log E*
+
 and extra space proportional to *E* (in the worst case)
 
     - Pf. 
@@ -3732,6 +3740,60 @@ and extra space proportional to *E* (in the worst case)
 
     - Repeat until *V-1* edges
 
+* Indexed priority queue
+
+    - Associate an index between 0 and N-1 with each key in a priority queue
+
+        + Client can insert and delete-the-minimum
+
+        + Client can change the key by specify the index
+
+    - Implementation
+
+        + Start with same code as MinPQ
+
+        
+
+        + Maintain parallel arrays keys[], pq[], and qp[] so that:
+
+            1. keys[i] is the priority of i
+            2. pq[i] is the index of the key in heap position i
+            3. pq[i] is the index of the key in heap position i
+            4. qp[i] is the heap position of the key with index i
+
+        + Use swim(qp[k]) implementation
+
+``` java
+public class IndexMinPQ<Key extends Comparable<Key>> {
+    IndexMinPQ(int N)
+
+    void insert(int i, Key key)
+    
+    void decreaseKey(int i, Key key)
+
+    boolean contains(int i)
+
+    int delMin()
+
+    boolean isEmpty()
+
+    int size()
+}
+```
+
+* Prims' (eager) algorithm: running time
+
+    - Depends on PQ implementation: v insert, v delete-min, E decrease key
+
+|PQ implementation|Insert|delete-min|decrease-key|total|
+|-----------------|------|----------|------------|-----|
+|array|1|V|1|V<sup>2</sup>|
+|binary heap|log V| log V|log V|E log V|
+|d-way heap|log<sub>d</sub>V|d log<sub>d</sub>V|log<sub>d</sub>V|E log<sub>1/v</sub>V|
+|Fibonacci heap|1<sup>+</sup>|log V<sup>*</sup>|1<sup>+</sup>|E + V log V|
+
+> Note: <sup>+</sup> amortized
+
 ### MST context
 
 * Euclidean MST
@@ -3751,7 +3813,7 @@ and extra space proportional to *E* (in the worst case)
     - Routing in mobile ad hoc networks
     - Document categorization for web search
     - Similarity searching in medical image databases
-    - Skycat: cluster 10<sup>9</sup> objects into stars, quasars, galaxies
+    - Sky-cat: cluster 10<sup>9</sup> objects into stars, quasars, galaxies
 
 ---
 
@@ -4292,9 +4354,9 @@ public class TriesST<Value> {
         2\. Press 0 to see all completion options
 
 * Patricia trie
-
     - Remove one-way branching
     - Each node represents a sequence of characters
+
     - Implementation: one step beyond this course
 
     - Applications
@@ -4767,6 +4829,7 @@ public class RabinKarp {
         . Partition symbols S into two subsets S0 and S1 of (roughly) equal freq
         . Codewords for symbols in S0 start with 0, for symbols in S1 start with 1
         . Recur in S0 and S1
+
     
 
     - Problem 1. How to divide up symbols?
@@ -4961,6 +5024,7 @@ what else could (could not) we solve efficiently?
 
         . Linear number of standard computational steps
         . Constant number of calls to Y
+
     
 
     - Ex. almost all of the reductions we've seen so far
@@ -4976,6 +5040,7 @@ what else could (could not) we solve efficiently?
         . If I could easily solve Y, then I could easily solve X
         . I can't easily solve X
         . Therefore, I can't easily solve Y
+
     
 
 ---
