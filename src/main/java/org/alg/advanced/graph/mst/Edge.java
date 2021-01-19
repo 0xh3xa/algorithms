@@ -1,4 +1,4 @@
-package org.alg.advanced.graph.greedy;
+package org.alg.advanced.graph.mst;
 
 /**
  * Represent the edge that connected v-w With the weight between them
@@ -31,6 +31,10 @@ public class Edge implements Comparable<Edge> {
             return v;
     }
 
+    public double weight() {
+        return this.weight;
+    }
+
     @Override
     public int compareTo(Edge that) {
         if (this.weight < that.weight)
@@ -39,5 +43,4 @@ public class Edge implements Comparable<Edge> {
             return 1;
         return 0;
     }
-
 }

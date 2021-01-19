@@ -1,10 +1,8 @@
-package org.alg.advanced.graph.greedy;
+package org.alg.advanced.graph.mst;
 
 import org.alg.fundamentals.impl.Bag;
 
 public class EdgeWeightedGraph {
-
-    private static final String NEW_LINE = System.lineSeparator();
 
     private final int vertices;
     private Bag<Edge>[] adj;
@@ -43,5 +41,22 @@ public class EdgeWeightedGraph {
      */
     public Iterable<Edge> adj(int v) {
         return adj[v];
+    }
+
+    public Iterable<Edge> edges() {
+        Bag<Edge> bag = new Bag<>();
+        for (int v = 0; v < vertices; v++) {
+            int selfLoops = 0;
+            for (Edge e : adj(v)) {
+                if (e.other(v) > v)
+                    bag.add(e);
+                else if (e.other(v) == v) {
+                    if (selfLoops % 2 == 0)
+                        bag.add(e);
+                    selfLoops++;
+                }
+            }
+        }
+        return bag;
     }
 }

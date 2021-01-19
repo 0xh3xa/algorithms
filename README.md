@@ -458,7 +458,7 @@ to allow sort any generic data types
 ## Selection sort
 
 * Scan from left to right  
-* Find the index of `min` of smallest remaining entry, then swap `a[i]` and `a[min]`  `-->`  `Time Complexity O(N<sup>2</sup>)` and doesn't sensitive if the input is sorted  
+* Find the index of `min` of smallest remaining entry, then swap `a[i]` and `a[min]`  `-&#8594;`  `Time Complexity O(N<sup>2</sup>)` and doesn't sensitive if the input is sorted  
 
  `Algorithm`
 
@@ -481,7 +481,7 @@ to allow sort any generic data types
 ## Insertion sort
 
 * Scan from left to right  
-* Swap `a[i]` with each larger entry to its left `<--`  `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`
+* Swap `a[i]` with each larger entry to its left &#8592;  `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`
 
 * Fast when the array is partially sorted `O(N)`
 
@@ -588,7 +588,7 @@ to allow sort any generic data types
 
             A. Define a total order for each point p
 
-        + Q. How to determine where p1  -> p2 -> p3 is counterclockwise turn?
+        + Q. How to determine where p1  &#8594; p2 &#8594; p3 is counterclockwise turn?
 
             A. Computational geometry
 
@@ -597,13 +597,13 @@ to allow sort any generic data types
             A. Merge sort in `N lg N`
 
     - Implement CCW
-        + CCW. Given three points a, b and c, is a->b->c a counterclockwise turn?
+        + CCW. Given three points a, b and c, is a&#8594;b&#8594;c a counterclockwise turn?
 
             A. Determinant (or cross product) gives 2x signed area of planer triangle
 
-                01. if signed area > 0, then a->b->c is counterclockwise
-                02. if signed area < 0, then a->b->c is clockwise
-                03. if signed area = 0, then a->b->c are colliner
+                01. if signed area > 0, then a&#8594;b&#8594;c is counterclockwise
+                02. if signed area < 0, then a&#8594;b&#8594;c is clockwise
+                03. if signed area = 0, then a&#8594;b&#8594;c are colliner
 
         + Running time `N lg N` for sorting and linear for rest
 
@@ -796,8 +796,8 @@ Mergesort `N lg N`
     - Easy `N` lower bound. Why?
 
 * Which is true?
-    - `N lg N` lower bound? <- Is selection as hard as sorting?
-    - `N` upper bound? <- Is there a linear algorithm for each k?
+    - `N lg N` lower bound? &#8592; Is selection as hard as sorting?
+    - `N` upper bound? &#8592; Is there a linear algorithm for each k?
 
 * Quick-select
     - Version of Quick-sort
@@ -1874,9 +1874,9 @@ public final class Transaction implements Comparable<Transaction> {
 
         + If field is null, return 0
 
-        + If field is a reference type, use `hashCode()` <- applies rule recursively
+        + If field is a reference type, use `hashCode()` &#8592; applies rule recursively
 
-        + If field is an array, apply to each entry <- or use `Arrays.deepHashCode()`
+        + If field is an array, apply to each entry &#8592; or use `Arrays.deepHashCode()`
 
     - In practice. Recipe works reasonably well, used in Java libraries
 
@@ -1938,9 +1938,9 @@ private int hash(Key key) {
 
 * Collision, Two distinct keys hashing to the same index
 
-    - Birthday problem -> can't avoid collisions unless you have a ridiculous quadratic amount of memory
+    - Birthday problem &#8594; can't avoid collisions unless you have a ridiculous quadratic amount of memory
 
-    - Coupon collector + load balancing -> collisions will be evenly distributed
+    - Coupon collector + load balancing &#8594; collisions will be evenly distributed
 
     
 
@@ -3163,13 +3163,13 @@ public class DepthFirstOrder {
 
 * Proposition. Reverse DFS post-order of a DAG is a topological order
 
-    - Pf. [correctness] Consider any edge v -> w. When dfs(v) is called
+    - Pf. [correctness] Consider any edge v &#8594; w. When dfs(v) is called
 
         + Case 1: dfs(w) has already been called and returned. Thus, w was done before v
 
         + Case 2: dfs(w) has not yet been called, dfs(w) will get called directly on indirectly by dfs(v) and will finish before dfs(v). Thus, w will be done before v
 
-        + Case 3: dfs(w) has already been called, but has not yet returned. Can't happen in a DAG: function call stack contains path from w to v, so v->w would complete a cycle
+        + Case 3: dfs(w) has already been called, but has not yet returned. Can't happen in a DAG: function call stack contains path from w to v, so v&#8594;w would complete a cycle
 
 * Directed cycle detection
 
@@ -3365,9 +3365,10 @@ public class KosarajuSharirCC {
 
 * Applications
 
+    - Dithering
     - Cluster analysis
     - Real-time face verification
-    - Image registration with renyi entropy
+    - Image registration with Renyi entropy
     - Find road networks in satellite and aerial imagery
     - Network design (communication, electrical, computer, road)
     - Auto config protocol for ether bridging to avoid cycles in a network
@@ -3375,33 +3376,146 @@ public class KosarajuSharirCC {
 
 ### Greedy algorithm
 
+* General principle of Algorithm desing
+
 * Simplifying assumptions
 
     - Edge weights are `distinct`
-
     - Graph is `connected`
 
-    - Based on these `MST exists and unique`
+* Based on these MST exists and unique
 
 * Cut property
-    - Partition of its vertices into two nonempty set
-    - Crossing edge connected a vertex in one set with a vertex in the other
 
-* Greedy MST algorithm
+    - Def. A `cut` in a graph is partition of its vertices into two non-empty set
+    - Def. A `crossing edge` connects a vertex in one set with a vertex in the other
+
+    - Cut property. Given any cut, the crossing edge of min weight is the MST
+
+    - Pf. Suppose min-weight crossing edge *e* is not in the MST
+        
+        + Adding e to the MST creates a cycle
+        + Some other edge *f* in cycle must be a crossing edge
+        + Removing *f* and adding *e* is also a spanning tree
+        + Since weight of *e* is less than the weight of *f* that spanning tree is lower weight
+
+* Greedy MST algorithm demo
+
     - Start with all edges colored gray
-    - Find cut with no block crossing edges, color its min0weight edge black
+    - Find cut with no black crossing edges, color its min-weight edge black
     - Repeat until V-1 edges are colored black
 
+* Proposition. The greedy algorithm computes the MST
+
+    - Pf. [correctness]
+
+        + Any edge colored black is in the MST (via cut property)
+        + Fewer than *V-1* black edges &#8594; cut with no black crossing edges (consider cut whose vertices are one connected component)
+
 * Efficient implementations. Choose cut? find min-weight edge?
-    - Kruskal's algorithm [stay tuned]
-    - Prim's algorithm [stay tuned]
-    - Boruvka's algorithm
+    1. Kruskal's algorithm [stay tuned]
+    2. Prim's algorithm [stay tuned]
+    3. Boruvka's algorithm
 
 * Q. What if edge weights are not all distinct?
     - A. Greedy MST algorithm still correct if equal weights are present!
 
 * Q. What iff graph is not connected?
     - A. Compute m,minimum spanning forest = MST of each components
+
+### Edge-weight graph API
+
+* Edge abstraction needed for weighted edges
+
+* Idiom for processing an edge e: `int v = e.either(), w = e.other(v);`
+
+```java
+public class Edge implements Comparable<Edge> {
+
+    private final int v, w;
+    private final double weight;
+
+    public Edge(int v, int w, double weight) {
+        this.v = v;
+        this.w = w;
+        this.weight = weight;
+    }
+
+    /**
+     * Either endpoint
+     */
+    public int either() {
+        return v;
+    }
+
+    /**
+     * Other endpoint
+     */
+    public int other(int vertex) {
+        if (vertex == v)
+            return w;
+        else
+            return v;
+    }
+
+    @Override
+    public int compareTo(Edge that) {
+        if (this.weight < that.weight)
+            return -1;
+        else if (this.weight > that.weight)
+            return 1;
+        return 0;
+    }
+}
+```
+
+* Graph API which has weighted edges, we will use `EdgeWeightedGraph`
+
+```java
+public class EdgeWeightedGraph {
+
+    private final int vertices;
+    private Bag<Edge>[] adj;
+
+    public EdgeWeightedGraph(int v) {
+        this.vertices = v;
+        adj = (Bag<Edge>[]) new Bag[v];
+        for (int i = 0; i < v; i++) {
+            adj[v] = new Bag<Edge>();
+        }
+    }
+
+    public int getVertices() {
+        return vertices;
+    }
+
+    public void addEdge(Edge edge) {
+        int v = edge.either(), w = edge.other(v);
+        adj[v].add(edge);
+        adj[w].add(edge);
+    }
+
+    public Iterable<Edge> adj(int v) {
+        return adj[v];
+    }
+}
+```
+
+* Edge-weighted graph: adjacency-list representation
+
+    - Maintain vertex-indexed array of Edge lists
+
+* Minimum spanning tree API
+
+    - Q. How to represent the MST?
+
+```java
+public class MST {
+    MST(EdgeWeightedGraph G)
+    Iterable<Edge> edges() // edges in MST
+    double weight() // weight of MST
+}
+```
 
 ### Kruskal's algorithm
 
@@ -3412,21 +3526,233 @@ public class KosarajuSharirCC {
     - Add next edge to tree T unless doing so would create a cycle
     - Ignore edge that create a cycle
 
-* We will use `union-find` to add edge `v-w` to tree that not creating cycle
-* And use `Min-Priority-Queue` to detect the min weight
+* Proposition. [Kruskal 1956] Kruskal's algorithm computes the MST
+
+    - Pf. Kruskal's algorithm is a special case of the greedy MST algorithm
+
+        + Suppose Kruskal's algorithm colors the edge *e=v-w* black
+
+        + Cut = set of vertices connected to *v* in tree *T*
+
+        + No crossing edge is black
+
+        + No crossing edge has lower weight, why?
+
+* Challenge. Would adding edge *v-w* to tree *T* create a cycle? if not, add it
+
+    + *V* run DFS from v, check if w is reachable (T has at most V-1 edges)
+
+    + <i>log<sup>*</sup>V</i> use union-find data structure
+
+    + Efficient solution. Use the `Union-find` data structure
+
+        . Maintain a set for each connected component in T
+
+        . If v and w are in same set, then add v-w would create a cycle
+
+        . To add v-w to T, merge sets containing v and w
+
+`algorithm`
+
+```java
+public class KruskalMST {
+
+    private double weight;
+    private Queue<Edge> mst;
+
+    public KruskalMST(EdgeWeightedGraph graph) {
+        MinPQ<Edge> pq = new MinPQ<>(graph.getVertices());
+        mst = new ArrayQueue<>();
+        for (Edge e : graph.edges())
+            pq.insert(e);
+
+        UnionFind unionFind = new WeightedQuickUnionPassCompression(graph.getVertices());
+
+        while (!pq.isEmpty() && mst.size() < graph.getVertices() - 1) {
+            Edge e = pq.delMin();
+            int v = e.either(), w = e.other(v);
+            if (!unionFind.isConnected(v, w)) {
+                unionFind.union(v, w);
+                mst.enqueue(e);
+                weight += e.weight();
+            }
+        }
+    }
+
+    public Iterable<Edge> edges() {
+        return mst;
+    }
+
+    public double weight() {
+        return this.weight;
+    }
+}
+```
+
+* Proposition. Kruskal's algorithm computes MST in time proportional to *E log E* (in the worst case)
 
 ### Prim's algorithm
 
 * Classical algorithm for computing MST
+
 * Steps:
 
     - Start with vertex 0 and greedily grow tree T
     - Add to T the min weight edge with exactly one endpoint in T
     - Repeat until V-1 edges
 
+* Proposition. Prim's algorithm computes the MST
+
+    - Pf. Prime's algorithm is a special case of the greedy MST algorithm
+        
+        + Suppose edge *e* = min weight edge connecting a vertex on the tree to a vertex not on the tree
+
+        + Cut = set of vertices connected on tree
+
+        + No crossing edge is black
+
+        + No crossing edge has lower weight
+
+* Challenge. Find the min weight edge with exactly one endpoint in *T*
+
+    - *E* &#8592; try all edges
+    - *lg E* &#8592; Priority Queue
+
+### Prim's algorithm: lazy implementation
+    
+* Challenge. Find the min weight edge with exactly one endpoint in *T*
+
+    - Lazy solution. Maintain a PQ of `edges` with (at least) one endpoint in T
+
+        + Key = edge, priority = weight of edge
+
+        + Delete-min to determine next edge *e = v-w* to add to *T*
+
+        + Disregard if both endpoints v and w are in *T*
+
+            . add to PQ any edge incident to w (assuming other endpoint not in *T*)
+
+            . add *w* to *T*
+
+* Prim's algorithm (lazy) demo
+
+    - Start with vertex 0 and greedily grow tree *T*
+
+    - Add to *T* the min weight edge with exactly one endpoint *T*
+
+    - Repeat until *V-1* edges
+
+`algorithm`
+
+```java
+public class LazyPrimMST {
+
+    private double weight;
+    private boolean[] marked;
+    private Queue<Edge> mst;
+    private MinPQ<Edge> pq;
+
+    public LazyPrimMST(EdgeWeightedGraph graph) {
+        pq = new MinPQ<>(graph.getVertices());
+        mst = new ArrayQueue<>();
+        marked = new boolean[graph.getVertices()];
+
+        for (int v = 0; v < graph.getVertices(); v++) { // run Prim from all vertices to
+            if (!marked[v])
+                prim(graph, v); // get a minimum spanning forest
+        }
+    }
+
+    private void prim(EdgeWeightedGraph graph, int s) {
+        scan(graph, s);
+
+        while (!pq.isEmpty()) {
+            Edge e = pq.delMin();
+            int v = e.either(), w = e.other(v);
+            if (marked[v] && marked[w])
+                continue;
+            mst.enqueue(e);
+            weight += e.weight();
+            if (!marked[v])
+                scan(graph, v); // v become part of tree
+            if (!marked[w])
+                scan(graph, w); // w become part of tree
+        }
+    }
+
+    // add all edges e incident to v onto pq if the other endpoint has not yet been
+    // scanned
+    private void scan(EdgeWeightedGraph graph, int v) {
+        marked[v] = true;
+        for (Edge e : graph.adj(v))
+            if (!marked[e.other(v)])
+                pq.insert(e);
+    }
+
+    public Iterable<Edge> edges() {
+        return mst;
+    }
+
+    public double weight() {
+        return this.weight;
+    }
+}
+```
+* Proposition. Lazy Prim's algorithm computes the MST in time proportional to *E log E*
+and extra space proportional to *E* (in the worst case)
+
+    - Pf. 
+
+    |operation|frequency|binary heap|
+    |---------|---------|-----------|
+    |delete min| E | lg E |
+    |insert| E | lg E |
+
+### Prim's algorithm: eager implementation
+
+* Challenge. Find the min weight edge with exactly one endpoint in *T*
+
+* Eager solution. Maintain a PQ of vertices connected by an edge to *T*, where priority of vertex *v* = weight of shortest edge connected *v* to T
+
+    - Delete min vertex *v* and add its associated edge *e = v-w* to *T*
+
+    - Update PQ by considering all edges *e=v-x* incident to v
+
+        + ignore if x is already in T
+
+        + add x to PQ if not already on it
+
+        + `decrease priority` of x if v-x becomes shortest edge connecting x to T
+
+* Prim's algorithm (eager) demo
+
+    - Start with vertex 0 and greedily grow tree *
+
+    - Add to T the min weight edge with exactly one endpoint in T
+
+    - Repeat until *V-1* edges
+
 ### MST context
 
- 
+* Euclidean MST
+
+    - Given *N* points in the plane, find MST connecting them, where the distances between point paris are their `Euclidean` distances
+
+* Scientific application: clustering
+
+    - K-clustering. Divide a set of objects classify into K coherent groups
+
+    - Distance function. Numeric value specifying "closeness" of two objects
+
+    - Goal. Divide into clusters so that objects in different clusters are far apart
+
+* Applications
+
+    - Routing in mobile ad hoc networks
+    - Document categorization for web search
+    - Similarity searching in medical image databases
+    - Skycat: cluster 10<sup>9</sup> objects into stars, quasars, galaxies
+
 ---
 
 ## Shortest path
