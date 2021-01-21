@@ -3923,6 +3923,123 @@ public class SP {
 
 * Goal. Find the shortest path from s to every other vertex
 
+* Observation. A shortest-paths tree (SPT) solution exists, why?
+
+* Consequence. Can represent the SPT with two vertice-indexed arrays:
+
+    - distTo[v] is length of shortest path from s to v
+    - edgeTo[v] is last edge on shortest path from s to v
+
+`Code`
+
+```java
+public double distTo(int v) {
+    return distTo[v];
+}
+
+public Iterable<DirectedEdge> pathTo(int v) {
+    Stack<DirectedEdge> path = new Stack<>();
+    for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
+        path.push(e);
+    }
+    return path;
+}
+```
+
+* Edge relaxation
+
+    - Relex edge *e = v &#8594; w*
+
+        + distTo[v] is length of shortest `known` path from s to v
+        + distTo[v] is length of shortest `known` path from s to w
+        + edgeTo[w] is last edge on shortest `known` path from s to w
+        + If e = v&#8594;w gives shorter path to w throught v, update both distTo[w] and edgeTo[w]
+
+`Code`
+
+```java
+private void relax(DirectedEdge e) {
+    int v = e.from(), w = e.to();
+    if (distTo[w] > distTo[v] + e.weight(){
+        distTo[w] = distTo[v] + e.weight();
+        edgeTo[w] = e;
+        if (pq.contains(w)) pq.decreaseKey(w, distTo[w]);
+        else pq.insert(w, distTo[w]);
+    }
+}
+```
+* Shortest-paths optimality conditions
+
+    - Propositon. Let *G* be an edge-weighted digraph then distTo[] are the shortest path distances from s iff
+        + distTo[s] = 0
+        + For each vertex v, distTo[v] is the length of some path from s to v
+        + For each edge = e = v&#8594;w, distTo[w] <= distTo[v] + e.weight()
+
+        + Pf.
+        
+            . TODO cotinue this part
+
+* Generic shortest-paths algorithm
+
+    - Initialize distTo[s] = 0 and distTo[v] = for all other vertices
+
+    - Repeat until optimality donstions are satified
+        + Relax any edge
+
+* Efficient impelementations. How to choose which edge to relax?
+
+    - Dijkstra's algorithm (non-negative weights)
+    - Topological sort algorithm (no directed cycles)
+    - Bellman-Ford algorithm (no negative cycles)
+
+### Dijkstra's algorithm
+
+* Dijkstra's algorithm demo
+
+    - Consider vertices in increasing order of distance from s (non-tree vertex with the lowest distTo[] value)
+
+    - Add vertex to tree and relax all edges poiting from that vertex
+
+`Code`
+
+```java
+public class DijkstraSP {
+
+    private DirectedEdge[] edgeTo;
+    private double[] distTo;
+    private IndexMinPQ<Double> pq;
+
+    public DijkstraSP(EdgeWeightedDigraph graph, int s) {
+        edgeTo = new DirectedEdge[graph.getVertices()];
+        distTo = new double[graph.getVertices()];
+        pq = new IndexMinPQ<>(graph.getVertices());
+
+        for (int v = 0; v < graph.getVertices(); v++) {
+            distTo[v] = Double.POSITIVE_INFINITY;
+        }
+        distTo[s] = 0.0;
+
+        pq.insert(s, 0.0);
+        while (!pq.isEmpty()) {
+            int v = pq.delMin();
+            for (DirectedEdge e : graph.adj(v)) {
+                relax(e);
+            }
+        }
+    }
+
+    private void relax(DirectedEdge e) {
+        int v = e.from(), w = e.to();
+        if (distTo[w] > distTo[v] + e.weight(){
+            distTo[w] = distTo[v] + e.weight();
+            edgeTo[w] = e;
+            if (pq.contains(w)) pq.decreaseKey(w, distTo[w]);
+            else pq.insert(w, distTo[w]);
+        }
+    }
+}
+```
+
 ---
 
 ## Strings
