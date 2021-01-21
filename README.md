@@ -4395,9 +4395,74 @@ Iterable<DirectedEdge> negativeCycle()
 
 * Def. A `st-cut (cut)` is a partition of the vertices into two disjoint sets with *s* in one set *A* and *t* in the other set *B*
 
+* Def. its capacity is the sum of the capacities of the edges from *A* to *B*
+
+* Minimum st-cut (mincut) problem. Find a cut of minimum capcity
+
+* Applications
+
+    - Free world goal. Cut supplies (if cold war turns into real war)
+
+    - Government-in-power's goal. Cut off communication of set of people
+
+## Maxflow problem
+
+* Input. An edge-weighted digraph, source vertex *s* and target *t*
+
+* Every edge has a positve capcity
+
+* Def. An st-flow (flow) is an assignment of values to the edges such that:
+
+    - Capacity constraint: 0 <= edge's flow <= edge's capacity
+
+    - Local equilibrium: inflow = outflow at every vertex (except s and t)
+
+* Maximum st-flow (maxflow) problem. Find a flow of maximum value
+
+### Ford-Fulkerson algorithm
+
+* Steps
+
+    - Initialization. Start with 0 flow
+    - Augmenting path. Find an undirected path from s to t such that:
+
+        + Can increase flow on forward edges  (not full)
+
+        + Can decrease flow on backward edge (not empty)
+
+    - Termination. All paths from s to t are blocked by either a:
+
+        + Full forward edge
+        + Empty backward edge
+
+* Ford-Fulkerson algorithm
+
+```
+Start with 0 flow
+While there exists an augmenting path
+    - find an augmenting path
+    - compute bottleneck capcity
+    - increase flow on that path by bottleneck capacity
+```
+
+* Questions
+
+    - How to compute a mincut? Easy
+    - How to find an augmenting path? BFS works well
+    - If FF terminates, does it always compute a maxflow? Yes
+    - Does FF always terminate? If so, after how many augmentations?
+
+### Running time analysis
+
+* TODO this part
+
+### Java code
+
+* TODO this part
+
 ---
 
-## Strings
+# Strings
 
 * Definition `string` is a sequence of characters
 * Important fundamentals abstractions
