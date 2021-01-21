@@ -3151,6 +3151,90 @@ public class DepthFirstOrder {
 }
 ```
 
+, Detect cycle in directed graph
+
+```java
+public class DirectedCycleDetector {
+
+    private boolean[] marked;
+    private int[] edgeTo;
+    private Stack<Integer> cycle; // vertices on a cycle
+    private boolean[] onStack; // vertices on recursive call stack
+
+    public DirectedCycleDetector(Digraph graph) {
+        onStack = new boolean[graph.getVertices()];
+        marked = new boolean[graph.getVertices()];
+        edgeTo = new int[graph.getVertices()];
+
+        for (int v = 0; v < graph.getVertices(); v++) {
+            if (!marked[v] && cycle == null)
+                dfs(graph, v);
+        }
+    }
+
+    private void dfs(Digraph graph, int v) {
+        onStack[v] = true;
+        marked[v] = true;
+        for (int w : graph.adj(v)) {
+            if (cycle != null) {
+                // short circuit if directed cycle found
+                return;
+            } else if (!marked[w]) {
+                // found new vertex, so recur
+                edgeTo[w] = v;
+                dfs(graph, w);
+            } else if (onStack[w]) {
+                // trace back directed cycle
+                cycle = new Stack<>();
+                for (int x = v; x != w; x = edgeTo[x]) {
+                    cycle.push(x);
+                }
+                cycle.push(w);
+                cycle.push(v);
+            }
+        }
+        onStack[v] = false;
+    }
+
+    public boolean hasCycle() {
+        return cycle != null;
+    }
+
+    public Iterable<Integer> cycle() {
+        return cycle;
+    }
+}
+```
+
+, Will check if no cycle first then get order
+
+```java
+public class TopologicalSort {
+
+    private Stack<Integer> order;
+
+    public TopologicalSort(Digraph graph) {
+        DirectedCycleDetector finder = new DirectedCycleDetector(graph);
+        if (!finder.hasCycle()) {
+            DepthFirstOrder dfs = new DepthFirstOrder(graph);
+            order = dfs.reversePost();
+        }
+    }
+
+    public Stack<Integer> order() {
+        return order;
+    }
+
+    public boolean hasOrder() {
+        return order != null;
+    }
+
+    public boolean isDag() {
+        return hasOrder();
+    }
+}
+```
+
 * Used for package management, like maven, brew, etc
 
 * Proposition. Reverse DFS post-order of a DAG is a topological order
@@ -3170,8 +3254,6 @@ public class DepthFirstOrder {
         + Pf.
 
             01. If directed cycle, topological order impossible
-
-            
 
             02. If directed cycle, DFS-based algorithm finds a topological order
 
@@ -3249,8 +3331,6 @@ public class DirectedCycleDetector {
 * Def. Vertices v and w are `strongly connected` if there is a directed path from v to w and a directed path from w to v
 
 * Key property. Strong connectivity is an `equivalence relation`
-
-    
 
     - v is strongly connected to v
     - If v is strongly connected to w, then w is strongly connected to v
@@ -3744,8 +3824,6 @@ and extra space proportional to *E* (in the worst case)
 
         + Start with same code as MinPQ
 
-        
-
         + Maintain parallel arrays keys[], pq[], and qp[] so that:
 
             1. keys[i] is the priority of i
@@ -3960,7 +4038,7 @@ public Iterable<DirectedEdge> pathTo(int v) {
 ```java
 private void relax(DirectedEdge e) {
     int v = e.from(), w = e.to();
-    if (distTo[w] > distTo[v] + e.weight(){
+    if (distTo[w] > distTo[v] + e.weight() {
         distTo[w] = distTo[v] + e.weight();
         edgeTo[w] = e;
         if (pq.contains(w)) pq.decreaseKey(w, distTo[w]);
@@ -3975,13 +4053,15 @@ private void relax(DirectedEdge e) {
         + For each vertex v, distTo[v] is the length of some path from s to v
         + For each edge = e = v&#8594;w, distTo[w] <= distTo[v] + e.weight()
 
-        + Pf.
-        
-            . TODO cotinue this part
+        + Pf. [necessary]
 
+            . Suppose that distTo[w] > distTo[v] + e.weight() for some edge e = v&#8594;w
+
+            . Then, e gives a path from s to w (through v) of length less than distTo[w]
+        
 * Generic shortest-paths algorithm
 
-    - Initialize distTo[s] = 0 and distTo[v] = for all other vertices
+    - Initialize distTo[s] = 0 and distTo[v] = &infin; for all other vertices
 
     - Repeat until optimality donstions are satified
         + Relax any edge
@@ -4039,6 +4119,281 @@ public class DijkstraSP {
     }
 }
 ```
+
+* Proposition. Dijkstra's algorithm computes a SPT in any edge-weighted digraph with nonnegative weights
+
+    - Pf. 
+        + Each edge e = v&#8594;w is relaxed exactly once (when v is relaxed) learving distTo[w] <= distTo[v] + e.weight()
+
+        +  Inequality holds until algorithm terminates because
+
+            . distTo[w] cannot increase
+
+            . distTo[v] will not change
+
+* Computing spanning trees in graphs
+
+    - Dijkstra's algorithm seems familiar?
+
+        + Prim's algorithm is essentially the `same` algorithm
+
+        + Both are in a family of algorithms that computes a graph's `spanning tree`
+
+    - Main distinction. Rule uses to choose next vertex for the tree
+
+        + Prim's: Closest vertex to the tree (via an undirected edge)
+
+        + Dijkstra's: Closest vertex to the source (via a directed path)
+
+> Note: DFS and BFS are also in this family of algorithms
+
+* Dijkstra's algorithm: which priority queue?
+
+    - Bottom line
+
+        + Array impelementation optimal for dense graphs
+
+        + Binary heap much faster for sparse graphs
+
+        + 4-way heap worth the trouble in performance critical situations
+
+        + Fibonacci heap best in theory, but not worth implementing
+
+|PQ implementation|Insert|delete-min|decrease-key|total|
+|-----------------|------|----------|------------|-----|
+|array|1|V|1|V<sup>2</sup>|
+|binary heap|log V| log V|log V|E log V|
+|d-way heap|log<sub>d</sub>V|d log<sub>d</sub>V|log<sub>d</sub>V|E log<sub>1/v</sub>V|
+|Fibonacci heap|1<sup>+</sup>|log V<sup>*</sup>|1<sup>+</sup>|E + V log V|
+
+
+### Edge-weighted DAGs
+
+* Q. Suppose that an edge digraph has no directed cycles is it easiter to find shortest paths than in general digraph?
+
+    - A. Yes
+
+* Acyclic shortest paths demo
+
+    - Consider vertices in topological order
+    - Releax all edges pointing from that vertex
+
+* Proposition. Topological sort algorithm computes SPT in any edge weighted DAG in time proportional to *E + V*
+
+    - Pf.
+        + Each edge e = v&#8594;w relaxed exactly once (when v is relaxed)
+
+        + Inequality holds until algorithm terminates because
+
+            . distTo[w] cannot increase
+
+            . distTo[v] will not change
+
+        + Thus, upon termination, shortest-paths optimality conditions hold
+
+`Code`
+
+```java
+public class AcyclicSP {
+
+    private DirectedEdge[] edgeTo;
+    private double[] distTo;
+
+    public AcyclicSP(EdgeWeightedDigraph graph, int s) {
+        edgeTo = new DirectedEdge[graph.getVertices()];
+        distTo = new double[graph.getVertices()];
+
+        for (int v = 0; v < graph.getVertices(); v++) {
+            distTo[v] = Double.POSITIVE_INFINITY;
+        }
+
+        distTo[s] = 0.0;
+
+        TopologicalSort topological = new TopologicalSort(graph);
+        for (int v : topological.order()) {
+            for (DirectedEdge e : graph.adj(v)) {
+                relax(e);
+            }
+        }
+    }
+
+    private void relax(DirectedEdge e) {
+        int v = e.from(), w = e.to();
+        if (distTo[w] > distTo[v] + e.weight()) {
+            distTo[w] = distTo[v] + e.weight();
+            edgeTo[w] = e;
+        }
+    }
+
+    public boolean hasPathTo(int v) {
+        return distTo[v] < Double.POSITIVE_INFINITY;
+    }
+
+    public double distTo(int v) {
+        return distTo[v];
+    }
+
+    public Iterable<DirectedEdge> pathTo(int v) {
+        if (!hasPathTo(v))
+            return null;
+        Stack<DirectedEdge> path = new ArrayStack<>();
+        for (DirectedEdge e = edgeTo[v]; e != null; e = edgeTo[e.from()]) {
+            path.push(e);
+        }
+        return path;
+    }
+}
+```
+
+* Applications
+
+    - Content-aware resizing
+    
+        + Seam carving. Resizing an image without distortion for display on cell phones and web browsers
+
+        + Photoshop, GIMP, etc
+
+    - To find vertical seam:
+
+        + Grid DAG: vertex = pixel, edge = from pixel to 3 downward neighbors
+
+        + Weight of pixel = energy function of 8 neighboring pixels
+
+        + Seam = shortest path (sum of vertex weights) from top to bottom
+
+    - To rewmove vertical seam:
+
+        + Delete pixels on seam (one in each row)
+
+* Longest paths in edge-weighted DAGs
+
+    - Formulate as a shortest paths problem in edge-weighted DAGs
+        [equivlant: reverse senes of equality in relax()]
+        + Negate all weights
+        + Find shortest paths
+        + Negate weghts in result
+
+    - Parallel job scheduling. Given a set of jobs with durations and precedence constraints, schedule the jobs (by finding a start time for each) so as to achieve the minimum completion time, while respsecing the constraints
+
+        + Critical path method (CPM)
+
+### Negative weights
+
+* Dijksta. Doesn't work with negative edge weights
+
+* Negative cycles
+
+    - Def. A negative cycle is a directed cycle whose sum of edge weights is negative
+
+* Bellman-Ford algorithm
+
+    - Initialize distTo[s] = 0 and distTo[v] = &infin; for all other vertices
+
+    - Repeat V times:
+        + Releax each edge
+    
+    - Proposition. Dynamic programming algorithm computes SPT in any edge weighted digraph with no negative cycles in time proportional to *E x V*
+
+        + Pf idea. After passing *i*, found shortest path containing at most *i* edges
+
+    - Improvement
+
+        + Observation. If distTo[v] does not change during pass i, no need to realx any edge pointing from v in pass i+1
+
+        + FIFO implementation. Maintain queue of vertices whose distTo[] changed
+
+        + Overal effect
+
+            . The running time is still proportional to *E x V* in worst case
+
+            . But much faster than in partice
+
+### Single source shortest-path implementation: cost summary
+
+|algorithm|restirction|typical case|worst case|extra space|
+|---------|-----------|------------|----------|-----------|
+|topological sort|no directed cycles|E + V|E + V|V|
+|Dijkstra (binary heap)| no negative weights|E log V|E log V|V|
+|Bellman-ford|no negative cycles| E V | E V | V
+|Bellman-ford (queue-based) |no negative cycles| E + V | E V | V
+
+
+* Remark 1. Directed cycles make the problem harder
+
+* Remark 2. Negative weights make the problem harder
+
+* Remark 3. Negative cycles make the problem intractable
+
+### Finding a negative cycle
+
+* Negative cycle. Add two method to the API for SP
+
+```java
+boolean hasNegativeCycle()
+
+Iterable<DirectedEdge> negativeCycle()
+```
+
+* Observation. If there is a negative cycle, Bellman-Forst gets stuck in loop, undpating distTo[] and edgeTo[] entries of vertices in the cycle
+
+* Proposition. If any vertex v is updated in phase V, there exist a negative cycle (and can trace back edgeTo[v] entries to find it)
+
+    - In practice. Check for negative cycles more frequently
+
+* Applications
+
+    - Arbitrage detection
+
+        + Problem. Given table of exchange reates, is there an arbitrage opportunity?
+
+    - Ex. $1.000 &#8594; 741 Euros &#8594; 1,012.206 Canadian dollars &#8594; $1,007.14497
+
+    - Currency exchange graph
+
+        + Vertex = currency
+        + Edge = transaction, with weight equal to exchange rate
+        + Find a directed cycle whose product of edge weights is > 1
+
+|Currency|USD|EUR|GBP|CHF|CAD|
+|--------|---|---|---|---|---|
+|USD|1|0.741|0.657|1.061|1.011|
+|EUR|1.350|1|0.888|1.433|1.366
+|GBP|1.521|1.126|1|1.614|1.538|
+|CHF|0.943|0.698|0.620|1|0.953|
+|CAD|0.995|0.732|0.650|1.049|1|
+
+### Shortest paths summary
+
+* Dijkstra's algorithm
+
+    - Nearly linear-time when weights are nonnegative
+    - Generalization encompresses DFS, BFS and Prim
+
+* Acyclic edge-weighted digraphs
+
+    - Arise in applications
+    - Faster than Dijkstra's algorithm
+    - Negative weights are no problem
+
+* Negative weights and negative cycles
+
+    - Arise in applications
+    - If no negative cycles, can find shortest paths via Bellman-Ford
+    - If negative cycles, can find one via Bellman-Ford
+
+* Shortest-paths is a broadly useful problem-solving model
+
+---
+
+# Maximum flow
+
+* General problem solving model
+
+## Mincut problem
+
+* Input. An edge-weighted digraph, source vertex *s* and target vertex *t*
+
+* Def. A `st-cut (cut)` is a partition of the vertices into two disjoint sets with *s* in one set *A* and *t* in the other set *B*
 
 ---
 
