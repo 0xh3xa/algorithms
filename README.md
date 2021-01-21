@@ -4464,28 +4464,37 @@ While there exists an augmenting path
 
 # Strings
 
-* Definition `string` is a sequence of characters
+* String. Sequence of characters
+
 * Important fundamentals abstractions
+
     - Information processing
     - Genomic sequences
     - Communication systems (e.g email)
     - Programming systems (e.g java programs)
+
 * C char data type
+
+    - Typically an 8-bit integer
     - Supports 7-bit ASCII
     - Can represent only 256 characters
 
-### Strings in java
-
 * Java char data type
+
     - Support 16-bit Unicode
-    - Support 21-bit Unicode 3.0
+    - Support 21-bit Unicode 3.0 (awkwardly)
 
-* String data type in Java. sequence of characters (immutable)
-* Length. Number of characters
-* Substring extraction. Get a contiguous subsequence of characters
-* String concatenation. Append one character to end of another string
+* String data type
 
- `representation in java`
+    - String data type in Java. Sequence of characters (immutable)
+
+    - Length. Number of characters
+
+    - Substring extraction. Get a contiguous subsequence of characters
+
+    - String concatenation. Append one character to end of another string
+
+ `Code`
 
 ``` java
 public final class String implements Comparable<String> {
@@ -4513,6 +4522,10 @@ public final class String implements Comparable<String> {
 
 * String data type performance
 
+    - Memory `40 + 2N` bytes for a virgin String of length of N
+
+    - Remark. StringBuffer data type is similar, but thread safe (and slower)
+
 |operation|guarantee|extra space|
 |---------|---------|-----------|
 |length()|1|1|
@@ -4520,23 +4533,48 @@ public final class String implements Comparable<String> {
 |substring()|1|1|
 |concat()|N|N|
 
-    - Memory `40+2N` bytes for a virgin String of length of N
-
 * StringBuilder data type performance
+
+    - Remark StringBuffer data type is similar, but thread safe (and slower)
 
 |operation|guarantee|extra space|
 |---------|---------|-----------|
 |length()|1|1|
 |charAt()|1|1|
 |substring()|N|N|
-|concat()|1<sub>*</sub>|1<sub>*</sub>|
+|concat()|1<sup>*</sup>|1<sup>*</sup>|
 
-> Remark StringBuffer data type is similar, but thread safe (and slower)
+* String vs. StringBuilder
 
-* For `Concat` string use `StringBuilder` , for `substring()` use `String`
+    - Q. How to efficiently reverse a string?
+
+Quadratic time
+
+```java
+public static String reverse(String s) {
+    String rev = "";
+    for (int i = s.length() - 1; i >= 0; i--) rev += s.charAt(i);
+
+    return rev;
+}
+```
+
+Linear time
+
+```java
+public static String reverse(String s) {
+    StringBuilder rev = new StringBuilder();
+    for (int i = s.length() - 1; i >= 0; i--) rev.append(s.charAt(i));
+
+    return rev.toString();
+}
+```
+
+> For `concat` string use `StringBuilder` , for `substring()` use `String`
 
 * Alphabets
-    - Radix. Number of possible value in String
+
+    - Radix. Number of digits *R* in alphabet
 
     |name|R()|lgR()|characters|
     |----|---|-----|----------|
@@ -4553,36 +4591,46 @@ public final class String implements Comparable<String> {
     |Extended ASCII|256|8|extended ASCII characters|
     |Unicode16|65536|16|unicode characters|
 
-### Key-indexed counting algorithms
+## Key-indexed counting
 
-* we stop in sort at Heap sort
+* We have been stopped in sort at Heap sort
+
     - Lower bound ~ N lg N compares required by any compared-based algorithm
+
     - Q. Can e do better (despite the lower bound) ?  
 
-        A. Yes if e don't depend o key compares
+        + A. Yes if e don't depend o key compares
 
 * Frequency of operations = key compares
+
 * Assumption about keys
 
     - Assumption. Keys are integers between 0 and R-1
+
     - Implication. Can use key as an array index
 
     - Applications
 
-        1\. Sort string by first letter
-        2\. Sort class roster by section
-        3\. Sort phone numbers by area code
-        4\. Subroutine in a sorting algorithm
+        1. Sort string by first letter
+        2. Sort class roster by section
+        3. Sort phone numbers by area code
+        4. Subroutine in a sorting algorithm [stay tuned]
 
 > Remark. keys may have associated data => can't just count up number of keys of each value
 
-* Steps
+* Key-indexed counting demo
+
+    - Goal. Sort an array a[] of N integers between 0 and R-1
+
     - Count frequencies of each letter using key as index
+
     - Compute frequency cumulates which specify destination
+
     - Access cumulates using key as index to remove items
+
     - Copy back into original array
 
-* Performance ~ `11 N + 4 R` and use extra space `N + R`
+* Performance ~ `11 N + 4 R` and extra space `N + R`
 
     - R is Radix from table above
 
@@ -4594,36 +4642,46 @@ public final class String implements Comparable<String> {
         int R = 256;
         int[] count = new int[R + 1];
         char[] aux = new char[N];
-        for (int i = 0; i < N; i++)
-            count[a[i] + 1]++; // count frequencies offset by 1
 
+        // count frequencies
+        for (int i = 0; i < N; i++)
+            count[a[i] + 1]++; // offset by 1
+
+        // compute cumulates
         for (int r = 0; r < R; r++)
-            count[r + 1] += count[r]; // compute cumulates
+            count[r + 1] += count[r];
 
+        // move items
         for (int i = 0; i < N; i++)
-            aux[count[a[i]]++] = a[i]; // move items
+            aux[count[a[i]]++] = a[i]; 
 
+        // copy back
         for (int i = 0; i < N; i++)
-            a[i] = aux[i]; // copy back
+            a[i] = aux[i];
     }
 ```
 
-### Least-significant-digit-first (LSD radix) string sort
+## LSD radix sort
 
-* LSD string (radix) sort
+* Least significant digit first string sort
+    
     - Consider characters from right to left
-    - Stably sort using d<sub>th</sub> character as the key (using key-indexed counting)
+    
+    - Stably sort using d<sup>th</sup> character as the key (using key-indexed counting)
+
+`Code`
 
 ``` java
-public static void sort(String[] a, int W) { // Fixed length W strings
-        int R = 256; // radix R
+public static void sort(String[] a, int W) { 
+        // Fixed length W strings
+        int R = 256;
         int N = a.length;
         String[] aux = new String[N];
 
-        for (int d = W - 1; d >= 0; d--) { // do key-indexed counting for each digit from right to left
+        for (int d = W - 1; d >= 0; d--) {
             int[] count = new int[R + 1];
             for (int i = 0; i < N; i++)
-                count[a[i].charAt(d) + 1]++; // key-indexed counting
+                count[a[i].charAt(d) + 1]++;
             for (int r = 0; r < R; r++)
                 count[r + 1] += count[r];
             for (int i = 0; i < N; i++)
@@ -4642,12 +4700,16 @@ public static void sort(String[] a, int W) { // Fixed length W strings
 |mergesort|N lg N|N lg N|N |yes|compareTo()|
 |quicksort|1.39 N lg N|1.39 N lg N|c lg N |no|compareTo()|
 |heapsort|2 N lg N|2 N lg N|1|no|compareTo()|
-|LSD<sup>*</sup>|2 N W|2 N W|N + R|yes|charAt()|
+|LSD<sup>*</sup>|2 W N |2 W N|N + R|yes|charAt()|
 
-### Most-significant-digit-first (MSD radix) string sort
+## MSD radix sort
+
+* Most significant digit first string sort
 
 * Steps
+   
     - Partition array into R pieces according to first character (use key-indexed counting)
+   
     - Recursively sort all strings that start ith each character (key-indexed counts delineate subarrays to sort)
 
 `Code`
@@ -4693,7 +4755,7 @@ public static void sort(String[] a, int W) { // Fixed length W strings
 
 * Improvement
 
-    1\. Cutoff to insertion sort for small subarrays
+    1. Cutoff to insertion sort for small subarrays
 
 * Disadvantage of MSD string sort
     - ACcess memory "randomly" (cache inefficient)
@@ -4702,7 +4764,9 @@ public static void sort(String[] a, int W) { // Fixed length W strings
     - Extra space for aux[]
 
 * Disadvantage of quicksort
+
     - Linearithmic number of string compares (not linear)
+    
     - Has to re-scan many characters in keys with long prefix matches
 
 * Complexity
@@ -4713,16 +4777,20 @@ public static void sort(String[] a, int W) { // Fixed length W strings
 |mergesort|N lg N|N lg N|N |yes|compareTo()|
 |quicksort|1.39 N lg N|1.39 N lg N|c lg N |no|compareTo()|
 |heapsort|2 N lg N|2 N lg N|1|no|compareTo()|
-|LSD<sup>*</sup>|2 N W|2 N W|N + R|yes|charAt()|
-|MSD<sup>*</sup>|2 N W|N log<sub>2</sub>N|N + D R|yes|charAt()|
+|LSD<sup>*</sup>|2 W N|2 W N|N + R|yes|charAt()|
+|MSD<sup>*</sup>|2 W N|N log<sub>2</sub>N|N + D R|yes|charAt()|
 
-### 3-Way string quicksort
+## 3-Way string quicksort
 
-### Suffix arrays
+* TODO this part
+
+## Suffix arrays
+
+* TODO this part
 
 ---
 
-## Search in String
+# Search in String
 
 * Data structure for searching in String
 * Complexity for previous searching
