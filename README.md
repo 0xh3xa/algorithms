@@ -4517,7 +4517,6 @@ public final class String implements Comparable<String> {
         return new String(offset + from, to - from, value); // copy of reference to char array
     }
 }
-
 ```
 
 * String data type performance
@@ -4525,6 +4524,8 @@ public final class String implements Comparable<String> {
     - Memory `40 + 2N` bytes for a virgin String of length of N
 
     - Remark. StringBuffer data type is similar, but thread safe (and slower)
+
+    - String operations
 
 |operation|guarantee|extra space|
 |---------|---------|-----------|
@@ -4536,6 +4537,8 @@ public final class String implements Comparable<String> {
 * StringBuilder data type performance
 
     - Remark StringBuffer data type is similar, but thread safe (and slower)
+
+    - StringBuilder operations
 
 |operation|guarantee|extra space|
 |---------|---------|-----------|
@@ -4570,7 +4573,7 @@ public static String reverse(String s) {
 }
 ```
 
-> For `concat` string use `StringBuilder` , for `substring()` use `String`
+> Note: For `concat` string use `StringBuilder` , for `substring` use `String`
 
 * Alphabets
 
@@ -4593,11 +4596,11 @@ public static String reverse(String s) {
 
 ## Key-indexed counting
 
-* We have been stopped in sort at Heap sort
+* We stopped in sorting algorithm at Heap sort
 
     - Lower bound ~ N lg N compares required by any compared-based algorithm
 
-    - Q. Can e do better (despite the lower bound) ?  
+    - Q. Can e do better (despite the lower bound)?  
 
         + A. Yes if e don't depend o key compares
 
@@ -4618,9 +4621,9 @@ public static String reverse(String s) {
 
 > Remark. keys may have associated data => can't just count up number of keys of each value
 
-* Key-indexed counting demo
+* Goal. Sort an array a[] of N integers between 0 and R-1
 
-    - Goal. Sort an array a[] of N integers between 0 and R-1
+* Key-indexed counting demo
 
     - Count frequencies of each letter using key as index
 
@@ -4667,13 +4670,22 @@ public static String reverse(String s) {
     
     - Consider characters from right to left
     
-    - Stably sort using d<sup>th</sup> character as the key (using key-indexed counting)
+    - Stably sort using *d<sup>th</sup>* character as the key (using key-indexed counting)
+
+* Proposition. LSD sorts fixed-length strings in ascending order
+
+    - Pf. [by induction on i]
+
+        + After pass *i*, strings are sorted by last *i* characters
+
+            . If two strings differ on sort key, key-indexed sort puts them in proper relative order
+
+            . If two strings agree on sort key, stability keeps them in proper relative order
 
 `Code`
 
 ``` java
 public static void sort(String[] a, int W) { 
-        // Fixed length W strings
         int R = 256;
         int N = a.length;
         String[] aux = new String[N];
@@ -4691,6 +4703,17 @@ public static void sort(String[] a, int W) {
         }
     }
 ```
+
+* Problem. Sort one million 32-bit integers
+
+    - Ex. Google interview
+
+    - Which sorting method to use?
+        1. Insertion sort
+        2. Mergesort
+        3. Quicksort
+        4. Heapsort
+        5. LSD string sort
 
 * Summary of the performance of sorting algorithms
 
@@ -4712,6 +4735,12 @@ public static void sort(String[] a, int W) {
    
     - Recursively sort all strings that start ith each character (key-indexed counts delineate subarrays to sort)
 
+* Variable-length strings
+
+    - Treat strings as if they had an extra char at end (smaller than any char)
+
+    - C strings. Have extra char '\0' at end &#8594; no extra work to do
+
 `Code`
 
 ``` java
@@ -4724,7 +4753,7 @@ public static void sort(String[] a, int W) {
         if (hi <= lo)
             return;
         int R = 256;
-        int[] count = new int[R + 1];
+        int[] count = new int[R + 2];
         for (int i = lo; i <= hi; i++)
             count[charAt(a[i], d) + 2]++;
         for (int r = 0; r < R + 1; r++)
@@ -4746,16 +4775,24 @@ public static void sort(String[] a, int W) {
     }
 ```
 
-* Observation 1. Much too slow for small subarrays
-    - Each function call needs its own count[] array
-    - ASCII (256 counts) 100x slower than copy pass for N=2
-    - Unicode (65,536 counts): 32.000x slower for N = 2
+* Performance
 
-* Observation 2. Huge number of small subarrays because of recursion
+    - Observation 1. Much too slow for small subarrays
+        + Each function call needs its own count[] array
+        + ASCII (256 counts) 100x slower than copy pass for N=2
+        + Unicode (65,536 counts): 32.000x slower for N = 2
 
-* Improvement
+    - Observation 2. Huge number of small subarrays because of recursion
 
-    1. Cutoff to insertion sort for small subarrays
+    - Improvement
+
+        1. Cutoff to insertion sort for small subarrays
+
+    - Number of characters examined
+
+        + MSD examines just enough characters to sort the keys
+        + Number of characters examined depends on keys
+        + Can be sublinear in input size
 
 * Disadvantage of MSD string sort
     - ACcess memory "randomly" (cache inefficient)
@@ -4780,13 +4817,113 @@ public static void sort(String[] a, int W) {
 |LSD<sup>*</sup>|2 W N|2 W N|N + R|yes|charAt()|
 |MSD<sup>*</sup>|2 W N|N log<sub>2</sub>N|N + D R|yes|charAt()|
 
-## 3-Way string quicksort
+## 3-Way radix quicksort
 
-* TODO this part
+* Combines benefits of Quicksort and MSD radix
+
+* Overview. Do 3-way partitioning on the d<sup>th</sup> character
+
+    - Less overhead than R-way partition in MSD string sort
+
+    - Does not re-examine characters equal to the partition char (but does re-examine characters not equal to the partition char)
+
+`Code`
+
+```java
+public final class MSDQuickSort {
+
+    public final static void sort(String[] a) {
+        sort(a, 0, a.length - 1, 0);
+    }
+
+    private final static void sort(String[] a, int lo, int hi, int d) {
+        if (hi <= lo)
+            return;
+        int lt = lo, gt = hi;
+        int v = charAt(a[lo], d);
+        int i = lo + 1;
+        while (i <= gt) {
+            int t = charAt(a[i], d);
+            if (t < v)
+                swap(a, lt++, i++);
+            else if (t > v)
+                swap(a, i, gt--);
+            else
+                i++;
+        }
+        sort(a, lo, lt - 1, d);
+        if (v >= 0)
+            sort(a, lt, gt, d + 1);
+        sort(a, gt + 1, hi, d);
+    }
+
+    private final static int charAt(String s, int d) {
+        if (d < s.length())
+            return s.charAt(d);
+        else
+            return -1;
+    }
+
+    private static void swap(String[] a, int i, int j) {
+        String temp = a[i];
+        a[i] = a[j];
+        a[j] = swamp;
+    }
+}
+```
+
+* Performance
+
+    - Uses ~ 2 N ln N character compares on average for random string
+
+### 3-way string quicksort vs. MSD string sort
+
+* MSD string sort
+
+    - Is cache-inefficient
+    - Too much memory sortig count[]
+    - Too much overhead reinitialiazing count[] and aux[]
+
+* 3-way string quicksort
+
+    - Has a short inner loop
+    - Is cache-friendly
+    - Is in-place
+
+* Complexity
+
+|algorithm|guarantee|random|extra space|stable?|operations on keys|
+|---------|---------|------|-----------|-------|------------------|
+|insertion sort|N<sup>2</sup>/2|N<sup>2</sup>/4|1|yes|compareTo()|
+|mergesort|N lg N|N lg N|N |yes|compareTo()|
+|quicksort|1.39 N lg N|1.39 N lg N|c lg N |no|compareTo()|
+|heapsort|2 N lg N|2 N lg N|1|no|compareTo()|
+|LSD<sup>+</sup>|2 W N|2 W N|N + R|yes|charAt()|
+|MSD<sup>+</sup>|2 W N|N log<sub>2</sub>N|N + D R|yes|charAt()|
+|3-way string quicksort|1.39 W N lg N|1.39 W N lg N|log N + W|no|charAt()|
 
 ## Suffix arrays
 
-* TODO this part
+* Keyword-oncontext search
+
+    - Given a text of N characters, preprocess it to enable fast substring search (find all occurrence of query string context)
+
+    - Applications
+
+        + Linguistics
+        + Databases
+        + Web search
+        + Word processing
+
+* Longest repeated substring
+
+    - Given a string of *N* characters, find the longest repeated substring
+
+    - Applications
+
+        + Bioinformatics
+        + Cryptanalysis
+        + Data compression
 
 ---
 
@@ -4821,7 +4958,7 @@ public class StringST<Value> {
 * Goal. Faster than hashing, more flexible than BSTs
 * Challenge. Efficient performance for string keys
 
-### R-way Tries
+## R-way Tries
 
 * From retrieval, but pronounced "try"
 * For now store characters in nodes (not key)

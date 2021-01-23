@@ -1,15 +1,18 @@
 package org.alg.advanced.string.sort;
 
+import java.util.ArrayList;
+
 public final class LSD {
 
     private LSD() throws IllegalAccessException {
         throw new IllegalAccessException("can not create an object from the class");
     }
 
-    public static void sort(String[] a, int W) { // Fixed length W strings
-        int R = 256; // radix R
+    public static void sort(String[] a, int W) {
+        int R = 256;
         int N = a.length;
         String[] aux = new String[N];
+        new ArrayList<>()
 
         for (int d = W - 1; d >= 0; d--) { // do key-indexed counting for each digit from right to left
             int[] count = new int[R + 1];
