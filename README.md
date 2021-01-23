@@ -5339,7 +5339,7 @@ public class TernaryST<Value> {
 
 * Check for pattern starting at each text position
 
-* Worst case ~ <i>M N</i> char compares
+* Worst case ~ *M N* char compares
 
 * Brute-force algorithm can be slow if text and pattern are repetitive
 
@@ -5365,11 +5365,17 @@ public class TernaryST<Value> {
 
 * Bad performance for search in repeated e.g. "AB" in "AAAAAAAAAB"
 
+    - The pattern could be so long
+
 * Backup
-    - In  many applications, we want to avoid backup in text stream
+    - In  many applications, we want to avoid `backup` in text stream
 
         1. Treat input as stream of data
         2. Abstract model: standard input
+
+    - Approach 1. Maintain buffer of lat *M* characters
+
+    - Approach 2. Stay tuned
 
 ``` java
     public final static int indexOfEnhanced(String text, String sub) {
@@ -5392,39 +5398,54 @@ public class TernaryST<Value> {
 ```
 
 * Brute-force is not always good enough
+
 * Theoretical challenge. Linear-time guarantee
+
 * Practical challenge. Avoid backup in text stream
 
-## Knuth-Morris-Pratt substring search
+## Knuth-Morris-Pratt (KMP)
 
 * Coolest algorithm :)
+
 * This is the algorithm when theoretical meets practices, this discovered by two theoreticians and a hacker
+
 * Intuition. Suppose e are search in text for pattern BAAAAAAAAA
-* Clever method to avoid backup in brute-force substring
+
+* KMP. Clever method to avoid backup in brute-force substring
+
 * Deterministic finite state automaton (DFA)
+   
     - Finite number of states (includes start and halt)
+   
     - Exactly one transition for each char in alphabet
+   
     - Accept if sequence of transitions leads to halt state
 
 * Q. what is interpretation of DFA state after reading in txt[i]?
+
     - A. State = number of characters in pattern that have been matched
 
 * Key difference from brute-force implementation
+
     - Need to pre-compute dfa[][] from pattern
     - Text pointer i never decrements
 
 * Running time
+
     - Simulate DFA on text: at most N character accesses
     - Build DFA: ho to do efficiently? [warning: tricky algorithm ahead!]
 
 * How to build DFA from pattern?
 
-    - if in state j and next char `c != pat.charAt(j)` , then the last `j-1` characters of input are pat[1..j-1] followed by c
+    - If in state j and next char `c != pat.charAt(j)` , then the last `j-1` characters of input are pat[1..j-1] followed by c
 
 * Proposition. KMP substring search access no more than `M + N` chars to search for a pattern of length M in a text of length N
+  
     - Pf. each pattern char accessed once when constructing DFA, each text char accessed once (in the worst case) when simulating of the DFA
 
-* Proposition. KMP constructs dfa[][] in time and space proportional to RM
+* Proposition. KMP constructs dfa[][] in time and space proportional to *R M*
+
+    - Because we have all of those mismatches
 
 `Code`
 
@@ -5527,7 +5548,7 @@ public class BoyerMoore {
 }
 ```
 
-## Rabin-Karp algorithm
+## Rabin-Karp
 
 * Basic idea = modular hashing
 
@@ -5535,12 +5556,40 @@ public class BoyerMoore {
     - For each i, compute a hash of text characters i to M+i-1
     - If pattern hash = text substring hash check for a match
 
-* Complexity `7N`
+* Efficiently computing the hash function
 
-* Advantage
+    - Modular hash function. Using the notation *t<sub>i</sub>* for txt.charAt(i)
 
-    - Extends to 2d patterns
-    - Extends to finding multiple patterns
+        + We wish to compute <i>x<sub>i</sub> = t<sub>i</sub> R<sup>M-1</sup>* + t<sub>i+1</sub> R<sup>M-2</sup>+...+t<sub>i+M-1</sub> R<sup>0</sup> (mod Q)</i>
+
+    - Horner's method. Linear-time method to evaluate degree-M polynomial
+
+`Code`
+
+```java
+    private long hash(String key, int M) {
+        long h = 0;
+        for (int j = 0; j < M; j++)
+            h = (R * h + key.charAt(j)) % Q;
+        return h;
+    }
+```
+
+* Complexity `7 N`
+
+* Rabin-Karp search 
+
+    - Advantages
+
+        + Extends to 2d patterns
+        + Extends to finding multiple patterns
+
+    - disdvantages
+
+        + Arithmetic ops slower than char compares
+        + Las Vegas version require backup
+        + Poor worst-case guarantee
+
 
 `Code`
 
@@ -5617,9 +5666,13 @@ public class RabinKarp {
 
 # Regular expression
 
+* TODO this part
+
 ---
 
 # Data compression
+
+* TODO this part
 
 ## Introduction
 
