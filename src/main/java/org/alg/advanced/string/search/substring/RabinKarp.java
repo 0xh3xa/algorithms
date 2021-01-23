@@ -1,4 +1,4 @@
-package org.alg.advanced.string.search;
+package org.alg.advanced.string.search.substring;
 
 import java.math.BigInteger;
 import java.util.Random;
