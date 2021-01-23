@@ -15,8 +15,9 @@ public class TriesST<Value> {
     }
 
     private Node put(Node node, String key, Value val, int d) {
-        if (node == null)
+        if (node == null) {
             node = new Node();
+        }
         if (d == key.length()) {
             node.val = val;
             return node;

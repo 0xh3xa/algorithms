@@ -1,6 +1,6 @@
 package org.alg.advanced.string.search;
 
-public class TST<Value> {
+public class TernaryST<Value> {
 
     private Node root;
 

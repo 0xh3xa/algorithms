@@ -4904,16 +4904,25 @@ public final class MSDQuickSort {
 
 ## Suffix arrays
 
-* Keyword-oncontext search
+* Keyword-in-context search
 
     - Given a text of N characters, preprocess it to enable fast substring search (find all occurrence of query string context)
 
     - Applications
-
+        + Grep
         + Linguistics
         + Databases
         + Web search
         + Word processing
+
+    - Suffix sort
+        + Take the input string and form suffixes
+        + Sort suffixes to bring repeated substrings together
+        + You can use Binary search
+
+    - Suffix-sort soltion
+        + Preprocess: suffix sort the text
+        + Query: binary search for query, scan until mismatch
 
 * Longest repeated substring
 
@@ -4924,22 +4933,70 @@ public final class MSDQuickSort {
         + Bioinformatics
         + Cryptanalysis
         + Data compression
+        + Visualize repetitions in music
+
+    - Brute-force algorithm
+
+        + Try all indices *i* and *j* for start of position match
+        + Compute longest common prefix (LCP) for each pair
+
+        + The same solution before: Suffix-sort solution
+
+`Code`
+
+```java
+public String lrs(String s) {
+    int N = s.length();
+    String[] suffixes = new String[N];
+    for (int i = 0; i < N; i++) suffix[i] = s.substring(i, N);
+
+    Arrays.sort(suffixes);
+
+    String lrs = "";
+    for (int i = 0; i < N-1; i++) {
+        int len = lcp(suffix[i], suffix[i+1]);
+        if (len > lrs.length()) lrs = suffixes[i].substring(0, len);
+    }
+    return lrs;
+}
+```
+
+* Sorting challenge
+
+    - Problem. Five scientists A, B, C, D, and E are looking for long repeated substring in a genome with over 1 billion nucleotides
+
+        + A has a grad student do it by hand
+        + B uses brute force (check all pairs)
+        + C uses suffix sorting solution with insertion sort
+        + D uses suffix sorting solution wit mergesort
+        + &#10004; E uses suffix sorting solutio with 3-way string quicksort (but only if LRS is not long)
+
+    - Q. Which one is more likely to lead to a cure for cancer?
+
+    - Problem. Suffix sort an arbitrary string of length N
+
+        + Q. What is the worst-case running time of best algorithm for problem?
+
+            . &#10004; Linearithmic (Manber-Myers algorithm)
+
+            . &#10004; Linear (suffix trees)
 
 ---
 
 # Search in String
 
 * Data structure for searching in String
-* Complexity for previous searching
+
+* Complexity for previous searching algorithms
 
 |algorithm|search|insert|delete|ordered operations|operations on keys|
 |---------|------|------|------|------------------|------------------|
 |red-black BST|lg N|lg N|lg N|yes|compareAt()|
-|hash table|1<sup>*</sup>|1<sup>*</sup>|1<sup>*</sup>|no|compareAt()|
+|hash table|1<sup>+</sup>|1<sup>+</sup>|1<sup>+</sup>|no|equals() hashCode()|
 
 * Q. Can we do better?  
 
-    A. yes, if we can avoid examining the entire key, as with string sorting 
+    - A. yes, if we can avoid examining the entire key, as with string sorting 
 
 * String symbol table API
 
@@ -4956,36 +5013,62 @@ public class StringST<Value> {
 ```
 
 * Goal. Faster than hashing, more flexible than BSTs
+
 * Challenge. Efficient performance for string keys
 
 ## R-way Tries
 
-* From retrieval, but pronounced "try"
-* For now store characters in nodes (not key)
-* Each node has R children, one for each possible character
-* Store values in nodes corresponding to last characters in keys
+* From re`trie`val, but pronounced "try", to distribute from binary search tree
+
+    - For now store *characters* in nodes (not key)
+
+    - Each node has *R* children, one for each possible character, where *R* is the possible of character
+
+    - Store values in nodes corresponding to last characters in keys
+
 * Search in a trie
+
     - Follow links corresponding to each character in the key
-    - Search hit: node where search ends has a non-null value
-    - Search miss: reach null link or node where search ends has null value
+    
+        + Search hit: node where search ends has a non-null value
+    
+        + Search miss: reach null link or node where search ends has null value
+
+* Insertion into a trie
+
+    - Follow links correspoinding to each character in the key
+
+        + Encounter a null link: create new node
+
+        + Encounter the last character of the key: set value in that node
 
 * Delete in an R-way tries
+
     - Find the node corresponding to key and set value to null
+    
     - If node has null value and all null links, remove that node (and recur)
 
 * Trie performance
-    - Search hit. Need to examine all L characters for equality
-    - Search miss. Could have mismatch on first character, typical case examine only a few characters
-    - Space. R null links at each leaf. (but sub-linear space possible if many short strings share common prefixes)
+
+    - Search hit. Need to examine all *L* characters for equality
+    
+    - Search miss. 
+    
+        + Could have mismatch on 
+    first character
+        + Typical case examine only a few characters
+   
+    - Space. *R* null links at each leaf. (but sub-linear space possible if many short strings share common prefixes)
+   
     - Bottom line. Fast search hit and even faster search miss, but `wastes space`
 
 * Goal. Design a data structure to perform efficient spell checking
-    - Solution. Build a 26 way trie (key = word, value = bit), 26 English letters
 
- `Implementation`
+    - Solution. Build a 26-way trie (key = word, value = bit), 26 English letters
+
+ `Code`
 
 ``` java
-
 public class TriesST<Value> {
 
     private final static int R = 256;
@@ -5048,21 +5131,85 @@ public class TriesST<Value> {
 
 * Challenge. Use less memory, e.g. 65, 536-way trie for Unicode!
 
-### Ternary Tries
+## Ternary search tries
 
 * Store characters and values in nodes (not keys)
+ 
 * Each node has 3 children: small(left), equal(middle), larger(right)
-* Follow links corresponding to each character in the key
-    - If less take left link, if greater take right link
-    - If equal take the middle link and move to the next key character
 
-* Search hit. Node where search ends has a non-nul value
-* Search miss. Reach a null link or node where search node ends has null value
+* Search in a TST
+
+    - Follow links corresponding to each character in the key
+
+        + If less take left link, if greater take right link
+        + If equal take the middle link and move to the next key character
+
+    - Search hit. Node where search ends has a non-nul value
+
+    - Search miss. Reach a null link or node where search node ends has null value
 
 * 26-way trie vs. TST
 
     - 26-way trie. 26 null links in each leaf
+    
     - TST. 3 null links in each leaf
+
+`Code`
+
+```java
+public class TernaryST<Value> {
+
+    private Node root;
+
+    private class Node {
+        Value val;
+        char c;
+        Node left, mid, right;
+    }
+
+    public void put(String key, Value val) {
+        root = put(root, key, val, 0);
+    }
+
+    private Node put(Node node, String key, Value val, int d) {
+        char c = key.charAt(d);
+        if (node == null)
+            node = new Node();
+        if (c < node.c)
+            node.left = put(node.left, key, val, d);
+        else if (c > node.c)
+            node.right = put(node.right, key, val, d);
+        else if (d < key.length() - 1)
+            node.mid = put(node.mid, key, val, d + 1);
+        else
+            node.val = val;
+        return node;
+    }
+
+    public boolean contains(String key) {
+        return get(key) == null;
+    }
+
+    public Value get(String key) {
+        Node node = get(root, key, 0);
+        if (node == null) return null;
+        return node.val;
+    }
+
+    private Node get(Node node, String key, int d) {
+        if (node == null) return null;
+        char c = key.charAt(d);
+        if (c < node.c)
+            return get(node.left, key, d);
+        else if (c > node.c)
+            return get(node.right, key, d);
+        else if (d < key.length() - 1)
+            return get(node.mid, key, d + 1);
+        else
+            return node;
+    }
+}
+```
 
 * Comparison 
 
@@ -5070,7 +5217,7 @@ public class TriesST<Value> {
 |---------|------|-----------|------|-----|
 |red-black BST|L + c lg<sup>2</sup> N|c lg<sup>2</sup>N|c lg<sup>2</sup>N|4N|
 |hash table (linear probing)|L|L|L|4N to 16N|
-|R-way tries|L|log<sub>*</sub>N|L|(R+1)N|
+|R-way tries|L|log<sub>R</sub>N|L|(R+1)N|
 |TST|L + ln N|ln N|L + ln N|4 N|
 
 > Remark. can build balanced TST via rotations to achieve `L + Log N` worst-case guarantees
@@ -5088,25 +5235,26 @@ public class TriesST<Value> {
 * Bottom line. TST is as fast as hashing (for string keys), space efficient
 
 * TST vs. hashing
+
     - Hashing
 
-        1\. Need to examine entire key
-        2\. Search hits and misses cost about the same
-        3\. Performance relies on hash function
-        4\. Does not support ordered symbol table operations
+        1. Need to examine entire key
+        2. Search hits and misses cost about the same
+        3. Performance relies on hash function
+        4. Does not support ordered symbol table operations
 
-    - TSTs.
+    - TSTs
 
-        1\. works only for strings \(or digital keys\)
-        2\. Only examines just enough key characters
-        3\. Search miss may involve only a fe characters
-        4\. Supports ordered symbol table operations \(plus others\)
+        1. works only for strings \(or digital keys\)
+        2. Only examines just enough key characters
+        3. Search miss may involve only a fe characters
+        4. Supports ordered symbol table operations \(plus others\)
 
 * Bottom line. TSTs are:
     - Faster than hashing (especially for search misses)
     - More flexible than red-black BSTs [stay tuned]
 
-### Character based operations
+## Character based operations
 
 * The string symbol table API supports several useful character-based operations
 
@@ -5120,16 +5268,16 @@ public class TriesST<Value> {
     - Find all keys in a symbol table starting with a given prefix
     - Ex. Autocomplete in a cell phone, search bar (Google search), text editor or shell
 
-        1\. User types characters one at a time
-        2\. System reports all matching strings
+        1. User types characters one at a time
+        2. System reports all matching strings
 
 * T9 texting
     - Goal. type text messages on a phone keypad
     - Multi-tap input. Enter a letter by repeatedly pressing a key until the desired
     - T9 text input
 
-        1\. Find all words that correspond to given sequence of numbers
-        2\. Press 0 to see all completion options
+        1. Find all words that correspond to given sequence of numbers
+        2. Press 0 to see all completion options
 
 * Patricia trie
     - Remove one-way branching
@@ -5139,11 +5287,11 @@ public class TriesST<Value> {
 
     - Applications
 
-        1\. Database search
-        2\. P2P network search
-        3\. IP routing table: find longest prefix match
-        4\. Compressed quad-tree for N-body simulation
-        5\. Efficiently storing and query XML documents
+        1. Database search
+        2. P2P network search
+        3. IP routing table: find longest prefix match
+        4. Compressed quad-tree for N-body simulation
+        5. Efficiently storing and query XML documents
 
 ### String symbol tables summary
 
@@ -5163,29 +5311,36 @@ public class TriesST<Value> {
 
  `Bottom line. You can get at anything by examining 50-100 bits!!!!!`
 
-### Substring search
+---
 
-* Goal. find pattern of length <i>M</i> in a text of length <i>N</i> typically N>>M
+# Substring search algorithms
+
+* Goal. find pattern of length *M* in a text of length *N* (typically N>M)
+
 * Applications
     - Find and replace
+    
     - computer forensics. Search memory or disk for signatures, e.g. al URLs or RSA keys that the user has entered
+    
     - Identify patterns indicative of spam
 
-        1\. Profits
-        2\. Lose weight
-        3\. herbal viagra
-        4\. there is no catch
-        5\. this is a one-time mailing
-        6\. this message is sent in compliance with spam regulations
+        1. Profits
+        2. Lose weight
+        3. herbal viagra
+        4. there is no catch
+        5. this is a one-time mailing
+        6. this message is sent in compliance with spam regulations
 
     - Screen scraping. Extract relevant data from web page
 
-        1\. Ex\. find string delimited by <b> and </b> after first occurrence of pattern last trade
+        1. Ex. find string delimited by <b> and </b> after first occurrence of pattern last trade
 
-#### Brute-force substring search
+## Brute-force substring search
 
 * Check for pattern starting at each text position
+
 * Worst case ~ <i>M N</i> char compares
+
 * Brute-force algorithm can be slow if text and pattern are repetitive
 
 `Code`
@@ -5213,8 +5368,8 @@ public class TriesST<Value> {
 * Backup
     - In  many applications, we want to avoid backup in text stream
 
-        1\. Treat input as stream of data
-        2\. Abstract model: standard input
+        1. Treat input as stream of data
+        2. Abstract model: standard input
 
 ``` java
     public final static int indexOfEnhanced(String text, String sub) {
@@ -5240,7 +5395,7 @@ public class TriesST<Value> {
 * Theoretical challenge. Linear-time guarantee
 * Practical challenge. Avoid backup in text stream
 
-#### Knuth-Morris-Pratt substring search
+## Knuth-Morris-Pratt substring search
 
 * Coolest algorithm :)
 * This is the algorithm when theoretical meets practices, this discovered by two theoreticians and a hacker
@@ -5307,7 +5462,7 @@ public class KMP {
 }
 ```
 
-#### Boyer-Moore
+## Boyer-Moore
 
 * KMP in linear time can we improve over that? yes : D
 
@@ -5372,7 +5527,7 @@ public class BoyerMoore {
 }
 ```
 
-#### Rabin-Karp algorithm
+## Rabin-Karp algorithm
 
 * Basic idea = modular hashing
 
@@ -5460,13 +5615,13 @@ public class RabinKarp {
 
 ---
 
-## Regular expression
+# Regular expression
 
 ---
 
-## Data compression
+# Data compression
 
-### Introduction
+## Introduction
 
 * Compression reduces size of a file
 
@@ -5484,25 +5639,25 @@ public class RabinKarp {
 
     - Generic file compression
 
-        1\. Files:GZIP, BZIP, 7z
-        2\. Archives: RKZIP
-        3\. File systems: NTFS, HFS\+, ZFS
+        1. Files:GZIP, BZIP, 7z
+        2. Archives: RKZIP
+        3. File systems: NTFS, HFS\+, ZFS
 
     - Multimedia
 
-        1\. Images: GIF, JPEG
-        2\. Sound: MP3
-        3\. Video: MPED, DivX, HDTV
+        1. Images: GIF, JPEG
+        2. Sound: MP3
+        3. Video: MPED, DivX, HDTV
 
     - Communication
 
-        1\. ITU-T T4 Group 3 fax
-        2\. Skype
+        1. ITU-T T4 Group 3 fax
+        2. Skype
 
     - Databases
 
-        1\. Google
-        2\. Facebook
+        1. Google
+        2. Facebook
 
 * Lossless compression and expansion
 
@@ -5520,14 +5675,14 @@ public class RabinKarp {
 
     - has played a central role in communication technology
 
-        1\. Grade 2 Braille
-        2\. Morse code
-        3\. Telephone systems
+        1. Grade 2 Braille
+        2. Morse code
+        3. Telephone systems
 
         , And is part of modern life
 
-        4\. MP3
-        5\. MPEG
+        4. MP3
+        5. MPEG
 
 * Another application. Data representation: genomic code
 
@@ -5535,16 +5690,16 @@ public class RabinKarp {
     - Goal. Encode an N-character genome: ATAGATGCATِG....
     - Standard ASCIII encoding
 
-        1\. 8 bits per chars
+        1. 8 bits per chars
 
     - Two-bit encoding
 
-        1\. 2 bits per chars
+        1. 2 bits per chars
 
     - Fixed-length code. A-bit code support alphabet of size 2<sup>k</sup>
     - Amazing but true. Initial genomic databases in 1990s used ASCII
 
-### Run length coding
+## Run length coding
 
 * Simple type of redundancy in a bitstream. Long runs of repeated bits
     - This string `0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1`
@@ -5560,7 +5715,7 @@ public class RabinKarp {
 
     - Applications. JPEG, ITU-T T$ Group 3 fax, ....
 
-### Huffman compression
+## Huffman compression
 
 * Variable-length codes
 * Use different number of bits to encode different chars
@@ -5608,8 +5763,6 @@ public class RabinKarp {
         . Codewords for symbols in S0 start with 0, for symbols in S1 start with 1
         . Recur in S0 and S1
 
-    
-
     - Problem 1. How to divide up symbols?
     - Problem 2. Not optimal!
 
@@ -5635,9 +5788,9 @@ public class RabinKarp {
 
         . Huffman algorithm:
 
-            1\. Count frequency freq\[i\] for each char i in input
-            2\. Start with one node corresponding to each char i \(with weight freq\[i\]\)
-            3\. Repeat until single trie formed
+            1. Count frequency freq\[i\] for each char i in input
+            2. Start with one node corresponding to each char i \(with weight freq\[i\]\)
+            3. Repeat until single trie formed
 
                 Select two tries with min weight freq[i] and freq[j]  
                 Merge into single trie with freq[i] + freq[j]
@@ -5646,7 +5799,7 @@ public class RabinKarp {
 
 ---
 
-### LZW compression
+## LZW compression
 
 *  Static model. Same model for all texts
 
@@ -5670,11 +5823,11 @@ public class RabinKarp {
 
 * Steps
 
-    1\. Create ST associating W-bit codewords with string keys
-    2\. Initialize ST with codewords for single-char keys
-    3\. Find longest string s in ST that is a prefix of un-scanned part of input
-    4\. Write the w-bit codeword associated with s
-    5\. Add s\+c to ST, where c is next char in the input
+    1. Create ST associating W-bit codewords with string keys
+    2. Initialize ST with codewords for single-char keys
+    3. Find longest string s in ST that is a prefix of un-scanned part of input
+    4. Write the w-bit codeword associated with s
+    5. Add s\+c to ST, where c is next char in the input
 
 * Q. How to represent LZW compression code table?
     - A. A trie to support longest prefix match
@@ -5700,7 +5853,7 @@ public class RabinKarp {
 
 ---
 
-### Data compression summary
+## Data compression summary
 
 * Lossless compression
     - Represent fixed-length symbols with variable-length codes [huffman]
@@ -5713,7 +5866,7 @@ public class RabinKarp {
 
 ---
 
-## Overview: introduction to advanced topics
+# Overview: introduction to advanced topics
 
 * Reduction: design algorithms, establish lower bounds, classify problems
 * Linear programming: the ultimate practical problem-solving model
@@ -5732,7 +5885,7 @@ public class RabinKarp {
 
 ---
 
-### Reductions
+## Reductions
 
 * Classify problems according to computational requirements
 
@@ -5757,8 +5910,8 @@ what else could (could not) we solve efficiently?
 
         . To find median of N items
 
-            1\. Sort N items
-            2\. Return item in the middle
+            1. Sort N items
+            2. Return item in the middle
 
         . Cost of solving finding the median `N log N + 1`
 
@@ -5766,14 +5919,14 @@ what else could (could not) we solve efficiently?
 
         . To solve elements distinctness on N times:
 
-            1\. Sort N items
-            2\. Check adjacent paris for equality
+            1. Sort N items
+            2. Check adjacent paris for equality
 
         . Cost of solving finding the median `N log N + 1`
 
 ---
 
-### Design algorithms
+## Design algorithms
 
 * Def. Problem X reduces to problem Y if you can use an algorithm that solves Y to help solve X
 * Design  algorithm. Given algorithm for Y, can also solve X
@@ -5789,7 +5942,7 @@ what else could (could not) we solve efficiently?
 
 ---
 
-### Establish lower bound
+## Establish lower bound
 
 * Goal. prove that a problem require a certain number of steps
 * Ex. In decision tree model, any compare-based sorting algorithm requires theta N log N in the worst case
@@ -5819,11 +5972,9 @@ what else could (could not) we solve efficiently?
         . I can't easily solve X
         . Therefore, I can't easily solve Y
 
-    
-
 ---
 
-### Classify problems
+## Classify problems
 
 * Desiderata. Problem with algorithm that matches lower bound
     - Ex. sorting and convex hull have complexity of N log N
