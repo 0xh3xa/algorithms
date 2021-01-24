@@ -5666,8 +5666,276 @@ public class RabinKarp {
 
 # Regular expression
 
-* TODO this part
+* Pattern matching
 
+    - Substring search. Find a string iin text
+
+    - Pattern matching. Find one of a specified set of strings in text
+
+    - Ex. [genomics]
+
+        + Fragile X syndrome is a common cause of metntal retardation
+        + Human genome contains triplet repeats of CGG or AGG bracketed by GCC at the beginning and CTG at the end
+
+        + Pattern GCG(GGC|AGG)*CTG
+
+* Applicatons
+
+    - Process natural language
+    
+    - Scan for virus signature
+    
+    - Specify a programming language
+    
+    - Access information in digital libraries
+    
+    - Search genome using PROSITE patterns
+    
+    - Filter text (spam, NetNanny, Carnivore, malware)
+    
+    - Validate data-entry fields (dates, email, URL, credit card)
+    
+    - Parse text files
+        + Compile a Java program
+        + Crawl and index the web
+        + Read in data stored in ad hoc input file format
+        + Create Java docmentation from Javadoc comments
+
+* Regular expressions
+
+    - Is a notation to specify a set of string `possible to infinite`
+
+|operation|order|example RE|matches|does not match|
+|---------|-----|----------|-------|--------------|
+|concatenation|3|AABAAB|AABAAB|every other string|
+|or|4|AA|BAAB|AA BAAB|every other string
+|closure|2|AB*A|AA ABBBBBBBA|AB ABABA|
+|parentheses|1|(AB)*A|A ABABABABA|AA ABBA|
+
+## NFA
+
+* Duality between REs and DFAs
+
+    - RE. Concise way to describe a set of strings
+
+    - DFA. Machine to recognize whether a given string is in a given set
+
+    - Kleene's theorem
+    
+        + For any DFA, there exists a RE that describes the same set of strings
+
+        + For any RE, there exists a DFA that recognizes the same set of strings
+
+* Pattern matching implementation: basic plan (first attempt)
+
+    - Overview is the same as for KMP
+
+        + No backup in text input stream
+
+        + Linear-time guarantee
+
+    - Underlying abstraction. Deterministic finite state automata (DFA)
+
+    - Basic plan. [apply Kleen's theorem]
+
+        + Build DFA from RE
+        
+        + Simulate DFA with text as input
+
+    - Bad news. Basic plan is infeasible (DFA may have exponential # of states)
+
+* Pattern matching implementation: basic plan (revised)
+
+    - Overview is the same as for KMP
+
+        + No backup in text input stream
+
+        + Quadratic-time guarantee (linear-time typical)
+
+    - Underlying abstraction. Nondeterministic finite state automata (NFA)
+
+    - Basic plan. [apply Kleen's theorem]
+
+        + Build NFA from RE
+        
+        + Simulate NFA with text as input
+
+* Nondeterministic finite-state automata
+
+    - Regular expression matching NFA
+
+        + RE enclosed in parantheses
+
+        + One state per RE character (start = 0, accept = M)
+
+        + Red e-transition (change state, but don't scan text)
+
+        + Black mtach transition (change state and scan to next text char)
+
+        + Accept if any sequence of transitions ends in accept state
+
+### NFA simulation
+
+* NFA representation
+
+    - State names. Integer from 0 to M 
+
+    - Match-transitions. Keep regular expression in array re[]
+
+    - e-transitions. Store in digraph G
+
+* Q. How to efficiently simulte an NFA?
+
+    - A. Maintain set of all possible states that NFA could be in after reading the first *i* text characters
+
+### NFA constuction
+
+* Sates. Incluse a state for each symbol in the RE, plus an accept state
+
+* Proposition. Building the NFA corresponding to an *M*-character RE takes time and space proportional to M
+
+    - Pf. For each of the *M* characters in the RE, we add at most three e-transitions and execute at most two stack operations
+
+`Code`
+
+```java
+public class NFA {
+
+    private char[] re;
+    private Digraph graph;
+    private int M;
+    private String regexp;
+
+    public NFA(String regexp) {
+        this.regexp = regexp;
+        this.M = regexp.length();
+        this.graph = buildEpsilonTransitionDigraph();
+    }
+
+    private Digraph buildEpsilonTransitionDigraph() {
+        Digraph g = new Digraph(M + 1);
+        Stack<Integer> ops = new ArrayStack<>();
+        for (int i = 0; i < M; i++) {
+            int lp = i;
+            if (regexp.charAt(i) == '(' || regexp.charAt(i) == '|')
+                ops.push(i);
+            else if (regexp.charAt(i) == ')') {
+                int or = ops.pop();
+                if (regexp.charAt(or) == '|') {
+                    lp = ops.pop();
+                    g.addEdge(lp, or + 1);
+                    g.addEdge(or, i);
+                } else
+                    lp = or;
+            }
+
+            if (i < M - 1 && regexp.charAt(i + 1) == '*') {
+                g.addEdge(lp, i + 1);
+                g.addEdge(i + 1, lp);
+            }
+            if (regexp.charAt(i) == '(' || regexp.charAt(i) == '*' || regexp.charAt(i) == ')')
+                g.addEdge(i, i + 1);
+        }
+        return g;
+    }
+
+    public boolean recognize(String txt) {
+        Bag<Integer> pc = new Bag<>();
+        DirectedDFS dfs = new DirectedDFS(graph, 0);
+        for (int v = 0; v < graph.getVertices(); v++) {
+            if (dfs.visited(v))
+                pc.add(v);
+        }
+
+        for (int i = 0; i < txt.length(); i++) {
+            Bag<Integer> match = new Bag<>();
+            for (int v : pc) {
+                if (v == M)
+                    continue;
+                if ((re[v] == txt.charAt(i)) || re[v] == '.')
+                    match.add(v + 1);
+            }
+
+            dfs = new DirectedDFS(graph, match);
+            pc = new Bag<>();
+            for (int v = 0; v < graph.getVertices(); v++) {
+                if (dfs.visited(v))
+                    pc.add(v);
+            }
+        }
+
+        for (int v : pc)
+            if (v == M)
+                return true;
+        return false;
+    }
+}
+```
+
+### Applications
+
+* Grep. Take a RE as a command-line argument and print the lines from standard input having some substring that is matched by the RE
+
+    - Bottom-line. Worst-case for grep (proportional to M N) is the same as for brute-force substring search
+
+    - Typical grep application: Crossword puzzles
+`Code`
+
+```java
+public class Grep {
+    public static void main(String[] args) throws FileNotFoundException {
+        String regexp = "(.*" + args[1] + ".*)";
+        NFA nfa = new NFA(regexp);
+        Scanner scanner = new Scanner(new File(args[0]));
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            if (nfa.recognize(line))
+                System.out.println(line);
+        }
+    }
+}
+```
+
+* To complete the implementation
+
+    - Add wildcard
+    - Add multiway or
+    - Handle metacharacters
+    - Support character classes
+    - Add capturing capabilities
+    - Extend the closure operator
+    - Error checking and recovery
+    - Greedy vs. reluctant matching
+
+* Broadly applicables programmer's tool
+
+    - Originated in Unix in the 1970s
+    - Many languages support extended regular expression
+    - Built into grep, awk, emacs, Perl, PHP, Python, Javascript
+
+### Context
+
+* Abstract machines, languages, and nondeterminism
+
+    - Basis of the theory of computation
+    
+    - Intensively studied since the 1930s
+
+    - Basis of programming language
+
+* Compiler. A program that translates a program to machine code
+
+    - KMP string &#8594; DFA
+
+    - grep RE &#8594; NFA
+
+    - javac Java language &#8594; Java byte code
+
+|operation|KMP|grep|Java|
+|---------|---|----|----|
+|Pattern|string|RE|program|
+|compiler output|DFA|NFA|byte code|
+|simulator|DFA simulator|NFA-simulator|JVM|
 ---
 
 # Data compression
