@@ -5940,29 +5940,29 @@ public class Grep {
 
 # Data compression
 
-* TODO this part
-
 ## Introduction
 
 * Compression reduces size of a file
 
-    - To save space when sorting it
-    - To save time when transmitting it
+    - To save `space` when sorting it
+    - To save `time` when transmitting it
     - Most files have lots of redundancy
 
 * Who needs compressions?
 
     - Moore's law: # transistors on a chip doubles every 18-24 months
+   
     - Parkinsons' law: data expands to fill space available
+  
     - Text, image, sound, video, ....
 
 * Applications
 
     - Generic file compression
 
-        1. Files:GZIP, BZIP, 7z
+        1. Files: GZIP, BZIP, 7z
         2. Archives: RKZIP
-        3. File systems: NTFS, HFS\+, ZFS
+        3. File systems: NTFS, HFS+, ZFS
 
     - Multimedia
 
@@ -5990,101 +5990,128 @@ public class Grep {
 
     - Compression ration. Bits in `C(B) / bits in B`
 
-    - Ex. 50-75% or better compression ration for natural language
+        + Ex. 50-75% or better compression ration for natural language
 
 * Food for thought
 
+    - Data compression has been omnipresent since antiquilty
+        
+        + Number systems
+        + Natural languages
+        + Mathematical notation
+        
     - has played a central role in communication technology
 
-        1. Grade 2 Braille
-        2. Morse code
-        3. Telephone systems
+        + Grade 2 Braille
+        + Morse code
+        + Telephone system
 
-        , And is part of modern life
+    - And is part of modern life
 
-        4. MP3
-        5. MPEG
+        + MP3
+        + MPEG
 
 * Another application. Data representation: genomic code
 
     - Genome. String over the alphabet { A, C, T, G }
-    - Goal. Encode an N-character genome: ATAGATGCATِG....
-    - Standard ASCIII encoding
+    
+        + Goal. Encode an *N*-character genome: ATAGATGCATِG...
+    
+        + Standard ASCII encoding
 
-        1. 8 bits per chars
+            . 8 bits per chars
 
-    - Two-bit encoding
+            . 8 N its
 
-        1. 2 bits per chars
+            . because they are 4 characters you can use 2 bits to store them
+
 
     - Fixed-length code. A-bit code support alphabet of size 2<sup>k</sup>
+    
     - Amazing but true. Initial genomic databases in 1990s used ASCII
 
 ## Run length coding
 
 * Simple type of redundancy in a bitstream. Long runs of repeated bits
-    - This string `0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1`
+    - This string 
+    
+    `0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1`
 
     - Representation. 4-bit counts to represent alternating runs of 0s and 1s: 15 0s, then7 1s, then 7 0s, then 11 1a
+    
     - Q. How many bits to store the counts?
 
-        A. We'll use 8 (but 4 in the example above)
+        + A. We'll use 8 (but 4 in the example above)
 
     - Q. What to do when run length exceeds max count?
 
-        A. if longer than 55, intersperse runs on length -
+        + A. if longer than 55, intersperse runs on length -
 
     - Applications. JPEG, ITU-T T$ Group 3 fax, ....
 
 ## Huffman compression
 
 * Variable-length codes
+
 * Use different number of bits to encode different chars
+
 * Ex. Morse code: `. . . - - - . . .`
 
-* Issue. Ambiguity
+    - Issue. Ambiguity
 
-    SOS ?
-    V7 ?
-    IAMIE ?
-    EEWNI ?
+        + SOS ?
+        + V7 ?
+        + IAMIE ?
+        + EEWNI ?
+
+    - In practice. Use a medium gap to separate codewords
 
 * Q. How do we avoid ambiguity?
 
-    A. Ensure that no codeword is a `prefix` of another
-    Ex 1. Fixed-length code
-    Ex 2. General prefix-free code
+    - A. Ensure that no codeword is a `prefix` of another
+
+        + Ex 1. Fixed-length code
+    
+        + Ex 2. General prefix-free code
+
+        + Ex 3. General prefix-free code
 
 * Q. How to represent the prefix-free code?
 
-    A. A binary trie!
-        . Chars in leaves
-        . Codeword is path from root to leaf
+    - A. binary trie!
+        + Chars in leaves
+        + Codeword is path from root to leaf
 
 * Compression
 
     - Method 1: start at leaf, follow path up to the root, print bits in reverse
+   
     - Method 2: creates ST of key-value pairs
 
 * Expansion
 
     - Start at root
+   
     - Go left if bit is 0, go right if 1
+   
     - If leaf node, print char and return to root
 
 * Q. How to write the trie?
 
-    A. Write pre-order traversal of trie, mark leaf and internal nodes with a bit 
+    - A. Write pre-order traversal of trie, mark leaf and internal nodes with a bit 
 
 * How to find best prefix-free code?
 
     - Shannon-Fano algorithm
 
-        . Partition symbols S into two subsets S0 and S1 of (roughly) equal freq
-        . Codewords for symbols in S0 start with 0, for symbols in S1 start with 1
-        . Recur in S0 and S1
+        + Partition symbols S into two subsets S0 and S1 of (roughly) equal freq
+       
+        + Codewords for symbols in S0 start with 0, for symbols in S1 start with 1
+       
+        + Recur in S0 and S1
 
     - Problem 1. How to divide up symbols?
+
     - Problem 2. Not optimal!
 
 * Huffman algorithm demo
@@ -6124,8 +6151,6 @@ public class Grep {
 
 *  Static model. Same model for all texts
 
-    
-
     - Fast
     - Not optimal: different texts have different statistical properties
     - Ex: ASCII, Morse code
@@ -6154,11 +6179,13 @@ public class Grep {
     - A. A trie to support longest prefix match
 
 * How big to make ST?
+
     - How long is message?
     - While message similar model
     - [many variations have been developed]
 
 * What to do when ST fills up?
+
     - Throw away and start over [GIF]
     - Throw away when not effective [Unix compression]
     - [many other variations]
