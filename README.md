@@ -6338,7 +6338,6 @@ what else could (could not) we solve efficiently?
     - Brute force. N<sup>2</sup> bit operations
     - Q. Is brute-force algorithm optimal?
 
----
 
 [open-source-img]:https://badges.frapsoft.com/os/v1/open-source.svg?v=10
 [alg-img]:https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat
