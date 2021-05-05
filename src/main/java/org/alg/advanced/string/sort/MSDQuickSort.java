@@ -41,6 +41,6 @@ public final class MSDQuickSort {
     private static void swap(String[] a, int i, int j) {
         String temp = a[i];
         a[i] = a[j];
-        a[j] = swamp;
+        a[j] = temp;
     }
 }

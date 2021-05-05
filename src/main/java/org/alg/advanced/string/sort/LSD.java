@@ -12,7 +12,6 @@ public final class LSD {
         int R = 256;
         int N = a.length;
         String[] aux = new String[N];
-        new ArrayList<>()
 
         for (int d = W - 1; d >= 0; d--) { // do key-indexed counting for each digit from right to left
             int[] count = new int[R + 1];

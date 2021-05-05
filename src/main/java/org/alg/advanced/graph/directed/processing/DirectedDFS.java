@@ -18,7 +18,7 @@ public class DirectedDFS {
         marked = new boolean[graph.getVertices()];
         for (int v : sources) {
             if (!marked[v])
-                dfs(G, v);
+                dfs(graph, v);
         }
     }
 
