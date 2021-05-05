@@ -1,6 +1,7 @@
 package org.alg.fundamentals.sort;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 public final class InsertionSort {
 
