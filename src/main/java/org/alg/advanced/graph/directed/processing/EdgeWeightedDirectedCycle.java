@@ -1,9 +1,9 @@
 package org.alg.advanced.graph.directed.processing;
 
-import java.util.Stack;
-
 import org.alg.advanced.graph.shortestpath.DirectedEdge;
 import org.alg.advanced.graph.shortestpath.EdgeWeightedDigraph;
+
+import java.util.Stack;
 
 /**
  * Detect cycle in Edge Weighted graph

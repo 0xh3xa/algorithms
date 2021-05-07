@@ -19,9 +19,7 @@ public class BreadthFirstPaths {
         marked = new boolean[graph.getVertices()];
         distTo = new int[graph.getVertices()];
         edgeTo = new int[graph.getVertices()];
-        for (int v = 0; v < graph.getVertices(); v++) {
-            distTo[v] = Integer.MAX_VALUE;
-        }
+
         bfs(graph, s);
     }
 

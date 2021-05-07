@@ -4,12 +4,6 @@ public class TernaryST<Value> {
 
     private Node root;
 
-    private class Node {
-        Value val;
-        char c;
-        Node left, mid, right;
-    }
-
     public void put(String key, Value val) {
         root = put(root, key, val, 0);
     }
@@ -52,5 +46,11 @@ public class TernaryST<Value> {
             return get(node.mid, key, d + 1);
         else
             return node;
+    }
+
+    private class Node {
+        Value val;
+        char c;
+        Node left, mid, right;
     }
 }

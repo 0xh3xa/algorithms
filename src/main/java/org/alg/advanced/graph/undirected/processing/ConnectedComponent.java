@@ -24,7 +24,7 @@ public class ConnectedComponent {
 
     private void dfs(Graph graph, int v) {
         marked[v] = true;
-        id[v] = count; // all vertices discovered in same call have samd id
+        id[v] = count; // all vertices discovered in same call have same id
         for (int w : graph.adj(v)) {
             if (!marked[w])
                 dfs(graph, w);

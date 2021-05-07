@@ -11,8 +11,8 @@ Algorithms and data structures' implementations in Java from the `Algorithms 4th
 
 # Definitions
 
-* `Algorithms` : Method for solving a problem
-* `Data structures` : Method to store inform    ation
+* `Algorithms`: Method for solving a problem
+* `Data structures`: Method to store information
 * `Program = Algorithms + Data structures`
 
 # Topics
@@ -481,7 +481,7 @@ to allow sort any generic data types
 ## Insertion sort
 
 * Scan from left to right  
-* Swap `a[i]` with each larger entry to its left &#8592; `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`
+* Swap `a[i]` with each larger entry to its left &#8592;  `Time Complexity O(N<sup>2</sup>)` and has good performance over `partially sorted arrays`
 
 * Fast when the array is partially sorted `O(N)`
 
@@ -506,7 +506,7 @@ to allow sort any generic data types
 
 * Complexity N<sup>3/2</sup>
 
-`Code`
+ `Code`
 
 ``` java
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
@@ -542,7 +542,7 @@ to allow sort any generic data types
     - Swap `a[i]` and `a[r]`
     - Complexity: `O(N)`
 
-`Code`
+ `Code`
 
 ``` java
     public static <Item extends Comparable<Item>> void shuffle(Item[] arr) {
@@ -688,7 +688,7 @@ Mergesort `N lg N`
 	02. Repeat for subarrays of size 2, 4, 8, 16, ... 
 	03. Slower than Recursive by 10%
 
-`Code`
+ `Code`
 
 ``` java
     public static <Item extends Comparable<Item>> void sortBottomUp(Item[] arr) {
@@ -735,7 +735,7 @@ Mergesort `N lg N`
 * Worst case in quicksort will not gonna happen
 * Problems in quick sort
 
-`Code`
+ `Code`
 
 ``` java
     public static <Item extends Comparable<Item>> void sort(Item[] arr) {
@@ -885,7 +885,7 @@ Mergesort `N lg N`
             . (a[i] > v): exchange a[gt] with a[i]; decrement gt
             . (a[i] == v): increment i
 
-`Code`
+ `Code`
 
 ``` java
     private static <Item extends Comparable<Item>> void sort(Item[] arr, int lo, int hi) {
@@ -1098,7 +1098,7 @@ Mergesort `N lg N`
     - Disadvantages
         + Must create new object for each data type value
 
-`Code`
+ `Code`
 
 ``` java
     public void insert(Item key) {
@@ -1193,7 +1193,7 @@ while (N > 1) {
     - Make poor usage of cache memory
     - Not stable
 
-`Code`
+ `Code`
 
 ``` java
     public final static <Item extends Comparable<Item>> void sort(Item[] pq) {
@@ -2415,7 +2415,7 @@ public class SparseVector {
 
 * Operations:  `addEdge(int v, int w), adj(int v), V(), E(), toString()`
 
-`Code`
+ `Code`
 
 ``` java
 public class Graph {
@@ -2512,7 +2512,7 @@ public class Graph {
 
     - Put unvisited vertices on a `stack`
 
-`Code`
+ `Code`
 
 ``` java
     public class DepthFirstPath {
@@ -2536,14 +2536,12 @@ public class Graph {
     }
 ```
 
-* Proposition. DFS marks all vertices connected to s in time proportional to the sum of their degrees
+* Proposition. DFS marks all vertices connected to s in time proportional to the `sum of their degrees` from single source
 
     - PF. [correctness]
         + If w marked, then w connected to s (why?)
         + If w connected to s, then w marked
         + If w unmarked, then consider last edge on a path from s to w that goes from a marked vertex to an unmarked one
-
-    
 
     - Pf. [running time]
         + Each vertex connected to s is visited once
@@ -2574,13 +2572,13 @@ public class Graph {
     - Remove the least recently added vertex v
     - Add each of v's unvisited neighbors to the queue, and mark them as visited
 
-* Proposition. BFS computes the shortest paths (fewest number of edges) from s to all other vertices in a graph in time proportional to `E + V`
+* Proposition. BFS computes the shortest paths (fewest number of edges) from s to all other vertices in a graph in time proportional to `E + V` from single source
 
     - Pf. [correctness] Queue always consists of zero or more vertices of distance k from s, followed by zero more vertices of distance k + 1
 
     - Pf. [running time] Each vertex connected to s is visited once
 
-`Code`
+ `Code`
 
 ``` java
     public class BreadthFirstPath {
@@ -2620,12 +2618,10 @@ public class Graph {
 
 * Shortest path. Find from s to w that uses `fewest number of edges`
 
-``` 
-
-      1
-     /  \
-    /    \
-
+```tree
+       1
+     /   \
+    /     \
    2       3
   / \     / \
  4   5   6   7
@@ -2737,19 +2733,17 @@ public class ConnectedComponent {
 
         + Divide the vertices into two subsets with property every edge connects one subset to another
 
-   
-
-           > 0-1
+           >0-1
             0-2
             0-5
             0-6
 
             >1-3
-            2-3
-            2-4
+             2-3
+             2-4
 
             >4-5
-            4-6
+             4-6
 
         + Application: is dating graph bipartite? 
 
@@ -2800,8 +2794,6 @@ public class ConnectedComponent {
     -  road network
         + Vertex = intersection
         + Edge = one-way street
-
-    
 
     - Political blogosphere graph
         + Vertex = political blog
@@ -2937,8 +2929,8 @@ public class Digraph {
 | representation   | space         | add edge      | edge between v and w? | iterate over vertices adjacent to v? |
 |------------------|---------------|---------------|-----------------------|--------------------------------------|
 | list of edges    | E             | 1             | E                     | E                                    |
-| adjacency matrix | v<sup>2</sup> | 1<sup>+</sup> | 1      | v                                    |
-| adjacency lists  | E + V           | 1             | outdegree(v)             | outdegree(v)                            |
+| adjacency matrix | v<sup>2</sup> | 1<sup>+</sup> | 1      | v            |                                      |
+| adjacency lists  | E + V           | 1           | outdegree(v)          | outdegree(v)                         |
 
 ### Depth-first search in digraphs
 
@@ -2962,19 +2954,13 @@ public class Digraph {
 
         - Dead-code elimination
 
-            
-
             + find and remove unreachable code
 
         - Infinite-loop detected
 
-        
-
             + Determine whether exit is unreachable
 
     02. Mark-sweep garbage collector
-
-        
 
         -  Every data structure is a digraph
 
@@ -3035,9 +3021,9 @@ public class Digraph {
 
         + A. You gonna far away for searching web, some web page traps new page
 
-`Code`
+ `Code`
 
-```java
+``` java
 public class BareBonesWebCrawler {
 
     private Queue<String> queue = new ArrayQueue<>();
@@ -3118,7 +3104,7 @@ public class BareBonesWebCrawler {
     01. run depth-first search
     02. Return vertices in reverse post order
 
-`Code`
+ `Code`
 
 ``` java
 public class DepthFirstOrder {
@@ -3153,7 +3139,7 @@ public class DepthFirstOrder {
 
 , Detect cycle in directed graph
 
-```java
+``` java
 public class DirectedCycleDetector {
 
     private boolean[] marked;
@@ -3208,7 +3194,7 @@ public class DirectedCycleDetector {
 
 , Will check if no cycle first then get order
 
-```java
+``` java
 public class TopologicalSort {
 
     private Stack<Integer> order;
@@ -3267,11 +3253,11 @@ public class TopologicalSort {
 
             . Remark. A directed cycle implies scheduling problem is infeasible
 
-        2. Java compiler does cycle detection (cyclic inheritance)
+        02. Java compiler does cycle detection (cyclic inheritance)
 
-        3. Microsoft Excel does cycle detection (and has a circular reference toolbar!)
+        03. Microsoft Excel does cycle detection (and has a circular reference toolbar!)
 
-`Code`
+ `Code`
 
 ``` java
 public class DirectedCycleDetector {
@@ -3375,11 +3361,11 @@ public class DirectedCycleDetector {
 
         + pf.
 
-            1. Running time: bottleneck is running DFS twice (and computing G<sup>R</sup>)
+            01. Running time: bottleneck is running DFS twice (and computing G<sup>R</sup>)
             02. Correctness: tricky
             03. Implementation: easy
 
-`Code`
+ `Code`
 
 ``` java
 public class KosarajuSharirCC {
@@ -3429,9 +3415,9 @@ public class KosarajuSharirCC {
 
 ## MST (Minimum spanning trees)
 
-* Given. Undirected graph G with positive edge weights (connected)
+* Given. `Undirected graph` G with positive edge weights (connected)
 
-* Def. A `spanning tree` of G is a subgraph T that is both a `tree` (connected and acyclic) and `spanning` (includes all of the vertices)
+* Def. A `spanning tree` of G is a `subgraph` T that is both a `tree` (connected and `acyclic`) and `spanning` (includes all of the vertices)
 
 * Goal. Find a min weight spanning tree
 
@@ -3464,9 +3450,7 @@ public class KosarajuSharirCC {
 
     - Cut property. Given any cut, the crossing edge of min weight is the MST
 
-    - Pf. Suppose min-weight crossing edge *e* is not in the MST
-
-        
+    - Pf. Suppose min-weight crossing edge *e* is not in the MST        
 
         + Adding e to the MST creates a cycle
         + Some other edge *f* in cycle must be a crossing edge
@@ -3487,8 +3471,8 @@ public class KosarajuSharirCC {
         + Fewer than *V-1* black edges &#8594; cut with no black crossing edges (consider cut whose vertices are one connected component)
 
 * Efficient implementations. Choose cut? find min-weight edge?
-    1. Kruskal's algorithm [stay tuned]
-    2. Prim's algorithm [stay tuned]
+    01. Kruskal's algorithm [stay tuned]
+    02. Prim's algorithm [stay tuned]
     03. Boruvka's algorithm
 
 * Q. What if edge weights are not all distinct?
@@ -3501,7 +3485,7 @@ public class KosarajuSharirCC {
 
 * Edge abstraction needed for weighted edges
 
-* Idiom for processing an edge e: `int v = e.either(), w = e.other(v);`
+* Idiom for processing an edge e: `int v = e.either(), w = e.other(v); `
 
 ``` java
 public class Edge implements Comparable<Edge> {
@@ -3626,7 +3610,7 @@ public class MST {
 
         . To add v-w to T, merge sets containing v and w
 
-`Code`
+ `Code`
 
 ``` java
 public class KruskalMST {
@@ -3720,7 +3704,7 @@ public class KruskalMST {
 
     - Repeat until *V-1* edges
 
-`Code`
+ `Code`
 
 ``` java
 public class LazyPrimMST {
@@ -3826,10 +3810,10 @@ and extra space proportional to *E* (in the worst case)
 
         + Maintain parallel arrays keys[], pq[], and qp[] so that:
 
-            1. keys[i] is the priority of i
-            2. pq[i] is the index of the key in heap position i
-            3. pq[i] is the index of the key in heap position i
-            4. qp[i] is the heap position of the key with index i
+            01. keys[i] is the priority of i
+            02. pq[i] is the index of the key in heap position i
+            03. pq[i] is the index of the key in heap position i
+            04. qp[i] is the heap position of the key with index i
 
         + Use swim(qp[k]) implementation
 
@@ -3920,7 +3904,7 @@ public class IndexMinPQ<Key extends Comparable<Key>> {
 
 * Similar to Edge for undirected graphs, but a bit simpler
 
-`Code`
+ `Code`
 
 ``` java
 public class DirectedEdge {
@@ -3952,7 +3936,7 @@ public class DirectedEdge {
 
 * Same as EdgeWeightedGraph except replace Graph with Digraph
 
-`Code`
+ `Code`
 
 ``` java
 public class EdgeWeightedDigraph {
@@ -3983,9 +3967,9 @@ public class EdgeWeightedDigraph {
 
 * Goal. Find the shortest path from s to every other vertex
 
-`API`
+ `API`
 
-```java
+``` java
 public class SP {
     SP(EdgeWeightedDigraph graph, int s)
 
@@ -4003,14 +3987,14 @@ public class SP {
 
 * Observation. A shortest-paths tree (SPT) solution exists, why?
 
-* Consequence. Can represent the SPT with two vertice-indexed arrays:
+* Consequence. Can represent the SPT with two vertices-indexed arrays:
 
     - distTo[v] is length of shortest path from s to v
     - edgeTo[v] is last edge on shortest path from s to v
 
-`Code`
+ `Code`
 
-```java
+``` java
 public double distTo(int v) {
     return distTo[v];
 }
@@ -4026,16 +4010,16 @@ public Iterable<DirectedEdge> pathTo(int v) {
 
 * Edge relaxation
 
-    - Relex edge *e = v &#8594; w*
+    - Relax edge *e = v &#8594; w*
 
         + distTo[v] is length of shortest `known` path from s to v
         + distTo[v] is length of shortest `known` path from s to w
         + edgeTo[w] is last edge on shortest `known` path from s to w
-        + If e = v&#8594;w gives shorter path to w throught v, update both distTo[w] and edgeTo[w]
+        + If e = v&#8594;w gives shorter path to w through v, update both distTo[w] and edgeTo[w]
 
-`Code`
+ `Code`
 
-```java
+``` java
 private void relax(DirectedEdge e) {
     int v = e.from(), w = e.to();
     if (distTo[w] > distTo[v] + e.weight() {
@@ -4046,9 +4030,10 @@ private void relax(DirectedEdge e) {
     }
 }
 ```
+
 * Shortest-paths optimality conditions
 
-    - Propositon. Let *G* be an edge-weighted digraph then distTo[] are the shortest path distances from s iff
+    - Proposition. Let *G* be an edge-weighted digraph then distTo[] are the shortest path distances from s iff
         + distTo[s] = 0
         + For each vertex v, distTo[v] is the length of some path from s to v
         + For each edge = e = v&#8594;w, distTo[w] <= distTo[v] + e.weight()
@@ -4059,14 +4044,15 @@ private void relax(DirectedEdge e) {
 
             . Then, e gives a path from s to w (through v) of length less than distTo[w]
         
+
 * Generic shortest-paths algorithm
 
     - Initialize distTo[s] = 0 and distTo[v] = &infin; for all other vertices
 
-    - Repeat until optimality donstions are satified
+    - Repeat until optimality donstions are satisfied
         + Relax any edge
 
-* Efficient impelementations. How to choose which edge to relax?
+* Efficient implementations. How to choose which edge to relax?
 
     - Dijkstra's algorithm (non-negative weights)
     - Topological sort algorithm (no directed cycles)
@@ -4078,11 +4064,11 @@ private void relax(DirectedEdge e) {
 
     - Consider vertices in increasing order of distance from s (non-tree vertex with the lowest distTo[] value)
 
-    - Add vertex to tree and relax all edges poiting from that vertex
+    - Add vertex to tree and relax all edges pointing from that vertex
 
-`Code`
+ `Code`
 
-```java
+``` java
 public class DijkstraSP {
 
     private DirectedEdge[] edgeTo;
@@ -4123,7 +4109,7 @@ public class DijkstraSP {
 * Proposition. Dijkstra's algorithm computes a SPT in any edge-weighted digraph with nonnegative weights
 
     - Pf. 
-        + Each edge e = v&#8594;w is relaxed exactly once (when v is relaxed) learving distTo[w] <= distTo[v] + e.weight()
+        + Each edge e = v&#8594; w is relaxed exactly once (when v is relaxed) learving distTo[w] <= distTo[v] + e.weight()
 
         +  Inequality holds until algorithm terminates because
 
@@ -4151,7 +4137,7 @@ public class DijkstraSP {
 
     - Bottom line
 
-        + Array impelementation optimal for dense graphs
+        + Array implementation optimal for dense graphs
 
         + Binary heap much faster for sparse graphs
 
@@ -4166,17 +4152,16 @@ public class DijkstraSP {
 |d-way heap|log<sub>d</sub>V|d log<sub>d</sub>V|log<sub>d</sub>V|E log<sub>1/v</sub>V|
 |Fibonacci heap|1<sup>+</sup>|log V<sup>*</sup>|1<sup>+</sup>|E + V log V|
 
-
 ### Edge-weighted DAGs
 
-* Q. Suppose that an edge digraph has no directed cycles is it easiter to find shortest paths than in general digraph?
+* Q. Suppose that an edge digraph has no directed cycles is it easier to find shortest paths than in general digraph?
 
     - A. Yes
 
 * Acyclic shortest paths demo
 
     - Consider vertices in topological order
-    - Releax all edges pointing from that vertex
+    - Relax all edges pointing from that vertex
 
 * Proposition. Topological sort algorithm computes SPT in any edge weighted DAG in time proportional to *E + V*
 
@@ -4191,9 +4176,9 @@ public class DijkstraSP {
 
         + Thus, upon termination, shortest-paths optimality conditions hold
 
-`Code`
+ `Code`
 
-```java
+``` java
 public class AcyclicSP {
 
     private DirectedEdge[] edgeTo;
@@ -4248,7 +4233,7 @@ public class AcyclicSP {
 * Applications
 
     - Content-aware resizing
-    
+
         + Seam carving. Resizing an image without distortion for display on cell phones and web browsers
 
         + Photoshop, GIMP, etc
@@ -4261,25 +4246,27 @@ public class AcyclicSP {
 
         + Seam = shortest path (sum of vertex weights) from top to bottom
 
-    - To rewmove vertical seam:
+    - To remove vertical seam:
 
         + Delete pixels on seam (one in each row)
 
 * Longest paths in edge-weighted DAGs
 
     - Formulate as a shortest paths problem in edge-weighted DAGs
-        [equivlant: reverse senes of equality in relax()]
+
+        [equivalent: reverse senes of equality in relax()]
+
         + Negate all weights
         + Find shortest paths
-        + Negate weghts in result
+        + Negate weights in result
 
-    - Parallel job scheduling. Given a set of jobs with durations and precedence constraints, schedule the jobs (by finding a start time for each) so as to achieve the minimum completion time, while respsecing the constraints
+    - Parallel job scheduling. Given a set of jobs with durations and precedence constraints, schedule the jobs (by finding a start time for each) so as to achieve the minimum completion time, while respecting the constraints
 
         + Critical path method (CPM)
 
 ### Negative weights
 
-* Dijksta. Doesn't work with negative edge weights
+* Dijkstra. Doesn't work with negative edge weights
 
 * Negative cycles
 
@@ -4290,33 +4277,32 @@ public class AcyclicSP {
     - Initialize distTo[s] = 0 and distTo[v] = &infin; for all other vertices
 
     - Repeat V times:
-        + Releax each edge
-    
+        + Relex each edge
+
     - Proposition. Dynamic programming algorithm computes SPT in any edge weighted digraph with no negative cycles in time proportional to *E x V*
 
         + Pf idea. After passing *i*, found shortest path containing at most *i* edges
 
     - Improvement
 
-        + Observation. If distTo[v] does not change during pass i, no need to realx any edge pointing from v in pass i+1
+        + Observation. If distTo[v] does not change during pass i, no need to relax any edge pointing from v in pass i+1
 
         + FIFO implementation. Maintain queue of vertices whose distTo[] changed
 
-        + Overal effect
+        + Overall effect
 
             . The running time is still proportional to *E x V* in worst case
 
-            . But much faster than in partice
+            . But much faster than in practice
 
 ### Single source shortest-path implementation: cost summary
 
-|algorithm|restirction|typical case|worst case|extra space|
+|algorithm|restriction|typical case|worst case|extra space|
 |---------|-----------|------------|----------|-----------|
 |topological sort|no directed cycles|E + V|E + V|V|
 |Dijkstra (binary heap)| no negative weights|E log V|E log V|V|
 |Bellman-ford|no negative cycles| E V | E V | V
 |Bellman-ford (queue-based) |no negative cycles| E + V | E V | V
-
 
 * Remark 1. Directed cycles make the problem harder
 
@@ -4328,13 +4314,13 @@ public class AcyclicSP {
 
 * Negative cycle. Add two method to the API for SP
 
-```java
+``` java
 boolean hasNegativeCycle()
 
 Iterable<DirectedEdge> negativeCycle()
 ```
 
-* Observation. If there is a negative cycle, Bellman-Forst gets stuck in loop, undpating distTo[] and edgeTo[] entries of vertices in the cycle
+* Observation. If there is a negative cycle, Bellman-Forest gets stuck in loop, un-updating distTo[] and edgeTo[] entries of vertices in the cycle
 
 * Proposition. If any vertex v is updated in phase V, there exist a negative cycle (and can trace back edgeTo[v] entries to find it)
 
@@ -4344,7 +4330,7 @@ Iterable<DirectedEdge> negativeCycle()
 
     - Arbitrage detection
 
-        + Problem. Given table of exchange reates, is there an arbitrage opportunity?
+        + Problem. Given table of exchange rates, is there an arbitrage opportunity?
 
     - Ex. $1.000 &#8594; 741 Euros &#8594; 1,012.206 Canadian dollars &#8594; $1,007.14497
 
@@ -4367,7 +4353,7 @@ Iterable<DirectedEdge> negativeCycle()
 * Dijkstra's algorithm
 
     - Nearly linear-time when weights are nonnegative
-    - Generalization encompresses DFS, BFS and Prim
+    - Generalization en-compresses DFS, BFS and Prim
 
 * Acyclic edge-weighted digraphs
 
@@ -4437,12 +4423,14 @@ Iterable<DirectedEdge> negativeCycle()
 
 * Ford-Fulkerson algorithm
 
-```
+``` 
 Start with 0 flow
 While there exists an augmenting path
+
     - find an augmenting path
     - compute bottleneck capcity
     - increase flow on that path by bottleneck capacity
+
 ```
 
 * Questions
@@ -4553,7 +4541,7 @@ public final class String implements Comparable<String> {
 
 Quadratic time
 
-```java
+``` java
 public static String reverse(String s) {
     String rev = "";
     for (int i = s.length() - 1; i >= 0; i--) rev += s.charAt(i);
@@ -4564,7 +4552,7 @@ public static String reverse(String s) {
 
 Linear time
 
-```java
+``` java
 public static String reverse(String s) {
     StringBuilder rev = new StringBuilder();
     for (int i = s.length() - 1; i >= 0; i--) rev.append(s.charAt(i));
@@ -4614,10 +4602,10 @@ public static String reverse(String s) {
 
     - Applications
 
-        1. Sort string by first letter
-        2. Sort class roster by section
-        3. Sort phone numbers by area code
-        4. Subroutine in a sorting algorithm [stay tuned]
+        01. Sort string by first letter
+        02. Sort class roster by section
+        03. Sort phone numbers by area code
+        04. Subroutine in a sorting algorithm [stay tuned]
 
 > Remark. keys may have associated data => can't just count up number of keys of each value
 
@@ -4637,7 +4625,7 @@ public static String reverse(String s) {
 
     - R is Radix from table above
 
-`Code`
+ `Code`
 
 ``` java
     public final static void sort(char[] a) {
@@ -4667,9 +4655,13 @@ public static String reverse(String s) {
 ## LSD radix sort
 
 * Least significant digit first string sort
+
     
+
     - Consider characters from right to left
+
     
+
     - Stably sort using *d<sup>th</sup>* character as the key (using key-indexed counting)
 
 * Proposition. LSD sorts fixed-length strings in ascending order
@@ -4682,7 +4674,7 @@ public static String reverse(String s) {
 
             . If two strings agree on sort key, stability keeps them in proper relative order
 
-`Code`
+ `Code`
 
 ``` java
 public static void sort(String[] a, int W) { 
@@ -4709,11 +4701,11 @@ public static void sort(String[] a, int W) {
     - Ex. Google interview
 
     - Which sorting method to use?
-        1. Insertion sort
-        2. Mergesort
-        3. Quicksort
-        4. Heapsort
-        5. LSD string sort
+        01. Insertion sort
+        02. Mergesort
+        03. Quicksort
+        04. Heapsort
+        05. LSD string sort
 
 * Summary of the performance of sorting algorithms
 
@@ -4730,9 +4722,13 @@ public static void sort(String[] a, int W) {
 * Most significant digit first string sort
 
 * Steps
+
    
+
     - Partition array into R pieces according to first character (use key-indexed counting)
+
    
+
     - Recursively sort all strings that start ith each character (key-indexed counts delineate subarrays to sort)
 
 * Variable-length strings
@@ -4741,7 +4737,7 @@ public static void sort(String[] a, int W) {
 
     - C strings. Have extra char '\0' at end &#8594; no extra work to do
 
-`Code`
+ `Code`
 
 ``` java
   public final static void sort(String[] a) {
@@ -4786,7 +4782,7 @@ public static void sort(String[] a, int W) {
 
     - Improvement
 
-        1. Cutoff to insertion sort for small subarrays
+        01. Cutoff to insertion sort for small subarrays
 
     - Number of characters examined
 
@@ -4803,7 +4799,9 @@ public static void sort(String[] a, int W) {
 * Disadvantage of quicksort
 
     - Linearithmic number of string compares (not linear)
+
     
+
     - Has to re-scan many characters in keys with long prefix matches
 
 * Complexity
@@ -4827,9 +4825,9 @@ public static void sort(String[] a, int W) {
 
     - Does not re-examine characters equal to the partition char (but does re-examine characters not equal to the partition char)
 
-`Code`
+ `Code`
 
-```java
+``` java
 public final class MSDQuickSort {
 
     public final static void sort(String[] a) {
@@ -4942,9 +4940,9 @@ public final class MSDQuickSort {
 
         + The same solution before: Suffix-sort solution
 
-`Code`
+ `Code`
 
-```java
+``` java
 public String lrs(String s) {
     int N = s.length();
     String[] suffixes = new String[N];
@@ -5029,9 +5027,13 @@ public class StringST<Value> {
 * Search in a trie
 
     - Follow links corresponding to each character in the key
+
     
+
         + Search hit: node where search ends has a non-null value
+
     
+
         + Search miss: reach null link or node where search ends has null value
 
 * Insertion into a trie
@@ -5045,21 +5047,33 @@ public class StringST<Value> {
 * Delete in an R-way tries
 
     - Find the node corresponding to key and set value to null
+
     
+
     - If node has null value and all null links, remove that node (and recur)
 
 * Trie performance
 
     - Search hit. Need to examine all *L* characters for equality
+
     
+
     - Search miss. 
+
     
+
         + Could have mismatch on 
+
     first character
+
         + Typical case examine only a few characters
+
    
+
     - Space. *R* null links at each leaf. (but sub-linear space possible if many short strings share common prefixes)
+
    
+
     - Bottom line. Fast search hit and even faster search miss, but `wastes space`
 
 * Goal. Design a data structure to perform efficient spell checking
@@ -5134,7 +5148,9 @@ public class TriesST<Value> {
 ## Ternary search tries
 
 * Store characters and values in nodes (not keys)
+
  
+
 * Each node has 3 children: small(left), equal(middle), larger(right)
 
 * Search in a TST
@@ -5151,12 +5167,14 @@ public class TriesST<Value> {
 * 26-way trie vs. TST
 
     - 26-way trie. 26 null links in each leaf
+
     
+
     - TST. 3 null links in each leaf
 
-`Code`
+ `Code`
 
-```java
+``` java
 public class TernaryST<Value> {
 
     private Node root;
@@ -5238,17 +5256,17 @@ public class TernaryST<Value> {
 
     - Hashing
 
-        1. Need to examine entire key
-        2. Search hits and misses cost about the same
-        3. Performance relies on hash function
-        4. Does not support ordered symbol table operations
+        01. Need to examine entire key
+        02. Search hits and misses cost about the same
+        03. Performance relies on hash function
+        04. Does not support ordered symbol table operations
 
     - TSTs
 
-        1. works only for strings \(or digital keys\)
-        2. Only examines just enough key characters
-        3. Search miss may involve only a fe characters
-        4. Supports ordered symbol table operations \(plus others\)
+        01. works only for strings \(or digital keys\)
+        02. Only examines just enough key characters
+        03. Search miss may involve only a fe characters
+        04. Supports ordered symbol table operations \(plus others\)
 
 * Bottom line. TSTs are:
     - Faster than hashing (especially for search misses)
@@ -5268,16 +5286,16 @@ public class TernaryST<Value> {
     - Find all keys in a symbol table starting with a given prefix
     - Ex. Autocomplete in a cell phone, search bar (Google search), text editor or shell
 
-        1. User types characters one at a time
-        2. System reports all matching strings
+        01. User types characters one at a time
+        02. System reports all matching strings
 
 * T9 texting
     - Goal. type text messages on a phone keypad
     - Multi-tap input. Enter a letter by repeatedly pressing a key until the desired
     - T9 text input
 
-        1. Find all words that correspond to given sequence of numbers
-        2. Press 0 to see all completion options
+        01. Find all words that correspond to given sequence of numbers
+        02. Press 0 to see all completion options
 
 * Patricia trie
     - Remove one-way branching
@@ -5287,11 +5305,11 @@ public class TernaryST<Value> {
 
     - Applications
 
-        1. Database search
-        2. P2P network search
-        3. IP routing table: find longest prefix match
-        4. Compressed quad-tree for N-body simulation
-        5. Efficiently storing and query XML documents
+        01. Database search
+        02. P2P network search
+        03. IP routing table: find longest prefix match
+        04. Compressed quad-tree for N-body simulation
+        05. Efficiently storing and query XML documents
 
 ### String symbol tables summary
 
@@ -5319,21 +5337,25 @@ public class TernaryST<Value> {
 
 * Applications
     - Find and replace
+
     
+
     - computer forensics. Search memory or disk for signatures, e.g. al URLs or RSA keys that the user has entered
+
     
+
     - Identify patterns indicative of spam
 
-        1. Profits
-        2. Lose weight
-        3. herbal viagra
-        4. there is no catch
-        5. this is a one-time mailing
-        6. this message is sent in compliance with spam regulations
+        01. Profits
+        02. Lose weight
+        03. herbal viagra
+        04. there is no catch
+        05. this is a one-time mailing
+        06. this message is sent in compliance with spam regulations
 
     - Screen scraping. Extract relevant data from web page
 
-        1. Ex. find string delimited by <b> and </b> after first occurrence of pattern last trade
+        01. Ex. find string delimited by <b> and </b> after first occurrence of pattern last trade
 
 ## Brute-force substring search
 
@@ -5343,7 +5365,7 @@ public class TernaryST<Value> {
 
 * Brute-force algorithm can be slow if text and pattern are repetitive
 
-`Code`
+ `Code`
 
 ``` java
     public final static int indexOf(String text, String sub) {
@@ -5370,8 +5392,8 @@ public class TernaryST<Value> {
 * Backup
     - In  many applications, we want to avoid `backup` in text stream
 
-        1. Treat input as stream of data
-        2. Abstract model: standard input
+        01. Treat input as stream of data
+        02. Abstract model: standard input
 
     - Approach 1. Maintain buffer of lat *M* characters
 
@@ -5414,11 +5436,17 @@ public class TernaryST<Value> {
 * KMP. Clever method to avoid backup in brute-force substring
 
 * Deterministic finite state automaton (DFA)
+
    
+
     - Finite number of states (includes start and halt)
+
    
+
     - Exactly one transition for each char in alphabet
+
    
+
     - Accept if sequence of transitions leads to halt state
 
 * Q. what is interpretation of DFA state after reading in txt[i]?
@@ -5440,14 +5468,16 @@ public class TernaryST<Value> {
     - If in state j and next char `c != pat.charAt(j)` , then the last `j-1` characters of input are pat[1..j-1] followed by c
 
 * Proposition. KMP substring search access no more than `M + N` chars to search for a pattern of length M in a text of length N
+
   
+
     - Pf. each pattern char accessed once when constructing DFA, each text char accessed once (in the worst case) when simulating of the DFA
 
 * Proposition. KMP constructs dfa[][] in time and space proportional to *R M*
 
     - Because we have all of those mismatches
 
-`Code`
+ `Code`
 
 ``` java
 public class KMP {
@@ -5507,7 +5537,7 @@ public class KMP {
 
 * Boyer-Moore variant. Can improve worst case to ~ `3 N` by adding a KMP-like rule to guard against repetitive patterns
 
-`Code`
+ `Code`
 
 ``` java
 public class BoyerMoore {
@@ -5564,9 +5594,9 @@ public class BoyerMoore {
 
     - Horner's method. Linear-time method to evaluate degree-M polynomial
 
-`Code`
+ `Code`
 
-```java
+``` java
     private long hash(String key, int M) {
         long h = 0;
         for (int j = 0; j < M; j++)
@@ -5590,8 +5620,7 @@ public class BoyerMoore {
         + Las Vegas version require backup
         + Poor worst-case guarantee
 
-
-`Code`
+ `Code`
 
 ``` java
 public class RabinKarp {
@@ -5682,19 +5711,33 @@ public class RabinKarp {
 * Applicatons
 
     - Process natural language
+
     
+
     - Scan for virus signature
+
     
+
     - Specify a programming language
+
     
+
     - Access information in digital libraries
+
     
+
     - Search genome using PROSITE patterns
+
     
+
     - Filter text (spam, NetNanny, Carnivore, malware)
+
     
+
     - Validate data-entry fields (dates, email, URL, credit card)
+
     
+
     - Parse text files
         + Compile a Java program
         + Crawl and index the web
@@ -5721,7 +5764,9 @@ public class RabinKarp {
     - DFA. Machine to recognize whether a given string is in a given set
 
     - Kleene's theorem
+
     
+
         + For any DFA, there exists a RE that describes the same set of strings
 
         + For any RE, there exists a DFA that recognizes the same set of strings
@@ -5739,7 +5784,9 @@ public class RabinKarp {
     - Basic plan. [apply Kleen's theorem]
 
         + Build DFA from RE
+
         
+
         + Simulate DFA with text as input
 
     - Bad news. Basic plan is infeasible (DFA may have exponential # of states)
@@ -5757,7 +5804,9 @@ public class RabinKarp {
     - Basic plan. [apply Kleen's theorem]
 
         + Build NFA from RE
+
         
+
         + Simulate NFA with text as input
 
 * Nondeterministic finite-state automata
@@ -5796,9 +5845,9 @@ public class RabinKarp {
 
     - Pf. For each of the *M* characters in the RE, we add at most three e-transitions and execute at most two stack operations
 
-`Code`
+ `Code`
 
-```java
+``` java
 public class NFA {
 
     private char[] re;
@@ -5879,9 +5928,10 @@ public class NFA {
     - Bottom-line. Worst-case for grep (proportional to M N) is the same as for brute-force substring search
 
     - Typical grep application: Crossword puzzles
-`Code`
 
-```java
+ `Code`
+
+``` java
 public class Grep {
     public static void main(String[] args) throws FileNotFoundException {
         String regexp = "(.*" + args[1] + ".*)";
@@ -5918,7 +5968,9 @@ public class Grep {
 * Abstract machines, languages, and nondeterminism
 
     - Basis of the theory of computation
+
     
+
     - Intensively studied since the 1930s
 
     - Basis of programming language
@@ -5951,34 +6003,38 @@ public class Grep {
 * Who needs compressions?
 
     - Moore's law: # transistors on a chip doubles every 18-24 months
+
    
+
     - Parkinsons' law: data expands to fill space available
+
   
+
     - Text, image, sound, video, ....
 
 * Applications
 
     - Generic file compression
 
-        1. Files: GZIP, BZIP, 7z
-        2. Archives: RKZIP
-        3. File systems: NTFS, HFS+, ZFS
+        01. Files: GZIP, BZIP, 7z
+        02. Archives: RKZIP
+        03. File systems: NTFS, HFS+, ZFS
 
     - Multimedia
 
-        1. Images: GIF, JPEG
-        2. Sound: MP3
-        3. Video: MPED, DivX, HDTV
+        01. Images: GIF, JPEG
+        02. Sound: MP3
+        03. Video: MPED, DivX, HDTV
 
     - Communication
 
-        1. ITU-T T4 Group 3 fax
-        2. Skype
+        01. ITU-T T4 Group 3 fax
+        02. Skype
 
     - Databases
 
-        1. Google
-        2. Facebook
+        01. Google
+        02. Facebook
 
 * Lossless compression and expansion
 
@@ -5995,11 +6051,15 @@ public class Grep {
 * Food for thought
 
     - Data compression has been omnipresent since antiquilty
+
         
+
         + Number systems
         + Natural languages
         + Mathematical notation
+
         
+
     - has played a central role in communication technology
 
         + Grade 2 Braille
@@ -6014,9 +6074,13 @@ public class Grep {
 * Another application. Data representation: genomic code
 
     - Genome. String over the alphabet { A, C, T, G }
+
     
+
         + Goal. Encode an *N*-character genome: ATAGATGCATِG...
+
     
+
         + Standard ASCII encoding
 
             . 8 bits per chars
@@ -6025,20 +6089,25 @@ public class Grep {
 
             . because they are 4 characters you can use 2 bits to store them
 
-
     - Fixed-length code. A-bit code support alphabet of size 2<sup>k</sup>
+
     
+
     - Amazing but true. Initial genomic databases in 1990s used ASCII
 
 ## Run length coding
 
 * Simple type of redundancy in a bitstream. Long runs of repeated bits
     - This string 
+
     
-    `0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1`
+
+ `0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1`
 
     - Representation. 4-bit counts to represent alternating runs of 0s and 1s: 15 0s, then7 1s, then 7 0s, then 11 1a
+
     
+
     - Q. How many bits to store the counts?
 
         + A. We'll use 8 (but 4 in the example above)
@@ -6055,7 +6124,7 @@ public class Grep {
 
 * Use different number of bits to encode different chars
 
-* Ex. Morse code: `. . . - - - . . .`
+* Ex. Morse code: `... - - - . . .`
 
     - Issue. Ambiguity
 
@@ -6071,7 +6140,9 @@ public class Grep {
     - A. Ensure that no codeword is a `prefix` of another
 
         + Ex 1. Fixed-length code
+
     
+
         + Ex 2. General prefix-free code
 
         + Ex 3. General prefix-free code
@@ -6085,15 +6156,21 @@ public class Grep {
 * Compression
 
     - Method 1: start at leaf, follow path up to the root, print bits in reverse
+
    
+
     - Method 2: creates ST of key-value pairs
 
 * Expansion
 
     - Start at root
+
    
+
     - Go left if bit is 0, go right if 1
+
    
+
     - If leaf node, print char and return to root
 
 * Q. How to write the trie?
@@ -6105,9 +6182,13 @@ public class Grep {
     - Shannon-Fano algorithm
 
         + Partition symbols S into two subsets S0 and S1 of (roughly) equal freq
+
        
+
         + Codewords for symbols in S0 start with 0, for symbols in S1 start with 1
+
        
+
         + Recur in S0 and S1
 
     - Problem 1. How to divide up symbols?
@@ -6136,9 +6217,9 @@ public class Grep {
 
         . Huffman algorithm:
 
-            1. Count frequency freq\[i\] for each char i in input
-            2. Start with one node corresponding to each char i \(with weight freq\[i\]\)
-            3. Repeat until single trie formed
+            01. Count frequency freq\[i\] for each char i in input
+            02. Start with one node corresponding to each char i \(with weight freq\[i\]\)
+            03. Repeat until single trie formed
 
                 Select two tries with min weight freq[i] and freq[j]  
                 Merge into single trie with freq[i] + freq[j]
@@ -6169,11 +6250,11 @@ public class Grep {
 
 * Steps
 
-    1. Create ST associating W-bit codewords with string keys
-    2. Initialize ST with codewords for single-char keys
-    3. Find longest string s in ST that is a prefix of un-scanned part of input
-    4. Write the w-bit codeword associated with s
-    5. Add s\+c to ST, where c is next char in the input
+    01. Create ST associating W-bit codewords with string keys
+    02. Initialize ST with codewords for single-char keys
+    03. Find longest string s in ST that is a prefix of un-scanned part of input
+    04. Write the w-bit codeword associated with s
+    05. Add s\+c to ST, where c is next char in the input
 
 * Q. How to represent LZW compression code table?
     - A. A trie to support longest prefix match
@@ -6258,8 +6339,8 @@ what else could (could not) we solve efficiently?
 
         . To find median of N items
 
-            1. Sort N items
-            2. Return item in the middle
+            01. Sort N items
+            02. Return item in the middle
 
         . Cost of solving finding the median `N log N + 1`
 
@@ -6267,8 +6348,8 @@ what else could (could not) we solve efficiently?
 
         . To solve elements distinctness on N times:
 
-            1. Sort N items
-            2. Check adjacent paris for equality
+            01. Sort N items
+            02. Check adjacent paris for equality
 
         . Cost of solving finding the median `N log N + 1`
 
@@ -6337,7 +6418,6 @@ what else could (could not) we solve efficiently?
     - Integer multiplication. given two N-bit integers, compute their product
     - Brute force. N<sup>2</sup> bit operations
     - Q. Is brute-force algorithm optimal?
-
 
 [open-source-img]:https://badges.frapsoft.com/os/v1/open-source.svg?v=10
 [alg-img]:https://img.shields.io/static/v1?label=Topic&message=Algorithms&color=orange&style=flat

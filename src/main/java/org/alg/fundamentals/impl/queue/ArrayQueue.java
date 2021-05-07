@@ -1,8 +1,9 @@
 package org.alg.fundamentals.impl.queue;
 
+import org.alg.fundamentals.base.Queue;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import org.alg.fundamentals.base.Queue;
 
 public class ArrayQueue<Item> implements Queue<Item> {
 

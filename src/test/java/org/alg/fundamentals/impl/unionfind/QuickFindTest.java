@@ -1,12 +1,12 @@
 package org.alg.fundamentals.impl.unionfind;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-
 import org.alg.BaseTest;
 import org.junit.Before;
 import org.junit.Test;
 
-public class QuickFindTest extends BaseTest{
+import static org.hamcrest.CoreMatchers.equalTo;
+
+public class QuickFindTest extends BaseTest {
 
     private QuickFind quickFind;
     private int N = 10;

@@ -1,20 +1,11 @@
 package org.alg.fundamentals.impl.stack;
 
+import org.alg.fundamentals.base.Stack;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import org.alg.fundamentals.base.Stack;
-
 public class LinkedStack<Item> implements Stack<Item> {
-
-    private class NodeList {
-        Item item;
-        NodeList next;
-
-        public NodeList(Item item) {
-            this.item = item;
-        }
-    }
 
     private NodeList first = null;
     private int size = 0;
@@ -72,6 +63,15 @@ public class LinkedStack<Item> implements Stack<Item> {
                 return item;
             }
         };
+    }
+
+    private class NodeList {
+        Item item;
+        NodeList next;
+
+        public NodeList(Item item) {
+            this.item = item;
+        }
     }
 
 }

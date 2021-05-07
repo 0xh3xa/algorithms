@@ -14,9 +14,9 @@ public class CycleDetector {
     public CycleDetector(Graph graph) {
         marked = new boolean[graph.getVertices()];
         hasCycle = false;
-        for (int s = 0; s < graph.getVertices(); s++) {
-            if (!marked[s]) {
-                dfs(graph, s, s);
+        for (int v = 0; v < graph.getVertices(); v++) {
+            if (!marked[v]) {
+                dfs(graph, v, v);
             }
         }
     }
@@ -24,10 +24,11 @@ public class CycleDetector {
     private void dfs(Graph graph, int v, int u) {
         marked[v] = true;
         for (int w : graph.adj(v)) {
-            if (!marked[w])
-                dfs(graph, w, v);
-            else if (w != u)
+            if (!marked[w]) {
+                dfs(graph, w, v); // recursive call w, and came from v
+            } else if (w != u) { // if w is already visited and w not equals came from u
                 hasCycle = true;
+            }
         }
     }
 

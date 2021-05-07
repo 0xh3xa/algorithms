@@ -14,9 +14,9 @@ public class BipartiteDetector {
     public BipartiteDetector(Graph graph) {
         marked = new boolean[graph.getVertices()];
         color = new boolean[graph.getVertices()];
-        for (int s = 0; s < graph.getVertices(); s++) {
-            if (!marked[s]) {
-                dfs(graph, s);
+        for (int v = 0; v < graph.getVertices(); v++) {
+            if (!marked[v]) {
+                dfs(graph, v);
             }
         }
     }

@@ -1,10 +1,9 @@
 package org.alg.advanced.graph.directed.represent;
 
+import org.alg.fundamentals.impl.symboltable.ST;
+
 import java.io.File;
 import java.nio.file.Files;
-import java.util.List;
-
-import org.alg.fundamentals.impl.symboltable.ST;
 
 /**
  * Define graph with String vertex na˝mes instead of integer indices

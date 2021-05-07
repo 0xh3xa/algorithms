@@ -1,9 +1,9 @@
 package org.alg.fundamentals.impl.stack;
 
+import org.alg.fundamentals.base.Stack;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
-import org.alg.fundamentals.base.Stack;
 
 public class ArrayStack<Item> implements Stack<Item> {
 

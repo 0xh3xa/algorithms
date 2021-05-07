@@ -20,7 +20,7 @@ public class TopologicalSort {
     }
 
     public TopologicalSort(EdgeWeightedDigraph graph) {
-        EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle (graph);
+        EdgeWeightedDirectedCycle finder = new EdgeWeightedDirectedCycle(graph);
         if (!finder.hasCycle()) {
             DepthFirstOrder dfs = new DepthFirstOrder(graph);
             order = dfs.reversePost();

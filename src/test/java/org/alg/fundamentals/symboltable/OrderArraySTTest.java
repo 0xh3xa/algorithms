@@ -1,11 +1,11 @@
 package org.alg.fundamentals.symboltable;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-
 import org.alg.BaseTest;
 import org.alg.fundamentals.impl.symboltable.OrderArrayST;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class OrderArraySTTest extends BaseTest {
 

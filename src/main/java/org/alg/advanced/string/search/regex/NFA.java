@@ -1,7 +1,5 @@
 package org.alg.advanced.string.search.regex;
 
-import java.util.zip.GZIPInputStream;
-
 import org.alg.advanced.graph.directed.processing.DirectedDFS;
 import org.alg.advanced.graph.directed.represent.Digraph;
 import org.alg.fundamentals.base.Stack;

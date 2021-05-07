@@ -1,13 +1,13 @@
 package org.alg.fundamentals.impl.stack;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-
-import java.util.NoSuchElementException;
-
 import org.alg.BaseTest;
 import org.alg.fundamentals.base.Stack;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.NoSuchElementException;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class ArrayStackTest extends BaseTest {
 

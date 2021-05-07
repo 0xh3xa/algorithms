@@ -9,7 +9,7 @@ public class EdgeWeightedDigraph {
 
     public EdgeWeightedDigraph(int vertices) {
         this.vertices = vertices;
-        adj = (Bag<DirectedEdge>[]) new Bag[vertices];
+        adj = new Bag[vertices];
         for (int v = 0; v < vertices; v++) {
             adj[v] = new Bag<>();
         }

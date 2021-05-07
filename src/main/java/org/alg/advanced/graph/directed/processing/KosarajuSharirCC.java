@@ -15,7 +15,7 @@ public class KosarajuSharirCC {
         marked = new boolean[graph.getVertices()];
         id = new int[graph.getVertices()];
         count = 0;
-        DepthFirstOrder order = new DepthFirstOrder(graph);
+        DepthFirstOrder order = new DepthFirstOrder(graph.reverse());
         for (int s : order.reversePost()) {
             if (!marked[s]) {
                 dfs(graph, s);

@@ -7,11 +7,6 @@ public class StringST<Value> {
     private final static int R = 256; // Extended ASCII
     private Node root = new Node();
 
-    private class Node {
-        private Object val;
-        private Node[] next = (Node[]) new Object[R];
-    }
-
     public void put(String key, Value val) {
         root = put(root, key, val, 0);
     }
@@ -86,5 +81,10 @@ public class StringST<Value> {
             return length;
         char c = query.charAt(d);
         return search(node.next[c], query, d + 1, length);
+    }
+
+    private class Node {
+        private Object val;
+        private Node[] next = (Node[]) new Object[R];
     }
 }

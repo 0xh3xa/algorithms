@@ -1,25 +1,12 @@
 package org.alg.fundamentals.impl.symboltable;
 
-import java.util.NoSuchElementException;
-
 import org.alg.fundamentals.base.Queue;
 import org.alg.fundamentals.base.SymbolTable;
 import org.alg.fundamentals.impl.queue.LinkedQueue;
 
+import java.util.NoSuchElementException;
+
 public class BST<Key extends Comparable<Key>, Value> implements SymbolTable<Key, Value> {
-
-    private class Node {
-        private Key key;
-        private Value val;
-        private Node left, right;
-        private int count;
-
-        public Node(Key key, Value val, int count) {
-            this.key = key;
-            this.val = val;
-            this.count = count;
-        }
-    }
 
     private Node root;
     private int size = 0;
@@ -253,5 +240,18 @@ public class BST<Key extends Comparable<Key>, Value> implements SymbolTable<Key,
         inorder(node.left, q);
         q.enqueue(node.key);
         inorder(node.right, q);
+    }
+
+    private class Node {
+        private Key key;
+        private Value val;
+        private Node left, right;
+        private int count;
+
+        public Node(Key key, Value val, int count) {
+            this.key = key;
+            this.val = val;
+            this.count = count;
+        }
     }
 }

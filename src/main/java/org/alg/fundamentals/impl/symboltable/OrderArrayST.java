@@ -1,8 +1,8 @@
 package org.alg.fundamentals.impl.symboltable;
 
-import java.util.Iterator;
-
 import org.alg.fundamentals.base.SymbolTable;
+
+import java.util.Iterator;
 
 public class OrderArrayST<Key extends Comparable<Key>, Value> implements SymbolTable<Key, Value> {
 
@@ -14,6 +14,18 @@ public class OrderArrayST<Key extends Comparable<Key>, Value> implements SymbolT
         keys = (Key[]) new Comparable[cap];
         values = (Value[]) new Object[cap];
         N = 0;
+    }
+
+    public static void swap(Comparable[] a, int i, int j) {
+        Comparable temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+
+    public static <T> void swap(T[] a, int i, int j) {
+        T temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
     }
 
     @Override
@@ -65,18 +77,6 @@ public class OrderArrayST<Key extends Comparable<Key>, Value> implements SymbolT
             swap(values, lo, hi);
             lo++;
         }
-    }
-
-    public static void swap(Comparable[] a, int i, int j) {
-        Comparable temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
-    }
-
-    public static <T> void swap(T[] a, int i, int j) {
-        T temp = a[i];
-        a[i] = a[j];
-        a[j] = temp;
     }
 
     @Override

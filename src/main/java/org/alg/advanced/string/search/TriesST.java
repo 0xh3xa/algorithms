@@ -5,11 +5,6 @@ public class TriesST<Value> {
     private final static int R = 256; // Extended ASCII
     private Node root = new Node();
 
-    private class Node {
-        private Object val;
-        private Node[] next = (Node[]) new Object[R];
-    }
-
     public void put(String key, Value val) {
         root = put(root, key, val, 0);
     }
@@ -45,5 +40,10 @@ public class TriesST<Value> {
             return node;
         char c = key.charAt(d);
         return get(node.next[c], key, d + 1);
+    }
+
+    private class Node {
+        private Object val;
+        private Node[] next = (Node[]) new Object[R];
     }
 }

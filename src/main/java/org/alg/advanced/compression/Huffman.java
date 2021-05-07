@@ -7,9 +7,9 @@ public class Huffman {
 
     private static class Node implements Comparable<Node> {
 
+        private final Node left, right;
         private char ch; // Unused for internal nodes
         private int freq; // Unused for expand
-        private final Node left, right;
 
         public Node(char ch, int freq, Node left, Node right) {
             this.ch = ch;

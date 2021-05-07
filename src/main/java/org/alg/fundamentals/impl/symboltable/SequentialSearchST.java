@@ -1,4 +1,3 @@
-
 package org.alg.fundamentals.impl.symboltable;
 
 import org.alg.fundamentals.base.Queue;
@@ -7,18 +6,6 @@ import org.alg.fundamentals.impl.queue.ArrayQueue;
 public class SequentialSearchST<Key, Value> {
     private int n;
     private Node first;
-
-    private class Node {
-        private Key key;
-        private Value val;
-        private Node next;
-
-        public Node(Key key, Value val, Node next) {
-            this.key = key;
-            this.val = val;
-            this.next = next;
-        }
-    }
 
     public SequentialSearchST() {
     }
@@ -87,5 +74,17 @@ public class SequentialSearchST<Key, Value> {
         for (Node x = first; x != null; x = x.next)
             queue.enqueue(x.key);
         return queue;
+    }
+
+    private class Node {
+        private Key key;
+        private Value val;
+        private Node next;
+
+        public Node(Key key, Value val, Node next) {
+            this.key = key;
+            this.val = val;
+            this.next = next;
+        }
     }
 }

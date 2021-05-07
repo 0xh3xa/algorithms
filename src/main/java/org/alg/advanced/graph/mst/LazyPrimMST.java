@@ -1,10 +1,8 @@
 package org.alg.advanced.graph.mst;
 
 import org.alg.fundamentals.base.Queue;
-import org.alg.fundamentals.base.UnionFind;
 import org.alg.fundamentals.impl.queue.ArrayQueue;
 import org.alg.fundamentals.impl.queue.priority.MinPQ;
-import org.alg.fundamentals.impl.unionfind.WeightedQuickUnionPassCompression;
 
 /**
  * Prim's algorithm
@@ -22,8 +20,9 @@ public class LazyPrimMST {
         marked = new boolean[graph.getVertices()];
 
         for (int v = 0; v < graph.getVertices(); v++) { // run Prim from all vertices to
-            if (!marked[v])
+            if (!marked[v]) {
                 prim(graph, v); // get a minimum spanning forest
+            }
         }
     }
 
@@ -48,9 +47,11 @@ public class LazyPrimMST {
     // scanned
     private void scan(EdgeWeightedGraph graph, int v) {
         marked[v] = true;
-        for (Edge e : graph.adj(v))
-            if (!marked[e.other(v)])
+        for (Edge e : graph.adj(v)) {
+            if (!marked[e.other(v)]) {
                 pq.insert(e);
+            }
+        }
     }
 
     public Iterable<Edge> edges() {

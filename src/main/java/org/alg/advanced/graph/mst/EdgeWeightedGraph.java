@@ -11,12 +11,13 @@ public class EdgeWeightedGraph {
      * create graph of size of v vertices
      */
     public EdgeWeightedGraph(int v) {
-        if (v < 0)
+        if (v < 0) {
             throw new IllegalArgumentException("Number of vertices must be non-negative");
-        this.vertices = v;
-        adj = (Bag<Edge>[]) new Bag[v];
+        }
+        vertices = v;
+        adj = new Bag[v];
         for (int i = 0; i < v; i++) {
-            adj[v] = new Bag<Edge>();
+            adj[v] = new Bag<>();
         }
     }
 
@@ -48,11 +49,12 @@ public class EdgeWeightedGraph {
         for (int v = 0; v < vertices; v++) {
             int selfLoops = 0;
             for (Edge e : adj(v)) {
-                if (e.other(v) > v)
+                if (e.other(v) > v) {
                     bag.add(e);
-                else if (e.other(v) == v) {
-                    if (selfLoops % 2 == 0)
+                } else if (e.other(v) == v) {
+                    if (selfLoops % 2 == 0) { // TODO check why this condition?
                         bag.add(e);
+                    }
                     selfLoops++;
                 }
             }

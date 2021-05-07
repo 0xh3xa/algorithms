@@ -17,8 +17,9 @@ public class KruskalMST {
     public KruskalMST(EdgeWeightedGraph graph) {
         MinPQ<Edge> pq = new MinPQ<>(graph.getVertices());
         mst = new ArrayQueue<>();
-        for (Edge e : graph.edges())
+        for (Edge e : graph.edges()) {
             pq.insert(e);
+        }
 
         UnionFind unionFind = new WeightedQuickUnionPassCompression(graph.getVertices());
 

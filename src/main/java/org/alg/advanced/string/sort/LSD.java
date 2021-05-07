@@ -1,7 +1,5 @@
 package org.alg.advanced.string.sort;
 
-import java.util.ArrayList;
-
 public final class LSD {
 
     private LSD() throws IllegalAccessException {

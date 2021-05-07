@@ -1,11 +1,10 @@
 package org.alg.fundamentals.sort;
 
+import org.alg.BaseTest;
+import org.junit.Test;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
-
-import org.alg.BaseTest;
-
-import org.junit.Test;
 
 public class KnuthShuffleSortTest extends BaseTest {
 

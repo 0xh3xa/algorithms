@@ -1,20 +1,19 @@
 package org.alg.fundamentals.sort;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import org.alg.BaseTest;
+import org.junit.Test;
 
 import java.util.Arrays;
 
-import org.alg.BaseTest;
-
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class QuickSort3WayTest extends BaseTest {
 
     @Test
     public void shouldSortIntegerArray() {
         // Arrange
-        Integer[] arr = { 1, 8, -1, 83, -10, 7, 1, 10, 1, 62, 1, 1, 1 };
-        Integer[] sorted = { 1, 8, -1, 83, -10, 7, 1, 10, 1, 62, 1, 1, 1 };
+        Integer[] arr = {1, 8, -1, 83, -10, 7, 1, 10, 1, 62, 1, 1, 1};
+        Integer[] sorted = {1, 8, -1, 83, -10, 7, 1, 10, 1, 62, 1, 1, 1};
         Arrays.sort(sorted);
         // Act
         QuickSort3Way.sort(arr);
@@ -26,8 +25,8 @@ public class QuickSort3WayTest extends BaseTest {
     @Test
     public void shouldSortCharacterArray() {
         // Arrange
-        Character[] arr = { 'a', 'z', 't', 'i', 'w', 'h', 't', 'n', 't', 't' };
-        Character[] sorted = { 'a', 'z', 't', 'i', 'w', 'h', 't', 'n', 't', 't' };
+        Character[] arr = {'a', 'z', 't', 'i', 'w', 'h', 't', 'n', 't', 't'};
+        Character[] sorted = {'a', 'z', 't', 'i', 'w', 'h', 't', 'n', 't', 't'};
         Arrays.sort(sorted);
 
         // Act
@@ -40,7 +39,7 @@ public class QuickSort3WayTest extends BaseTest {
     @Test
     public void shouldSortStringArray() {
         // Arrange
-        String[] arr = { "hhh", "aaa", "ddd", "bbb", "ccc" };
+        String[] arr = {"hhh", "aaa", "ddd", "bbb", "ccc"};
 
         // Act
         QuickSort3Way.sort(arr);

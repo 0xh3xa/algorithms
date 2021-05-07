@@ -1,8 +1,8 @@
 package org.alg.advanced.graph.directed.processing;
 
-import java.util.Stack;
-
 import org.alg.advanced.graph.directed.represent.Digraph;
+
+import java.util.Stack;
 
 /**
  * Detect cycle in directed graph
@@ -29,8 +29,8 @@ public class DirectedCycleDetector {
         onStack[v] = true;
         marked[v] = true;
         for (int w : graph.adj(v)) {
+            // short circuit if directed cycle found
             if (cycle != null) {
-                // short circuit if directed cycle found
                 return;
             } else if (!marked[w]) {
                 // found new vertex, so recur
@@ -43,7 +43,7 @@ public class DirectedCycleDetector {
                     cycle.push(x);
                 }
                 cycle.push(w);
-                cycle.push(v);
+                cycle.push(v); // TODO check if should be added, coz it should be added in for loop
             }
         }
         onStack[v] = false;

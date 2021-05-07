@@ -8,11 +8,6 @@ public class Bag<Item> implements Iterable<Item> {
     private Node<Item> first;
     private int n;
 
-    private static class Node<Item> {
-        private Item item;
-        private Node<Item> next;
-    }
-
     public Bag() {
         first = null;
         n = 0;
@@ -36,6 +31,11 @@ public class Bag<Item> implements Iterable<Item> {
 
     public Iterator<Item> iterator() {
         return new LinkedIterator(first);
+    }
+
+    private static class Node<Item> {
+        private Item item;
+        private Node<Item> next;
     }
 
     private class LinkedIterator implements Iterator<Item> {
