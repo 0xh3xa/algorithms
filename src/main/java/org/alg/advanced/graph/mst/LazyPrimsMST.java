@@ -5,21 +5,22 @@ import org.alg.fundamentals.impl.queue.ArrayQueue;
 import org.alg.fundamentals.impl.queue.priority.MinPQ;
 
 /**
- * Prim's algorithm
+ * class represents Lazy Prims algorithm for finding the MST
  */
-public class LazyPrimMST {
+public class LazyPrimsMST {
 
     private double weight;
     private boolean[] marked;
     private Queue<Edge> mst;
     private MinPQ<Edge> pq;
 
-    public LazyPrimMST(EdgeWeightedGraph graph) {
+    public LazyPrimsMST(EdgeWeightedGraph graph) {
         pq = new MinPQ<>(graph.getVertices());
         mst = new ArrayQueue<>();
         marked = new boolean[graph.getVertices()];
 
-        for (int v = 0; v < graph.getVertices(); v++) { // run Prim from all vertices to
+        // run Prim from all vertices to
+        for (int v = 0; v < graph.getVertices(); v++) {
             if (!marked[v]) {
                 prim(graph, v); // get a minimum spanning forest
             }
@@ -43,8 +44,10 @@ public class LazyPrimMST {
         }
     }
 
-    // add all edges e incident to v onto pq if the other endpoint has not yet been
-    // scanned
+    /**
+     * add all edges e incident to v onto pq if the other endpoint has not yet been
+     * scanned
+     */
     private void scan(EdgeWeightedGraph graph, int v) {
         marked[v] = true;
         for (Edge e : graph.adj(v)) {

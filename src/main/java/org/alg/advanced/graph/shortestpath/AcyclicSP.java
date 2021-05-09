@@ -4,6 +4,11 @@ import org.alg.advanced.graph.directed.processing.TopologicalSort;
 import org.alg.fundamentals.base.Stack;
 import org.alg.fundamentals.impl.stack.ArrayStack;
 
+/**
+ * Dijkstra algorithm implementation for finding shortest path from single
+ * source in edge weighted directed acyclic graphs (DAGs), The edge weight can
+ * be positive, negative and zero
+ */
 public class AcyclicSP {
 
     private DirectedEdge[] edgeTo;

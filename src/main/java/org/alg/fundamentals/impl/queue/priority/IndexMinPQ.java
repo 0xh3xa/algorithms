@@ -1,4 +1,4 @@
-package org.alg.fundamentals.impl.queue;
+package org.alg.fundamentals.impl.queue.priority;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

@@ -3,9 +3,23 @@ package org.alg.advanced.string.search;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-public class StringST<Value> {
-    private final static int R = 256; // Extended ASCII
-    private Node root = new Node();
+/**
+ * class represents R-way trie implementation for string search
+ */
+public class TrieST<Value> {
+
+    // Extended ASCII
+    // Could be 26 if you sure that strings consists english letter only
+    // and index of character will be node.next[ch - 'a']
+    private final static int R = 256;
+
+    private class Node {
+        private Object val;
+        private Node[] next = (Node[]) new Object[R];
+    }
+
+    private int size;
+    private Node root;
 
     public void put(String key, Value val) {
         root = put(root, key, val, 0);
@@ -16,6 +30,7 @@ public class StringST<Value> {
             node = new Node();
         }
         if (d == key.length()) {
+            size++;
             node.val = val;
             return node;
         }
@@ -44,6 +59,11 @@ public class StringST<Value> {
         return get(node.next[c], key, d + 1);
     }
 
+    /**
+     * Get all keys in the tries
+     * 
+     * @return Iterable<String>
+     */
     public Iterable<String> keys() {
         Queue<String> queue = new ArrayDeque<>();
         collect(root, "", queue);
@@ -60,6 +80,11 @@ public class StringST<Value> {
         }
     }
 
+    /**
+     * Get all keys with prefix in the tries
+     * 
+     * @return Iterable<String>
+     */
     public Iterable<String> keysWithPrefix(String prefix) {
         Queue<String> queue = new ArrayDeque<>();
         Node node = get(root, prefix, 0);
@@ -67,9 +92,25 @@ public class StringST<Value> {
         return queue;
     }
 
+    /**
+     * Get longest prefix matches query exist in trie
+     * 
+     * @return String
+     */
     public String longestPrefixOf(String query) {
-        int length = search(root, query, 0, 0);
+        int length = search(root, query, 0, -1);
+        if (length == -1)
+            return null;
         return query.substring(0, length);
+    }
+
+    /**
+     * Get boolean if trie contains string start with prefix
+     * 
+     * @return boolean
+     */
+    public boolean startsWith(String prefix) {
+        return get(root, prefix, 0) != null;
     }
 
     private int search(Node node, String query, int d, int length) {
@@ -83,8 +124,39 @@ public class StringST<Value> {
         return search(node.next[c], query, d + 1, length);
     }
 
-    private class Node {
-        private Object val;
-        private Node[] next = (Node[]) new Object[R];
+    public int size() {
+        return size;
+    }
+
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
+    public void delete(String key) {
+        root = delete(root, key, 0);
+    }
+
+    private Node delete(Node node, String key, int d) {
+        if (node == null)
+            return null;
+        if (d == key.length()) { // hit the key length
+            if (node.val != null)
+                size--;
+            node.val = null;
+        } else { // go next
+            char c = key.charAt(d);
+            node.next[c] = delete(node.next[c], key, d + 1);
+        }
+
+        // check subtree if value is not null then return node
+        if (node.val != null)
+            return node;
+
+        // node value is null check all links, if all links are null return null
+        // otherwise return first not null value node
+        for (int c = 0; c < R; c++)
+            if (node.next[c] != null)
+                return node;
+        return null;
     }
 }

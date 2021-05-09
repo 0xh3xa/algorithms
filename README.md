@@ -4109,7 +4109,7 @@ public class DijkstraSP {
 * Proposition. Dijkstra's algorithm computes a SPT in any edge-weighted digraph with nonnegative weights
 
     - Pf. 
-        + Each edge e = v&#8594; w is relaxed exactly once (when v is relaxed) learving distTo[w] <= distTo[v] + e.weight()
+        + Each edge e = v&#8594; w is relaxed exactly once (when v is relaxed) leaving distTo[w] <= distTo[v] + e.weight()
 
         +  Inequality holds until algorithm terminates because
 
@@ -4277,7 +4277,7 @@ public class AcyclicSP {
     - Initialize distTo[s] = 0 and distTo[v] = &infin; for all other vertices
 
     - Repeat V times:
-        + Relex each edge
+        + Relax each edge
 
     - Proposition. Dynamic programming algorithm computes SPT in any edge weighted digraph with no negative cycles in time proportional to *E x V*
 
@@ -4656,11 +4656,7 @@ public static String reverse(String s) {
 
 * Least significant digit first string sort
 
-    
-
     - Consider characters from right to left
-
-    
 
     - Stably sort using *d<sup>th</sup>* character as the key (using key-indexed counting)
 
@@ -4723,11 +4719,7 @@ public static void sort(String[] a, int W) {
 
 * Steps
 
-   
-
     - Partition array into R pieces according to first character (use key-indexed counting)
-
-   
 
     - Recursively sort all strings that start ith each character (key-indexed counts delineate subarrays to sort)
 
@@ -4748,14 +4740,17 @@ public static void sort(String[] a, int W) {
     private final static void sort(String[] a, String[] aux, int lo, int hi, int d) {
         if (hi <= lo)
             return;
-        int R = 256;
         int[] count = new int[R + 2];
-        for (int i = lo; i <= hi; i++)
-            count[charAt(a[i], d) + 2]++;
+        for (int i = lo; i <= hi; i++) {
+            int c = charAt(a[i], d);
+            count[c + 2]++;
+        }
         for (int r = 0; r < R + 1; r++)
             count[r + 1] += count[r];
-        for (int i = lo; i <= hi; i++)
-            aux[count[charAt(a[i], d) + 1]++] = a[i];
+        for (int i = lo; i <= hi; i++) {
+            int c = charAt(a[i], d);
+            aux[count[c + 1]++] = a[i];
+        }
         for (int i = lo; i <= hi; i++)
             a[i] = aux[i - lo];
 
@@ -4790,18 +4785,16 @@ public static void sort(String[] a, int W) {
         + Number of characters examined depends on keys
         + Can be sublinear in input size
 
-* Disadvantage of MSD string sort
-    - ACcess memory "randomly" (cache inefficient)
+* Disadvantages of MSD string sort
+
+    - Access memory "randomly" (cache inefficient)
     - Inner loop has a lot of instructions
     - Extra space for count[]
     - Extra space for aux[]
 
-* Disadvantage of quicksort
+* Disadvantages of quicksort
 
     - Linearithmic number of string compares (not linear)
-
-    
-
     - Has to re-scan many characters in keys with long prefix matches
 
 * Complexity
@@ -5028,11 +5021,7 @@ public class StringST<Value> {
 
     - Follow links corresponding to each character in the key
 
-    
-
         + Search hit: node where search ends has a non-null value
-
-    
 
         + Search miss: reach null link or node where search ends has null value
 
@@ -5048,31 +5037,21 @@ public class StringST<Value> {
 
     - Find the node corresponding to key and set value to null
 
-    
-
     - If node has null value and all null links, remove that node (and recur)
 
 * Trie performance
 
     - Search hit. Need to examine all *L* characters for equality
 
-    
-
     - Search miss. 
-
-    
 
         + Could have mismatch on 
 
-    first character
+    - first character
 
         + Typical case examine only a few characters
 
-   
-
     - Space. *R* null links at each leaf. (but sub-linear space possible if many short strings share common prefixes)
-
-   
 
     - Bottom line. Fast search hit and even faster search miss, but `wastes space`
 
@@ -5086,12 +5065,13 @@ public class StringST<Value> {
 public class TriesST<Value> {
 
     private final static int R = 256;
-    private Node root = new Node();
 
     private class Node {
         private Object val;
         private Node[] next = (Node[]) new Object[R];
     }
+
+    private Node root;
 
     public void put(String key, Value val) {
         root = put(root, key, val, 0);
@@ -5143,13 +5123,11 @@ public class TriesST<Value> {
     - Method of choice for small R
     - Too much memory for large R
 
-* Challenge. Use less memory, e.g. 65, 536-way trie for Unicode!
+* Challenge. Use less memory, e.g. 65,536-way trie for Unicode!
 
 ## Ternary search tries
 
 * Store characters and values in nodes (not keys)
-
- 
 
 * Each node has 3 children: small(left), equal(middle), larger(right)
 
@@ -5168,8 +5146,6 @@ public class TriesST<Value> {
 
     - 26-way trie. 26 null links in each leaf
 
-    
-
     - TST. 3 null links in each leaf
 
  `Code`
@@ -5177,13 +5153,13 @@ public class TriesST<Value> {
 ``` java
 public class TernaryST<Value> {
 
-    private Node root;
-
     private class Node {
         Value val;
         char c;
         Node left, mid, right;
     }
+
+    private Node root;
 
     public void put(String key, Value val) {
         root = put(root, key, val, 0);
@@ -5191,8 +5167,10 @@ public class TernaryST<Value> {
 
     private Node put(Node node, String key, Value val, int d) {
         char c = key.charAt(d);
-        if (node == null)
+        if (node == null) {
             node = new Node();
+            node.c = c;
+        }
         if (c < node.c)
             node.left = put(node.left, key, val, d);
         else if (c > node.c)
@@ -5205,17 +5183,19 @@ public class TernaryST<Value> {
     }
 
     public boolean contains(String key) {
-        return get(key) == null;
+        return get(key) != null;
     }
 
     public Value get(String key) {
         Node node = get(root, key, 0);
-        if (node == null) return null;
+        if (node == null)
+            return null;
         return node.val;
     }
 
     private Node get(Node node, String key, int d) {
-        if (node == null) return null;
+        if (node == null)
+            return null;
         char c = key.charAt(d);
         if (c < node.c)
             return get(node.left, key, d);
@@ -5712,31 +5692,17 @@ public class RabinKarp {
 
     - Process natural language
 
-    
-
     - Scan for virus signature
-
-    
 
     - Specify a programming language
 
-    
-
     - Access information in digital libraries
-
-    
 
     - Search genome using PROSITE patterns
 
-    
-
     - Filter text (spam, NetNanny, Carnivore, malware)
 
-    
-
     - Validate data-entry fields (dates, email, URL, credit card)
-
-    
 
     - Parse text files
         + Compile a Java program
@@ -5804,8 +5770,6 @@ public class RabinKarp {
     - Basic plan. [apply Kleen's theorem]
 
         + Build NFA from RE
-
-        
 
         + Simulate NFA with text as input
 
@@ -5969,8 +5933,6 @@ public class Grep {
 
     - Basis of the theory of computation
 
-    
-
     - Intensively studied since the 1930s
 
     - Basis of programming language
@@ -6004,11 +5966,7 @@ public class Grep {
 
     - Moore's law: # transistors on a chip doubles every 18-24 months
 
-   
-
     - Parkinsons' law: data expands to fill space available
-
-  
 
     - Text, image, sound, video, ....
 
@@ -6052,13 +6010,9 @@ public class Grep {
 
     - Data compression has been omnipresent since antiquilty
 
-        
-
         + Number systems
         + Natural languages
         + Mathematical notation
-
-        
 
     - has played a central role in communication technology
 
@@ -6075,11 +6029,7 @@ public class Grep {
 
     - Genome. String over the alphabet { A, C, T, G }
 
-    
-
         + Goal. Encode an *N*-character genome: ATAGATGCATِG...
-
-    
 
         + Standard ASCII encoding
 
@@ -6090,8 +6040,6 @@ public class Grep {
             . because they are 4 characters you can use 2 bits to store them
 
     - Fixed-length code. A-bit code support alphabet of size 2<sup>k</sup>
-
-    
 
     - Amazing but true. Initial genomic databases in 1990s used ASCII
 
@@ -6141,8 +6089,6 @@ public class Grep {
 
         + Ex 1. Fixed-length code
 
-    
-
         + Ex 2. General prefix-free code
 
         + Ex 3. General prefix-free code
@@ -6157,19 +6103,13 @@ public class Grep {
 
     - Method 1: start at leaf, follow path up to the root, print bits in reverse
 
-   
-
     - Method 2: creates ST of key-value pairs
 
 * Expansion
 
     - Start at root
 
-   
-
     - Go left if bit is 0, go right if 1
-
-   
 
     - If leaf node, print char and return to root
 
@@ -6183,11 +6123,7 @@ public class Grep {
 
         + Partition symbols S into two subsets S0 and S1 of (roughly) equal freq
 
-       
-
         + Codewords for symbols in S0 start with 0, for symbols in S1 start with 1
-
-       
 
         + Recur in S0 and S1
 
@@ -6384,8 +6320,6 @@ what else could (could not) we solve efficiently?
 
         . Linear number of standard computational steps
         . Constant number of calls to Y
-
-    
 
     - Ex. almost all of the reductions we've seen so far
 

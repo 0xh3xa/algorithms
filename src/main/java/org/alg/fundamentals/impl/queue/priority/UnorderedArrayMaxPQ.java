@@ -2,6 +2,10 @@ package org.alg.fundamentals.impl.queue.priority;
 
 import org.alg.fundamentals.base.IMaxPQ;
 
+/**
+ * Class representation to Priority Queue for fast insert O(1) and delete max
+ * with time complexity O(N)
+ */
 public class UnorderedArrayMaxPQ<Item extends Comparable<Item>> implements IMaxPQ<Item> {
 
     private Item[] pq;

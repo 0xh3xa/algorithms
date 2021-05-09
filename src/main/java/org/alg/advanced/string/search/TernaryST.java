@@ -1,6 +1,15 @@
 package org.alg.advanced.string.search;
 
+/**
+ * class represent ternary trie
+ */
 public class TernaryST<Value> {
+
+    private class Node {
+        Value val;
+        char c;
+        Node left, mid, right;
+    }
 
     private Node root;
 
@@ -10,8 +19,10 @@ public class TernaryST<Value> {
 
     private Node put(Node node, String key, Value val, int d) {
         char c = key.charAt(d);
-        if (node == null)
+        if (node == null) {
             node = new Node();
+            node.c = c;
+        }
         if (c < node.c)
             node.left = put(node.left, key, val, d);
         else if (c > node.c)
@@ -24,7 +35,7 @@ public class TernaryST<Value> {
     }
 
     public boolean contains(String key) {
-        return get(key) == null;
+        return get(key) != null;
     }
 
     public Value get(String key) {
@@ -46,11 +57,5 @@ public class TernaryST<Value> {
             return get(node.mid, key, d + 1);
         else
             return node;
-    }
-
-    private class Node {
-        Value val;
-        char c;
-        Node left, mid, right;
     }
 }

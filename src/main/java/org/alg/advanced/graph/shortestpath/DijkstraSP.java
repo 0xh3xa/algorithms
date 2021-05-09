@@ -1,7 +1,7 @@
 package org.alg.advanced.graph.shortestpath;
 
 import org.alg.fundamentals.base.Stack;
-import org.alg.fundamentals.impl.queue.IndexMinPQ;
+import org.alg.fundamentals.impl.queue.priority.IndexMinPQ;
 import org.alg.fundamentals.impl.stack.ArrayStack;
 
 /**

@@ -1,4 +1,4 @@
-package org.alg.advanced.string.search;
+package org.alg.advanced.string.search.substring;
 
 /**
  * Brute-force substring search for operation Index of Which return the first
