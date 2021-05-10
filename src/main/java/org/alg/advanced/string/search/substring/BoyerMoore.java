@@ -6,29 +6,27 @@ package org.alg.advanced.string.search.substring;
  */
 public class BoyerMoore {
 
-    private final int R;
+    private static final int R = 256;
     private int[] right;
-    private String pat;
+    private String pattern;
 
     public BoyerMoore(String pattern) {
-        this.R = 256;
-        this.pat = pat;
+        this.pattern = pattern;
         right = new int[R];
         for (int c = 0; c < R; c++)
             right[c] = -1;
-        for (int j = 0; j < pat.length(); j++)
-            right[pat.charAt(j)] = j;
-
+        for (int j = 0; j < pattern.length(); j++)
+            right[pattern.charAt(j)] = j;
     }
 
     public int indexOf(String text) {
         int N = text.length();
-        int M = pat.length();
+        int M = pattern.length();
         int skip;
         for (int i = 0; i <= N - M; i += skip) {
             skip = 0;
             for (int j = M - 1; j >= 0; j--) {
-                if (pat.charAt(j) != text.charAt(i + j)) {
+                if (pattern.charAt(j) != text.charAt(i + j)) {
                     skip = Math.max(1, j - right[text.charAt(i + j)]);
                     break;
                 }

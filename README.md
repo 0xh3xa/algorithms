@@ -5313,16 +5313,12 @@ public class TernaryST<Value> {
 
 # Substring search algorithms
 
-* Goal. find pattern of length *M* in a text of length *N* (typically N>M)
+* Goal. find pattern of length *M* in a text of length *N* (typically N > M)
 
 * Applications
     - Find and replace
 
-    
-
     - computer forensics. Search memory or disk for signatures, e.g. al URLs or RSA keys that the user has entered
-
-    
 
     - Identify patterns indicative of spam
 
@@ -5370,7 +5366,7 @@ public class TernaryST<Value> {
     - The pattern could be so long
 
 * Backup
-    - In  many applications, we want to avoid `backup` in text stream
+    - In  many applications, we want to avoid `backup` in text stream, we will see in the next algorithms
 
         01. Treat input as stream of data
         02. Abstract model: standard input
@@ -5380,6 +5376,13 @@ public class TernaryST<Value> {
     - Approach 2. Stay tuned
 
 ``` java
+    /**
+     * Alternative impl brute-force with explicit backup
+     * 
+     * @param text String
+     * @param sub  String
+     * @return int
+     */
     public final static int indexOfEnhanced(String text, String sub) {
         int i, N = text.length();
         int j, M = sub.length();
@@ -5395,7 +5398,7 @@ public class TernaryST<Value> {
         if (j == M)
             return i - M;
         else
-            return N;
+            return -1;
     }
 ```
 
@@ -5413,19 +5416,13 @@ public class TernaryST<Value> {
 
 * Intuition. Suppose e are search in text for pattern BAAAAAAAAA
 
-* KMP. Clever method to avoid backup in brute-force substring
+* KMP. Clever method to `avoid backup` in brute-force substring
 
 * Deterministic finite state automaton (DFA)
 
-   
-
     - Finite number of states (includes start and halt)
 
-   
-
     - Exactly one transition for each char in alphabet
-
-   
 
     - Accept if sequence of transitions leads to halt state
 
@@ -5436,11 +5433,13 @@ public class TernaryST<Value> {
 * Key difference from brute-force implementation
 
     - Need to pre-compute dfa[][] from pattern
+
     - Text pointer i never decrements
 
 * Running time
 
     - Simulate DFA on text: at most N character accesses
+
     - Build DFA: ho to do efficiently? [warning: tricky algorithm ahead!]
 
 * How to build DFA from pattern?
@@ -5448,8 +5447,6 @@ public class TernaryST<Value> {
     - If in state j and next char `c != pat.charAt(j)` , then the last `j-1` characters of input are pat[1..j-1] followed by c
 
 * Proposition. KMP substring search access no more than `M + N` chars to search for a pattern of length M in a text of length N
-
-  
 
     - Pf. each pattern char accessed once when constructing DFA, each text char accessed once (in the worst case) when simulating of the DFA
 
@@ -5522,19 +5519,17 @@ public class KMP {
 ``` java
 public class BoyerMoore {
 
-    private final int R;
+    private static final int R = 256;
     private int[] right;
     private String pat;
 
     public BoyerMoore(String pattern) {
-        this.R = 256;
         this.pat = pat;
         right = new int[R];
         for (int c = 0; c < R; c++)
             right[c] = -1;
         for (int j = 0; j < pat.length(); j++)
             right[pat.charAt(j)] = j;
-
     }
 
     public int indexOf(String text) {
@@ -5605,23 +5600,30 @@ public class BoyerMoore {
 ``` java
 public class RabinKarp {
 
-    private long patHash; // pattern hash
-    private int M; // pattern length
-    private long Q; // modulus
-    private int R; // radix
-    private long RM; // R^(M-1)%Q
+    private static final int R = 256;
+
+    private final String pattern;
+    private final long patternHash;
+    private final int M; // pattern length
+    private final long Q; // modulus
+    private long RM; // R^(M-1) % Q
 
     public RabinKarp(String pattern) {
+        this.pattern = pattern;
         M = pattern.length();
-        R = 256;
         Q = longRandomPrime();
 
         RM = 1;
-
         for (int i = 1; i <= M - 1; i++) {
             RM = (R * RM) % Q;
         }
-        patHash = hash(pattern, M);
+        patternHash = hash(pattern, M);
+    }
+
+    // a random 31-bit prime
+    private static long longRandomPrime() {
+        BigInteger prime = BigInteger.probablePrime(31, new Random());
+        return prime.longValue();
     }
 
     private long hash(String key, int M) {
@@ -5632,28 +5634,47 @@ public class RabinKarp {
         return h;
     }
 
-    private static long longRandomPrime() {
-        BigInteger prime = BigInteger.probablePrime(31, new Random());
-        return prime.longValue();
-    }
-
     public int search(String text) {
         int N = text.length();
-        long txtHash = hash(text, M);
+        if (N < M)
+            return -1;
 
-        if (patHash == txtHash)
+        // hash of first M characters in text
+        long textHash = hash(text, M);
+
+        if ((patternHash == textHash) && check(text, 0))
             return 0;
 
+        // check for hash match; if hash match, check for exact match
         for (int i = M; i < N; i++) {
-            txtHash = (txtHash + 0 - RM * text.charAt(i - M) % Q) % Q;
-            txtHash = (txtHash + R + text.charAt(i)) % Q;
+            // Remove leading digit
+            textHash = (textHash + Q - RM * text.charAt(i - M) % Q) % Q;
 
-            if (patHash == txtHash)
-                return i - M + 1;
+            // Add trailing digit
+            textHash = (textHash * R + text.charAt(i)) % Q;
 
+            // Check match
+            int offset = i - M + 1;
+            if ((patternHash == textHash) && check(text, offset))
+                return offset;
         }
         return -1;
     }
+
+    // Las Vegas version: does pattern[] match text[i..i-m+1] ?
+    private boolean check(String text, int i) {
+        for (int j = 0; j < M; j++) {
+            if (pattern.charAt(j) != text.charAt(i + j)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Monte Carlo version: always return true
+    // private boolean check(String text, int i) {
+    // return true;
+    // }
 }
 ```
 

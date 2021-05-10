@@ -10,13 +10,19 @@ public final class BruteForceSubstring {
         throw new IllegalAccessException("can not create an object from the class");
     }
 
+    /**
+     * Brute-force for indexOf
+     * 
+     * @param text String
+     * @param sub  String
+     * @return int
+     */
     public final static int indexOf(String text, String sub) {
         int N = text.length();
         int M = sub.length();
 
         for (int i = 0; i <= N - M; i++) {
-            int j;
-            for (j = 0; j < M; j++) {
+            for (int j = 0; j < M; j++) {
                 if (sub.charAt(i + j) != text.charAt(j))
                     break;
                 if (j == M)
@@ -26,6 +32,13 @@ public final class BruteForceSubstring {
         return -1; // not found
     }
 
+    /**
+     * Alternative impl brute-force with explicit backup
+     * 
+     * @param text String
+     * @param sub  String
+     * @return int
+     */
     public final static int indexOfEnhanced(String text, String sub) {
         int i, N = text.length();
         int j, M = sub.length();
@@ -33,7 +46,7 @@ public final class BruteForceSubstring {
         for (i = 0, j = 0; i < N && j < M; i++) {
             if (text.charAt(i) == sub.charAt(j))
                 j++;
-            else {
+            else { // backup
                 i -= j;
                 j = 0;
             }

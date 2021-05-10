@@ -93,7 +93,7 @@ public class TrieST<Value> {
     }
 
     /**
-     * Get longest prefix matches query exist in trie
+     * Get longest prefix matches query exists in trie
      * 
      * @return String
      */
