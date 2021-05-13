@@ -6,6 +6,9 @@ import org.alg.fundamentals.base.Stack;
 import org.alg.fundamentals.impl.Bag;
 import org.alg.fundamentals.impl.stack.ArrayStack;
 
+/**
+ * class represents NFA for regular expression search
+ */
 public class NFA {
 
     private char[] re;
@@ -15,8 +18,9 @@ public class NFA {
 
     public NFA(String regexp) {
         this.regexp = regexp;
-        this.M = regexp.length();
-        this.graph = buildEpsilonTransitionDigraph();
+        re = regexp.toCharArray();
+        M = regexp.length();
+        graph = buildEpsilonTransitionDigraph();
     }
 
     private Digraph buildEpsilonTransitionDigraph() {

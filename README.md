@@ -5598,6 +5598,10 @@ public class BoyerMoore {
  `Code`
 
 ``` java
+/**
+ * Rabin-Karp substring search for operation Index of Which return the first
+ * occupance of substring in text
+ */
 public class RabinKarp {
 
     private static final int R = 256;
@@ -5606,13 +5610,14 @@ public class RabinKarp {
     private final long patternHash;
     private final int M; // pattern length
     private final long Q; // modulus
-    private long RM; // R^(M-1) % Q
+    private long RM;
 
     public RabinKarp(String pattern) {
         this.pattern = pattern;
         M = pattern.length();
         Q = longRandomPrime();
 
+        // R^(M-1) % Q
         RM = 1;
         for (int i = 1; i <= M - 1; i++) {
             RM = (R * RM) % Q;
@@ -5628,8 +5633,8 @@ public class RabinKarp {
 
     private long hash(String key, int M) {
         long h = 0;
-        for (int j = 0; j < M; j++) {
-            h = (R * h + key.charAt(j)) % Q;
+        for (int i = 0; i < M; i++) {
+            h = (R * h + key.charAt(i)) % Q;
         }
         return h;
     }
@@ -5640,22 +5645,22 @@ public class RabinKarp {
             return -1;
 
         // hash of first M characters in text
-        long textHash = hash(text, M);
+        long h = hash(text, M);
 
-        if ((patternHash == textHash) && check(text, 0))
+        if ((patternHash == h) && check(text, 0))
             return 0;
 
         // check for hash match; if hash match, check for exact match
         for (int i = M; i < N; i++) {
             // Remove leading digit
-            textHash = (textHash + Q - RM * text.charAt(i - M) % Q) % Q;
+            h = (h + Q - RM * text.charAt(i - M) % Q) % Q;
 
             // Add trailing digit
-            textHash = (textHash * R + text.charAt(i)) % Q;
+            h = (R * h + text.charAt(i)) % Q;
 
             // Check match
             int offset = i - M + 1;
-            if ((patternHash == textHash) && check(text, offset))
+            if ((patternHash == h) && check(text, offset))
                 return offset;
         }
         return -1;
@@ -5752,8 +5757,6 @@ public class RabinKarp {
 
     - Kleene's theorem
 
-    
-
         + For any DFA, there exists a RE that describes the same set of strings
 
         + For any RE, there exists a DFA that recognizes the same set of strings
@@ -5771,8 +5774,6 @@ public class RabinKarp {
     - Basic plan. [apply Kleen's theorem]
 
         + Build DFA from RE
-
-        
 
         + Simulate DFA with text as input
 
@@ -5842,6 +5843,7 @@ public class NFA {
 
     public NFA(String regexp) {
         this.regexp = regexp;
+        this.re = regexp.toCharArray();
         this.M = regexp.length();
         this.graph = buildEpsilonTransitionDigraph();
     }
@@ -5971,6 +5973,7 @@ public class Grep {
 |Pattern|string|RE|program|
 |compiler output|DFA|NFA|byte code|
 |simulator|DFA simulator|NFA-simulator|JVM|
+
 ---
 
 # Data compression
@@ -6069,13 +6072,11 @@ public class Grep {
 * Simple type of redundancy in a bitstream. Long runs of repeated bits
     - This string 
 
-    
-
- `0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1`
+ ```text
+ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1
+ ```
 
     - Representation. 4-bit counts to represent alternating runs of 0s and 1s: 15 0s, then7 1s, then 7 0s, then 11 1a
-
-    
 
     - Q. How many bits to store the counts?
 

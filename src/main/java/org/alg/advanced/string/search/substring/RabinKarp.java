@@ -15,13 +15,14 @@ public class RabinKarp {
     private final long patternHash;
     private final int M; // pattern length
     private final long Q; // modulus
-    private long RM; // R^(M-1) % Q
+    private long RM;
 
     public RabinKarp(String pattern) {
         this.pattern = pattern;
         M = pattern.length();
         Q = longRandomPrime();
 
+        // R^(M-1) % Q
         RM = 1;
         for (int i = 1; i <= M - 1; i++) {
             RM = (R * RM) % Q;
@@ -37,8 +38,8 @@ public class RabinKarp {
 
     private long hash(String key, int M) {
         long h = 0;
-        for (int j = 0; j < M; j++) {
-            h = (R * h + key.charAt(j)) % Q;
+        for (int i = 0; i < M; i++) {
+            h = (R * h + key.charAt(i)) % Q;
         }
         return h;
     }
@@ -49,22 +50,22 @@ public class RabinKarp {
             return -1;
 
         // hash of first M characters in text
-        long textHash = hash(text, M);
+        long h = hash(text, M);
 
-        if ((patternHash == textHash) && check(text, 0))
+        if ((patternHash == h) && check(text, 0))
             return 0;
 
         // check for hash match; if hash match, check for exact match
         for (int i = M; i < N; i++) {
             // Remove leading digit
-            textHash = (textHash + Q - RM * text.charAt(i - M) % Q) % Q;
+            h = (h + Q - RM * text.charAt(i - M) % Q) % Q;
 
             // Add trailing digit
-            textHash = (textHash * R + text.charAt(i)) % Q;
+            h = (R * h + text.charAt(i)) % Q;
 
             // Check match
             int offset = i - M + 1;
-            if ((patternHash == textHash) && check(text, offset))
+            if ((patternHash == h) && check(text, offset))
                 return offset;
         }
         return -1;
