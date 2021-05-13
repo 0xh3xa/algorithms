@@ -6070,23 +6070,24 @@ public class Grep {
 ## Run length coding
 
 * Simple type of redundancy in a bitstream. Long runs of repeated bits
-    - This string 
+* 
+   - This string 
 
- ```text
- 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1
- ```
+```
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1
+```
 
-    - Representation. 4-bit counts to represent alternating runs of 0s and 1s: 15 0s, then7 1s, then 7 0s, then 11 1a
+   - Representation. 4-bit counts to represent alternating runs of 0s and 1s: 15 0s, then7 1s, then 7 0s, then 11 1a
 
-    - Q. How many bits to store the counts?
+   - Q. How many bits to store the counts?
 
-        + A. We'll use 8 (but 4 in the example above)
+       + A. We'll use 8 (but 4 in the example above)
 
-    - Q. What to do when run length exceeds max count?
+   - Q. What to do when run length exceeds max count?
 
-        + A. if longer than 55, intersperse runs on length -
+       + A. if longer than 55, intersperse runs on length -
 
-    - Applications. JPEG, ITU-T T$ Group 3 fax, ....
+   - Applications. JPEG, ITU-T T$ Group 3 fax, ....
 
 ## Huffman compression
 
