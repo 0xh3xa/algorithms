@@ -17,8 +17,9 @@ public class SeparateChainingHashST<Key, Value> {
     public SeparateChainingHashST(int m) {
         this.m = m;
         st = (SequentialSearchST<Key, Value>[]) new SequentialSearchST[m];
-        for (int i = 0; i < m; i++)
+        for (int i = 0; i < m; i++) {
             st[i] = new SequentialSearchST<Key, Value>();
+        }
     }
 
     private void resize(int chains) {

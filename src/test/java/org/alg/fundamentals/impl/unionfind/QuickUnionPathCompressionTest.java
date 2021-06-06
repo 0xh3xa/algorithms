@@ -1,10 +1,10 @@
 package org.alg.fundamentals.impl.unionfind;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-
 import org.alg.BaseTest;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class QuickUnionPathCompressionTest extends BaseTest {
 

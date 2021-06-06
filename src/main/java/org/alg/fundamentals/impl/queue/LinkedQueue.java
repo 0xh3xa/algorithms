@@ -1,25 +1,15 @@
 package org.alg.fundamentals.impl.queue;
 
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 import org.alg.fundamentals.base.Queue;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class LinkedQueue<Item> implements Queue<Item> {
-
-    private class NodeList {
-
-        Item item;
-        NodeList next;
-
-        public NodeList(Item item) {
-            this.item = item;
-        }
-    }
 
     private NodeList first;
     private NodeList last;
     private int size;
-
     public LinkedQueue() {
         first = null;
         last = null;
@@ -74,6 +64,16 @@ public class LinkedQueue<Item> implements Queue<Item> {
     @Override
     public Iterator<Item> iterator() {
         return new InnerIterator();
+    }
+
+    private class NodeList {
+
+        Item item;
+        NodeList next;
+
+        public NodeList(Item item) {
+            this.item = item;
+        }
     }
 
     private class InnerIterator implements Iterator<Item> {

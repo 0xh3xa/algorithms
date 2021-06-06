@@ -1,8 +1,8 @@
 package org.alg.advanced.graph.undirected.represent;
 
-import java.util.Scanner;
-
 import org.alg.fundamentals.impl.symboltable.ST;
+
+import java.util.Scanner;
 
 /**
  * Define graph with String vertex names instead of integer indices

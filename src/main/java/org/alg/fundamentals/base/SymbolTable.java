@@ -1,6 +1,6 @@
 package org.alg.fundamentals.base;
 
-public interface SymbolTable<Key extends Comparable, Value> {
+public interface SymbolTable<Key extends Comparable<Key>, Value> {
 
     void put(Key key, Value value);
 

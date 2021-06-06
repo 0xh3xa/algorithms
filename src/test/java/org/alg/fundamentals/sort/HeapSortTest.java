@@ -1,17 +1,16 @@
 package org.alg.fundamentals.sort;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-
 import org.alg.BaseTest;
-
 import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class HeapSortTest extends BaseTest {
 
     @Test
     public void shouldSortIntegerArray() {
         // Arrange
-        Integer[] arr = { 1, 8, -1, 83, -10, 7 };
+        Integer[] arr = {1, 8, -1, 83, -10, 7};
 
         // Act
         HeapSort.sort(arr);
@@ -28,7 +27,7 @@ public class HeapSortTest extends BaseTest {
     @Test
     public void shouldSortCharacterArray() {
         // Arrange
-        Character[] arr = { 'a', 'z', 't', 'i', 'w', 'h' };
+        Character[] arr = {'a', 'z', 't', 'i', 'w', 'h'};
 
         // Act
         HeapSort.sort(arr);
@@ -45,7 +44,7 @@ public class HeapSortTest extends BaseTest {
     @Test
     public void shouldSortStringArray() {
         // Arrange
-        String[] arr = { "hhh", "aaa", "ddd", "bbb", "ccc" };
+        String[] arr = {"hhh", "aaa", "ddd", "bbb", "ccc"};
 
         // Act
         HeapSort.sort(arr);

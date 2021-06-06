@@ -14,6 +14,14 @@ public class DirectedDFS {
         dfs(graph, s);
     }
 
+    public DirectedDFS(Digraph graph, Iterable<Integer> sources) {
+        marked = new boolean[graph.getVertices()];
+        for (int v : sources) {
+            if (!marked[v])
+                dfs(graph, v);
+        }
+    }
+
     private void dfs(Digraph graph, int v) {
         marked[v] = true;
         for (int w : graph.adj(v)) {

@@ -9,10 +9,12 @@ public final class HeapSort<Item extends Comparable<Item>> {
     public final static <Item extends Comparable<Item>> void sort(Item[] pq) {
         int n = pq.length;
 
+        // heapify phase
         for (int k = n / 2; k >= 1; k--) {
             sink(pq, k, n);
         }
 
+        // sortdown phase
         int k = n;
         while (k > 1) {
             swap(pq, 1, k--);

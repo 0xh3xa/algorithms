@@ -1,12 +1,12 @@
 package org.alg.advanced.graph.util;
 
+import org.alg.advanced.graph.directed.represent.Digraph;
+import org.alg.advanced.graph.undirected.represent.Graph;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-
-import org.alg.advanced.graph.directed.represent.Digraph;
-import org.alg.advanced.graph.undirected.represent.Graph;
 
 /**
  * Util class for reading graph from file

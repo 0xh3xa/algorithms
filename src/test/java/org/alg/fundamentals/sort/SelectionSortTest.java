@@ -1,19 +1,18 @@
 package org.alg.fundamentals.sort;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import org.alg.BaseTest;
+import org.junit.Test;
 
 import java.util.Comparator;
 
-import org.alg.BaseTest;
-
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class SelectionSortTest extends BaseTest {
 
     @Test
     public void shouldSortIntegerArray() {
         // Arrange
-        Integer[] arr = { 1, 8, -1, 83, -10, 7 };
+        Integer[] arr = {1, 8, -1, 83, -10, 7};
 
         // Act
         SelectionSort.sort(arr);
@@ -30,7 +29,7 @@ public class SelectionSortTest extends BaseTest {
     @Test
     public void shouldSortCharacterArray() {
         // Arrange
-        Character[] arr = { 'a', 'z', 't', 'i', 'w', 'h' };
+        Character[] arr = {'a', 'z', 't', 'i', 'w', 'h'};
 
         // Act
         SelectionSort.sort(arr);
@@ -47,7 +46,7 @@ public class SelectionSortTest extends BaseTest {
     @Test
     public void shouldSortComparatorAndCIntegerArray() {
         // Arrange
-        Integer[] arr = { 1, 8, -1, 83, -10, 7 };
+        Integer[] arr = {1, 8, -1, 83, -10, 7};
 
         // Act
         InsertionSort.sort(arr, Comparator.naturalOrder());
@@ -64,7 +63,7 @@ public class SelectionSortTest extends BaseTest {
     @Test
     public void shouldSortComparatorAndCharacterArray() {
         // Arrange
-        Character[] arr = { 'a', 'z', 't', 'i', 'w', 'h' };
+        Character[] arr = {'a', 'z', 't', 'i', 'w', 'h'};
 
         // Act
         InsertionSort.sort(arr, Comparator.naturalOrder());
@@ -81,7 +80,7 @@ public class SelectionSortTest extends BaseTest {
     @Test
     public void shouldSortStringArray() {
         // Arrange
-        String[] arr = { "hhh", "aaa", "ddd", "bbb", "ccc" };
+        String[] arr = {"hhh", "aaa", "ddd", "bbb", "ccc"};
 
         // Act
         SelectionSort.sort(arr);

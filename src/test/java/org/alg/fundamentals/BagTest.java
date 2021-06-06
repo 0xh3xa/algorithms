@@ -1,12 +1,12 @@
 package org.alg.fundamentals;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-
-import java.util.Iterator;
-
 import org.alg.BaseTest;
 import org.alg.fundamentals.impl.Bag;
 import org.junit.Test;
+
+import java.util.Iterator;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class BagTest extends BaseTest {
 

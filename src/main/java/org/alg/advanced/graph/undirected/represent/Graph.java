@@ -1,9 +1,8 @@
 package org.alg.advanced.graph.undirected.represent;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.alg.fundamentals.impl.Bag;
+
+import java.util.List;
 
 /**
  * Undirected Graph representation using vertices, adjacency and edges

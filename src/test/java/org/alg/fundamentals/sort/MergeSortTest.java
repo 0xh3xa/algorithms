@@ -1,19 +1,18 @@
 package org.alg.fundamentals.sort;
 
-import static org.hamcrest.CoreMatchers.equalTo;
+import org.alg.BaseTest;
+import org.junit.Test;
 
 import java.util.Comparator;
 
-import org.alg.BaseTest;
-
-import org.junit.Test;
+import static org.hamcrest.CoreMatchers.equalTo;
 
 public class MergeSortTest extends BaseTest {
 
     @Test
     public void shouldSortBigIntegerArray() {
         // Arrange
-        Integer[] arr = { 32 };
+        Integer[] arr = {32};
         int N = arr.length;
         for (int i = N - 1; i >= 0; i--) {
             arr[i] = i;
@@ -31,7 +30,7 @@ public class MergeSortTest extends BaseTest {
     @Test
     public void shouldSortIntegerArray() {
         // Arrange
-        Integer[] arr = { 1, 8, -1, 83, -10, 7, 19, 768, 621, 6, -39, 1000, -50 };
+        Integer[] arr = {1, 8, -1, 83, -10, 7, 19, 768, 621, 6, -39, 1000, -50};
         int N = arr.length;
 
         // Act
@@ -56,7 +55,7 @@ public class MergeSortTest extends BaseTest {
     @Test
     public void shouldSortCharacterArray() {
         // Arrange
-        Character[] arr = { 'a', 'z', 't', 'i', 'w', 'h' };
+        Character[] arr = {'a', 'z', 't', 'i', 'w', 'h'};
         int N = arr.length;
 
         // Act
@@ -74,7 +73,7 @@ public class MergeSortTest extends BaseTest {
     @Test
     public void shouldSortComparatorAndCIntegerArray() {
         // Arrange
-        Integer[] arr = { 1, 8, -1, 83, -10, 7 };
+        Integer[] arr = {1, 8, -1, 83, -10, 7};
 
         // Act
         InsertionSort.sort(arr, Comparator.naturalOrder());
@@ -91,7 +90,7 @@ public class MergeSortTest extends BaseTest {
     @Test
     public void shouldSortComparatorAndCharacterArray() {
         // Arrange
-        Character[] arr = { 'a', 'z', 't', 'i', 'w', 'h' };
+        Character[] arr = {'a', 'z', 't', 'i', 'w', 'h'};
 
         // Act
         InsertionSort.sort(arr, Comparator.naturalOrder());
@@ -108,7 +107,7 @@ public class MergeSortTest extends BaseTest {
     @Test
     public void shouldSortStringArray() {
         // Arrange
-        String[] arr = { "hhh", "aaa", "ddd", "bbb", "ccc" };
+        String[] arr = {"hhh", "aaa", "ddd", "bbb", "ccc"};
         int N = arr.length;
 
         // Act
@@ -125,7 +124,7 @@ public class MergeSortTest extends BaseTest {
     @Test
     public void shouldSortBottomUpIntegerArray() {
         // Arrange
-        Integer[] arr = { 1, 8, -1, 83, -10, 7, 19, 768, 621, 6, -39, 1000, -50 };
+        Integer[] arr = {1, 8, -1, 83, -10, 7, 19, 768, 621, 6, -39, 1000, -50};
 
         // Act
         MergeSort.sortBottomUp(arr);
@@ -149,7 +148,7 @@ public class MergeSortTest extends BaseTest {
     @Test
     public void shouldSortBottomUpCharacterArray() {
         // Arrange
-        Character[] arr = { 'a', 'z', 't', 'i', 'w', 'h' };
+        Character[] arr = {'a', 'z', 't', 'i', 'w', 'h'};
 
         // Act
         MergeSort.sortBottomUp(arr);
@@ -166,7 +165,7 @@ public class MergeSortTest extends BaseTest {
     @Test
     public void shouldSortBottomUpStringArray() {
         // Arrange
-        String[] arr = { "hhh", "aaa", "ddd", "bbb", "ccc" };
+        String[] arr = {"hhh", "aaa", "ddd", "bbb", "ccc"};
 
         // Act
         MergeSort.sortBottomUp(arr);
