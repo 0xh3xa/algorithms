@@ -1,0 +1,5 @@
+- [ ] Implement LZW
+- [ ] Implement Priority queue with Linked List
+- [ ] Implement ST with Linked List
+- [ ] Complete BST operations
+- [ ] Complete Linear probing
